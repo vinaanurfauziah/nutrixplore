@@ -1,3 +1,4 @@
+import Footer from '@/Components/Footer';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 
@@ -6,11 +7,11 @@ export default function Dashboard() {
         <AuthenticatedLayout
             header={
                 <h2 className="text-xl font-semibold leading-tight text-gray-800">
-                    Dashboard
+                    Dashboard Member
                 </h2>
             }
         >
-            <Head title="Dashboard" />
+            <Head title="Dashboard Member" />
 
             <div className="py-12">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -21,6 +22,8 @@ export default function Dashboard() {
                     </div>
                 </div>
             </div>
+
+            <Footer className="mt-auto" />
         </AuthenticatedLayout>
     );
 }

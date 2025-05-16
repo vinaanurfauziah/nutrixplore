@@ -14,6 +14,38 @@ Route::get('/', function () {
     ]);
 });
 
+Route::get('/recipe', function () {
+    return Inertia::render('Recipe');
+})->name('recipe');
+
+Route::get('/recipe/hidangan', function () {
+    return Inertia::render('Recipe/Hidangan');
+})->name('recipe.hidangan');
+
+Route::get('/recipe/detailResep', function () {
+    return Inertia::render('Recipe/DetailResep');
+})->name('recipe.detailResep');
+
+Route::get('/recipe/hidangan/pembuka', function () {
+    return Inertia::render('Recipe/Hidangan/HidanganPembuka');
+})->name('recipe.hidangan.pembuka');
+
+Route::get('/article', function () {
+    return Inertia::render('Article');
+})->name('article');
+
+Route::get('/article/detailArticle', function () {
+    return Inertia::render('Article/DetailArticle');
+})->name('article.detailArticle');
+
+Route::get('/dashboardMember/dashboard', function () {
+    return Inertia::render('DashboardMember/Dashboard');
+})->name('dashboardMember.dashboard');
+
+Route::get('/about', function () {
+    return Inertia::render('About');
+})->name('about');
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
