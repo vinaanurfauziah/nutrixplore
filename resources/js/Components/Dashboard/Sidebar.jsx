@@ -1,6 +1,6 @@
 'use client';
 
-import { Link, usePage } from '@inertiajs/react';
+import { Link, useForm, usePage } from '@inertiajs/react'; // pastikan useForm ditambahkan
 import {
     Sidebar,
     SidebarCollapse,
@@ -13,21 +13,32 @@ import {
     HiBookmark,
     HiChartPie,
     HiClipboardList,
+    HiLogout,
     HiUser,
+    HiUsers,
 } from 'react-icons/hi';
 import { route } from 'ziggy-js';
 
 export default function SidebarComponent() {
     const { auth } = usePage().props;
-    const userRole = auth?.user?.role || 'member'; // fallback member
+    const userRole = auth?.user?.role || 'admin'; // fallback member/admin
+    const { post } = useForm(); // gunakan useForm dari inertia
+
+    const handleLogout = (e) => {
+        e.preventDefault();
+        post(route('logout')); // ini akan kirim POST ke /logout
+    };
 
     return (
-        <Sidebar aria-label="Sidebar navigasi" className="h-screen">
+        <Sidebar
+            aria-label="Sidebar navigasi"
+            className="flex h-screen flex-col"
+        >
             <SidebarLogo href="/" img="/favicon.svg" imgAlt="NutriXplore logo">
                 NutriXplore
             </SidebarLogo>
 
-            <SidebarItems>
+            <SidebarItems className="flex-1">
                 <SidebarItemGroup>
                     {userRole === 'admin' ? (
                         <>
@@ -92,6 +103,33 @@ export default function SidebarComponent() {
                                     Kategori Artikel
                                 </SidebarItem>
                             </SidebarCollapse>
+                            {/* Menu Kelola Admin */}
+                            <SidebarCollapse
+                                icon={HiUsers}
+                                label="Kelola Admin"
+                            >
+                                <SidebarItem
+                                    as={Link}
+                                    href={route('dashboard.kelola-admin.list')}
+                                >
+                                    Daftar Admin
+                                </SidebarItem>
+                                <SidebarItem
+                                    as={Link}
+                                    href={route(
+                                        'dashboard.kelola-admin.create',
+                                    )}
+                                >
+                                    Tambah Admin
+                                </SidebarItem>
+                            </SidebarCollapse>
+                            <SidebarItem
+                                as={Link}
+                                href={route('dashboard.profile')}
+                                icon={HiUser}
+                            >
+                                Profil Saya
+                            </SidebarItem>
                         </>
                     ) : (
                         <>
@@ -124,7 +162,7 @@ export default function SidebarComponent() {
 
                             <SidebarItem
                                 as={Link}
-                                href={route('profile.edit')}
+                                href={route('dashboardMember.profile')}
                                 icon={HiUser}
                             >
                                 Profil Saya
@@ -133,6 +171,18 @@ export default function SidebarComponent() {
                     )}
                 </SidebarItemGroup>
             </SidebarItems>
+
+            <SidebarItemGroup>
+                <form onSubmit={handleLogout}>
+                    <button
+                        type="submit"
+                        className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-red-600 transition hover:bg-red-100 focus:outline-none"
+                    >
+                        <HiLogout className="text-lg" />
+                        Logout
+                    </button>
+                </form>
+            </SidebarItemGroup>
         </Sidebar>
     );
 }

@@ -5,6 +5,7 @@ use App\Http\Controllers\Dashboard\RecipeController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth; // Tambahkan ini di atas, jika belum
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -83,6 +84,10 @@ Route::get('/dashboard/article/category', function () {
     return Inertia::render('Dashboard/Article/CategoryArticle');
 })->middleware(['auth', 'verified'])->name('dashboard.article.category');
 
+Route::get('/dashboard/profile', function () {
+    return Inertia::render('Dashboard/Profile');
+})->middleware(['auth', 'verified'])->name('dashboard.profile');
+
 Route::get('/dashboardMember/memberDashboardPage', function () {
     return Inertia::render('DashboardMember/MemberDashboardPage');
 })->name('dashboardMember.memberDashboardPage');
@@ -95,6 +100,20 @@ Route::get('/dashboardMember/saved-articles', function () {
     return Inertia::render('DashboardMember/SavedArticles');
 })->name('dashboardMember.saved.articles');
 
+Route::get('/dashboardMember/profile', function () {
+    return Inertia::render('DashboardMember/Profile', [
+        'mustVerifyEmail' => Auth::user() instanceof \Illuminate\Contracts\Auth\MustVerifyEmail,
+        'status' => session('status'),
+    ]);
+})->middleware(['auth', 'verified'])->name('dashboardMember.profile');
+
+Route::middleware(['auth', 'verified'])
+    ->prefix('dashboard/kelola-admin')
+    ->name('dashboard.kelola-admin.')
+    ->group(function () {
+        Route::get('/list', fn() => Inertia::render('Dashboard/KelolaAdmin/ListAdmin'))->name('list');
+        Route::get('/create', fn() => Inertia::render('Dashboard/KelolaAdmin/CreateAdmin'))->name('create');
+    });
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
