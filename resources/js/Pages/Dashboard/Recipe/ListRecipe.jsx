@@ -1,8 +1,8 @@
-import Content from '@/Components/Dashboard/Content';
+import RecipeTable from '@/Components/Dashboard/Recipe/RecipeTable';
 import DashboardSidebar from '@/Components/Dashboard/Sidebar';
 import { Head } from '@inertiajs/react';
 
-export default function Dashboard() {
+export default function ListRecipe() {
     return (
         <>
             <Head title="Dashboard Member" />
@@ -16,10 +16,10 @@ export default function Dashboard() {
                 {/* Konten utama fleksibel */}
                 <main className="flex-1 p-6 md:p-8">
                     <h1 className="mb-4 text-2xl font-bold text-gray-800">
-                        Dashboard
+                        Daftar Resep
                     </h1>
 
-                    <Content />
+                    <RecipeTable />
                 </main>
             </div>
         </>
