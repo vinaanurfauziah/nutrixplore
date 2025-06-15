@@ -34,7 +34,11 @@ export default function SidebarComponent() {
             aria-label="Sidebar navigasi"
             className="flex h-screen flex-col"
         >
-            <SidebarLogo href="/" img="/favicon.svg" imgAlt="NutriXplore logo">
+            <SidebarLogo
+                href="/"
+                img="https://flowbite.com/docs/images/logo.svg"
+                imgAlt="NutriXplore logo"
+            >
                 NutriXplore
             </SidebarLogo>
 

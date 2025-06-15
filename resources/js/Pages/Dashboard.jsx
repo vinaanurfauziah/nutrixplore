@@ -5,7 +5,7 @@ import { Head } from '@inertiajs/react';
 export default function Dashboard() {
     return (
         <>
-            <Head title="Dashboard Member" />
+            <Head title="Dashboard Admin" />
 
             <div className="flex min-h-screen bg-gray-100">
                 {/* Sidebar dengan lebar tetap */}

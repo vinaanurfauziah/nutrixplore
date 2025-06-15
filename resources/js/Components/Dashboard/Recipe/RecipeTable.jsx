@@ -2,7 +2,7 @@ import { router } from '@inertiajs/react';
 import { useState } from 'react';
 import RecipeRow from './RecipeRow';
 
-export default function RecipeTable() {
+export default function RecipeTable({ showTitle = true }) {
     const [searchQuery, setSearchQuery] = useState('');
     const [filterDish, setFilterDish] = useState('All');
     const [openRowIndex, setOpenRowIndex] = useState(null);
@@ -46,20 +46,26 @@ export default function RecipeTable() {
         <div className="rounded-lg bg-white p-4 shadow-sm">
             {/* Filter dan header */}
             <div className="mb-4 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-                <h2 className="text-lg font-semibold">Daftar Resep</h2>
+                {/* Area kiri: Tetap render div kosong jika tidak ada judul */}
+                <div>
+                    {showTitle && (
+                        <h2 className="text-lg font-semibold">Daftar Resep</h2>
+                    )}
+                </div>
 
+                {/* Kolom kanan: Input, select, tombol */}
                 <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
                     <input
                         type="text"
                         placeholder="Cari nama resep..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-400"
+                        className="rounded-lg border border-gray-300 px-4 py-2 text-sm shadow-sm focus:border-[#70B9BE] focus:outline-none focus:ring-2 focus:ring-[#70B9BE]"
                     />
                     <select
                         value={filterDish}
                         onChange={(e) => setFilterDish(e.target.value)}
-                        className="rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-400"
+                        className="rounded-lg border border-gray-300 px-4 py-2 text-sm shadow-sm focus:border-[#70B9BE] focus:outline-none focus:ring-2 focus:ring-[#70B9BE]"
                     >
                         <option value="All">Semua Hidangan</option>
                         <option value="Minuman">Minuman</option>
@@ -69,9 +75,9 @@ export default function RecipeTable() {
 
                     <button
                         onClick={() => router.get('/dashboard/recipe/create')}
-                        className="rounded-md bg-green-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-1"
+                        className="rounded-lg bg-[#70B9BE] px-5 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-[#51979e] focus:outline-none focus:ring-4 focus:ring-[#a1d3d7]"
                     >
-                        Tambah Resep
+                        + Tambah Resep
                     </button>
                 </div>
             </div>

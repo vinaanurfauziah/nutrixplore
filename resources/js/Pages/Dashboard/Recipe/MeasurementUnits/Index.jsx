@@ -1,9 +1,8 @@
-// resources/js/Pages/Dashboard/Recipe/MeasurementUnits.jsx
 import MeasurementTable from '@/Components/Dashboard/Recipe/MeasurementTable';
 import DashboardSidebar from '@/Components/Dashboard/Sidebar';
 import { Head } from '@inertiajs/react';
 
-export default function MeasurementUnits() {
+export default function Index() {
     return (
         <>
             <Head title="Satuan Takaran" />

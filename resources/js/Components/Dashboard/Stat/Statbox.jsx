@@ -16,15 +16,13 @@ export default function StatBox({ title, value }) {
     const Icon = icons[title] || HiClipboardList;
 
     return (
-        <div className="flex items-center gap-4 rounded-xl bg-white px-6 py-5 shadow-md transition duration-300 ease-in-out hover:shadow-lg">
-            <div className="rounded-full bg-purple-100 p-3 text-purple-600">
-                <Icon className="h-6 w-6" />
+        <div className="flex items-center gap-4 rounded-2xl bg-white p-6 shadow-md">
+            <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-gray-100">
+                <Icon className="h-8 w-8 text-[#70B9BE]" />
             </div>
             <div>
-                <div className="text-2xl font-bold text-gray-800">{value}</div>
-                <div className="mt-1 text-sm font-medium text-gray-500">
-                    {title}
-                </div>
+                <h3 className="text-lg font-bold text-gray-800">{value}</h3>
+                <p className="text-base text-gray-500">{title}</p>
             </div>
         </div>
     );

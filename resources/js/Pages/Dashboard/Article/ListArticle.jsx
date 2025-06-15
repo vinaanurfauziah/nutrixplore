@@ -19,7 +19,7 @@ export default function ListArticle() {
                         Daftar Artikel
                     </h1>
 
-                    <ArticleTable />
+                    <ArticleTable showTitle={false}/>
                 </main>
             </div>
         </>

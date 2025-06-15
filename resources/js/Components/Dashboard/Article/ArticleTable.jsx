@@ -2,7 +2,7 @@ import { router } from '@inertiajs/react';
 import { useState } from 'react';
 import ArticleRow from './ArticleRow';
 
-export default function ArticleTable() {
+export default function ArticleTable({ showTitle = true }) {
     const [searchQuery, setSearchQuery] = useState('');
     const [filterCategory, setFilterCategory] = useState('All');
     const [openRowIndex, setOpenRowIndex] = useState(null);
@@ -35,7 +35,12 @@ export default function ArticleTable() {
         <div className="rounded-lg bg-white p-4 shadow-sm">
             {/* Header dan Filter */}
             <div className="mb-4 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-                <h2 className="text-lg font-semibold">Daftar Artikel</h2>
+                {/* Area kiri: Tetap render div kosong jika tidak ada judul */}
+                <div>
+                    {showTitle && (
+                        <h2 className="text-lg font-semibold">Daftar Artikel</h2>
+                    )}
+                </div>
 
                 <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
                     <input
@@ -43,27 +48,23 @@ export default function ArticleTable() {
                         placeholder="Cari nama artikel..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-400"
+                        className="rounded-lg border border-gray-300 px-4 py-2 text-sm shadow-sm focus:border-[#70B9BE] focus:outline-none focus:ring-2 focus:ring-[#70B9BE]"
                     />
                     <select
                         value={filterCategory}
                         onChange={(e) => setFilterCategory(e.target.value)}
-                        className="rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-400"
+                        className="rounded-lg border border-gray-300 px-4 py-2 text-sm shadow-sm focus:border-[#70B9BE] focus:outline-none focus:ring-2 focus:ring-[#70B9BE]"
                     >
                         <option value="All">Semua Kategori</option>
-                        <option value="Tips Masak Sehat">
-                            Tips Masak Sehat
-                        </option>
+                        <option value="Tips Masak Sehat">Tips Masak Sehat</option>
                         <option value="Bahan Makanan">Bahan Makanan</option>
-                        <option value="Kondisi Kesehatan">
-                            Kondisi Kesehatan
-                        </option>
+                        <option value="Kondisi Kesehatan">Kondisi Kesehatan</option>
                     </select>
                     <button
                         onClick={() => router.get('/dashboard/article/create')}
-                        className="rounded-md bg-green-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-1"
+                        className="mr-3 inline-flex items-center justify-center rounded-lg bg-[#70B9BE] px-5 py-3 text-center text-sm font-medium text-white hover:bg-[#51979e] focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
                     >
-                        Tambah Artikel
+                        + Tambah Artikel
                     </button>
                 </div>
             </div>
@@ -98,9 +99,7 @@ export default function ArticleTable() {
                                     isOpen={openRowIndex === index}
                                     onToggle={() =>
                                         setOpenRowIndex(
-                                            openRowIndex === index
-                                                ? null
-                                                : index,
+                                            openRowIndex === index ? null : index
                                         )
                                     }
                                 />
@@ -121,4 +120,3 @@ export default function ArticleTable() {
         </div>
     );
 }
-// File: resources/js/Components/Dashboard/Article/ArticleRow.jsx

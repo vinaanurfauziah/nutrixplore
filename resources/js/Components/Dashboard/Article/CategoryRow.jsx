@@ -1,5 +1,4 @@
-// resources/js/Components/Dashboard/Article/CategoryRow.jsx
-import { FiMoreVertical, FiEdit2, FiTrash2 } from 'react-icons/fi';
+import { FiEdit2, FiMoreVertical, FiTrash2 } from 'react-icons/fi';
 
 export default function CategoryRow({ name, count, index, isOpen, onToggle }) {
     const handleEdit = () => {

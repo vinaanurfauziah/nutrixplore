@@ -6,6 +6,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth; // Tambahkan ini di atas, jika belum
+use App\Models\MeasurementUnit;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -69,8 +70,20 @@ Route::get('/dashboard/recipe/category', function () {
 })->middleware(['auth', 'verified'])->name('dashboard.recipe.category');
 
 Route::get('/dashboard/recipe/measurement-units', function () {
-    return Inertia::render('Dashboard/Recipe/MeasurementUnits');
+    return Inertia::render('Dashboard/Recipe/MeasurementUnits/Index');
 })->middleware(['auth', 'verified'])->name('dashboard.recipe.measurement-units');
+
+Route::get('/dashboard/recipe/measurement-units/create', function () {
+    return Inertia::render('Dashboard/Recipe/MeasurementUnits/Create');
+})->middleware(['auth', 'verified'])->name('dashboard.recipe.measurement-units.create');
+Route::get('/dashboard/recipe/measurement-units/{id}/edit', function ($id) {
+    $unit = MeasurementUnit::findOrFail($id);
+    return Inertia::render('Dashboard/Recipe/MeasurementUnits/Edit', [
+        'unit' => $unit,
+    ]);
+})->middleware(['auth', 'verified'])->name('dashboard.recipe.measurement-units.edit');
+
+Route::put('/dashboard/recipe/measurement-units/{id}', [MeasurementUnitController::class, 'update'])->name('dashboard.recipe.measurement-units.update');
 
 Route::get('/dashboard/article', function () {
     return Inertia::render('Dashboard/Article/ListArticle');

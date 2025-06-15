@@ -1,4 +1,3 @@
-// resources/js/Components/Dashboard/Recipe/RecipeRow.jsx
 import { router } from '@inertiajs/react';
 import { FiEdit2, FiMoreVertical, FiTrash2 } from 'react-icons/fi';
 

@@ -1,10 +1,9 @@
-// resources/js/Components/Dashboard/Article/CategoryTable.jsx
 import { useState } from 'react';
 import CategoryRow from './CategoryRow';
 
 export default function CategoryTable() {
     const [searchQuery, setSearchQuery] = useState('');
-    const [openRowIndex, setOpenRowIndex] = useState(null); // Tambahkan ini
+    const [openRowIndex, setOpenRowIndex] = useState(null);
 
     const categories = [
         { name: 'Kesehatan Mental', count: 10 },
@@ -20,30 +19,37 @@ export default function CategoryTable() {
 
     return (
         <div className="rounded-lg bg-white p-4 shadow-sm">
-            <div className="mb-4 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-                <h2 className="text-lg font-semibold">Kategori Artikel</h2>
+            {/* Header dan Filter */}
+            <div className="mb-4 flex flex-col gap-4 md:flex-row md:items-center">
 
-                <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+                <div className="mt-3 flex flex-wrap items-center gap-2 md:ml-auto md:mt-0">
                     <input
                         type="text"
                         placeholder="Cari kategori..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-400"
+                        className="rounded-lg border border-gray-300 px-4 py-2 text-sm shadow-sm focus:border-[#70B9BE] focus:outline-none focus:ring-2 focus:ring-[#70B9BE]"
                     />
-                    <button className="rounded-md bg-green-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-1">
-                        Tambah Kategori
+                    <button className="inline-flex items-center justify-center rounded-lg bg-[#70B9BE] px-5 py-3 text-sm font-medium text-white hover:bg-[#51979e] focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
+                        + Tambah Kategori
                     </button>
                 </div>
             </div>
 
+            {/* Tabel Kategori */}
             <div className="overflow-x-auto">
                 <table className="min-w-full table-auto text-left text-sm">
                     <thead className="border-b text-gray-600">
                         <tr>
-                            <th className="px-4 py-3 font-semibold">Nama Kategori</th>
-                            <th className="px-4 py-3 font-semibold">Jumlah Artikel</th>
-                            <th className="px-4 py-3 font-semibold">Aksi</th>
+                            <th className="px-4 py-3 text-sm font-semibold">
+                                Nama Kategori
+                            </th>
+                            <th className="px-4 py-3 text-sm font-semibold">
+                                Jumlah Artikel
+                            </th>
+                            <th className="px-4 py-3 text-sm font-semibold">
+                                Aksi
+                            </th>
                         </tr>
                     </thead>
                     <tbody className="text-gray-800">
@@ -56,13 +62,20 @@ export default function CategoryTable() {
                                     count={category.count}
                                     isOpen={openRowIndex === index}
                                     onToggle={() =>
-                                        setOpenRowIndex(openRowIndex === index ? null : index)
+                                        setOpenRowIndex(
+                                            openRowIndex === index
+                                                ? null
+                                                : index,
+                                        )
                                     }
                                 />
                             ))
                         ) : (
                             <tr>
-                                <td colSpan="3" className="px-4 py-4 text-center text-gray-500">
+                                <td
+                                    colSpan="3"
+                                    className="px-4 py-4 text-center text-gray-500"
+                                >
                                     Tidak ada kategori ditemukan.
                                 </td>
                             </tr>

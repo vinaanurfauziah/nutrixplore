@@ -19,7 +19,7 @@ export default function ListRecipe() {
                         Daftar Resep
                     </h1>
 
-                    <RecipeTable />
+                    <RecipeTable showTitle={false} />
                 </main>
             </div>
         </>
