@@ -73,7 +73,9 @@ export default function SidebarComponent() {
                                 </SidebarItem>
                                 <SidebarItem
                                     as={Link}
-                                    href={route('dashboard.recipe.category')}
+                                    href={route(
+                                        'dashboard.recipe.category-recipe',
+                                    )}
                                 >
                                     Kategori Resep
                                 </SidebarItem>

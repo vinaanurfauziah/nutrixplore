@@ -1,3 +1,4 @@
+import { router } from '@inertiajs/react';
 import { useState } from 'react';
 import CategoryRow from './CategoryRow';
 
@@ -34,8 +35,17 @@ export default function CategoryTable() {
                         onChange={(e) => setSearchQuery(e.target.value)}
                         className="rounded-lg border border-gray-300 px-4 py-2 text-sm shadow-sm focus:border-[#70B9BE] focus:outline-none focus:ring-2 focus:ring-[#70B9BE]"
                     />
-                    <button className="inline-flex items-center justify-center rounded-lg bg-[#70B9BE] px-5 py-3 text-sm font-medium text-white hover:bg-[#51979e] focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
-                        + Tambah Kategori
+                    <button
+                        onClick={() =>
+                            router.get(
+                                route(
+                                    'dashboard.recipe.category-recipe.create',
+                                ),
+                            )
+                        }
+                        className="inline-flex items-center justify-center rounded-lg bg-[#70B9BE] px-5 py-3 text-sm font-medium text-white hover:bg-[#51979e] focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
+                    >
+                        + Tambah Kategori Resep
                     </button>
                 </div>
             </div>

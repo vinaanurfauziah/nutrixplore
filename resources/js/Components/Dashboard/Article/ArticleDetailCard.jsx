@@ -17,33 +17,28 @@ export default function ArticleDetailCard() {
     };
 
     const formats = [
-        'header',
-        'bold',
-        'italic',
-        'underline',
-        'strike',
-        'align',
-        'list',
-        'bullet',
-        'link',
-        'image',
+        'header', 'bold', 'italic', 'underline', 'strike',
+        'align', 'list', 'bullet', 'link', 'image',
     ];
 
     return (
-        <div className="h-[calc(100vh-7rem)] overflow-y-auto rounded-xl border bg-white p-6 shadow-sm">
+        <div className="rounded-xl border bg-white p-6 shadow-sm">
             <h2 className="mb-5 text-xl font-semibold text-gray-800">
                 Konten Artikel
             </h2>
 
-            <ReactQuill
-                theme="snow"
-                value={content}
-                onChange={setContent}
-                modules={modules}
-                formats={formats}
-                placeholder="Tulis konten artikel di sini..."
-                className="h-[500px] bg-white"
-            />
+            <div className="h-[600px] overflow-hidden rounded-lg border">
+                <ReactQuill
+                    theme="snow"
+                    value={content}
+                    onChange={setContent}
+                    modules={modules}
+                    formats={formats}
+                    placeholder="Tulis konten artikel di sini..."
+                    className="h-full"
+                />
+            </div>
         </div>
     );
 }
+

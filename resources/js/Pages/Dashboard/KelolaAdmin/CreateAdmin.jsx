@@ -31,15 +31,14 @@ export default function CreateAdmin() {
 
                 {/* Main Content */}
                 <main className="flex-1 px-4 py-8 md:px-8">
-                    <div className="max-w-2xl rounded-lg bg-white p-6 shadow-sm">
-                        <h1 className="mb-6 text-2xl font-bold text-gray-800">
-                            Tambah Admin Baru
-                        </h1>
-
+                    <h1 className="mb-6 text-2xl font-bold text-gray-800">
+                        Tambah Admin Baru
+                    </h1>
+                    <div className="rounded-lg bg-white p-6 shadow-sm">
                         <div>
                             <form onSubmit={handleSubmit} className="space-y-5">
                                 {/* Nama */}
-                                <div>
+                                <div className="max-w-lg">
                                     <label className="block text-sm font-medium text-gray-700">
                                         Nama
                                     </label>
@@ -54,7 +53,7 @@ export default function CreateAdmin() {
                                 </div>
 
                                 {/* Email */}
-                                <div>
+                                <div className="max-w-lg">
                                     <label className="block text-sm font-medium text-gray-700">
                                         Email
                                     </label>
@@ -69,7 +68,7 @@ export default function CreateAdmin() {
                                 </div>
 
                                 {/* Password */}
-                                <div>
+                                <div className="max-w-lg">
                                     <label className="block text-sm font-medium text-gray-700">
                                         Password
                                     </label>
@@ -84,7 +83,7 @@ export default function CreateAdmin() {
                                 </div>
 
                                 {/* Tombol Simpan */}
-                                <div>
+                                <div className="max-w-md">
                                     <button
                                         type="submit"
                                         className="inline-flex items-center justify-center rounded-lg bg-[#70B9BE] px-6 py-3 text-sm font-semibold text-white hover:bg-[#51979e] focus:outline-none focus:ring-2 focus:ring-[#70B9BE] focus:ring-offset-2"

@@ -100,26 +100,24 @@ export default function ArticleGeneralInfoCard() {
                     </select>
                 </div>
 
-                {/* Jumlah Kategori & Aksi */}
-                <div className="flex items-center justify-between pt-3">
-                    <span className="text-sm text-gray-500">
-                        Jumlah Pilihan Kategori: {categories.length}
-                    </span>
-                    <div className="flex gap-2">
-                        <button
-                            type="button"
-                            className="flex items-center gap-1 rounded bg-yellow-500 px-3 py-1.5 text-sm text-white hover:bg-yellow-600"
-                        >
-                            <FaEdit /> Edit
-                        </button>
-                        <button
-                            type="button"
-                            className="flex items-center gap-1 rounded bg-red-500 px-3 py-1.5 text-sm text-white hover:bg-red-600"
-                        >
-                            <FaTrash /> Hapus
-                        </button>
-                    </div>
-                </div>
+                {/* Kategori Resep Terkait */}
+<div>
+    <label className="mb-1 block text-sm font-medium text-gray-700">
+        Kategori Resep Terkait
+    </label>
+    <select
+        name="recipeCategory"
+        onChange={handleChange}
+        className="w-full rounded-md border px-3 py-2 text-sm shadow-sm"
+    >
+        <option value="">Pilih Kategori Resep</option>
+        <option value="Diabetes">Kondisi Kesehatan - Diabetes</option>
+        <option value="Hipertensi">Kondisi Kesehatan - Hipertensi</option>
+        <option value="Rendah-Kalori">Nutrisi - Rendah Kalori</option>
+        {/* Tambahkan lainnya sesuai kebutuhan */}
+    </select>
+</div>
+
             </div>
         </div>
     );

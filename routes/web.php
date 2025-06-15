@@ -65,9 +65,9 @@ Route::post('/dashboard/recipe', [RecipeController::class, 'store'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard.recipe.store');
 
-Route::get('/dashboard/recipe/category', function () {
-    return Inertia::render('Dashboard/Recipe/CategoryRecipe');
-})->middleware(['auth', 'verified'])->name('dashboard.recipe.category');
+// Route::get('/dashboard/recipe/category', function () {
+//     return Inertia::render('Dashboard/Recipe/CategoryRecipe');
+// })->middleware(['auth', 'verified'])->name('dashboard.recipe.category');
 
 Route::get('/dashboard/recipe/measurement-units', function () {
     return Inertia::render('Dashboard/Recipe/MeasurementUnits/Index');
@@ -76,6 +76,7 @@ Route::get('/dashboard/recipe/measurement-units', function () {
 Route::get('/dashboard/recipe/measurement-units/create', function () {
     return Inertia::render('Dashboard/Recipe/MeasurementUnits/Create');
 })->middleware(['auth', 'verified'])->name('dashboard.recipe.measurement-units.create');
+
 Route::get('/dashboard/recipe/measurement-units/{id}/edit', function ($id) {
     $unit = MeasurementUnit::findOrFail($id);
     return Inertia::render('Dashboard/Recipe/MeasurementUnits/Edit', [
@@ -84,6 +85,14 @@ Route::get('/dashboard/recipe/measurement-units/{id}/edit', function ($id) {
 })->middleware(['auth', 'verified'])->name('dashboard.recipe.measurement-units.edit');
 
 Route::put('/dashboard/recipe/measurement-units/{id}', [MeasurementUnitController::class, 'update'])->name('dashboard.recipe.measurement-units.update');
+
+Route::get('/dashboard/recipe/category-recipe', function () {
+    return Inertia::render('Dashboard/Recipe/CategoryRecipe/Index');
+})->middleware(['auth', 'verified'])->name('dashboard.recipe.category-recipe');
+
+Route::get('/dashboard/recipe/category-recipe/create', function () {
+    return Inertia::render('Dashboard/Recipe/CategoryRecipe/Create');
+})->middleware(['auth', 'verified'])->name('dashboard.recipe.category-recipe.create');
 
 Route::get('/dashboard/article', function () {
     return Inertia::render('Dashboard/Article/ListArticle');
