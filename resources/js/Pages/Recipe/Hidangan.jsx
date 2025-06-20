@@ -1,7 +1,7 @@
-import Breadcrumb from '@/Components/Breadcrumb';
-import CategoryCard from '@/Components/CategoryCard';
-import Footer from '@/Components/Footer';
-import Navbar from '@/Components/Navbar';
+import Breadcrumb from '@/Components/Common/Breadcrumb';
+import CategoryCard from '@/Components/Public/CategoryCard';
+import Footer from '@/Components/Templates/Footer';
+import Navbar from '@/Components/Templates/Navbar';
 import FilterOptions from '@/data/FilterOptions';
 import { Head } from '@inertiajs/react';
 import { BiBowlRice } from 'react-icons/bi';

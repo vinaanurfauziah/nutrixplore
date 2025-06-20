@@ -2,7 +2,7 @@ import Content from '@/Components/Dashboard/Content';
 import DashboardSidebar from '@/Components/Dashboard/Sidebar';
 import { Head } from '@inertiajs/react';
 
-export default function Dashboard() {
+export default function Index() {
     return (
         <>
             <Head title="Dashboard Admin" />

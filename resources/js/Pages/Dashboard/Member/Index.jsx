@@ -1,5 +1,5 @@
 import DashboardSidebar from '@/Components/Dashboard/Sidebar';
-import RecipeCard from '@/Components/RecipeCard';
+import RecipeCard from '@/Components/Public/RecipeCard';
 import { Head, Link } from '@inertiajs/react';
 
 const savedRecipes = [
@@ -56,7 +56,7 @@ const savedArticles = [
     },
 ];
 
-export default function MemberDashboardPage() {
+export default function Index() {
     return (
         <>
             <Head title="Dashboard Member" />

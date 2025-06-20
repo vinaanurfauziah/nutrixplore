@@ -2,7 +2,7 @@ import DashboardSidebar from '@/Components/Dashboard/Sidebar';
 import { Head } from '@inertiajs/react';
 import { useState } from 'react';
 
-export default function CreateAdmin() {
+export default function Create() {
     const [form, setForm] = useState({
         name: '',
         email: '',

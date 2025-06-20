@@ -18,7 +18,7 @@ Route::get('/', function () {
 });
 
 Route::get('/recipe', function () {
-    return Inertia::render('Recipe');
+    return Inertia::render('Recipe/Index');
 })->name('recipe');
 
 Route::get('/recipe/hidangan', function () {
@@ -34,7 +34,7 @@ Route::get('/recipe/hidangan/pembuka', function () {
 })->name('recipe.hidangan.pembuka');
 
 Route::get('/article', function () {
-    return Inertia::render('Article');
+    return Inertia::render('Article/Index');
 })->name('article');
 
 Route::get('/article/detailArticle', function () {
@@ -46,11 +46,11 @@ Route::get('/dashboardMember/memberDashboardPage', function () {
 })->name('dashboardMember.memberDashboardPage');
 
 Route::get('/about', function () {
-    return Inertia::render('About');
+    return Inertia::render('About/About');
 })->name('about');
 
 Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+    return Inertia::render('Dashboard/Admin/Index');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/dashboard/recipe', function () {
@@ -107,23 +107,23 @@ Route::get('/dashboard/article/category', function () {
 })->middleware(['auth', 'verified'])->name('dashboard.article.category');
 
 Route::get('/dashboard/profile', function () {
-    return Inertia::render('Dashboard/Profile');
+    return Inertia::render('Profile/SharedProfile');
 })->middleware(['auth', 'verified'])->name('dashboard.profile');
 
-Route::get('/dashboardMember/memberDashboardPage', function () {
-    return Inertia::render('DashboardMember/MemberDashboardPage');
-})->name('dashboardMember.memberDashboardPage');
+Route::get('/member/dashboard', function () {
+    return Inertia::render('Dashboard/Member/Index');
+})->name('member.dashboard');
 
 Route::get('/dashboardMember/saved-recipes', function () {
-    return Inertia::render('DashboardMember/SavedRecipes');
+    return Inertia::render('Dashboard/Member/SavedRecipes');
 })->name('dashboardMember.saved.recipes');
 
 Route::get('/dashboardMember/saved-articles', function () {
-    return Inertia::render('DashboardMember/SavedArticles');
+    return Inertia::render('Dashboard/Member/SavedArticles');
 })->name('dashboardMember.saved.articles');
 
 Route::get('/dashboardMember/profile', function () {
-    return Inertia::render('DashboardMember/Profile', [
+    return Inertia::render('Profile/SharedProfile', [
         'mustVerifyEmail' => Auth::user() instanceof \Illuminate\Contracts\Auth\MustVerifyEmail,
         'status' => session('status'),
     ]);
@@ -133,8 +133,8 @@ Route::middleware(['auth', 'verified'])
     ->prefix('dashboard/kelola-admin')
     ->name('dashboard.kelola-admin.')
     ->group(function () {
-        Route::get('/list', fn() => Inertia::render('Dashboard/KelolaAdmin/ListAdmin'))->name('list');
-        Route::get('/create', fn() => Inertia::render('Dashboard/KelolaAdmin/CreateAdmin'))->name('create');
+        Route::get('/list', fn() => Inertia::render('Dashboard/Admin/KelolaAdmin/List'))->name('list');
+        Route::get('/create', fn() => Inertia::render('Dashboard/Admin/KelolaAdmin/Create'))->name('create');
     });
 
 Route::middleware('auth')->group(function () {

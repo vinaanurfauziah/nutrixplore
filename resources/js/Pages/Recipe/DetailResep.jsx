@@ -1,10 +1,10 @@
 import EggTomatoSoup from '@/Assets/egg-tomato-soup.png';
-import Breadcrumb from '@/Components/Breadcrumb';
-import CategoryCard from '@/Components/CategoryCard';
-import CommentSection from '@/Components/CommentSection';
-import Footer from '@/Components/Footer';
-import Navbar from '@/Components/Navbar';
-import TabsDetail from '@/components/TabsDetail';
+import Breadcrumb from '@/Components/Common/Breadcrumb';
+import CategoryCard from '@/Components/Public/CategoryCard';
+import CommentSection from '@/Components/Public/CommentSection';
+import TabsDetail from '@/Components/Public/TabsDetail';
+import Footer from '@/Components/Templates/Footer';
+import Navbar from '@/Components/Templates/Navbar';
 import FilterOptions from '@/data/FilterOptions';
 import { Head } from '@inertiajs/react';
 import {

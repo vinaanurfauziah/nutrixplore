@@ -1,9 +1,9 @@
-import Breadcrumb from '@/Components/Breadcrumb';
-import CategoryCard from '@/Components/CategoryCard';
-import FilterButton from '@/Components/FilterButton';
-import Footer from '@/Components/Footer';
-import Navbar from '@/Components/Navbar';
-import RecipeCard from '@/Components/RecipeCard';
+import Breadcrumb from '@/Components/Common/Breadcrumb';
+import FilterButton from '@/Components/Common/FilterButton';
+import CategoryCard from '@/Components/Public/CategoryCard';
+import RecipeCard from '@/Components/Public/RecipeCard';
+import Footer from '@/Components/Templates/Footer';
+import Navbar from '@/Components/Templates/Navbar';
 import FilterOptions from '@/data/FilterOptions';
 import recipes from '@/data/recipes';
 import { Head } from '@inertiajs/react';

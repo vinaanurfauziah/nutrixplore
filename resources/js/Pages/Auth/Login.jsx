@@ -1,9 +1,9 @@
 import AutentikasiImage from '@/Assets/autentikasi.png';
-import Checkbox from '@/Components/Checkbox';
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
+import Checkbox from '@/Components/Common/Checkbox';
+import InputError from '@/Components/Common/InputError';
+import InputLabel from '@/Components/Common/InputLabel';
+import PrimaryButton from '@/Components/Common/PrimaryButton';
+import TextInput from '@/Components/Common/TextInput';
 import { Head, Link, useForm } from '@inertiajs/react';
 
 export default function Login({ status, canResetPassword }) {

@@ -4,7 +4,7 @@ import UpdatePasswordForm from '@/Pages/Profile/Partials/UpdatePasswordForm';
 import UpdateProfileInformationForm from '@/Pages/Profile/Partials/UpdateProfileInformationForm';
 import { Head } from '@inertiajs/react';
 
-export default function Profile({ mustVerifyEmail, status }) {
+export default function SharedProfile({ mustVerifyEmail, status }) {
     return (
         <>
             <Head title="Profil Saya" />

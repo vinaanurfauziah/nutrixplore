@@ -1,8 +1,8 @@
-import ArticleCard from '@/Components/ArticleCard';
-import Breadcrumb from '@/Components/Breadcrumb';
-import FilterButton from '@/Components/FilterButton';
-import Footer from '@/Components/Footer';
-import Navbar from '@/Components/Navbar';
+import Breadcrumb from '@/Components/Common/Breadcrumb';
+import FilterButton from '@/Components/Common/FilterButton';
+import ArticleCard from '@/Components/Public/ArticleCard';
+import Footer from '@/Components/Templates/Footer';
+import Navbar from '@/Components/Templates/Navbar';
 import articles from '@/data/articles';
 import FilterOptions from '@/data/FilterOptions';
 import { Head } from '@inertiajs/react';

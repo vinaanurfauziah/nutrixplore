@@ -3,7 +3,7 @@ import DashboardSidebar from '@/Components/Dashboard/Sidebar';
 import { Head, Link } from '@inertiajs/react';
 import { useState } from 'react';
 
-export default function ListAdmin() {
+export default function List() {
     const [searchQuery, setSearchQuery] = useState('');
 
     const dummyAdmins = [

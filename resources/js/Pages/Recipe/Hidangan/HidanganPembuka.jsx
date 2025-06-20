@@ -1,7 +1,7 @@
-import Breadcrumb from '@/Components/Breadcrumb';
-import Footer from '@/Components/Footer';
-import Navbar from '@/Components/Navbar';
-import RecipeCard from '@/Components/RecipeCard';
+import Breadcrumb from '@/Components/Common/Breadcrumb';
+import RecipeCard from '@/Components/Public/RecipeCard';
+import Footer from '@/Components/Templates/Footer';
+import Navbar from '@/Components/Templates/Navbar';
 import FilterOptions from '@/data/FilterOptions';
 import recipes from '@/data/recipes';
 import { Head } from '@inertiajs/react';

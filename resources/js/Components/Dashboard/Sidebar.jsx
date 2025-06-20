@@ -1,6 +1,6 @@
 'use client';
 
-import { Link, useForm, usePage } from '@inertiajs/react'; // pastikan useForm ditambahkan
+import { Link, useForm, usePage } from '@inertiajs/react';
 import {
     Sidebar,
     SidebarCollapse,
@@ -21,12 +21,12 @@ import { route } from 'ziggy-js';
 
 export default function SidebarComponent() {
     const { auth } = usePage().props;
-    const userRole = auth?.user?.role || 'admin'; // fallback member/admin
-    const { post } = useForm(); // gunakan useForm dari inertia
+    const userRole = auth?.user?.role || 'admin';
+    const { post } = useForm();
 
     const handleLogout = (e) => {
         e.preventDefault();
-        post(route('logout')); // ini akan kirim POST ke /logout
+        post(route('logout'));
     };
 
     return (
@@ -142,9 +142,7 @@ export default function SidebarComponent() {
                             {/* MEMBER MENU */}
                             <SidebarItem
                                 as={Link}
-                                href={route(
-                                    'dashboardMember.memberDashboardPage',
-                                )}
+                                href={route('member.dashboard')}
                                 icon={HiChartPie}
                             >
                                 Dashboard Member

@@ -1,7 +1,7 @@
 import AutentikasiImage from '@/Assets/Autentikasi-2.png';
-import Breadcrumb from '@/Components/Breadcrumb';
-import Footer from '@/Components/Footer';
-import Navbar from '@/Components/Navbar';
+import Breadcrumb from '@/Components/Common/Breadcrumb';
+import Footer from '@/Components/Templates/Footer';
+import Navbar from '@/Components/Templates/Navbar';
 import { Head } from '@inertiajs/react';
 import { BiBookmark, BiFilter, BiFoodMenu } from 'react-icons/bi';
 import { TbArticle } from 'react-icons/tb';
