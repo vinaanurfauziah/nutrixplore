@@ -14,27 +14,27 @@ const categories = [
     {
         icon: <RiHealthBookLine className="h-10 w-10 text-[#70B9BE]" />,
         text: 'Kondisi Kesehatan',
-        href: '#',
+        href: '/recipe/kondisi',
     },
     {
         icon: <GiWheat className="h-10 w-10 text-[#70B9BE]" />,
         text: 'Diet',
-        href: '#',
+        href: '/recipe/diet',
     },
     {
         icon: <LiaAllergiesSolid className="h-10 w-10 text-[#70B9BE]" />,
         text: 'Alergi',
-        href: '#',
+        href: '/recipe/alergi',
     },
     {
         icon: <PiCarrot className="h-10 w-10 text-[#70B9BE]" />,
         text: 'Nutrisi',
-        href: '#',
+        href: '/recipe/nutrisi',
     },
     {
         icon: <PiCookingPot className="h-10 w-10 text-[#70B9BE]" />,
         text: 'Metode Memasak',
-        href: '#',
+        href: '/recipe/metode',
     },
 ];
 

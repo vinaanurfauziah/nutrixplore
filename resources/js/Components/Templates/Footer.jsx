@@ -1,3 +1,4 @@
+import logo from '@/Assets/logo-nutridapur.png';
 import {
     FaDribbble,
     FaFacebook,
@@ -14,7 +15,7 @@ const Footer = () => {
                     <div className="mb-6 md:mb-0">
                         <a href="/" className="flex items-center">
                             <img
-                                src="https://flowbite.com/docs/images/logo.svg"
+                                src={logo}
                                 className="mr-3 h-8"
                                 alt="NutriDapur Logo"
                             />
@@ -23,7 +24,7 @@ const Footer = () => {
                             </span>
                         </a>
                     </div>
-                    <div className="grid grid-cols-4 gap-6 font-semibold sm:grid-cols-4 sm:gap-2 ">
+                    <div className="grid grid-cols-4 gap-6 font-semibold sm:grid-cols-4 sm:gap-2">
                         {[
                             {
                                 links: ['Resep'],

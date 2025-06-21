@@ -24,7 +24,28 @@ Route::get('/recipe', function () {
 Route::get('/recipe/hidangan', function () {
     return Inertia::render('Recipe/Hidangan');
 })->name('recipe.hidangan');
+// tes
+Route::get('/recipe/hidangan', function () {
+    return Inertia::render('Recipe/Kategori');
+})->name('recipe.kategori.hidangan');
 
+// tes
+// Subkategori dulu
+Route::get('/recipe/{kategoriSlug}/{subkategoriSlug}', function ($kategoriSlug, $subkategoriSlug) {
+    return Inertia::render('Recipe/Subkategori', [
+        'kategoriSlug' => $kategoriSlug,
+        'subkategoriSlug' => $subkategoriSlug,
+    ]);
+})->name('recipe.subkategori');
+
+// Baru Kategori
+Route::get('/recipe/{kategoriSlug}', function ($kategoriSlug) {
+    return Inertia::render('Recipe/Kategori', [
+        'kategoriSlug' => $kategoriSlug,
+    ]);
+})->name('recipe.kategori');
+
+// batas tes
 Route::get('/recipe/detailResep', function () {
     return Inertia::render('Recipe/DetailResep');
 })->name('recipe.detailResep');

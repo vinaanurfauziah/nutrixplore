@@ -1,8 +1,19 @@
-// import SearchBar from '@/Components/SearchBar';
 import logo from '@/Assets/logo-nutridapur.png';
 import { Link } from '@inertiajs/react';
+import { useState } from 'react';
+import { FiChevronDown, FiHome, FiLogOut, FiUser } from 'react-icons/fi';
 
 const Navbar = ({ auth }) => {
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+
+    const toggleDropdown = () => {
+        setDropdownOpen(!dropdownOpen);
+    };
+
+    const closeDropdown = () => {
+        setDropdownOpen(false);
+    };
+
     return (
         <nav className="border-gray-200 bg-white px-4 py-2.5 text-lg dark:bg-gray-800 lg:px-6">
             <div className="mx-auto flex max-w-screen-2xl flex-wrap items-center justify-between">
@@ -16,18 +27,46 @@ const Navbar = ({ auth }) => {
                         NutriDapur
                     </span>
                 </a>
-                {/* <div className="hidden md:block">
-                    <SearchBar />
-                </div> */}
 
-                <div className="flex items-center gap-3 lg:order-2">
+                <div className="relative flex items-center gap-3 lg:order-2">
                     {auth.user ? (
-                        <Link
-                            href={route('dashboard')}
-                            className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                        >
-                            Dashboard
-                        </Link>
+                        <div className="relative">
+                            <button
+                                onClick={toggleDropdown}
+                                className="flex items-center gap-2 rounded-md px-3 py-2 text-black hover:text-black/70 focus:outline-none dark:text-white dark:hover:text-white/80"
+                            >
+                                <FiUser className="text-xl" />
+                                <span className="text-base">
+                                    {auth.user.name.length > 12
+                                        ? auth.user.name.slice(0, 12) + '...'
+                                        : auth.user.name}
+                                </span>
+                                <FiChevronDown className="text-sm" />
+                            </button>
+
+                            {dropdownOpen && (
+                                <div className="absolute right-0 z-50 mt-2 w-48 rounded-md border bg-white shadow-lg dark:border-gray-700 dark:bg-gray-800">
+                                    <Link
+                                        href={route('dashboard')}
+                                        className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700"
+                                        onClick={closeDropdown}
+                                    >
+                                        <FiHome className="text-base" />
+                                        Dashboard
+                                    </Link>
+                                    <Link
+                                        method="post"
+                                        href={route('logout')}
+                                        as="button"
+                                        className="flex w-full items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-700"
+                                        onClick={closeDropdown}
+                                    >
+                                        <FiLogOut className="text-base" />
+                                        Keluar
+                                    </Link>
+                                </div>
+                            )}
+                        </div>
                     ) : (
                         <>
                             <Link
