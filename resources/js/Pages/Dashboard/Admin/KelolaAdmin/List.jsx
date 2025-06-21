@@ -22,20 +22,16 @@ export default function List() {
             <Head title="Daftar Admin" />
 
             <div className="flex min-h-screen bg-gray-100">
-                {/* Sidebar */}
                 <aside className="hidden w-64 bg-white shadow-md md:block">
                     <DashboardSidebar />
                 </aside>
 
-                {/* Main content */}
                 <main className="flex-1 p-6 md:p-8">
                     <h1 className="text-2xl font-bold text-gray-800">
                         Daftar Admin
                     </h1>
 
-                    {/* Spasi antara judul dan tabel */}
                     <div className="mt-6 rounded-lg bg-white p-4 shadow-sm">
-                        {/* Filter dan tombol tambah */}
                         <div className="mb-4 flex flex-col gap-4 md:flex-row md:items-center">
                             <div className="mt-3 flex flex-wrap items-center gap-2 md:ml-auto md:mt-0">
                                 <input
@@ -58,7 +54,6 @@ export default function List() {
                             </div>
                         </div>
 
-                        {/* Tabel Admin */}
                         <div className="overflow-x-auto">
                             <table className="min-w-full table-auto text-left text-sm">
                                 <thead className="border-b text-gray-600">

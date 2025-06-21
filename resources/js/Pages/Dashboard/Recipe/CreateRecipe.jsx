@@ -8,12 +8,10 @@ export default function CreateRecipe() {
             <Head title="Buat Resep Baru" />
 
             <div className="flex min-h-screen bg-gray-100">
-                {/* Sidebar */}
                 <aside className="hidden w-64 bg-white shadow-md md:block">
                     <DashboardSidebar />
                 </aside>
 
-                {/* Main Content */}
                 <main className="flex-1 p-6 md:p-8">
                     <div className="mb-6 flex items-center justify-between">
                         <h1 className="text-2xl font-bold text-gray-800">

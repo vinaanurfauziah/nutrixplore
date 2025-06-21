@@ -3,13 +3,11 @@ import { FiEdit2, FiMoreVertical, FiTrash2 } from 'react-icons/fi';
 export default function CategoryRow({ name, count, index, isOpen, onToggle }) {
     const handleEdit = () => {
         console.log('Edit kategori:', name);
-        // Ganti dengan router.get() jika menggunakan Inertia
     };
 
     const handleDelete = () => {
         if (confirm(`Yakin ingin menghapus kategori "${name}"?`)) {
             console.log('Hapus kategori:', name);
-            // Panggil router atau API delete di sini jika perlu
         }
     };
 

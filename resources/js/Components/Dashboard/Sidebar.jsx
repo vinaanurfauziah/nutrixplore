@@ -109,7 +109,6 @@ export default function SidebarComponent() {
                                     Kategori Artikel
                                 </SidebarItem>
                             </SidebarCollapse>
-                            {/* Menu Kelola Admin */}
                             <SidebarCollapse
                                 icon={HiUsers}
                                 label="Kelola Admin"

@@ -9,7 +9,6 @@ const SearchBar = () => {
 
     return (
         <div className="relative flex h-10 items-center">
-            {/* 🔥 Tambahkan tombol pencarian untuk mobile */}
             <button
                 type="button"
                 onClick={toggleSearch}
@@ -33,7 +32,6 @@ const SearchBar = () => {
                 <span className="sr-only">Search</span>
             </button>
 
-            {/* 🔥 Kotak pencarian muncul jika tombol ditekan */}
             <div
                 className={`${isOpen ? 'block' : 'hidden'} relative ml-2 w-64 md:block`}
             >

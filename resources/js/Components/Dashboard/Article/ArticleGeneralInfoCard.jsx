@@ -1,7 +1,6 @@
 // resources/js/Components/Dashboard/Article/ArticleGeneralInfoCard.jsx
 import { useState } from 'react';
 import { FiUploadCloud } from 'react-icons/fi';
-import { FaEdit, FaTrash } from 'react-icons/fa';
 
 export default function ArticleGeneralInfoCard() {
     const [form, setForm] = useState({
@@ -31,13 +30,14 @@ export default function ArticleGeneralInfoCard() {
             </h2>
 
             <div className="space-y-4">
-                {/* Upload Foto */}
                 <label className="flex cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-gray-300 p-6 text-center hover:border-gray-400">
                     <FiUploadCloud className="text-4xl text-gray-400" />
                     <div className="text-sm font-medium text-gray-700">
                         Pilih Gambar Artikel
                     </div>
-                    <p className="text-xs text-gray-500">PNG atau JPEG, maksimal 10MB</p>
+                    <p className="text-xs text-gray-500">
+                        PNG atau JPEG, maksimal 10MB
+                    </p>
                     <button
                         type="button"
                         className="rounded-md bg-purple-600 px-4 py-1.5 text-sm font-medium text-white hover:bg-purple-700"
@@ -53,7 +53,6 @@ export default function ArticleGeneralInfoCard() {
                     />
                 </label>
 
-                {/* Nama Artikel */}
                 <div>
                     <label className="mb-1 block text-sm font-medium text-gray-700">
                         Judul Artikel
@@ -67,7 +66,6 @@ export default function ArticleGeneralInfoCard() {
                     />
                 </div>
 
-                {/* Deskripsi */}
                 <div>
                     <label className="mb-1 block text-sm font-medium text-gray-700">
                         Deskripsi Singkat
@@ -82,7 +80,6 @@ export default function ArticleGeneralInfoCard() {
                     />
                 </div>
 
-                {/* Kategori Dropdown */}
                 <div>
                     <label className="mb-1 block text-sm font-medium text-gray-700">
                         Kategori Artikel
@@ -95,29 +92,34 @@ export default function ArticleGeneralInfoCard() {
                     >
                         <option value="">Pilih Kategori</option>
                         {categories.map((cat) => (
-                            <option key={cat} value={cat}>{cat}</option>
+                            <option key={cat} value={cat}>
+                                {cat}
+                            </option>
                         ))}
                     </select>
                 </div>
 
-                {/* Kategori Resep Terkait */}
-<div>
-    <label className="mb-1 block text-sm font-medium text-gray-700">
-        Kategori Resep Terkait
-    </label>
-    <select
-        name="recipeCategory"
-        onChange={handleChange}
-        className="w-full rounded-md border px-3 py-2 text-sm shadow-sm"
-    >
-        <option value="">Pilih Kategori Resep</option>
-        <option value="Diabetes">Kondisi Kesehatan - Diabetes</option>
-        <option value="Hipertensi">Kondisi Kesehatan - Hipertensi</option>
-        <option value="Rendah-Kalori">Nutrisi - Rendah Kalori</option>
-        {/* Tambahkan lainnya sesuai kebutuhan */}
-    </select>
-</div>
-
+                <div>
+                    <label className="mb-1 block text-sm font-medium text-gray-700">
+                        Kategori Resep Terkait
+                    </label>
+                    <select
+                        name="recipeCategory"
+                        onChange={handleChange}
+                        className="w-full rounded-md border px-3 py-2 text-sm shadow-sm"
+                    >
+                        <option value="">Pilih Kategori Resep</option>
+                        <option value="Diabetes">
+                            Kondisi Kesehatan - Diabetes
+                        </option>
+                        <option value="Hipertensi">
+                            Kondisi Kesehatan - Hipertensi
+                        </option>
+                        <option value="Rendah-Kalori">
+                            Nutrisi - Rendah Kalori
+                        </option>
+                    </select>
+                </div>
             </div>
         </div>
     );

@@ -44,16 +44,13 @@ export default function RecipeTable({ showTitle = true }) {
 
     return (
         <div className="rounded-lg bg-white p-4 shadow-sm">
-            {/* Filter dan header */}
             <div className="mb-4 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-                {/* Area kiri: Tetap render div kosong jika tidak ada judul */}
                 <div>
                     {showTitle && (
                         <h2 className="text-lg font-semibold">Daftar Resep</h2>
                     )}
                 </div>
 
-                {/* Kolom kanan: Input, select, tombol */}
                 <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
                     <input
                         type="text"
@@ -82,7 +79,6 @@ export default function RecipeTable({ showTitle = true }) {
                 </div>
             </div>
 
-            {/* Tabel */}
             <div className="overflow-x-auto">
                 <table className="min-w-full table-auto whitespace-nowrap text-left text-sm">
                     <thead className="border-b text-gray-600">

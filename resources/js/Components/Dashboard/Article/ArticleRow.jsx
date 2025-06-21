@@ -3,13 +3,12 @@ import { FiEdit2, FiMoreVertical, FiTrash2 } from 'react-icons/fi';
 
 export default function ArticleRow({ title, category, isOpen, onToggle }) {
     const handleEdit = () => {
-        console.log('Edit Artikel:', title); // Ganti dengan router.get jika perlu
+        console.log('Edit Artikel:', title);
     };
 
     const handleDelete = () => {
         if (confirm(`Yakin ingin menghapus artikel "${title}"?`)) {
             console.log('Hapus Artikel:', title);
-            // TODO: panggil API untuk menghapus
         }
     };
 
@@ -21,7 +20,10 @@ export default function ArticleRow({ title, category, isOpen, onToggle }) {
             </td>
             <td className="px-4 py-3">{category}</td>
             <td className="relative px-4 py-3">
-                <button onClick={onToggle} className="text-gray-600 hover:text-gray-900">
+                <button
+                    onClick={onToggle}
+                    className="text-gray-600 hover:text-gray-900"
+                >
                     <FiMoreVertical size={18} />
                 </button>
 

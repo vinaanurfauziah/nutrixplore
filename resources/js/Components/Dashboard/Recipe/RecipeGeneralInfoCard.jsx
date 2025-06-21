@@ -36,7 +36,6 @@ export default function RecipeGeneralInfoCard({ defaultData = null }) {
             </h2>
 
             <div className="space-y-5">
-                {/* Upload Foto */}
                 <label className="flex cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-gray-300 p-6 text-center hover:border-gray-400">
                     <FiUploadCloud className="text-4xl text-gray-400" />
                     <div className="text-sm font-medium text-gray-700">
@@ -60,7 +59,6 @@ export default function RecipeGeneralInfoCard({ defaultData = null }) {
                     />
                 </label>
 
-                {/* Input Fields */}
                 {[
                     {
                         label: 'Nama Resep',
@@ -105,7 +103,6 @@ export default function RecipeGeneralInfoCard({ defaultData = null }) {
                     </div>
                 ))}
 
-                {/* Dropdown Fields */}
                 {[
                     {
                         label: 'Kategori Hidangan',

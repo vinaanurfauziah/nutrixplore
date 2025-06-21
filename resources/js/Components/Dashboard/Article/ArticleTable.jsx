@@ -33,12 +33,12 @@ export default function ArticleTable({ showTitle = true }) {
 
     return (
         <div className="rounded-lg bg-white p-4 shadow-sm">
-            {/* Header dan Filter */}
             <div className="mb-4 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-                {/* Area kiri: Tetap render div kosong jika tidak ada judul */}
                 <div>
                     {showTitle && (
-                        <h2 className="text-lg font-semibold">Daftar Artikel</h2>
+                        <h2 className="text-lg font-semibold">
+                            Daftar Artikel
+                        </h2>
                     )}
                 </div>
 
@@ -56,9 +56,13 @@ export default function ArticleTable({ showTitle = true }) {
                         className="rounded-lg border border-gray-300 px-4 py-2 text-sm shadow-sm focus:border-[#70B9BE] focus:outline-none focus:ring-2 focus:ring-[#70B9BE]"
                     >
                         <option value="All">Semua Kategori</option>
-                        <option value="Tips Masak Sehat">Tips Masak Sehat</option>
+                        <option value="Tips Masak Sehat">
+                            Tips Masak Sehat
+                        </option>
                         <option value="Bahan Makanan">Bahan Makanan</option>
-                        <option value="Kondisi Kesehatan">Kondisi Kesehatan</option>
+                        <option value="Kondisi Kesehatan">
+                            Kondisi Kesehatan
+                        </option>
                     </select>
                     <button
                         onClick={() => router.get('/dashboard/article/create')}
@@ -69,7 +73,6 @@ export default function ArticleTable({ showTitle = true }) {
                 </div>
             </div>
 
-            {/* Table */}
             <div className="overflow-x-auto">
                 <table className="min-w-full table-auto whitespace-nowrap text-left text-sm">
                     <thead className="border-b text-gray-600">
@@ -99,7 +102,9 @@ export default function ArticleTable({ showTitle = true }) {
                                     isOpen={openRowIndex === index}
                                     onToggle={() =>
                                         setOpenRowIndex(
-                                            openRowIndex === index ? null : index
+                                            openRowIndex === index
+                                                ? null
+                                                : index,
                                         )
                                     }
                                 />

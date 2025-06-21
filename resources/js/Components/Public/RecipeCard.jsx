@@ -10,14 +10,12 @@ const RecipeCard = ({ title, imageUrl, link }) => {
 
     return (
         <div className="relative overflow-hidden rounded-2xl shadow-md">
-            {/* Gambar */}
             <img
                 src={imageUrl}
                 alt={title}
                 className="h-auto w-full rounded-2xl object-cover"
             />
 
-            {/* Info Card semi-floating */}
             <div className="absolute bottom-6 left-4 right-4 flex min-h-[100px] flex-col justify-between rounded-2xl bg-[#70B9BE] bg-opacity-95 px-5 py-5 text-white shadow-lg sm:min-h-[120px]">
                 <h3 className="mb-2 line-clamp-2 text-base font-semibold leading-snug sm:text-lg md:text-xl">
                     <a href={link} className="hover:underline">

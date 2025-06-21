@@ -16,7 +16,7 @@ export default function Create() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(form); // Ganti dengan kirim ke server
+        console.log(form);
     };
 
     return (
@@ -24,12 +24,10 @@ export default function Create() {
             <Head title="Tambah Admin" />
 
             <div className="flex min-h-screen bg-gray-100">
-                {/* Sidebar */}
                 <aside className="hidden w-64 bg-white shadow-md md:block">
                     <DashboardSidebar />
                 </aside>
 
-                {/* Main Content */}
                 <main className="flex-1 px-4 py-8 md:px-8">
                     <h1 className="mb-6 text-2xl font-bold text-gray-800">
                         Tambah Admin Baru
@@ -37,7 +35,6 @@ export default function Create() {
                     <div className="rounded-lg bg-white p-6 shadow-sm">
                         <div>
                             <form onSubmit={handleSubmit} className="space-y-5">
-                                {/* Nama */}
                                 <div className="max-w-lg">
                                     <label className="block text-sm font-medium text-gray-700">
                                         Nama
@@ -52,7 +49,6 @@ export default function Create() {
                                     />
                                 </div>
 
-                                {/* Email */}
                                 <div className="max-w-lg">
                                     <label className="block text-sm font-medium text-gray-700">
                                         Email
@@ -67,7 +63,6 @@ export default function Create() {
                                     />
                                 </div>
 
-                                {/* Password */}
                                 <div className="max-w-lg">
                                     <label className="block text-sm font-medium text-gray-700">
                                         Password
@@ -82,7 +77,6 @@ export default function Create() {
                                     />
                                 </div>
 
-                                {/* Tombol Simpan */}
                                 <div className="max-w-md">
                                     <button
                                         type="submit"

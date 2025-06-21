@@ -1,6 +1,6 @@
-import { FiEdit2, FiMoreVertical, FiTrash2 } from 'react-icons/fi';
-import { useState } from 'react';
 import { router } from '@inertiajs/react';
+import { useState } from 'react';
+import { FiEdit2, FiMoreVertical, FiTrash2 } from 'react-icons/fi';
 
 export default function AdminRow({ name, email }) {
     const [isOpen, setIsOpen] = useState(false);
@@ -12,7 +12,6 @@ export default function AdminRow({ name, email }) {
     const handleDelete = () => {
         if (confirm(`Yakin ingin menghapus admin "${name}"?`)) {
             console.log('Menghapus admin:', name);
-            // TODO: Panggil API untuk menghapus
         }
     };
 

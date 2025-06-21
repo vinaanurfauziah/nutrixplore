@@ -1,11 +1,10 @@
-// resources/js/Components/Dashboard/Recipe/MeasurementTable.jsx
 import { router } from '@inertiajs/react';
 import { useState } from 'react';
 import MeasurementRow from './MeasurementRow';
 
 export default function MeasurementTable() {
     const [searchQuery, setSearchQuery] = useState('');
-    const [openRowIndex, setOpenRowIndex] = useState(null); // <== Kontrol menu terbuka
+    const [openRowIndex, setOpenRowIndex] = useState(null);
 
     const units = [
         { name: 'Gram', symbol: 'g', type: 'Berat' },
@@ -23,12 +22,7 @@ export default function MeasurementTable() {
 
     return (
         <div className="rounded-lg bg-white p-4 shadow-sm">
-            {/* Header dan Filter */}
             <div className="mb-4 flex flex-col gap-4 md:flex-row md:items-center">
-                {/* <h2 className="text-lg font-semibold text-[#333]">
-                    Satuan Takaran
-                </h2> */}
-
                 <div className="mt-3 flex flex-wrap items-center gap-2 md:ml-auto md:mt-0">
                     <input
                         type="text"
@@ -52,7 +46,6 @@ export default function MeasurementTable() {
                 </div>
             </div>
 
-            {/* Tabel Satuan Takaran */}
             <div className="overflow-x-auto">
                 <table className="min-w-full table-auto text-left text-sm">
                     <thead className="border-b text-gray-600">

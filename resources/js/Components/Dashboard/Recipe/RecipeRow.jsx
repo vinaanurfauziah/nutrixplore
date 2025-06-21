@@ -20,7 +20,6 @@ export default function RecipeRow({
     const handleDelete = () => {
         if (confirm(`Yakin ingin menghapus resep "${name}"?`)) {
             console.log('Menghapus resep:', name);
-            // TODO: Panggil API atau routing untuk hapus
         }
     };
 

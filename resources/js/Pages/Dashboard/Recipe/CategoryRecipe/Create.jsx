@@ -4,12 +4,12 @@ import { Head, useForm } from '@inertiajs/react';
 export default function Create() {
     const { data, setData, post, processing, errors } = useForm({
         name: '',
-        type: '', // contoh: 'Hidangan', 'Diet', dll.
+        type: '',
     });
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        post(route('dashboard.recipe.categories.store')); // sesuaikan dengan route backend
+        post(route('dashboard.recipe.categories.store'));
     };
 
     return (
@@ -27,7 +27,6 @@ export default function Create() {
                     </h1>
                     <div className="rounded-lg bg-white p-6 shadow-sm">
                         <form onSubmit={handleSubmit} className="space-y-4">
-                            {/* Nama Kategori */}
                             <div className="max-w-lg">
                                 <label className="block text-sm font-medium text-gray-700">
                                     Nama Kategori
@@ -48,7 +47,6 @@ export default function Create() {
                                 )}
                             </div>
 
-                            {/* Jenis Kategori */}
                             <div className="max-w-lg">
                                 <label className="block text-sm font-medium text-gray-700">
                                     Jenis Kategori
@@ -82,7 +80,6 @@ export default function Create() {
                                 )}
                             </div>
 
-                            {/* Tombol Submit */}
                             <div>
                                 <button
                                     type="submit"

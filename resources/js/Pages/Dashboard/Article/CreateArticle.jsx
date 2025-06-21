@@ -28,14 +28,11 @@ export default function CreateArticle() {
                         </button>
                     </div>
 
-                    {/* Grid 2 kolom */}
                     <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-                        {/* Kiri: Informasi Umum (1/3) */}
                         <div className="lg:col-span-1">
                             <ArticleGeneralInfoCard />
                         </div>
 
-                        {/* Kanan: Konten Artikel (2/3) */}
                         <div className="lg:col-span-2">
                             <ArticleDetailCard />
                         </div>

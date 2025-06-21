@@ -1,9 +1,11 @@
-// resources/js/Components/Dashboard/Recipe/IngredientCard.jsx
 import { FaTrash } from 'react-icons/fa';
 
 export default function IngredientCard({ ingredients, setIngredients }) {
     const addIngredient = () => {
-        setIngredients([...ingredients, { amount: '', unit: 'gram', name: '' }]);
+        setIngredients([
+            ...ingredients,
+            { amount: '', unit: 'gram', name: '' },
+        ]);
     };
 
     const updateIngredient = (index, field, value) => {
@@ -19,7 +21,7 @@ export default function IngredientCard({ ingredients, setIngredients }) {
     };
 
     return (
-        <div className="rounded border bg-white p-4 shadow mb-6">
+        <div className="mb-6 rounded border bg-white p-4 shadow">
             <h2 className="mb-4 text-lg font-semibold">Bahan-bahan Masakan</h2>
             <div className="space-y-3">
                 {ingredients.map((item, index) => (
@@ -28,12 +30,20 @@ export default function IngredientCard({ ingredients, setIngredients }) {
                             type="number"
                             placeholder="0"
                             value={item.amount}
-                            onChange={(e) => updateIngredient(index, 'amount', e.target.value)}
+                            onChange={(e) =>
+                                updateIngredient(
+                                    index,
+                                    'amount',
+                                    e.target.value,
+                                )
+                            }
                             className="w-16 rounded border px-2 py-1 text-sm"
                         />
                         <select
                             value={item.unit}
-                            onChange={(e) => updateIngredient(index, 'unit', e.target.value)}
+                            onChange={(e) =>
+                                updateIngredient(index, 'unit', e.target.value)
+                            }
                             className="w-24 rounded border px-2 py-1 text-sm"
                         >
                             <option value="gram">gram</option>
@@ -45,7 +55,9 @@ export default function IngredientCard({ ingredients, setIngredients }) {
                             type="text"
                             placeholder="Masukkan bahan masakan"
                             value={item.name}
-                            onChange={(e) => updateIngredient(index, 'name', e.target.value)}
+                            onChange={(e) =>
+                                updateIngredient(index, 'name', e.target.value)
+                            }
                             className="flex-1 rounded border px-2 py-1 text-sm"
                         />
                         <button

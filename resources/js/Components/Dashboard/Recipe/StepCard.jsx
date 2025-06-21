@@ -1,4 +1,3 @@
-// resources/js/Components/Dashboard/Recipe/StepCard.jsx
 import { FaTrash } from 'react-icons/fa';
 
 export default function StepCard({ steps, setSteps }) {
@@ -15,17 +14,17 @@ export default function StepCard({ steps, setSteps }) {
     };
 
     return (
-        <div className="rounded border bg-white p-4 shadow mb-6">
-            <h2 className="mb-4 text-lg font-semibold">Langkah-langkah Memasak</h2>
+        <div className="mb-6 rounded border bg-white p-4 shadow">
+            <h2 className="mb-4 text-lg font-semibold">
+                Langkah-langkah Memasak
+            </h2>
             <div className="space-y-3">
                 {steps.map((step, index) => (
                     <div key={index} className="flex items-center gap-3">
-                        {/* Kotak nomor urut */}
                         <div className="flex h-10 w-10 items-center justify-center rounded border bg-gray-100 text-sm font-semibold text-gray-700">
                             {index + 1}
                         </div>
 
-                        {/* Input langkah memasak */}
                         <input
                             type="text"
                             placeholder={`Langkah ke-${index + 1}`}
@@ -34,7 +33,6 @@ export default function StepCard({ steps, setSteps }) {
                             className="flex-1 rounded border px-3 py-2 text-sm"
                         />
 
-                        {/* Tombol hapus */}
                         <button
                             type="button"
                             onClick={() => removeStep(index)}

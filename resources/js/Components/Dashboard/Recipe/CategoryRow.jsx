@@ -1,5 +1,5 @@
-import { FiEdit2, FiMoreVertical, FiTrash2 } from 'react-icons/fi';
 import { router } from '@inertiajs/react';
+import { FiEdit2, FiMoreVertical, FiTrash2 } from 'react-icons/fi';
 
 export default function CategoryRow({ name, count, isOpen, onToggle }) {
     const handleEdit = () => {
@@ -9,7 +9,6 @@ export default function CategoryRow({ name, count, isOpen, onToggle }) {
     const handleDelete = () => {
         if (confirm(`Yakin ingin menghapus kategori "${name}"?`)) {
             console.log('Menghapus kategori:', name);
-            // TODO: panggil API untuk menghapus
         }
     };
 

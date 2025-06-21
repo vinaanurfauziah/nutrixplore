@@ -1,4 +1,3 @@
-// resources/js/Components/Dashboard/Recipe/RecipeForm.jsx
 import { useState } from 'react';
 import IngredientCard from './IngredientCard';
 import NutritionCard from './NutritionCard';

@@ -17,8 +17,16 @@ export default function ArticleDetailCard() {
     };
 
     const formats = [
-        'header', 'bold', 'italic', 'underline', 'strike',
-        'align', 'list', 'bullet', 'link', 'image',
+        'header',
+        'bold',
+        'italic',
+        'underline',
+        'strike',
+        'align',
+        'list',
+        'bullet',
+        'link',
+        'image',
     ];
 
     return (
@@ -41,4 +49,3 @@ export default function ArticleDetailCard() {
         </div>
     );
 }
-

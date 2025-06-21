@@ -23,8 +23,10 @@ export default function NutritionCard() {
     };
 
     return (
-        <div className="rounded border bg-white p-4 shadow mb-6">
-            <h2 className="mb-4 text-lg font-semibold">Informasi Nutrisi per Porsi</h2>
+        <div className="mb-6 rounded border bg-white p-4 shadow">
+            <h2 className="mb-4 text-lg font-semibold">
+                Informasi Nutrisi per Porsi
+            </h2>
             <div className="space-y-3">
                 {nutritions.map((item, index) => (
                     <div key={index} className="flex items-center gap-2">

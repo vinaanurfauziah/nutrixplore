@@ -5,12 +5,12 @@ export default function Create() {
     const { data, setData, post, processing, errors } = useForm({
         name: '',
         symbol: '',
-        type: '', // 'Berat' atau 'Volume'
+        type: '',
     });
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        post(route('dashboard.recipe.measurement-units.store')); // nanti kamu buat rutenya di backend
+        post(route('dashboard.recipe.measurement-units.store')); // nanti buat rutenya di backend
     };
 
     return (
@@ -28,7 +28,6 @@ export default function Create() {
                     </h1>
                     <div className="rounded-lg bg-white p-6 shadow-sm">
                         <form onSubmit={handleSubmit} className="space-y-4">
-                            {/* Nama */}
                             <div className="max-w-lg">
                                 <label
                                     htmlFor="name"
@@ -53,7 +52,6 @@ export default function Create() {
                                 )}
                             </div>
 
-                            {/* Simbol */}
                             <div className="max-w-lg">
                                 <label
                                     htmlFor="symbol"
@@ -78,7 +76,6 @@ export default function Create() {
                                 )}
                             </div>
 
-                            {/* Jenis */}
                             <div className="max-w-lg">
                                 <label
                                     htmlFor="type"
@@ -106,7 +103,6 @@ export default function Create() {
                                 )}
                             </div>
 
-                            {/* Tombol Submit */}
                             <div>
                                 <button
                                     type="submit"

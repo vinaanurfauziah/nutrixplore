@@ -62,12 +62,10 @@ export default function Index() {
             <Head title="Dashboard Member" />
 
             <div className="flex min-h-screen bg-gray-100">
-                {/* Sidebar */}
                 <aside className="hidden w-64 bg-white shadow-md md:block">
                     <DashboardSidebar />
                 </aside>
 
-                {/* Main Content */}
                 <main className="flex-1 space-y-10 p-6 md:p-8">
                     <div className="rounded-lg bg-white p-6 shadow-sm">
                         <h1 className="mb-6 text-2xl font-bold text-gray-800">
@@ -78,7 +76,6 @@ export default function Index() {
                         </p>
                     </div>
 
-                    {/* Resep Tersimpan */}
                     <div className="rounded-lg bg-white p-6 shadow-sm">
                         <div className="mb-4 flex items-center justify-between">
                             <h2 className="text-lg font-semibold text-gray-800">
@@ -103,7 +100,6 @@ export default function Index() {
                         </div>
                     </div>
 
-                    {/* Artikel Tersimpan */}
                     <div className="rounded-lg bg-white p-6 shadow-sm">
                         <div className="mb-4 flex items-center justify-between">
                             <h2 className="text-lg font-semibold text-gray-800">

@@ -1,4 +1,3 @@
-// resources/js/Components/Dashboard/Recipe/MeasurementRow.jsx
 import { router } from '@inertiajs/react';
 import { FiEdit2, FiMoreVertical, FiTrash2 } from 'react-icons/fi';
 
@@ -17,7 +16,6 @@ export default function MeasurementRow({
     const handleDelete = () => {
         if (confirm(`Yakin ingin menghapus satuan \"${name}\"?`)) {
             console.log('Hapus:', name);
-            // TODO: panggil API delete dengan id
         }
     };
 

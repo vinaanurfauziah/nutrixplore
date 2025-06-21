@@ -29,7 +29,6 @@ export default function Edit({ unit }) {
                         </h1>
 
                         <form onSubmit={handleSubmit} className="space-y-4">
-                            {/* Nama */}
                             <div>
                                 <label className="block text-sm font-medium text-gray-700">
                                     Nama Satuan
@@ -49,7 +48,6 @@ export default function Edit({ unit }) {
                                 )}
                             </div>
 
-                            {/* Simbol */}
                             <div>
                                 <label className="block text-sm font-medium text-gray-700">
                                     Simbol
@@ -69,7 +67,6 @@ export default function Edit({ unit }) {
                                 )}
                             </div>
 
-                            {/* Jenis */}
                             <div>
                                 <label className="block text-sm font-medium text-gray-700">
                                     Jenis Satuan
