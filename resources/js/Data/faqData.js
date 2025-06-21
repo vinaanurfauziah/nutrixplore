@@ -1,16 +1,16 @@
 const faqData = [
     {
-        question: 'Apa itu NutriXplore?',
-        answer: 'NutriXplore adalah platform yang menyediakan informasi nutrisi berbasis web.',
+        question: 'Apa itu NutriDapur?',
+        answer: 'NutriDapur adalah platform yang menyediakan informasi nutrisi berbasis web.',
     },
     {
         question:
-            'Apakah informasi kesehatan di NutriXplore bisa digunakan sebagai pengganti konsultasi medis?',
-        answer: 'Tidak, informasi di NutriXplore hanya bersifat edukatif dan tidak menggantikan saran medis profesional.',
+            'Apakah informasi kesehatan di NutriDapur bisa digunakan sebagai pengganti konsultasi medis?',
+        answer: 'Tidak, informasi di NutriDapur hanya bersifat edukatif dan tidak menggantikan saran medis profesional.',
     },
     {
         question:
-            'Apakah saya perlu membuat akun untuk menggunakan NutriXplore?',
+            'Apakah saya perlu membuat akun untuk menggunakan NutriDapur?',
         answer: 'Tidak, tetapi dengan akun, Anda bisa menyimpan resep favorit dan mengaksesnya dengan lebih mudah.',
     },
     {
@@ -20,8 +20,8 @@ const faqData = [
     },
     {
         question:
-            'Bagaimana cara menghubungi tim NutriXplore jika saya memiliki pertanyaan lain?',
-        answer: 'Anda bisa menghubungi kami melalui email nutrixplore@gmail.com atau media sosial resmi kami.',
+            'Bagaimana cara menghubungi tim NutriDapur jika saya memiliki pertanyaan lain?',
+        answer: 'Anda bisa menghubungi kami melalui email nutridapur@gmail.com atau media sosial resmi kami.',
     },
 ];
 

@@ -3,8 +3,8 @@ import Footer from '@/Components/Templates/Footer';
 import Navbar from '@/Components/Templates/Navbar';
 import { Head } from '@inertiajs/react';
 
-import ArticleContent from '@/Components/Partials/DetailArticle/ArticleContentontent';
-import ArticleHeader from '@/Components/Partials/DetailArticle/ArticleHeaderHeader';
+import ArticleContent from '@/Components/Partials/DetailArticle/ArticleContent';
+import ArticleHeader from '@/Components/Partials/DetailArticle/ArticleHeader';
 import ArticleShare from '@/Components/Partials/DetailArticle/ArticleShare';
 import ArticleTags from '@/Components/Partials/DetailArticle/ArticleTags';
 

@@ -1,4 +1,3 @@
-// resources/js/Components/Dashboard/Article/ArticleRow.jsx
 import { FiEdit2, FiMoreVertical, FiTrash2 } from 'react-icons/fi';
 
 export default function ArticleRow({ title, category, isOpen, onToggle }) {

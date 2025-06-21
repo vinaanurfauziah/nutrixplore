@@ -28,12 +28,12 @@ export default function AboutJoinCommunity() {
                         </div>
                         <input
                             type="email"
-                            value="nutrixplore@gmail.com"
+                            value="nutridapur@gmail.com"
                             readOnly
                             className="block w-full cursor-pointer rounded-lg border border-gray-300 bg-white p-4 ps-10 text-sm text-gray-900 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
                         />
                         <a
-                            href="mailto:nutrixplore@gmail.com"
+                            href="mailto:nutridapur@gmail.com"
                             className="absolute bottom-2.5 end-2.5 rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700"
                         >
                             Kirim Email
@@ -42,7 +42,7 @@ export default function AboutJoinCommunity() {
                 </div>
 
                 <p className="mt-4 text-gray-800 dark:text-gray-400 md:text-lg">
-                    NutriXplore hadir untuk mendukung setiap langkah perjalanan
+                    NutriDapur hadir untuk mendukung setiap langkah perjalanan
                     memasak Anda. Mari ciptakan hidangan lezat dan bagikan
                     kebahagiaan melalui makanan bersama kami!
                 </p>

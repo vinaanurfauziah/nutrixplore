@@ -32,7 +32,7 @@ export default function HidanganPembuka({ auth }) {
 
                         {/* ======================================== MAIN ======================================= */}
                         <main>
-                            {/* ======================================== SECTION 3 ======================================= */}
+                            {/* ======================================== SECTION ======================================= */}
                             <section className="bg-white dark:bg-gray-900">
                                 <div className="mx-auto max-w-screen-2xl px-4 py-8 lg:py-16">
                                     <h3 className="mb-8 text-center text-lg font-extrabold leading-tight tracking-tight text-[#70B9BE] dark:text-white md:text-lg lg:mb-0">

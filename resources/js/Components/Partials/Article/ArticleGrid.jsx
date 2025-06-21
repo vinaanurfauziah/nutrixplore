@@ -5,14 +5,18 @@ export default function ArticleGrid({ articles, duplicate = false }) {
         <>
             <div className="grid grid-cols-2 gap-8 sm:gap-12 md:grid-cols-3 lg:grid-cols-4">
                 {articles.map((article, index) => (
-                    <ArticleCard
+                    <div
                         key={duplicate ? `second-${index}` : index}
-                        category={article.category}
-                        title={article.title}
-                        description={article.description}
-                        imageUrl={article.imageUrl}
-                        link={article.link}
-                    />
+                        className="mb-12"
+                    >
+                        <ArticleCard
+                            category={article.category}
+                            title={article.title}
+                            description={article.description}
+                            imageUrl={article.imageUrl}
+                            link={article.link}
+                        />
+                    </div>
                 ))}
             </div>
             {duplicate && <div className="my-12"></div>}

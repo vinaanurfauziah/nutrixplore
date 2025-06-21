@@ -21,12 +21,11 @@ export default function AboutIntro() {
 
                     <div className="text-center sm:col-span-7 sm:text-left">
                         <p className="mb-6 text-gray-800 md:text-lg lg:text-xl">
-                            Selamat datang di NutriXplore, destinasi terpercaya
+                            Selamat datang di NutriDapur, destinasi terpercaya
                             untuk menemukan berbagai resep masakan lezat yang
-                            memudahkan aktivitas memasak sehari-hari.
-                            NutriXplore hadir untuk membantu Anda mendapatkan
-                            inspirasi memasak sesuai dengan kebutuhan dan selera
-                            Anda.
+                            memudahkan aktivitas memasak sehari-hari. NutriDapur
+                            hadir untuk membantu Anda mendapatkan inspirasi
+                            memasak sesuai dengan kebutuhan dan selera Anda.
                         </p>
                         <h2 className="text-xl font-bold text-gray-900 md:text-2xl lg:text-3xl">
                             Misi Kami

@@ -1,5 +1,6 @@
 export default function RelatedCategories() {
-    const categories = ['Sarapan', 'Diabetes', 'Rendah Kalori', 'Ketogenic'];
+    const tags = ['Sarapan', 'Diabetes', 'Rendah Kalori', 'Ketogenic'];
+
     return (
         <section className="bg-white dark:bg-gray-800">
             <div className="mx-auto grid max-w-screen-2xl px-4 py-8 lg:grid-cols-12 lg:gap-8 lg:py-8 xl:gap-0">
@@ -8,13 +9,13 @@ export default function RelatedCategories() {
                         Kategori yang Relevan
                     </h1>
                     <div className="text-gray-500 dark:text-gray-400">
-                        {categories.map((cat, i) => (
+                        {tags.map((tag, index) => (
                             <a
-                                key={i}
+                                key={index}
                                 href="#"
-                                className="mr-3 inline-flex items-center justify-center rounded-3xl bg-[#70B9BE] px-5 py-2 text-lg font-medium text-white hover:bg-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600"
+                                className="mr-3 inline-flex items-center justify-center rounded-3xl bg-[#70B9BE] px-5 py-2 text-center text-lg font-medium text-white hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-4 focus:ring-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 sm:w-auto"
                             >
-                                {cat}
+                                {tag}
                             </a>
                         ))}
                     </div>

@@ -16,10 +16,10 @@ const Footer = () => {
                             <img
                                 src="https://flowbite.com/docs/images/logo.svg"
                                 className="mr-3 h-8"
-                                alt="NutriXplore Logo"
+                                alt="NutriDapur Logo"
                             />
                             <span className="self-center whitespace-nowrap text-2xl font-semibold text-black">
-                                NutriXplore
+                                NutriDapur
                             </span>
                         </a>
                     </div>
@@ -67,7 +67,7 @@ const Footer = () => {
                     <span className="text-sm text-[#697077] dark:text-gray-400 sm:text-center">
                         © 2025{' '}
                         <a href="/" className="hover:underline">
-                            NutriXplore™
+                            NutriDapur™
                         </a>
                         . All Rights Reserved.
                     </span>

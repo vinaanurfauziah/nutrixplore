@@ -1,5 +1,6 @@
 'use client';
 
+import logo from '@/Assets/logo-nutridapur.png';
 import { Link, useForm, usePage } from '@inertiajs/react';
 import {
     Sidebar,
@@ -34,12 +35,8 @@ export default function SidebarComponent() {
             aria-label="Sidebar navigasi"
             className="flex h-screen flex-col"
         >
-            <SidebarLogo
-                href="/"
-                img="https://flowbite.com/docs/images/logo.svg"
-                imgAlt="NutriXplore logo"
-            >
-                NutriXplore
+            <SidebarLogo href="/" img={logo} imgAlt="NutriDapur logo">
+                NutriDapur
             </SidebarLogo>
 
             <SidebarItems className="flex-1">

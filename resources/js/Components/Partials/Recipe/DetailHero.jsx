@@ -1,29 +1,18 @@
+// Components/Partials/Recipe/DetailHero.jsx
 import EggTomatoSoup from '@/Assets/egg-tomato-soup.png';
-import CategoryCard from '@/Components/Public/CategoryCard';
 import { FaRegClock } from 'react-icons/fa';
-import { FaRegBookmark } from 'react-icons/fa6';
+import { PiCookingPotBold, PiBowlFood } from 'react-icons/pi';
 import { GiScales } from 'react-icons/gi';
-import { LuPrinter } from 'react-icons/lu';
-import { PiBowlFood, PiCookingPotBold } from 'react-icons/pi';
+import CategoryCard from '@/Components/Public/CategoryCard';
+import RecipeActionButtons from '@/Components/Partials/Recipe/RecipeActionButtons';
+import RecipeRating from '@/Components/Partials/Recipe/RecipeRating';
 
 export default function DetailHero() {
-    const infoItems = [
-        {
-            icon: <FaRegClock className="h-10 w-10 text-[#70B9BE]" />,
-            text: '5m',
-        },
-        {
-            icon: <PiCookingPotBold className="h-10 w-10 text-[#70B9BE]" />,
-            text: '15m',
-        },
-        {
-            icon: <PiBowlFood className="h-10 w-10 text-[#70B9BE]" />,
-            text: '1 Porsi',
-        },
-        {
-            icon: <GiScales className="h-10 w-10 text-[#70B9BE]" />,
-            text: '345 kkal',
-        },
+    const stats = [
+        { icon: <FaRegClock className="h-10 w-10 text-[#70B9BE]" />, text: '5m' },
+        { icon: <PiCookingPotBold className="h-10 w-10 text-[#70B9BE]" />, text: '15m' },
+        { icon: <PiBowlFood className="h-10 w-10 text-[#70B9BE]" />, text: '1 Porsi' },
+        { icon: <GiScales className="h-10 w-10 text-[#70B9BE]" />, text: '345 kkal' },
     ];
 
     return (
@@ -33,29 +22,15 @@ export default function DetailHero() {
                     <h1 className="mb-4 max-w-2xl text-4xl font-extrabold leading-none dark:text-white md:text-5xl xl:text-6xl">
                         Lorem Ipsum Dolor Sit Amet
                     </h1>
-                    <div className="mb-6 flex max-w-2xl items-center lg:mb-8">
-                        {[...Array(4)].map((_, i) => (
-                            <svg
-                                key={i}
-                                className="ms-1 h-8 w-8 text-yellow-300"
-                                viewBox="0 0 22 20"
-                                fill="currentColor"
-                            >
-                                <path d="..." />
-                            </svg>
-                        ))}
-                        <svg
-                            className="ms-1 h-8 w-8 text-gray-300 dark:text-gray-500"
-                            viewBox="0 0 22 20"
-                            fill="currentColor"
-                        >
-                            <path d="..." />
-                        </svg>
-                    </div>
-                    <ul className="grid grid-cols-4 gap-4 text-gray-500 dark:text-gray-400">
-                        {infoItems.map((item, i) => (
+
+                    {/* Rating bintang */}
+                    <RecipeRating rating={4} />
+
+                    {/* Stat Cards */}
+                    <ul className="grid grid-cols-4 gap-4 text-gray-500 dark:text-gray-400 sm:grid-cols-4 sm:gap-5 md:grid-cols-5 lg:grid-cols-5">
+                        {stats.map((item, index) => (
                             <CategoryCard
-                                key={i}
+                                key={index}
                                 icon={
                                     <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-gray-100">
                                         {item.icon}
@@ -66,25 +41,12 @@ export default function DetailHero() {
                             />
                         ))}
                     </ul>
-                    <div className="mt-6 grid grid-cols-4 gap-4">
-                        <a href="#" className="bg-[#70B9BE] text-white ... ...">
-                            Langsung ke resep
-                        </a>
-                        <a
-                            href="#"
-                            className="border-[#70B9BE] text-[#70B9BE] ... ..."
-                        >
-                            Simpan Resep{' '}
-                            <FaRegBookmark className="-mr-1 ml-2 h-6 w-6" />
-                        </a>
-                        <a
-                            href="#"
-                            className="border-[#70B9BE] text-[#70B9BE] ... ..."
-                        >
-                            Print <LuPrinter className="-mr-1 ml-2 h-6 w-6" />
-                        </a>
-                    </div>
+
+                    {/* Tombol Aksi */}
+                    <RecipeActionButtons />
                 </div>
+
+                {/* Gambar */}
                 <div className="hidden lg:col-span-5 lg:mt-0 lg:flex">
                     <img src={EggTomatoSoup} alt="egg" />
                 </div>

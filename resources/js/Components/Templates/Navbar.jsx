@@ -1,4 +1,5 @@
 // import SearchBar from '@/Components/SearchBar';
+import logo from '@/Assets/logo-nutridapur.png';
 import { Link } from '@inertiajs/react';
 
 const Navbar = ({ auth }) => {
@@ -7,12 +8,12 @@ const Navbar = ({ auth }) => {
             <div className="mx-auto flex max-w-screen-2xl flex-wrap items-center justify-between">
                 <a href="/" className="flex items-center">
                     <img
-                        src="https://flowbite.com/docs/images/logo.svg"
+                        src={logo}
                         className="mr-3 h-6 sm:h-9"
-                        alt="NutriXplore Logo"
+                        alt="NutriDapur Logo"
                     />
                     <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-                        NutriXplore
+                        NutriDapur
                     </span>
                 </a>
                 {/* <div className="hidden md:block">
