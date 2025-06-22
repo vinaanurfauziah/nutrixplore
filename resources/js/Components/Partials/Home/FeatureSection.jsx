@@ -1,3 +1,4 @@
+import SectionHeading from '@/Components/Common/SectionHeading';
 import { BiBookmark, BiFilter, BiFoodMenu } from 'react-icons/bi';
 import { TbArticle } from 'react-icons/tb';
 
@@ -28,13 +29,11 @@ export default function FeatureSection() {
     return (
         <section className="bg-white dark:bg-gray-900">
             <div className="mx-auto max-w-screen-2xl px-4 py-8 lg:py-16">
-                <h5 className="mb-2 text-center text-lg font-extrabold text-[#70B9BE] dark:text-white">
-                    FITUR UTAMA YANG MEMPERMUDAH ANDA!
-                </h5>
-                <h2 className="mb-12 text-center text-3xl font-extrabold text-gray-900 dark:text-white md:text-4xl">
-                    Fitur kami membantu Anda menemukan dan menyajikan resep
-                    terbaik dengan mudah
-                </h2>
+                <SectionHeading
+                    subtitle="FITUR UTAMA YANG MEMPERMUDAH ANDA!"
+                    title="Fitur kami membantu Anda menemukan dan menyajikan resep
+                    terbaik dengan mudah"
+                />
                 <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
                     {features.map((f, i) => (
                         <div

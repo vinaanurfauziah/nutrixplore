@@ -98,28 +98,6 @@ export default function ArticleGeneralInfoCard() {
                         ))}
                     </select>
                 </div>
-
-                <div>
-                    <label className="mb-1 block text-sm font-medium text-gray-700">
-                        Kategori Resep Terkait
-                    </label>
-                    <select
-                        name="recipeCategory"
-                        onChange={handleChange}
-                        className="w-full rounded-md border px-3 py-2 text-sm shadow-sm"
-                    >
-                        <option value="">Pilih Kategori Resep</option>
-                        <option value="Diabetes">
-                            Kondisi Kesehatan - Diabetes
-                        </option>
-                        <option value="Hipertensi">
-                            Kondisi Kesehatan - Hipertensi
-                        </option>
-                        <option value="Rendah-Kalori">
-                            Nutrisi - Rendah Kalori
-                        </option>
-                    </select>
-                </div>
             </div>
         </div>
     );

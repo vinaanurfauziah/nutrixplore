@@ -1,47 +1,38 @@
+import { FiMail, FiSend } from 'react-icons/fi';
+
 export default function AboutJoinCommunity() {
     return (
         <section className="bg-white dark:bg-gray-800">
-            <div className="mx-auto max-w-4xl px-4 py-12 text-center">
-                <h1 className="text-3xl font-extrabold text-[#70B9BE] dark:text-white md:text-4xl">
+            <div className="mx-auto max-w-3xl px-4 py-16 text-center">
+                <h2 className="text-4xl font-extrabold text-[#70B9BE] dark:text-white">
                     Bergabung dengan Komunitas Kami
-                </h1>
+                </h2>
 
-                <p className="mt-4 text-gray-800 dark:text-gray-300 md:text-lg">
+                <p className="mt-4 text-gray-700 dark:text-gray-300 md:text-lg">
                     Daftarkan diri Anda sekarang untuk menikmati fitur
                     penyimpanan resep dan artikel, serta menemukan dan
                     membagikan inspirasi kuliner.
                 </p>
 
-                <div className="mx-auto mt-6 w-full max-w-md">
-                    <div className="relative">
-                        <div className="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3.5">
-                            <svg
-                                className="h-5 w-5 text-gray-500 dark:text-gray-400"
-                                aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="currentColor"
-                                viewBox="0 0 20 16"
-                            >
-                                <path d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z" />
-                                <path d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z" />
-                            </svg>
+                <div className="mx-auto mt-8 w-full max-w-md">
+                    <div className="relative rounded-lg border border-gray-300 bg-white p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
+                        <div className="flex items-center gap-3">
+                            <FiMail className="text-xl text-[#70B9BE]" />
+                            <span className="text-sm font-medium text-gray-900 dark:text-white">
+                                nutridapur@gmail.com
+                            </span>
                         </div>
-                        <input
-                            type="email"
-                            value="nutridapur@gmail.com"
-                            readOnly
-                            className="block w-full cursor-pointer rounded-lg border border-gray-300 bg-white p-4 ps-10 text-sm text-gray-900 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
-                        />
                         <a
                             href="mailto:nutridapur@gmail.com"
-                            className="absolute bottom-2.5 end-2.5 rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700"
+                            className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-[#70B9BE] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#5da3a8] focus:outline-none focus:ring-4 focus:ring-[#70B9BE]/40 dark:focus:ring-[#70B9BE]/60"
                         >
+                            <FiSend className="text-base" />
                             Kirim Email
                         </a>
                     </div>
                 </div>
 
-                <p className="mt-4 text-gray-800 dark:text-gray-400 md:text-lg">
+                <p className="mt-10 text-gray-800 dark:text-gray-400 md:text-lg">
                     NutriDapur hadir untuk mendukung setiap langkah perjalanan
                     memasak Anda. Mari ciptakan hidangan lezat dan bagikan
                     kebahagiaan melalui makanan bersama kami!

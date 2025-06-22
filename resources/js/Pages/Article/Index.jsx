@@ -1,18 +1,29 @@
+import { useState } from 'react';
 import Breadcrumb from '@/Components/Common/Breadcrumb';
 import Footer from '@/Components/Templates/Footer';
 import Navbar from '@/Components/Templates/Navbar';
 import { Head } from '@inertiajs/react';
 
-import articles from '@/data/articles';
+import artikelData from '@/data/artikelData';
 import FilterOptions from '@/data/FilterOptions';
 
+import MoreButton from '@/Components/Common/MoreButton';
+import SectionHeading from '@/Components/Common/SectionHeading';
 import ArticleFilter from '@/Components/Partials/Article/ArticleFilter';
 import ArticleGrid from '@/Components/Partials/Article/ArticleGrid';
-import ArticleIntro from '@/Components/Partials/Article/ArticleIntro';
-import ArticleMoreButton from '@/Components/Partials/Article/ArticleMoreButton';
 
 export default function Article({ auth }) {
     const artikelOptions = FilterOptions.Artikel || [];
+    const [visibleCount, setVisibleCount] = useState(4);
+
+    const visibleArticles = artikelData.slice(0, visibleCount);
+
+    const handleLoadMore = () => {
+        // Hanya tambahkan jika masih ada artikel tersisa
+        if (visibleCount < artikelData.length) {
+            setVisibleCount((prev) => prev + 4);
+        }
+    };
 
     return (
         <>
@@ -27,11 +38,19 @@ export default function Article({ auth }) {
                 <main>
                     <section className="bg-white dark:bg-gray-900">
                         <div className="mx-auto max-w-screen-2xl px-4 py-8 lg:py-16">
-                            <ArticleIntro />
+                            <SectionHeading
+                                subtitle="ARTIKEL"
+                                title="Temukan artikel tentang kondisi kesehatan, nutrisi, bahan makanan, dan tips memasak untuk mendukung gaya hidup sehat."
+                            />
                             <ArticleFilter options={artikelOptions} />
-                            <ArticleGrid articles={articles} />
-                            <ArticleGrid articles={articles} duplicate />
-                            <ArticleMoreButton />
+                            <ArticleGrid articles={visibleArticles} />
+
+                            <div className="text-center">
+                                <MoreButton
+                                    text="Lihat Artikel Lainnya"
+                                    onClick={handleLoadMore}
+                                />
+                            </div>
                         </div>
                     </section>
                 </main>

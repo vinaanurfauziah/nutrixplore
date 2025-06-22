@@ -1,11 +1,5 @@
 import logo from '@/Assets/logo-nutridapur.png';
-import {
-    FaDribbble,
-    FaFacebook,
-    FaGithub,
-    FaInstagram,
-    FaTwitter,
-} from 'react-icons/fa';
+import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
 
 const Footer = () => {
     return (
@@ -90,18 +84,6 @@ const Footer = () => {
                             className="text-[#697077] hover:text-gray-900 dark:hover:text-white"
                         >
                             <FaTwitter size={20} />
-                        </a>
-                        <a
-                            href="#"
-                            className="text-[#697077] hover:text-gray-900 dark:hover:text-white"
-                        >
-                            <FaGithub size={20} />
-                        </a>
-                        <a
-                            href="#"
-                            className="text-[#697077] hover:text-gray-900 dark:hover:text-white"
-                        >
-                            <FaDribbble size={20} />
                         </a>
                     </div>
                 </div>

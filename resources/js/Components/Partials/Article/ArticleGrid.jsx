@@ -14,7 +14,7 @@ export default function ArticleGrid({ articles, duplicate = false }) {
                             title={article.title}
                             description={article.description}
                             imageUrl={article.imageUrl}
-                            link={article.link}
+                            slug={article.slug}
                         />
                     </div>
                 ))}

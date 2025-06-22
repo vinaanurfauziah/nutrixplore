@@ -1,9 +1,11 @@
 import logo from '@/Assets/logo-nutridapur.png';
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 import { FiChevronDown, FiHome, FiLogOut, FiUser } from 'react-icons/fi';
 
 const Navbar = ({ auth }) => {
+    const { url } = usePage();
+
     const [dropdownOpen, setDropdownOpen] = useState(false);
 
     const toggleDropdown = () => {
@@ -91,22 +93,34 @@ const Navbar = ({ auth }) => {
                 >
                     <ul className="mt-4 flex flex-col font-medium lg:mt-0 lg:flex-row lg:space-x-8">
                         <li>
-                            <Link href="/" className="nav-link">
+                            <Link
+                                href="/"
+                                className={`nav-link ${url === '/' ? 'font-semibold text-[#70B9BE]' : 'text-gray-600 hover:text-[#70B9BE]'}`}
+                            >
                                 Beranda
                             </Link>
                         </li>
                         <li>
-                            <Link href={route('recipe')} className="nav-link">
+                            <Link
+                                href={route('recipe')}
+                                className={`nav-link ${url.startsWith('/recipe') ? 'font-semibold text-[#70B9BE]' : 'text-gray-600 hover:text-[#70B9BE]'}`}
+                            >
                                 Resep
                             </Link>
                         </li>
                         <li>
-                            <Link href={route('article')} className="nav-link">
+                            <Link
+                                href={route('article')}
+                                className={`nav-link ${url.startsWith('/article') ? 'font-semibold text-[#70B9BE]' : 'text-gray-600 hover:text-[#70B9BE]'}`}
+                            >
                                 Artikel
                             </Link>
                         </li>
                         <li>
-                            <Link href={route('about')} className="nav-link">
+                            <Link
+                                href={route('about')}
+                                className={`nav-link ${url.startsWith('/about') ? 'font-semibold text-[#70B9BE]' : 'text-gray-600 hover:text-[#70B9BE]'}`}
+                            >
                                 Tentang Kami
                             </Link>
                         </li>

@@ -10,7 +10,7 @@ const resepData = {
             {
                 id: 2,
                 judul: 'Oatmeal Pisang',
-                gambar: '/images/oatmeal.jpg',
+                gambar: '/images/nasi-goreng.jpg',
                 slug: 'oatmeal-pisang',
             },
         ],
@@ -18,7 +18,7 @@ const resepData = {
             {
                 id: 3,
                 judul: 'Salad Buah Segar',
-                gambar: '/images/salad-buah.jpg',
+                gambar: '/images/nasi-goreng.jpg',
                 slug: 'salad-buah-segar',
             },
         ],
@@ -26,7 +26,7 @@ const resepData = {
             {
                 id: 4,
                 judul: 'Ayam Panggang Rempah',
-                gambar: '/images/ayam-panggang.jpg',
+                gambar: '/images/nasi-goreng.jpg',
                 slug: 'ayam-panggang-rempah',
             },
         ],

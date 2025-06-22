@@ -5,7 +5,7 @@ use App\Http\Controllers\Dashboard\RecipeController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use Illuminate\Support\Facades\Auth; // Tambahkan ini di atas, jika belum
+use Illuminate\Support\Facades\Auth;
 use App\Models\MeasurementUnit;
 
 Route::get('/', function () {
@@ -29,6 +29,17 @@ Route::get('/recipe/hidangan', function () {
     return Inertia::render('Recipe/Kategori');
 })->name('recipe.kategori.hidangan');
 
+// tes artikel ==============
+// Route halaman daftar artikel
+Route::get('/article', fn () => Inertia::render('Article/Index'));
+
+// Route halaman detail artikel
+Route::get('/article/{slug}', function ($slug) {
+    return Inertia::render('Article/DetailArticle', ['slug' => $slug]);
+});
+
+// artikel ==========
+
 // tes
 // Subkategori dulu
 Route::get('/recipe/{kategoriSlug}/{subkategoriSlug}', function ($kategoriSlug, $subkategoriSlug) {
@@ -37,6 +48,15 @@ Route::get('/recipe/{kategoriSlug}/{subkategoriSlug}', function ($kategoriSlug, 
         'subkategoriSlug' => $subkategoriSlug,
     ]);
 })->name('recipe.subkategori');
+
+// tes detail resep
+Route::get('/recipe/{kategori}/{subkategori}/{slug}', function ($kategori, $subkategori, $slug) {
+    return Inertia::render('Recipe/DetailResep', [
+        'kategori' => $kategori,
+        'subkategori' => $subkategori,
+        'slug' => $slug,
+    ]);
+});
 
 // Baru Kategori
 Route::get('/recipe/{kategoriSlug}', function ($kategoriSlug) {
@@ -85,10 +105,6 @@ Route::get('/dashboard/recipe/create', function () {
 Route::post('/dashboard/recipe', [RecipeController::class, 'store'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard.recipe.store');
-
-// Route::get('/dashboard/recipe/category', function () {
-//     return Inertia::render('Dashboard/Recipe/CategoryRecipe');
-// })->middleware(['auth', 'verified'])->name('dashboard.recipe.category');
 
 Route::get('/dashboard/recipe/measurement-units', function () {
     return Inertia::render('Dashboard/Recipe/MeasurementUnits/Index');
