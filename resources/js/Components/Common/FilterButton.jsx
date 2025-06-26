@@ -1,11 +1,23 @@
 import { useEffect, useRef, useState } from 'react';
 
-const FilterButton = ({ text, options }) => {
+const FilterButton = ({ text, options, onChange }) => {
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef(null);
+    const [checked, setChecked] = useState([]);
 
     const toggleDropdown = () => {
         setIsOpen(!isOpen);
+    };
+
+    const handleCheckboxChange = (option) => {
+        let newChecked;
+        if (checked.includes(option)) {
+            newChecked = checked.filter((item) => item !== option);
+        } else {
+            newChecked = [...checked, option];
+        }
+        setChecked(newChecked);
+        onChange(option); // Inform parent component
     };
 
     useEffect(() => {
@@ -25,7 +37,6 @@ const FilterButton = ({ text, options }) => {
 
     return (
         <div className="relative p-1" ref={dropdownRef}>
-            {/* Button */}
             <button
                 onClick={toggleDropdown}
                 className={`inline-flex items-center rounded-lg border px-3 py-2 text-center text-sm font-medium focus:outline-none focus:ring-4 ${
@@ -38,7 +49,6 @@ const FilterButton = ({ text, options }) => {
                 {text}
                 <svg
                     className="ml-2 h-4 w-4"
-                    aria-hidden="true"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -53,31 +63,37 @@ const FilterButton = ({ text, options }) => {
                 </svg>
             </button>
 
-            {/* Dropdown */}
             {isOpen && (
                 <div className="absolute left-0 top-full z-10 w-56 rounded-lg bg-white p-3 shadow dark:bg-gray-700">
                     <h6 className="mb-3 text-sm font-medium text-gray-900 dark:text-white">
                         {text}
                     </h6>
                     <ul className="space-y-2 text-sm">
-                        {options.map((item, index) => (
-                            <li
-                                key={index}
-                                className="flex items-center gap-2 py-1"
-                            >
-                                <input
-                                    id={`${text}-${item}`.toLowerCase()}
-                                    type="checkbox"
-                                    className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-[#70B9BE] focus:ring-2 focus:ring-[#70B9BE] dark:border-gray-500 dark:bg-gray-600 dark:ring-offset-gray-700 dark:focus:ring-[#70B9BE]"
-                                />
-                                <label
-                                    htmlFor={`${text}-${item}`.toLowerCase()}
-                                    className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100"
+                        {options.map((option, index) => {
+                            const id = `${text}-${option}`.toLowerCase();
+                            return (
+                                <li
+                                    key={index}
+                                    className="flex items-center gap-2 py-1"
                                 >
-                                    {item}
-                                </label>
-                            </li>
-                        ))}
+                                    <input
+                                        id={id}
+                                        type="checkbox"
+                                        className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-[#70B9BE] focus:ring-2 focus:ring-[#70B9BE] dark:border-gray-500 dark:bg-gray-600 dark:ring-offset-gray-700 dark:focus:ring-[#70B9BE]"
+                                        checked={checked.includes(option)}
+                                        onChange={() =>
+                                            handleCheckboxChange(option)
+                                        }
+                                    />
+                                    <label
+                                        htmlFor={id}
+                                        className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100"
+                                    >
+                                        {option}
+                                    </label>
+                                </li>
+                            );
+                        })}
                     </ul>
                 </div>
             )}

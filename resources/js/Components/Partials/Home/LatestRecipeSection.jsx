@@ -2,9 +2,9 @@ import MoreButton from '@/Components/Common/MoreButton';
 import SectionHeading from '@/Components/Common/SectionHeading';
 import RecipeCard from '@/Components/Public/RecipeCard';
 import resepData from '@/data/resepData';
+import { motion } from 'framer-motion';
 
 export default function LatestRecipeSection() {
-    // Gabungkan semua kategori resep jadi satu array datar
     const allRecipes = [
         ...resepData.hidangan.sarapan,
         ...resepData.hidangan.pembuka,
@@ -27,17 +27,30 @@ export default function LatestRecipeSection() {
         ...resepData.metode.panggang,
     ];
 
-    // Ambil hanya 4 resep pertama
     const latestRecipes = allRecipes.slice(0, 4);
 
     return (
         <section className="bg-white dark:bg-gray-900">
             <div className="mx-auto max-w-screen-2xl px-4 py-8 lg:py-16">
-                <SectionHeading
-                    subtitle="RESEP TERBARU"
-                    title="Lihatlah resep terbaru kami dan temukan resep favorit baru."
-                />
-                <div className="grid grid-cols-2 gap-8 sm:gap-12 md:grid-cols-3 lg:grid-cols-4">
+                <motion.div
+                    initial={{ opacity: 0, y: -30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.2 }}
+                    transition={{ duration: 0.6 }}
+                >
+                    <SectionHeading
+                        subtitle="RESEP TERBARU"
+                        title="Lihatlah resep terbaru kami dan temukan resep favorit baru."
+                    />
+                </motion.div>
+
+                <motion.div
+                    className="mt-10 grid grid-cols-2 gap-8 sm:gap-12 md:grid-cols-3 lg:grid-cols-4"
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.2 }}
+                    transition={{ staggerChildren: 0.2 }}
+                >
                     {latestRecipes.map((recipe) => (
                         <RecipeCard
                             key={recipe.id}
@@ -46,8 +59,17 @@ export default function LatestRecipeSection() {
                             link={`/recipe/${recipe.slug}`}
                         />
                     ))}
-                </div>
-                <MoreButton href="/recipe" text="Lihat Resep Lainnya" />
+                </motion.div>
+
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.2 }}
+                    transition={{ duration: 0.5, delay: 0.8 }}
+                    className="mt-10 text-center"
+                >
+                    <MoreButton href="/recipe" text="Lihat Resep Lainnya" />
+                </motion.div>
             </div>
         </section>
     );

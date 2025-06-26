@@ -5,6 +5,7 @@ import FeatureList from '@/Components/Partials/About/FeatureList';
 import Footer from '@/Components/Templates/Footer';
 import Navbar from '@/Components/Templates/Navbar';
 import { Head } from '@inertiajs/react';
+import { motion } from 'framer-motion';
 
 export default function About({ auth }) {
     return (
@@ -20,9 +21,35 @@ export default function About({ auth }) {
                 />
 
                 <main>
-                    <AboutIntro />
-                    <FeatureList />
-                    <AboutJoinCommunity />
+                    {/* About Intro Section */}
+                    <motion.section
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: false, amount: 0.2 }}
+                        transition={{ duration: 0.6 }}
+                    >
+                        <AboutIntro />
+                    </motion.section>
+
+                    {/* Feature List Section */}
+                    <motion.section
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: false, amount: 0.2 }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                    >
+                        <FeatureList />
+                    </motion.section>
+
+                    {/* Join Community Section */}
+                    <motion.section
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: false, amount: 0.2 }}
+                        transition={{ duration: 0.6, delay: 0.4 }}
+                    >
+                        <AboutJoinCommunity />
+                    </motion.section>
                 </main>
 
                 <Footer className="mt-auto" />

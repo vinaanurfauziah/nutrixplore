@@ -1,13 +1,25 @@
 import SaveButton from '@/Components/Common/SaveButton';
+import { motion } from 'framer-motion';
 
 const RecipeCard = ({ title, imageUrl, link }) => {
-
     return (
-        <div className="relative overflow-hidden rounded-2xl shadow-md transition hover:shadow-lg">
+        <motion.div
+            className="relative overflow-hidden rounded-2xl shadow-md transition"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6 }}
+            whileHover={{
+                scale: 1.03,
+                y: -4,
+                boxShadow: '0 12px 24px rgba(0,0,0,0.15)',
+            }}
+            whileTap={{ scale: 0.97 }}
+        >
             <img
                 src={imageUrl}
                 alt={title}
-                className="h-72 w-full rounded-2xl object-cover sm:h-80 md:h-96 lg:h-[420px]"
+                className="h-72 w-full rounded-2xl object-cover transition-all duration-300 sm:h-80 md:h-96 lg:h-[420px]"
             />
 
             <div className="absolute bottom-6 left-4 right-4 rounded-2xl bg-[#70B9BE] bg-opacity-95 px-5 py-5 text-white shadow-lg">
@@ -21,7 +33,7 @@ const RecipeCard = ({ title, imageUrl, link }) => {
                     <SaveButton className="ml-2" />
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 };
 

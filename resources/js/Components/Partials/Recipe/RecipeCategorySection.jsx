@@ -1,4 +1,6 @@
+import SectionHeading from '@/Components/Common/SectionHeading';
 import CategoryCard from '@/Components/Public/CategoryCard';
+import { motion } from 'framer-motion';
 import { GiWheat } from 'react-icons/gi';
 import { LiaAllergiesSolid } from 'react-icons/lia';
 import { PiCarrot, PiCookingPot } from 'react-icons/pi';
@@ -42,25 +44,38 @@ export default function RecipeCategorySection() {
     return (
         <section className="bg-white dark:bg-gray-900">
             <div className="mx-auto max-w-screen-2xl px-4 py-8 lg:py-16">
-                <h3 className="mb-2 text-center text-lg font-extrabold text-[#70B9BE] dark:text-white">
-                    JELAJAHI RESEP KAMI
-                </h3>
-                <h2 className="mb-8 text-center text-3xl font-extrabold text-gray-900 dark:text-white md:text-4xl">
-                    Temukan resep lezat dan bernutrisi dari berbagai kategori
-                    pilihan!
-                </h2>
+                <SectionHeading
+                    subtitle="JELAJAHI RESEP KAMI"
+                    title="Temukan resep lezat dan bernutrisi dari berbagai kategori pilihan!"
+                />
                 <ul className="grid grid-cols-2 gap-4 text-gray-500 dark:text-gray-400 sm:gap-6 md:grid-cols-3 lg:grid-cols-6">
                     {categories.map((item, index) => (
-                        <CategoryCard
+                        <motion.li
                             key={index}
-                            icon={
-                                <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-gray-100">
-                                    {item.icon}
-                                </div>
-                            }
-                            text={item.text}
-                            href={item.href}
-                        />
+                            initial={{ opacity: 0, y: 40 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            whileHover={{
+                                scale: 1.05,
+                                boxShadow: '0px 8px 24px rgba(0, 0, 0, 0.15)',
+                            }}
+                            transition={{
+                                duration: 0.4,
+                                delay: index * 0.1,
+                                ease: 'easeOut',
+                            }}
+                            viewport={{ once: false, amount: 0.3 }}
+                            className="rounded-lg"
+                        >
+                            <CategoryCard
+                                icon={
+                                    <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-gray-100">
+                                        {item.icon}
+                                    </div>
+                                }
+                                text={item.text}
+                                href={item.href}
+                            />
+                        </motion.li>
                     ))}
                 </ul>
             </div>

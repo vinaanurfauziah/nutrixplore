@@ -1,6 +1,8 @@
+import { Head } from '@inertiajs/react';
+import { motion } from 'framer-motion';
+
 import Footer from '@/Components/Templates/Footer';
 import Navbar from '@/Components/Templates/Navbar';
-import { Head } from '@inertiajs/react';
 
 import FaqSection from '@/Components/Partials/Home/FaqSection';
 import FeatureSection from '@/Components/Partials/Home/FeatureSection';
@@ -9,20 +11,42 @@ import HeroSection from '@/Components/Partials/Home/HeroSection';
 import LatestRecipeSection from '@/Components/Partials/Home/LatestRecipeSection';
 
 export default function Welcome({ auth }) {
+    // Variabel animasi reusable untuk semua section
+    const fadeInUp = {
+        initial: { opacity: 0, y: 40 },
+        whileInView: { opacity: 1, y: 0 },
+        transition: { duration: 0.6 },
+        viewport: { once: false, amount: 0.2 }, // 🔁 agar animasi bisa berulang saat scroll naik turun
+    };
+
     return (
         <>
-            <Head title="nutriDapur" />
+            <Head title="NutriDapur" />
             <div className="flex min-h-screen flex-col">
                 <header>
                     <Navbar auth={auth} />
                 </header>
 
                 <main>
-                    <HeroSection />
-                    <FeatureSection />
-                    <LatestRecipeSection />
-                    <HealthArticleSection />
-                    <FaqSection />
+                    <motion.div {...fadeInUp}>
+                        <HeroSection />
+                    </motion.div>
+
+                    <motion.div {...fadeInUp}>
+                        <FeatureSection />
+                    </motion.div>
+
+                    <motion.div {...fadeInUp}>
+                        <LatestRecipeSection />
+                    </motion.div>
+
+                    <motion.div {...fadeInUp}>
+                        <HealthArticleSection />
+                    </motion.div>
+
+                    <motion.div {...fadeInUp}>
+                        <FaqSection />
+                    </motion.div>
                 </main>
 
                 <Footer className="mt-auto" />

@@ -1,13 +1,30 @@
 import ArticleCard from '@/Components/Public/ArticleCard';
+import { motion } from 'framer-motion';
 
 export default function ArticleGrid({ articles, duplicate = false }) {
     return (
         <>
-            <div className="grid grid-cols-2 gap-8 sm:gap-12 md:grid-cols-3 lg:grid-cols-4">
+            <motion.div
+                className="grid grid-cols-2 gap-8 sm:gap-12 md:grid-cols-3 lg:grid-cols-4"
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: false, amount: 0.2 }}
+                variants={{
+                    visible: {
+                        transition: {
+                            staggerChildren: 0.15,
+                        },
+                    },
+                }}
+            >
                 {articles.map((article, index) => (
-                    <div
+                    <motion.div
                         key={duplicate ? `second-${index}` : index}
-                        className="mb-12"
+                        variants={{
+                            hidden: { opacity: 0, y: 30 },
+                            visible: { opacity: 1, y: 0 },
+                        }}
+                        transition={{ duration: 0.4, ease: 'easeOut' }}
                     >
                         <ArticleCard
                             category={article.category}
@@ -16,9 +33,9 @@ export default function ArticleGrid({ articles, duplicate = false }) {
                             imageUrl={article.imageUrl}
                             slug={article.slug}
                         />
-                    </div>
+                    </motion.div>
                 ))}
-            </div>
+            </motion.div>
             {duplicate && <div className="my-12"></div>}
         </>
     );

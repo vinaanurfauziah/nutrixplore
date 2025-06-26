@@ -1,4 +1,5 @@
 import SectionHeading from '@/Components/Common/SectionHeading';
+import { motion } from 'framer-motion';
 import { BiBookmark, BiFilter, BiFoodMenu } from 'react-icons/bi';
 import { TbArticle } from 'react-icons/tb';
 
@@ -27,18 +28,32 @@ export default function FeatureSection() {
     ];
 
     return (
-        <section className="bg-white dark:bg-gray-900">
+        <motion.section
+            className="overflow-hidden bg-white dark:bg-gray-900"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.3 }}
+            transition={{ duration: 0.6 }}
+        >
             <div className="mx-auto max-w-screen-2xl px-4 py-8 lg:py-16">
                 <SectionHeading
                     subtitle="FITUR UTAMA YANG MEMPERMUDAH ANDA!"
-                    title="Fitur kami membantu Anda menemukan dan menyajikan resep
-                    terbaik dengan mudah"
+                    title="Fitur kami membantu Anda menemukan dan menyajikan resep terbaik dengan mudah"
                 />
-                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+
+                <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
                     {features.map((f, i) => (
-                        <div
+                        <motion.div
                             key={i}
                             className="flex items-center gap-4 rounded-2xl bg-white p-6 shadow-md"
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: false, amount: 0.2 }}
+                            transition={{
+                                delay: i * 0.2,
+                                duration: 0.5,
+                                ease: 'easeOut',
+                            }}
                         >
                             <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-gray-100">
                                 {f.icon}
@@ -51,10 +66,10 @@ export default function FeatureSection() {
                                     {f.desc}
                                 </p>
                             </div>
-                        </div>
+                        </motion.div>
                     ))}
                 </div>
             </div>
-        </section>
+        </motion.section>
     );
 }

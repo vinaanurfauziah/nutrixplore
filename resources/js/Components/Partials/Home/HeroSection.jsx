@@ -1,27 +1,45 @@
 import EggTomatoSoup from '@/Assets/egg-tomato-soup.png';
+import { motion } from 'framer-motion';
 
 export default function HeroSection() {
     return (
         <section className="bg-white dark:bg-gray-800">
             <div className="mx-auto max-w-screen-2xl px-4 py-8 lg:py-16">
                 <div className="grid grid-cols-1 items-center gap-8 rounded-2xl bg-[#70B9BE] px-6 py-16 shadow-lg sm:grid-cols-12 sm:px-8 sm:py-20 lg:px-12 lg:py-24">
-                    <div className="order-2 sm:order-1 sm:col-span-7">
-                        <h1
+                    {/* LEFT SIDE */}
+                    <motion.div
+                        className="order-2 sm:order-1 sm:col-span-7"
+                        initial={{ opacity: 0, x: -50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.8 }}
+                    >
+                        <motion.h1
                             className="mb-4 max-w-2xl text-2xl font-extrabold leading-tight text-white sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl"
                             style={{
                                 textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
                             }}
+                            initial={{ y: -20, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            transition={{ delay: 0.3, duration: 0.6 }}
                         >
                             Resep Sehat Sesuai Kebutuhanmu
-                        </h1>
-                        <p className="mb-6 mt-6 max-w-2xl text-sm font-light text-white sm:text-base md:text-lg lg:text-xl">
+                        </motion.h1>
+                        <motion.p
+                            className="mb-6 mt-6 max-w-2xl text-sm font-light text-white sm:text-base md:text-lg lg:text-xl"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.6, duration: 0.8 }}
+                        >
                             Pilih resep berdasarkan kondisi kesehatan atau
                             preferensi makanan. Bantu tubuhmu tetap bugar lewat
                             makanan yang tepat.
-                        </p>
-                        <a
-                            href="/recipe/detailResep"
+                        </motion.p>
+                        <motion.a
+                            href="/recipe"
                             className="mt-6 inline-flex items-center justify-center rounded-lg bg-white px-4 py-2 text-base font-medium text-gray-800 shadow-lg hover:bg-gray-100 sm:text-lg"
+                            initial={{ scale: 0.8, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            transition={{ delay: 1.2, duration: 0.5 }}
                         >
                             Jelajahi Sekarang
                             <span className="ml-2 rounded bg-black p-1">
@@ -37,15 +55,22 @@ export default function HeroSection() {
                                     />
                                 </svg>
                             </span>
-                        </a>
-                    </div>
-                    <div className="order-1 flex justify-center sm:order-2 sm:col-span-5 sm:justify-end">
+                        </motion.a>
+                    </motion.div>
+
+                    {/* RIGHT SIDE */}
+                    <motion.div
+                        className="order-1 flex justify-center sm:order-2 sm:col-span-5 sm:justify-end"
+                        initial={{ y: -10 }}
+                        animate={{ y: [0, -10, 0] }}
+                        transition={{ repeat: Infinity, duration: 3 }}
+                    >
                         <img
                             src={EggTomatoSoup}
                             alt="Ilustrasi resep"
                             className="max-h-80 w-full max-w-xs object-contain sm:max-h-96 sm:max-w-sm"
                         />
-                    </div>
+                    </motion.div>
                 </div>
             </div>
         </section>
