@@ -1,19 +1,19 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
 import FilterButton from '@/Components/Common/FilterButton';
 import MoreButton from '@/Components/Common/MoreButton';
 import SectionHeading from '@/Components/Common/SectionHeading';
 import RecipeCard from '@/Components/Public/RecipeCard';
 import FilterOptions from '@/data/FilterOptions';
-import resepData from '@/data/resepData';
 import kategoriData from '@/data/kategoriData';
+import resepData from '@/data/resepData';
+import { motion } from 'framer-motion';
+import { useState } from 'react';
 
-export default function RecipeFilterSection() {
+export default function RecipeFilterSection({ onSave, onUnsave }) {
     const [selectedFilters, setSelectedFilters] = useState([]);
 
     const getLabelSubkategori = (kategoriSlug, subSlug) => {
         const sub = kategoriData?.[kategoriSlug]?.subkategori.find(
-            (item) => item.slug === subSlug
+            (item) => item.slug === subSlug,
         );
         return sub?.nama || subSlug;
     };
@@ -29,7 +29,10 @@ export default function RecipeFilterSection() {
                     ...resep,
                     kategori: kategoriSlug,
                     subkategori: subkategoriSlug,
-                    labelSubkategori: getLabelSubkategori(kategoriSlug, subkategoriSlug),
+                    labelSubkategori: getLabelSubkategori(
+                        kategoriSlug,
+                        subkategoriSlug,
+                    ),
                 });
             });
         });
@@ -39,7 +42,7 @@ export default function RecipeFilterSection() {
         setSelectedFilters((prev) =>
             prev.includes(label)
                 ? prev.filter((item) => item !== label)
-                : [...prev, label]
+                : [...prev, label],
         );
     };
 
@@ -47,7 +50,7 @@ export default function RecipeFilterSection() {
         selectedFilters.length === 0
             ? allRecipes
             : allRecipes.filter((resep) =>
-                  selectedFilters.includes(resep.labelSubkategori)
+                  selectedFilters.includes(resep.labelSubkategori),
               );
 
     const displayedRecipes = filteredRecipes.slice(0, 8);
@@ -114,6 +117,10 @@ export default function RecipeFilterSection() {
                                     title={recipe.judul}
                                     imageUrl={recipe.gambar}
                                     link={`/recipe/${recipe.kategori}/${recipe.subkategori}/${recipe.slug}`}
+                                    kalori={recipe.kalori}
+                                    durasi={recipe.durasi}
+                                    onSave={onSave}
+                                    onUnsave={onUnsave}
                                 />
                             </motion.div>
                         ))}

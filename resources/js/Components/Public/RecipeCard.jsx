@@ -1,7 +1,15 @@
 import SaveButton from '@/Components/Common/SaveButton';
 import { motion } from 'framer-motion';
 
-const RecipeCard = ({ title, imageUrl, link }) => {
+const RecipeCard = ({
+    title,
+    imageUrl,
+    link,
+    kalori,
+    durasi,
+    onSave,
+    onUnsave,
+}) => {
     return (
         <motion.div
             className="relative overflow-hidden rounded-2xl shadow-md transition"
@@ -29,8 +37,14 @@ const RecipeCard = ({ title, imageUrl, link }) => {
                     </a>
                 </h3>
                 <div className="mt-2 flex items-center justify-between text-sm text-white/80 sm:text-base">
-                    <p>223 Kalori • 20 menit</p>
-                    <SaveButton className="ml-2" />
+                    <p>
+                        {kalori} Kalori • {durasi} menit
+                    </p>
+                    <SaveButton
+                        onSave={onSave}
+                        onUnsave={onUnsave}
+                        className="ml-2"
+                    />
                 </div>
             </div>
         </motion.div>

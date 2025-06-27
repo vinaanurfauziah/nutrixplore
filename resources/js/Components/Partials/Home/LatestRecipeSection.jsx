@@ -1,10 +1,25 @@
 import MoreButton from '@/Components/Common/MoreButton';
+import SaveSuccessPopup from '@/Components/Common/SaveSuccessPopup'; // ✅
 import SectionHeading from '@/Components/Common/SectionHeading';
 import RecipeCard from '@/Components/Public/RecipeCard';
 import resepData from '@/data/resepData';
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 
 export default function LatestRecipeSection() {
+    const [showPopup, setShowPopup] = useState(false);
+
+    const handleSave = () => {
+        setShowPopup(true);
+        setTimeout(() => {
+            setShowPopup(false);
+        }, 3000);
+    };
+
+    const handleUnsave = () => {
+        console.log('Resep dibatalkan penyimpanannya');
+    };
+
     const allRecipes = [
         ...resepData.hidangan.sarapan,
         ...resepData.hidangan.pembuka,
@@ -57,8 +72,16 @@ export default function LatestRecipeSection() {
                             title={recipe.judul}
                             imageUrl={recipe.gambar}
                             link={`/recipe/${recipe.slug}`}
+                            kalori={recipe.kalori}
+                            durasi={recipe.durasi}
+                            onSave={handleSave}
+                            onUnsave={handleUnsave}
                         />
                     ))}
+
+                    {showPopup && (
+                        <SaveSuccessPopup onClose={() => setShowPopup(false)} />
+                    )}
                 </motion.div>
 
                 <motion.div

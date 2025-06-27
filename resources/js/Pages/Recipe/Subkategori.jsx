@@ -9,7 +9,7 @@ import { Head } from '@inertiajs/react';
 export default function SubKategori({ auth, kategoriSlug, subkategoriSlug }) {
     const kategori = kategoriData[kategoriSlug];
     const subkategori = kategori?.subkategori.find(
-        (item) => item.slug === subkategoriSlug
+        (item) => item.slug === subkategoriSlug,
     );
 
     const resepList = resepData?.[kategoriSlug]?.[subkategoriSlug] || [];
@@ -60,6 +60,8 @@ export default function SubKategori({ auth, kategoriSlug, subkategoriSlug }) {
                                             title={resep.judul}
                                             imageUrl={resep.gambar}
                                             link={`/recipe/${kategoriSlug}/${subkategoriSlug}/${resep.slug}`}
+                                            kalori={resep.kalori}
+                                            durasi={resep.durasi}
                                         />
                                     </li>
                                 ))}
