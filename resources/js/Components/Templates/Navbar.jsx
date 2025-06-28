@@ -2,11 +2,13 @@ import logo from '@/Assets/logo-nutridapur.png';
 import { Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 import { FiChevronDown, FiHome, FiLogOut, FiUser } from 'react-icons/fi';
+import { HiMenuAlt3, HiX } from 'react-icons/hi';
 
 const Navbar = ({ auth }) => {
     const { url } = usePage();
 
     const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const toggleDropdown = () => {
         setDropdownOpen(!dropdownOpen);
@@ -14,6 +16,14 @@ const Navbar = ({ auth }) => {
 
     const closeDropdown = () => {
         setDropdownOpen(false);
+    };
+
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
+
+    const closeMenu = () => {
+        setIsMenuOpen(false);
     };
 
     return (
@@ -51,7 +61,10 @@ const Navbar = ({ auth }) => {
                                     <Link
                                         href={route('dashboard')}
                                         className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700"
-                                        onClick={closeDropdown}
+                                        onClick={() => {
+                                            closeDropdown();
+                                            closeMenu();
+                                        }}
                                     >
                                         <FiHome className="text-base" />
                                         Dashboard
@@ -61,7 +74,10 @@ const Navbar = ({ auth }) => {
                                         href={route('logout')}
                                         as="button"
                                         className="flex w-full items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-700"
-                                        onClick={closeDropdown}
+                                        onClick={() => {
+                                            closeDropdown();
+                                            closeMenu();
+                                        }}
                                     >
                                         <FiLogOut className="text-base" />
                                         Keluar
@@ -85,17 +101,34 @@ const Navbar = ({ auth }) => {
                             </Link>
                         </>
                     )}
+
+                    <button
+                        onClick={toggleMenu}
+                        className="inline-flex items-center rounded-lg p-2 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-700 lg:hidden"
+                    >
+                        {isMenuOpen ? (
+                            <HiX className="text-2xl" />
+                        ) : (
+                            <HiMenuAlt3 className="text-2xl" />
+                        )}
+                    </button>
                 </div>
 
                 <div
-                    className="hidden w-full items-center justify-between lg:order-1 lg:flex lg:w-auto"
-                    id="mobile-menu-2"
+                    className={`w-full overflow-hidden transition-all duration-300 ease-in-out lg:order-1 lg:flex lg:w-auto ${
+                        isMenuOpen ? 'block' : 'hidden'
+                    }`}
                 >
-                    <ul className="mt-4 flex flex-col font-medium lg:mt-0 lg:flex-row lg:space-x-8">
+                    <ul className="mt-4 flex flex-col rounded-xl bg-white p-4 shadow-md ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700 lg:mt-0 lg:flex-row lg:space-x-8 lg:bg-transparent lg:shadow-none lg:ring-0">
                         <li>
                             <Link
                                 href="/"
-                                className={`nav-link ${url === '/' ? 'font-semibold text-[#70B9BE]' : 'text-gray-600 hover:text-[#70B9BE]'}`}
+                                className={`block rounded-md px-4 py-2 ${
+                                    url === '/'
+                                        ? 'bg-[#70B9BE] font-semibold text-white'
+                                        : 'text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700'
+                                }`}
+                                onClick={closeMenu}
                             >
                                 Beranda
                             </Link>
@@ -103,7 +136,12 @@ const Navbar = ({ auth }) => {
                         <li>
                             <Link
                                 href={route('recipe')}
-                                className={`nav-link ${url.startsWith('/recipe') ? 'font-semibold text-[#70B9BE]' : 'text-gray-600 hover:text-[#70B9BE]'}`}
+                                className={`block rounded-md px-4 py-2 ${
+                                    url.startsWith('/recipe')
+                                        ? 'bg-[#70B9BE] font-semibold text-white'
+                                        : 'text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700'
+                                }`}
+                                onClick={closeMenu}
                             >
                                 Resep
                             </Link>
@@ -111,7 +149,12 @@ const Navbar = ({ auth }) => {
                         <li>
                             <Link
                                 href={route('article')}
-                                className={`nav-link ${url.startsWith('/article') ? 'font-semibold text-[#70B9BE]' : 'text-gray-600 hover:text-[#70B9BE]'}`}
+                                className={`block rounded-md px-4 py-2 ${
+                                    url.startsWith('/article')
+                                        ? 'bg-[#70B9BE] font-semibold text-white'
+                                        : 'text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700'
+                                }`}
+                                onClick={closeMenu}
                             >
                                 Artikel
                             </Link>
@@ -119,7 +162,12 @@ const Navbar = ({ auth }) => {
                         <li>
                             <Link
                                 href={route('about')}
-                                className={`nav-link ${url.startsWith('/about') ? 'font-semibold text-[#70B9BE]' : 'text-gray-600 hover:text-[#70B9BE]'}`}
+                                className={`block rounded-md px-4 py-2 ${
+                                    url.startsWith('/about')
+                                        ? 'bg-[#70B9BE] font-semibold text-white'
+                                        : 'text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700'
+                                }`}
+                                onClick={closeMenu}
                             >
                                 Tentang Kami
                             </Link>

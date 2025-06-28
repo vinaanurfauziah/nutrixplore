@@ -66,7 +66,7 @@ const FilterOptions = {
         'Menumis',
         'Merebus Perlahan',
         'Menggulai (Stewing)',
-        'Menggoreng Cepat(Stir Frying)'
+        'Menggoreng Cepat(Stir Frying)',
     ],
     Artikel: [
         'Semua Artikel',

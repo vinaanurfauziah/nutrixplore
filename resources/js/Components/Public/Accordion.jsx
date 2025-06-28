@@ -1,4 +1,3 @@
-import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
 import { BiPlus } from 'react-icons/bi';
 
@@ -10,24 +9,14 @@ const Accordion = ({ items }) => {
     };
 
     return (
-        <motion.div
-            className="space-y-3"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.6 }}
-        >
+        <div className="space-y-3">
             {items.map((item, index) => {
                 const isOpen = openIndex === index;
 
                 return (
-                    <motion.div
+                    <div
                         key={index}
-                        className="overflow-hidden rounded-lg bg-white shadow-md"
-                        layout
-                        transition={{
-                            layout: { duration: 0.4, ease: 'easeOut' },
-                        }}
+                        className="overflow-hidden rounded-lg bg-white shadow-md transition-all duration-300"
                     >
                         <button
                             type="button"
@@ -35,35 +24,28 @@ const Accordion = ({ items }) => {
                             onClick={() => toggleAccordion(index)}
                         >
                             {item.question}
-                            <motion.span
-                                animate={{ rotate: isOpen ? 45 : 0 }}
-                                transition={{ duration: 0.3 }}
+                            <span
+                                className={`transform transition-transform duration-300 ${
+                                    isOpen ? 'rotate-45' : ''
+                                }`}
                             >
                                 <BiPlus className="h-6 w-6 shrink-0 text-[#70B9BE]" />
-                            </motion.span>
+                            </span>
                         </button>
 
-                        <AnimatePresence initial={false}>
-                            {isOpen && (
-                                <motion.div
-                                    key="content"
-                                    className="px-4 pb-4 text-gray-700"
-                                    initial={{ opacity: 0, height: 0 }}
-                                    animate={{ opacity: 1, height: 'auto' }}
-                                    exit={{ opacity: 0, height: 0 }}
-                                    transition={{
-                                        duration: 0.3,
-                                        ease: 'easeInOut',
-                                    }}
-                                >
-                                    <div>{item.answer}</div>
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
-                    </motion.div>
+                        <div
+                            className={`px-4 pb-4 text-gray-700 transition-all duration-300 ease-in-out ${
+                                isOpen
+                                    ? 'max-h-96 opacity-100'
+                                    : 'max-h-0 opacity-0'
+                            } overflow-hidden`}
+                        >
+                            <div>{item.answer}</div>
+                        </div>
+                    </div>
                 );
             })}
-        </motion.div>
+        </div>
     );
 };
 

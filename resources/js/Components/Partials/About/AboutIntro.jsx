@@ -20,7 +20,7 @@ export default function AboutIntro() {
                     </div>
 
                     <div className="text-center sm:col-span-7 sm:text-left">
-                        <p className="mb-6 text-gray-800 md:text-lg lg:text-xl">
+                        <p className="mb-6 text-gray-800 md:text-lg lg:text-lg">
                             Selamat datang di NutriDapur, destinasi terpercaya
                             untuk menemukan berbagai resep masakan lezat yang
                             memudahkan aktivitas memasak sehari-hari. NutriDapur
@@ -30,7 +30,7 @@ export default function AboutIntro() {
                         <h2 className="text-xl font-bold text-gray-900 md:text-2xl lg:text-3xl">
                             Misi Kami
                         </h2>
-                        <p className="mt-2 text-gray-800 md:text-lg lg:text-xl">
+                        <p className="mt-2 text-gray-800 md:text-lg lg:text-lg">
                             Kami berkomitmen untuk menyediakan platform yang
                             memudahkan pengguna dalam mencari, menyimpan, dan
                             berbagi resep masakan secara praktis. Dengan

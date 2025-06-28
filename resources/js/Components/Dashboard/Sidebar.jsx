@@ -20,7 +20,7 @@ import {
 } from 'react-icons/hi';
 import { route } from 'ziggy-js';
 
-export default function SidebarComponent() {
+export default function SidebarComponent({ onClose }) {
     const { auth } = usePage().props;
     const userRole = auth?.user?.role || 'admin';
     const { post } = useForm();
@@ -35,6 +35,18 @@ export default function SidebarComponent() {
             aria-label="Sidebar navigasi"
             className="flex h-screen flex-col"
         >
+            {/* Tombol Tutup (mobile only) */}
+            {onClose && (
+                <div className="flex justify-end p-4 md:hidden">
+                    <button
+                        onClick={onClose}
+                        className="text-xl text-gray-500 hover:text-gray-700"
+                    >
+                        ✕
+                    </button>
+                </div>
+            )}
+
             <SidebarLogo href="/" img={logo} imgAlt="NutriDapur logo">
                 NutriDapur
             </SidebarLogo>
@@ -43,7 +55,6 @@ export default function SidebarComponent() {
                 <SidebarItemGroup>
                     {userRole === 'admin' ? (
                         <>
-                            {/* ADMIN MENU */}
                             <SidebarItem
                                 as={Link}
                                 href={route('dashboard')}
@@ -106,6 +117,7 @@ export default function SidebarComponent() {
                                     Kategori Artikel
                                 </SidebarItem>
                             </SidebarCollapse>
+
                             <SidebarCollapse
                                 icon={HiUsers}
                                 label="Kelola Admin"
@@ -125,6 +137,7 @@ export default function SidebarComponent() {
                                     Tambah Admin
                                 </SidebarItem>
                             </SidebarCollapse>
+
                             <SidebarItem
                                 as={Link}
                                 href={route('dashboard.profile')}
@@ -135,7 +148,6 @@ export default function SidebarComponent() {
                         </>
                     ) : (
                         <>
-                            {/* MEMBER MENU */}
                             <SidebarItem
                                 as={Link}
                                 href={route('member.dashboard')}

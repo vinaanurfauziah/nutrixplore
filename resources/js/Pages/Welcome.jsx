@@ -11,12 +11,11 @@ import HeroSection from '@/Components/Partials/Home/HeroSection';
 import LatestRecipeSection from '@/Components/Partials/Home/LatestRecipeSection';
 
 export default function Welcome({ auth }) {
-    // Variabel animasi reusable untuk semua section
     const fadeInUp = {
         initial: { opacity: 0, y: 40 },
         whileInView: { opacity: 1, y: 0 },
         transition: { duration: 0.6 },
-        viewport: { once: false, amount: 0.2 }, // 🔁 agar animasi bisa berulang saat scroll naik turun
+        viewport: { once: false, amount: 0.2 },
     };
 
     return (

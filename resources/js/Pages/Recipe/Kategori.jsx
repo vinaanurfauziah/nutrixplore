@@ -6,10 +6,63 @@ import kategoriData from '@/data/kategoriData';
 import { Head } from '@inertiajs/react';
 
 import { BiBowlRice } from 'react-icons/bi';
-import { GiBerriesBowl, GiHealthIncrease, GiHeartBeats } from 'react-icons/gi';
-import { LuEggFried, LuGrape, LuSalad, LuSoup } from 'react-icons/lu';
+import { BsFillHeartPulseFill } from 'react-icons/bs';
+import { CgSmartHomeCooker } from 'react-icons/cg';
+import {
+    FaBone,
+    FaBrain,
+    FaCarrot,
+    FaEgg,
+    FaEye,
+    FaFish,
+    FaLungs,
+    FaRibbon,
+} from 'react-icons/fa';
+import { FaRegFaceFrown } from 'react-icons/fa6';
+import {
+    GiAntibody,
+    GiBerriesBowl,
+    GiBlood,
+    GiBrain,
+    GiChickenLeg,
+    GiChickenOven,
+    GiFat,
+    GiFishEggs,
+    GiFruitBowl,
+    GiHealthIncrease,
+    GiHeartBeats,
+    GiHerbsBundle,
+    GiJoint,
+    GiKidneys,
+    GiNautilusShell,
+    GiOlive,
+    GiPeanut,
+    GiPressureCooker,
+    GiSaltShaker,
+    GiStomach,
+    GiTumor,
+    GiWheat,
+} from 'react-icons/gi';
+import {
+    LuCandy,
+    LuCookingPot,
+    LuEggFried,
+    LuGrape,
+    LuSalad,
+    LuSoup,
+    LuVegan,
+} from 'react-icons/lu';
+import { PiAvocadoFill, PiCookingPotFill } from 'react-icons/pi';
 import { RiDrinksLine } from 'react-icons/ri';
-import { TbLeaf } from 'react-icons/tb';
+import {
+    TbClock12,
+    TbCooker,
+    TbGrill,
+    TbLeaf,
+    TbMeat,
+    TbMilkFilled,
+    TbMoodCheck,
+} from 'react-icons/tb';
 
 // Peta nama string ke komponen ikon
 const iconMap = {
@@ -17,12 +70,53 @@ const iconMap = {
     LuEggFried,
     BiBowlRice,
     GiBerriesBowl,
+    PiCookingPotFill,
+    LuCookingPot,
+    GiFruitBowl,
+    GiChickenLeg,
+    TbGrill,
     TbLeaf,
     LuGrape,
+    GiPressureCooker,
+    CgSmartHomeCooker,
     LuSoup,
+    TbCooker,
+    LuCandy,
     RiDrinksLine,
     GiHealthIncrease,
     GiHeartBeats,
+    FaBrain,
+    GiFat,
+    FaEgg,
+    FaLungs,
+    GiKidneys,
+    GiTumor,
+    GiNautilusShell,
+    FaEye,
+    GiJoint,
+    BsFillHeartPulseFill,
+    GiBrain,
+    FaRegFaceFrown,
+    TbMoodCheck,
+    GiAntibody,
+    FaRibbon,
+    GiStomach,
+    GiSaltShaker,
+    GiHerbsBundle,
+    FaBone,
+    GiBlood,
+    FaFish,
+    LuVegan,
+    GiFishEggs,
+    TbMeat,
+    PiAvocadoFill,
+    GiOlive,
+    TbClock12,
+    TbMilkFilled,
+    GiPeanut,
+    GiWheat,
+    GiChickenOven,
+    FaCarrot,
 };
 
 export default function Kategori({ auth, kategoriSlug }) {

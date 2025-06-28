@@ -3,6 +3,21 @@ import { motion } from 'framer-motion';
 import { BiBookmark, BiFilter, BiFoodMenu } from 'react-icons/bi';
 import { TbArticle } from 'react-icons/tb';
 
+const cardVariant = {
+    hidden: { opacity: 0, y: 50, scale: 0.95 },
+    visible: (i) => ({
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        transition: {
+            delay: i * 0.2,
+            duration: 0.6,
+            type: 'spring',
+            stiffness: 80,
+        },
+    }),
+};
+
 export default function FeatureSection() {
     const features = [
         {
@@ -45,14 +60,21 @@ export default function FeatureSection() {
                     {features.map((f, i) => (
                         <motion.div
                             key={i}
-                            className="flex items-center gap-4 rounded-2xl bg-white p-6 shadow-md"
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
+                            className="flex cursor-pointer items-center gap-4 rounded-2xl bg-white p-6 shadow-md"
+                            variants={cardVariant}
+                            initial="hidden"
+                            whileInView="visible"
                             viewport={{ once: false, amount: 0.2 }}
-                            transition={{
-                                delay: i * 0.2,
-                                duration: 0.5,
-                                ease: 'easeOut',
+                            custom={i}
+                            whileHover={{
+                                scale: 1.05,
+                                y: -5,
+                                boxShadow: '0 12px 24px rgba(0, 0, 0, 0.1)',
+                                transition: {
+                                    type: 'spring',
+                                    stiffness: 300,
+                                    damping: 15,
+                                },
                             }}
                         >
                             <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-gray-100">

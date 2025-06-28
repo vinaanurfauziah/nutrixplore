@@ -1,7 +1,12 @@
 import ArticleCard from '@/Components/Public/ArticleCard';
 import { motion } from 'framer-motion';
 
-export default function ArticleGrid({ articles, duplicate = false }) {
+export default function ArticleGrid({
+    articles,
+    duplicate = false,
+    onSave,
+    onUnsave,
+}) {
     return (
         <>
             <motion.div
@@ -32,6 +37,8 @@ export default function ArticleGrid({ articles, duplicate = false }) {
                             description={article.description}
                             imageUrl={article.imageUrl}
                             slug={article.slug}
+                            onSave={onSave}
+                            onUnsave={onUnsave}
                         />
                     </motion.div>
                 ))}

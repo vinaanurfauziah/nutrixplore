@@ -25,15 +25,15 @@ export default function RecipeRow({
 
     return (
         <tr className="relative border-t">
-            <td className="px-4 py-3">{name}</td>
+            <td className="hidden px-4 py-3 md:table-cell">{name}</td>
             <td className="px-4 py-3">
                 <div className="mx-auto h-10 w-10 rounded bg-gray-200" />
             </td>
-            <td className="px-4 py-3">{dish}</td>
-            <td className="px-4 py-3">{conditions}</td>
-            <td className="px-4 py-3">{diet}</td>
-            <td className="px-4 py-3">{allergy}</td>
-            <td className="px-4 py-3">{nutrition}</td>
+            <td className="hidden px-4 py-3 md:table-cell">{dish}</td>
+            <td className="hidden px-4 py-3 md:table-cell">{conditions}</td>
+            <td className="hidden px-4 py-3 md:table-cell">{diet}</td>
+            <td className="hidden px-4 py-3 md:table-cell">{allergy}</td>
+            <td className="hidden px-4 py-3 md:table-cell">{nutrition}</td>
             <td className="relative px-4 py-3">
                 <button
                     onClick={onToggle}

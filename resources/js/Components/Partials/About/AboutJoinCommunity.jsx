@@ -8,7 +8,7 @@ export default function AboutJoinCommunity() {
                     Bergabung dengan Komunitas Kami
                 </h2>
 
-                <p className="mt-4 text-gray-700 dark:text-gray-300 md:text-lg">
+                <p className="mt-4 text-gray-800 dark:text-gray-300 md:text-lg">
                     Daftarkan diri Anda sekarang untuk menikmati fitur
                     penyimpanan resep dan artikel, serta menemukan dan
                     membagikan inspirasi kuliner.

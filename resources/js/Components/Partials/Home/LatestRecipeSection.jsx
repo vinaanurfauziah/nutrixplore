@@ -1,8 +1,8 @@
 import MoreButton from '@/Components/Common/MoreButton';
-import SaveSuccessPopup from '@/Components/Common/SaveSuccessPopup'; // ✅
+import SaveSuccessPopup from '@/Components/Common/SaveSuccessPopup';
 import SectionHeading from '@/Components/Common/SectionHeading';
 import RecipeCard from '@/Components/Public/RecipeCard';
-import resepData from '@/data/resepData';
+import getAllRecipes from '@/Data/getAllRecipes';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 
@@ -20,28 +20,7 @@ export default function LatestRecipeSection() {
         console.log('Resep dibatalkan penyimpanannya');
     };
 
-    const allRecipes = [
-        ...resepData.hidangan.sarapan,
-        ...resepData.hidangan.pembuka,
-        ...resepData.hidangan.utama,
-        ...resepData.hidangan.penutup,
-        ...resepData.hidangan.pelengkap,
-        ...resepData.hidangan.cemilan,
-        ...resepData.hidangan.berkuah,
-        ...resepData.hidangan.minuman,
-        ...resepData.kondisi.diabetes,
-        ...resepData.kondisi.hipertensi,
-        ...resepData.diet.rendah_karbo,
-        ...resepData.diet.tinggi_protein,
-        ...resepData.alergi.bebas_gluten,
-        ...resepData.alergi.bebas_laktosa,
-        ...resepData.nutrisi.tinggi_serat,
-        ...resepData.nutrisi.kaya_vitamin,
-        ...resepData.metode.kukus,
-        ...resepData.metode.rebus,
-        ...resepData.metode.panggang,
-    ];
-
+    const allRecipes = getAllRecipes();
     const latestRecipes = allRecipes.slice(0, 4);
 
     return (
@@ -71,7 +50,7 @@ export default function LatestRecipeSection() {
                             key={recipe.id}
                             title={recipe.judul}
                             imageUrl={recipe.gambar}
-                            link={`/recipe/${recipe.slug}`}
+                            link={`/recipe/${recipe.kategori}/${recipe.subkategori}/${recipe.slug}`}
                             kalori={recipe.kalori}
                             durasi={recipe.durasi}
                             onSave={handleSave}

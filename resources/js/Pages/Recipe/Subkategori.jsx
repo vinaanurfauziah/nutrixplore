@@ -1,10 +1,12 @@
 import Breadcrumb from '@/Components/Common/Breadcrumb';
+import SaveSuccessPopup from '@/Components/Common/SaveSuccessPopup';
 import RecipeCard from '@/Components/Public/RecipeCard';
 import Footer from '@/Components/Templates/Footer';
 import Navbar from '@/Components/Templates/Navbar';
 import kategoriData from '@/data/kategoriData';
 import resepData from '@/data/resepData';
 import { Head } from '@inertiajs/react';
+import { useState } from 'react';
 
 export default function SubKategori({ auth, kategoriSlug, subkategoriSlug }) {
     const kategori = kategoriData[kategoriSlug];
@@ -13,6 +15,19 @@ export default function SubKategori({ auth, kategoriSlug, subkategoriSlug }) {
     );
 
     const resepList = resepData?.[kategoriSlug]?.[subkategoriSlug] || [];
+
+    const [showPopup, setShowPopup] = useState(false);
+
+    const handleSave = () => {
+        setShowPopup(true);
+        setTimeout(() => {
+            setShowPopup(false);
+        }, 3000);
+    };
+
+    const handleUnsave = () => {
+        console.log('Resep dibatalkan penyimpanannya');
+    };
 
     if (!kategori || !subkategori) {
         return (
@@ -31,7 +46,7 @@ export default function SubKategori({ auth, kategoriSlug, subkategoriSlug }) {
     return (
         <>
             <Head title={subkategori.nama} />
-            <div className="flex min-h-screen flex-col">
+            <div className="relative flex min-h-screen flex-col">
                 <Navbar auth={auth} />
                 <Breadcrumb
                     items={[
@@ -62,6 +77,8 @@ export default function SubKategori({ auth, kategoriSlug, subkategoriSlug }) {
                                             link={`/recipe/${kategoriSlug}/${subkategoriSlug}/${resep.slug}`}
                                             kalori={resep.kalori}
                                             durasi={resep.durasi}
+                                            onSave={handleSave}
+                                            onUnsave={handleUnsave}
                                         />
                                     </li>
                                 ))}
@@ -74,6 +91,12 @@ export default function SubKategori({ auth, kategoriSlug, subkategoriSlug }) {
                     </section>
                 </main>
                 <Footer />
+                {showPopup && (
+                    <SaveSuccessPopup
+                        type="resep"
+                        onClose={() => setShowPopup(false)}
+                    />
+                )}
             </div>
         </>
     );

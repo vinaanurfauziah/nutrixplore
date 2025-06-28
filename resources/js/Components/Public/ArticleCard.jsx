@@ -1,7 +1,15 @@
 import SaveButton from '@/Components/Common/SaveButton';
 import { motion } from 'framer-motion';
 
-const ArticleCard = ({ category, title, description, imageUrl, slug }) => {
+const ArticleCard = ({
+    category,
+    title,
+    description,
+    imageUrl,
+    slug,
+    onSave,
+    onUnsave,
+}) => {
     return (
         <motion.div
             className="relative overflow-hidden rounded-2xl shadow-md transition"
@@ -33,7 +41,11 @@ const ArticleCard = ({ category, title, description, imageUrl, slug }) => {
                 </h3>
                 <div className="mt-2 flex items-center justify-between text-sm text-white/80 sm:text-base">
                     <p className="line-clamp-2 pr-2">{description}</p>
-                    <SaveButton className="ml-2" />
+                    <SaveButton
+                        onSave={onSave}
+                        onUnsave={onUnsave}
+                        className="ml-2"
+                    />
                 </div>
             </div>
         </motion.div>

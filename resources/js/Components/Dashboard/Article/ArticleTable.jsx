@@ -48,12 +48,12 @@ export default function ArticleTable({ showTitle = true }) {
                         placeholder="Cari nama artikel..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="rounded-lg border border-gray-300 px-4 py-2 text-sm shadow-sm focus:border-[#70B9BE] focus:outline-none focus:ring-2 focus:ring-[#70B9BE]"
+                        className="w-full rounded-lg border border-gray-300 px-4 py-2 text-sm shadow-sm focus:border-[#70B9BE] focus:outline-none focus:ring-2 focus:ring-[#70B9BE] sm:w-auto"
                     />
                     <select
                         value={filterCategory}
                         onChange={(e) => setFilterCategory(e.target.value)}
-                        className="rounded-lg border border-gray-300 px-4 py-2 text-sm shadow-sm focus:border-[#70B9BE] focus:outline-none focus:ring-2 focus:ring-[#70B9BE]"
+                        className="w-full rounded-lg border border-gray-300 px-4 py-2 text-sm shadow-sm focus:border-[#70B9BE] focus:outline-none focus:ring-2 focus:ring-[#70B9BE] sm:w-auto"
                     >
                         <option value="All">Semua Kategori</option>
                         <option value="Tips Masak Sehat">
@@ -66,7 +66,7 @@ export default function ArticleTable({ showTitle = true }) {
                     </select>
                     <button
                         onClick={() => router.get('/dashboard/article/create')}
-                        className="mr-3 inline-flex items-center justify-center rounded-lg bg-[#70B9BE] px-5 py-3 text-center text-sm font-medium text-white hover:bg-[#51979e] focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
+                        className="mr-3 inline-flex w-full items-center justify-center rounded-lg bg-[#70B9BE] px-5 py-3 text-center text-sm font-medium text-white hover:bg-[#51979e] focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900 sm:w-auto"
                     >
                         + Tambah Artikel
                     </button>

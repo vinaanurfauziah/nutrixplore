@@ -6,7 +6,7 @@ const artikelData = [
         description:
             'Alpukat kaya akan lemak sehat dan serat yang baik untuk jantung.',
         imageUrl: '/images/artikel-alpukat.jpg',
-        category: 'Nutrisi',
+        category: 'Kondisi Kesehatan',
         content: [
             'Alpukat mengandung lemak tak jenuh tunggal yang dapat membantu menurunkan kadar kolesterol jahat (LDL)...',
             'Kandungan seratnya membantu memperlancar pencernaan dan menjaga berat badan ideal...',
@@ -23,7 +23,7 @@ const artikelData = [
         description:
             'Cara mudah dan praktis untuk memasak sehat tanpa kehilangan rasa.',
         imageUrl: '/images/artikel-masak.jpg',
-        category: 'Tips Memasak',
+        category: 'Nutrisi dan Pola Makan',
         content: [
             'Gunakan metode memasak seperti kukus dan panggang untuk mengurangi penggunaan minyak...',
             'Pilih bahan segar dan hindari makanan olahan sebisa mungkin...',
@@ -39,7 +39,7 @@ const artikelData = [
         description:
             'Pelajari perbedaan karbohidrat kompleks dan sederhana serta dampaknya bagi tubuh.',
         imageUrl: '/images/artikel-karbohidrat.jpg',
-        category: 'Nutrisi',
+        category: 'Gaya Hidup Sehat',
         content: [
             'Karbohidrat kompleks dicerna lebih lambat dan memberikan energi lebih stabil...',
             'Contohnya adalah gandum utuh, beras merah, dan oatmeal...',
@@ -55,7 +55,7 @@ const artikelData = [
         description:
             'Rekomendasi menu sarapan yang praktis dan bergizi untuk mendukung aktivitas anak.',
         imageUrl: '/images/artikel-sarapan.jpg',
-        category: 'Keluarga',
+        category: 'Bahan Makanan',
         content: [
             'Sarapan penting untuk mendukung konsentrasi dan stamina anak selama sekolah...',
             'Contoh menu sehat: roti gandum isi telur, susu, dan buah segar...',
@@ -71,7 +71,7 @@ const artikelData = [
         description:
             'Air putih penting untuk metabolisme, suhu tubuh, dan detoksifikasi alami.',
         imageUrl: '/images/artikel-airputih.jpg',
-        category: 'Hidup Sehat',
+        category: 'Tips Makan Sehat',
         content: [
             'Minum cukup air membantu melancarkan pencernaan dan menjaga keseimbangan cairan tubuh...',
             'Disarankan minum minimal 8 gelas air per hari...',
@@ -87,7 +87,7 @@ const artikelData = [
         description:
             'Serat membantu pencernaan dan mencegah berbagai penyakit kronis.',
         imageUrl: '/images/artikel-serat.jpg',
-        category: 'Gizi',
+        category: 'Nutrisi dan Pola Makan',
         content: [
             'Makanan tinggi serat termasuk sayuran hijau, buah, dan biji-bijian...',
             'Serat juga mendukung penurunan berat badan secara alami...',
@@ -103,7 +103,7 @@ const artikelData = [
         description:
             'Terlalu banyak gula dapat memicu diabetes, obesitas, dan penyakit lainnya.',
         imageUrl: '/images/artikel-gula.jpg',
-        category: 'Pola Makan',
+        category: 'Gaya Hidup Sehat',
         content: [
             'Gunakan rempah-rempah alami seperti kayu manis atau vanila sebagai pengganti...',
             'Baca label nutrisi dengan teliti sebelum membeli produk olahan...',
@@ -119,7 +119,7 @@ const artikelData = [
         description:
             'Tidak semua lemak buruk, kenali jenis lemak sehat dan manfaatnya.',
         imageUrl: '/images/artikel-lemak.jpg',
-        category: 'Nutrisi',
+        category: 'Bahan Makanan',
         content: [
             'Lemak sehat seperti omega-3 mendukung fungsi otak dan jantung...',
             'Sumbernya bisa dari ikan laut dalam, alpukat, dan kacang-kacangan...',

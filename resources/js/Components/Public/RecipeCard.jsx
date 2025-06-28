@@ -18,9 +18,14 @@ const RecipeCard = ({
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.6 }}
             whileHover={{
-                scale: 1.03,
-                y: -4,
-                boxShadow: '0 12px 24px rgba(0,0,0,0.15)',
+                scale: 1.05,
+                y: -5,
+                boxShadow: '0 12px 24px rgba(0,0,0,0.1)',
+                transition: {
+                    type: 'spring',
+                    stiffness: 300,
+                    damping: 15,
+                },
             }}
             whileTap={{ scale: 0.97 }}
         >

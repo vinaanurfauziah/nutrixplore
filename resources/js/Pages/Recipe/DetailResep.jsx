@@ -1,18 +1,42 @@
-// resources/js/Pages/Recipe/DetailResep.jsx
 import Breadcrumb from '@/Components/Common/Breadcrumb';
+import SaveSuccessPopup from '@/Components/Common/SaveSuccessPopup';
 import ShareBox from '@/Components/Common/ShareBox';
+import TagList from '@/Components/Common/TagList';
 import DetailHero from '@/Components/Partials/Recipe/DetailHero';
 import DetailTabs from '@/Components/Partials/Recipe/DetailTabs';
-import RelatedCategories from '@/Components/Partials/Recipe/RelatedCategories';
-import CommentSection from '@/Components/Public/CommentSection';
 import Footer from '@/Components/Templates/Footer';
 import Navbar from '@/Components/Templates/Navbar';
+import resepData from '@/data/resepData';
 import { Head } from '@inertiajs/react';
+import { useState } from 'react';
+
+function findResep(kategori, subkategori, slug) {
+    return resepData?.[kategori]?.[subkategori]?.find((r) => r.slug === slug);
+}
 
 export default function DetailResep({ auth, kategori, subkategori, slug }) {
+    const resep = findResep(kategori, subkategori, slug);
+
+    const [showPopup, setShowPopup] = useState(false);
+
+    const handleSave = () => {
+        setShowPopup(true);
+        setTimeout(() => {
+            setShowPopup(false);
+        }, 3000);
+    };
+
+    const handleUnsave = () => {
+        console.log('Resep dibatalkan penyimpanannya');
+    };
+
+    if (!resep) {
+        return <div>Resep tidak ditemukan</div>;
+    }
+
     return (
         <>
-            <Head title={slug.replace(/-/g, ' ')} />
+            <Head title={resep.judul} />
             <div className="flex min-h-screen flex-col">
                 <Navbar auth={auth} />
 
@@ -28,18 +52,46 @@ export default function DetailResep({ auth, kategori, subkategori, slug }) {
                     ]}
                 />
 
-                <main className="flex-grow">
-                    <DetailHero slug={slug} />
-                    <DetailTabs />
-                    <RelatedCategories />
-                    <ShareBox label="Bagikan Resep Ini:" bg="gray" />
+                <main className="flex-grow space-y-8">
+                    <DetailHero
+                        title={resep.judul}
+                        stats={{
+                            kalori: resep.kalori,
+                            durasi: resep.durasi,
+                            cook: resep.durasi,
+                            porsi: resep.porsi || 1,
+                        }}
+                        gambar={resep.gambar}
+                        onSave={handleSave}
+                        onUnsave={handleUnsave}
+                    />
+                    <DetailTabs
+                        bahan={resep.bahan}
+                        langkah={resep.langkah}
+                        nutrisi={resep.nutrisi}
+                    />
+                    <TagList
+                        tags={[
+                            'Sarapan',
+                            'Diabetes',
+                            'Rendah Kalori',
+                            'Ketogenic',
+                        ]}
+                        title="Kategori yang Relevan"
+                        animated={true}
+                    />
 
-                    <section className="bg-white dark:bg-gray-900">
-                        <CommentSection className="mt-auto" />
-                    </section>
+                    <ShareBox label="Bagikan Resep Ini:" bg="gray" />
                 </main>
 
                 <Footer />
+
+                {showPopup && (
+                    <SaveSuccessPopup
+                        type="resep"
+                        onClose={() => setShowPopup(false)}
+                    />
+                )}
             </div>
         </>
     );
