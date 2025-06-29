@@ -1,16 +1,9 @@
 import { motion } from 'framer-motion';
-import {
-    HiBeaker,
-    HiBookOpen,
-    HiClipboardList,
-    HiCollection,
-} from 'react-icons/hi';
+import { HiBookOpen, HiClipboardList } from 'react-icons/hi';
 
 const icons = {
     'Total Resep': HiClipboardList,
     'Total Artikel': HiBookOpen,
-    'Kategori Resep & Artikel': HiCollection,
-    'Total Satuan Takaran': HiBeaker,
 };
 
 const cardVariants = {
@@ -29,7 +22,7 @@ export default function StatBox({ title, value }) {
 
     return (
         <motion.div
-            className="flex flex-wrap items-center gap-4 min-w-0 rounded-2xl bg-white p-6 shadow-md"
+            className="flex min-w-0 flex-wrap items-center gap-4 rounded-2xl bg-white p-6 shadow-md"
             variants={cardVariants}
             initial="hidden"
             animate="visible"
@@ -45,7 +38,7 @@ export default function StatBox({ title, value }) {
             </motion.div>
             <div className="min-w-0">
                 <h3 className="text-lg font-bold text-gray-800">{value}</h3>
-                <p className="text-base text-gray-500 break-words">{title}</p>
+                <p className="break-words text-base text-gray-500">{title}</p>
             </div>
         </motion.div>
     );

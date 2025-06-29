@@ -1,61 +1,85 @@
+import DashboardNavbar from '@/Components/Dashboard/Navbar';
 import DashboardSidebar from '@/Components/Dashboard/Sidebar';
-import RecipeCard from '@/Components/Public/RecipeCard';
+import ArticleCard from '@/Components/Public/ArticleCard';
+import artikelData from '@/data/artikelData';
 import { Head } from '@inertiajs/react';
-
-const savedArticles = [
-    {
-        title: 'Panduan Pola Makan Sehat untuk Anak',
-        imageUrl:
-            'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/office-long-2.png',
-        link: '/article/detailArticle',
-    },
-    {
-        title: 'Tips Mengurangi Gula Harian',
-        imageUrl:
-            'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/office-long-2.png',
-        link: '#',
-    },
-    {
-        title: 'Manfaat Serat untuk Pencernaan',
-        imageUrl:
-            'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/office-long-2.png',
-        link: '#',
-    },
-    {
-        title: 'Manfaat Serat untuk Pencernaan',
-        imageUrl:
-            'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/office-long-2.png',
-        link: '#',
-    },
-];
+import { motion } from 'framer-motion';
+import { useState } from 'react';
 
 export default function SavedArticles() {
+    const savedArticles = artikelData.slice(0, 8);
+    const [showPopup, setShowPopup] = useState(false);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+    const toggleSidebar = () => {
+        setIsSidebarOpen(!isSidebarOpen);
+    };
+
+    const handleSave = () => {
+        setShowPopup(true);
+        setTimeout(() => setShowPopup(false), 3000);
+    };
+
+    const handleUnsave = () => {
+        console.log('Artikel dibatalkan penyimpanannya');
+    };
+
     return (
         <>
             <Head title="Artikel Tersimpan" />
-
             <div className="flex min-h-screen bg-gray-100">
+                {/* Sidebar Desktop */}
                 <aside className="hidden w-64 bg-white shadow-md md:block">
                     <DashboardSidebar />
                 </aside>
 
-                <main className="flex-1 p-6 md:p-8">
-                    <div className="rounded-lg bg-white p-6 shadow">
+                {/* Sidebar Mobile */}
+                {isSidebarOpen && (
+                    <div
+                        className="fixed inset-0 z-40 bg-black bg-opacity-50 md:hidden"
+                        onClick={toggleSidebar}
+                    >
+                        <div
+                            className="absolute left-0 top-0 z-50 h-full w-64 bg-white shadow-md"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <DashboardSidebar onClose={toggleSidebar} />
+                        </div>
+                    </div>
+                )}
+
+                {/* Main Content */}
+                <main className="flex-1 p-4 sm:p-6 md:p-8">
+                    <DashboardNavbar
+                        toggleSidebar={toggleSidebar}
+                        breadcrumbItems={[{ label: 'Artikel Tersimpan' }]}
+                    />
+
+                    <motion.div
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5 }}
+                        className="mt-4 rounded-lg bg-white p-6 shadow-sm"
+                    >
                         <h1 className="mb-6 text-2xl font-bold text-gray-800">
                             Artikel Tersimpan
                         </h1>
 
-                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                        <div className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3 lg:grid-cols-4">
                             {savedArticles.map((article, index) => (
-                                <RecipeCard
+                                <ArticleCard
                                     key={index}
+                                    category={article.category}
                                     title={article.title}
+                                    description={article.description}
                                     imageUrl={article.imageUrl}
-                                    link={article.link}
+                                    slug={article.slug}
+                                    onSave={handleSave}
+                                    onUnsave={handleUnsave}
                                 />
                             ))}
                         </div>
-                    </div>
+                    </motion.div>
                 </main>
             </div>
         </>

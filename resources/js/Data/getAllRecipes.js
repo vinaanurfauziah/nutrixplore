@@ -13,7 +13,7 @@ export default function getAllRecipes() {
                     subkategori: subkategoriSlug,
                     labelSubkategori:
                         kategoriData?.[kategoriSlug]?.subkategori.find(
-                            (item) => item.slug === subkategoriSlug
+                            (item) => item.slug === subkategoriSlug,
                         )?.nama || subkategoriSlug,
                 });
             });
