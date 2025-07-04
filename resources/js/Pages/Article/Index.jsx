@@ -2,12 +2,11 @@ import Breadcrumb from '@/Components/Common/Breadcrumb';
 import Footer from '@/Components/Templates/Footer';
 import Navbar from '@/Components/Templates/Navbar';
 import { Head } from '@inertiajs/react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
-import artikelData from '@/data/artikelData';
 import FilterOptions from '@/data/FilterOptions';
+import getAllArticles from '@/data/getAllArticles'; // ✅ pakai ini saja
 
-import MoreButton from '@/Components/Common/MoreButton';
 import SaveSuccessPopup from '@/Components/Common/SaveSuccessPopup';
 import SectionHeading from '@/Components/Common/SectionHeading';
 import ArticleFilter from '@/Components/Partials/Article/ArticleFilter';
@@ -16,44 +15,21 @@ import ArticleGrid from '@/Components/Partials/Article/ArticleGrid';
 import { motion } from 'framer-motion';
 
 export default function Article({ auth }) {
+    const artikelData = getAllArticles(); // ✅ Pindahkan ke sini
+
     const artikelOptions = FilterOptions.Artikel || [];
 
-    const [visibleCount, setVisibleCount] = useState(4);
     const [showPopup, setShowPopup] = useState(false);
-    const [selectedCategories, setSelectedCategories] = useState([]);
+    const [selectedCategories, setSelectedCategories] = useState([
+        'Semua Artikel',
+    ]);
 
     // Filter berdasarkan kategori
-    const filteredArticles = artikelData.filter((article) => {
-        if (
-            selectedCategories.length === 0 ||
-            selectedCategories.includes('Semua Artikel')
-        ) {
-            return true;
-        }
-
-        const match = selectedCategories.some(
-            (category) =>
-                category.toLowerCase().trim() ===
-                article.category.toLowerCase().trim(),
-        );
-        console.log('selectedCategories:', selectedCategories);
-        console.log('cek artikel:', article.category, '=> match:', match);
-
-        return match;
-    });
-
-    const visibleArticles = filteredArticles.slice(0, visibleCount);
-
-    // Reset jumlah artikel saat filter berubah
-    useEffect(() => {
-        setVisibleCount(4);
-    }, [selectedCategories]);
-
-    const handleLoadMore = () => {
-        if (visibleCount < filteredArticles.length) {
-            setVisibleCount((prev) => prev + 4);
-        }
-    };
+    const filteredArticles = selectedCategories.includes('Semua Artikel')
+        ? artikelData
+        : artikelData.filter((article) =>
+              selectedCategories.includes(article.category),
+          );
 
     const handleSave = () => {
         setShowPopup(true);
@@ -94,49 +70,17 @@ export default function Article({ auth }) {
                                 <ArticleFilter
                                     options={artikelOptions}
                                     selected={selectedCategories}
-                                    onChange={(newSelection) => {
-                                        // Jika kosong, anggap Semua Artikel
-                                        if (newSelection.length === 0) {
-                                            setSelectedCategories([]);
-                                            return;
-                                        }
-
-                                        // Jika pilih "Semua Artikel" + lainnya, hapus "Semua Artikel"
-                                        const hasSemua =
-                                            newSelection.includes(
-                                                'Semua Artikel',
-                                            );
-                                        const filteredSelection = hasSemua
-                                            ? newSelection.filter(
-                                                  (item) =>
-                                                      item !== 'Semua Artikel',
-                                              )
-                                            : newSelection;
-
-                                        setSelectedCategories(
-                                            filteredSelection,
-                                        );
-                                    }}
+                                    onChange={setSelectedCategories}
                                 />
 
                                 {/* Daftar Artikel atau Fallback */}
-                                {visibleArticles.length > 0 ? (
-                                    <>
-                                        <ArticleGrid
-                                            articles={visibleArticles}
-                                            onSave={handleSave}
-                                            onUnsave={handleUnsave}
-                                        />
-                                        {filteredArticles.length >
-                                            visibleCount && (
-                                            <div className="mt-6 text-center">
-                                                <MoreButton
-                                                    text="Lihat Artikel Lainnya"
-                                                    onClick={handleLoadMore}
-                                                />
-                                            </div>
-                                        )}
-                                    </>
+                                {filteredArticles.length > 0 ? (
+                                    <ArticleGrid
+                                        key={selectedCategories.join(',')}
+                                        articles={filteredArticles}
+                                        onSave={handleSave}
+                                        onUnsave={handleUnsave}
+                                    />
                                 ) : (
                                     <div className="mt-12 text-center text-gray-500 dark:text-gray-400">
                                         <svg

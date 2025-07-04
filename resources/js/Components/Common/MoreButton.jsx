@@ -1,14 +1,16 @@
+import { Link } from '@inertiajs/react';
+
 export default function MoreButton({
     text = 'Lihat Selengkapnya',
-    onClick,
+    href = '#',
     className = '',
 }) {
     return (
         <div
             className={`py-8 text-center text-lg font-bold leading-tight tracking-tight md:text-lg lg:mb-6 ${className}`}
         >
-            <button
-                onClick={onClick}
+            <Link
+                href={href}
                 className="inline-flex items-center justify-center rounded-lg bg-[#70B9BE] px-5 py-3 text-white hover:bg-[#51979e]"
             >
                 {text}
@@ -23,7 +25,7 @@ export default function MoreButton({
                         clipRule="evenodd"
                     />
                 </svg>
-            </button>
+            </Link>
         </div>
     );
 }

@@ -6,28 +6,16 @@ import { HiMenuAlt3, HiX } from 'react-icons/hi';
 
 const Navbar = ({ auth }) => {
     const { url } = usePage();
-
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    const toggleDropdown = () => {
-        setDropdownOpen(!dropdownOpen);
-    };
-
-    const closeDropdown = () => {
-        setDropdownOpen(false);
-    };
-
-    const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen);
-    };
-
-    const closeMenu = () => {
-        setIsMenuOpen(false);
-    };
+    const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
+    const closeDropdown = () => setDropdownOpen(false);
+    const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+    const closeMenu = () => setIsMenuOpen(false);
 
     return (
-        <nav className="border-gray-200 bg-white px-4 py-2.5 text-lg dark:bg-gray-800 lg:px-6">
+        <nav className="border-gray-200 bg-white px-4 py-2.5 text-lg dark:bg-gray-800 lg:px-6 z-50 relative">
             <div className="mx-auto flex max-w-screen-2xl flex-wrap items-center justify-between">
                 <a href="/" className="flex items-center">
                     <img
@@ -41,7 +29,26 @@ const Navbar = ({ auth }) => {
                 </a>
 
                 <div className="relative flex items-center gap-3 lg:order-2">
-                    {auth.user ? (
+                    {/* DESKTOP LOGIN/REGISTER */}
+                    {!auth.user && (
+                        <div className="hidden items-center gap-3 lg:flex">
+                            <Link
+                                href={route('login')}
+                                className="rounded-lg border border-[#70B9BE] px-5 py-2.5 text-lg font-medium text-[#70B9BE] hover:bg-[#70B9BE] hover:text-white focus:outline-none focus:ring-4 focus:ring-blue-300"
+                            >
+                                Masuk
+                            </Link>
+                            <Link
+                                href={route('register')}
+                                className="rounded-lg border border-[#70B9BE] bg-[#70B9BE] px-5 py-2.5 text-lg font-medium text-white hover:bg-transparent hover:text-[#70B9BE] focus:outline-none focus:ring-4 focus:ring-blue-300"
+                            >
+                                Daftar
+                            </Link>
+                        </div>
+                    )}
+
+                    {/* USER DROPDOWN */}
+                    {auth.user && (
                         <div className="relative">
                             <button
                                 onClick={toggleDropdown}
@@ -85,23 +92,9 @@ const Navbar = ({ auth }) => {
                                 </div>
                             )}
                         </div>
-                    ) : (
-                        <>
-                            <Link
-                                href={route('login')}
-                                className="rounded-lg border border-[#70B9BE] px-5 py-2.5 text-lg font-medium text-[#70B9BE] hover:bg-[#70B9BE] hover:text-white focus:outline-none focus:ring-4 focus:ring-blue-300 dark:border-blue-500 dark:text-blue-400 dark:hover:bg-blue-500 dark:hover:text-white dark:focus:ring-blue-800"
-                            >
-                                Masuk
-                            </Link>
-                            <Link
-                                href={route('register')}
-                                className="rounded-lg border border-[#70B9BE] bg-[#70B9BE] px-5 py-2.5 text-lg font-medium text-white hover:bg-transparent hover:text-[#70B9BE] focus:outline-none focus:ring-4 focus:ring-blue-300 dark:border-blue-500 dark:bg-blue-600 dark:hover:bg-transparent dark:hover:text-blue-400 dark:focus:ring-blue-800"
-                            >
-                                Daftar
-                            </Link>
-                        </>
                     )}
 
+                    {/* HAMBURGER BUTTON */}
                     <button
                         onClick={toggleMenu}
                         className="inline-flex items-center rounded-lg p-2 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-700 lg:hidden"
@@ -114,6 +107,7 @@ const Navbar = ({ auth }) => {
                     </button>
                 </div>
 
+                {/* NAV MENU */}
                 <div
                     className={`w-full overflow-hidden transition-all duration-300 ease-in-out lg:order-1 lg:flex lg:w-auto ${
                         isMenuOpen ? 'block' : 'hidden'
@@ -172,6 +166,30 @@ const Navbar = ({ auth }) => {
                                 Tentang Kami
                             </Link>
                         </li>
+
+                        {/* MOBILE LOGIN/REGISTER */}
+                        {!auth.user && (
+                            <>
+                                <li className="mt-3 lg:hidden">
+                                    <Link
+                                        href={route('login')}
+                                        className="block w-full rounded-md border border-[#70B9BE] px-4 py-2 text-center text-[#70B9BE] hover:bg-[#70B9BE] hover:text-white"
+                                        onClick={closeMenu}
+                                    >
+                                        Masuk
+                                    </Link>
+                                </li>
+                                <li className="mt-2 lg:hidden">
+                                    <Link
+                                        href={route('register')}
+                                        className="block w-full rounded-md border border-[#70B9BE] bg-[#70B9BE] px-4 py-2 text-center text-white hover:bg-transparent hover:text-[#70B9BE]"
+                                        onClick={closeMenu}
+                                    >
+                                        Daftar
+                                    </Link>
+                                </li>
+                            </>
+                        )}
                     </ul>
                 </div>
             </div>

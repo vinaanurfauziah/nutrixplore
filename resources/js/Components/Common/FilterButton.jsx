@@ -1,22 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 
-const FilterButton = ({ text, options, onChange }) => {
+const FilterButton = ({ text, options, selectedOptions = [], onChange }) => {
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef(null);
-    const [checked, setChecked] = useState([]);
 
     const toggleDropdown = () => {
         setIsOpen(!isOpen);
     };
 
     const handleCheckboxChange = (option) => {
-        let newChecked;
-        if (checked.includes(option)) {
-            newChecked = checked.filter((item) => item !== option);
-        } else {
-            newChecked = [...checked, option];
-        }
-        setChecked(newChecked);
         onChange(option); // Inform parent component
     };
 
@@ -80,7 +72,7 @@ const FilterButton = ({ text, options, onChange }) => {
                                         id={id}
                                         type="checkbox"
                                         className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-[#70B9BE] focus:ring-2 focus:ring-[#70B9BE] dark:border-gray-500 dark:bg-gray-600 dark:ring-offset-gray-700 dark:focus:ring-[#70B9BE]"
-                                        checked={checked.includes(option)}
+                                        checked={selectedOptions.includes(option)}
                                         onChange={() =>
                                             handleCheckboxChange(option)
                                         }

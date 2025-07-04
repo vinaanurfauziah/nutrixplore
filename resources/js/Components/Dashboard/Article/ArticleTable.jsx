@@ -2,6 +2,7 @@ import { router } from '@inertiajs/react';
 import { useState } from 'react';
 import { FiFilter, FiPlus, FiSearch } from 'react-icons/fi';
 import ArticleRow from './ArticleRow';
+import artikelData from '@/data/artikelData';
 
 export default function ArticleTable({ showTitle = true }) {
     const [searchQuery, setSearchQuery] = useState('');
@@ -10,20 +11,11 @@ export default function ArticleTable({ showTitle = true }) {
     const [showSearch, setShowSearch] = useState(false);
     const [showFilter, setShowFilter] = useState(false);
 
-    const articles = [
-        {
-            title: 'Tips Memasak Tanpa Minyak untuk Diet Sehat',
-            category: 'Tips Masak Sehat',
-        },
-        {
-            title: '5 Bahan Makanan Tinggi Serat untuk Menjaga Kesehatan Pencernaan',
-            category: 'Bahan Makanan',
-        },
-        {
-            title: 'Panduan Pola Makan Rendah Garam untuk Penderita Hipertensi',
-            category: 'Kondisi Kesehatan',
-        },
-    ];
+    const articles = artikelData.map((item) => ({
+    title: item.title,
+    category: item.category,
+}));
+
 
     const filteredArticles = articles.filter((article) => {
         const matchSearch = article.title

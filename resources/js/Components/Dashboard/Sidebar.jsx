@@ -22,7 +22,7 @@ import { route } from 'ziggy-js';
 
 export default function SidebarComponent({ onClose }) {
     const { auth } = usePage().props;
-    const userRole = auth?.user?.role || 'member';
+    const userRole = auth?.user?.role || 'admin';
     const { post } = useForm();
 
     const handleLogout = (e) => {

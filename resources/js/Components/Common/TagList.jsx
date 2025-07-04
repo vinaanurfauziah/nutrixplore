@@ -17,20 +17,20 @@ export default function TagList({
                             animated ? (
                                 <motion.a
                                     key={index}
+                                    href={tag.href}
                                     whileHover={{ scale: 1.05, y: -2 }}
                                     whileTap={{ scale: 0.95 }}
-                                    href="#"
                                     className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#70B9BE] to-[#45A29E] px-5 py-2 text-sm font-semibold text-white shadow-sm transition duration-300 ease-in-out hover:from-gray-700 hover:to-gray-600 hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-[#70B9BE] dark:from-gray-700 dark:to-gray-600"
                                 >
-                                    {tag}
+                                    {tag.label}
                                 </motion.a>
                             ) : (
                                 <a
                                     key={index}
-                                    href="#"
+                                    href={tag.href}
                                     className="mr-3 inline-flex items-center justify-center rounded-3xl bg-[#70B9BE] px-5 py-2 text-center text-sm font-medium text-white hover:bg-gray-700 focus:ring-4 focus:ring-gray-700"
                                 >
-                                    {tag}
+                                    {tag.label}
                                 </a>
                             ),
                         )}

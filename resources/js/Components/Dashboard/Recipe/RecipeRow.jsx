@@ -3,17 +3,27 @@ import { FiEdit2, FiMoreVertical, FiTrash2 } from 'react-icons/fi';
 
 export default function RecipeRow({
     name,
+    image,
     dish,
     conditions,
     diet,
     allergy,
     nutrition,
+    method,
     isOpen,
     onToggle,
 }) {
     const handleEdit = () => {
         router.get('/dashboard/resep/edit', {
-            recipe: { name, dish, conditions, diet, allergy, nutrition },
+            recipe: {
+                name,
+                dish,
+                conditions,
+                diet,
+                allergy,
+                nutrition,
+                method,
+            },
         });
     };
 
@@ -27,13 +37,25 @@ export default function RecipeRow({
         <tr className="relative border-t">
             <td className="px-4 py-3">{name}</td>
             <td className="px-4 py-3">
-                <div className="mx-auto h-10 w-10 rounded bg-gray-200" />
+                <img
+                    src={image}
+                    alt={name}
+                    className="h-12 w-12 rounded object-cover"
+                />
             </td>
+
             <td className="px-4 py-3">{dish}</td>
-            <td className="px-4 py-3">{conditions}</td>
-            <td className="px-4 py-3">{diet}</td>
-            <td className="px-4 py-3">{allergy}</td>
-            <td className="px-4 py-3">{nutrition}</td>
+            <td className="px-4 py-3">{conditions || '-'}</td>
+            <td className="px-4 py-3">{diet || '-'}</td>
+            <td className="px-4 py-3">{allergy || '-'}</td>
+
+            <td className="px-4 py-3">
+                {Array.isArray(nutrition)
+                    ? nutrition.join(', ')
+                    : nutrition || '-'}
+            </td>
+            <td className="px-4 py-3">{method || '-'}</td>
+
             <td className="relative px-4 py-3">
                 <button
                     onClick={onToggle}

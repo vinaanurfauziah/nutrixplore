@@ -70,7 +70,10 @@ export default function DetailArticle({ auth, slug }) {
 
                         {/* Tag */}
                         <TagList
-                            tags={article.tags}
+                            tags={article.tags.map((tag) => ({
+                                label: tag,
+                                href: `/article?tags=${encodeURIComponent(tag)}`,
+                            }))}
                             title="Topik Terkait"
                             animated={false}
                         />

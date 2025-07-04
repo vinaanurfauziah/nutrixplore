@@ -14,8 +14,31 @@ function findResep(kategori, subkategori, slug) {
     return resepData?.[kategori]?.[subkategori]?.find((r) => r.slug === slug);
 }
 
+// ✅ Fungsi tambahan untuk menemukan semua kategori relevan berdasarkan slug
+function findTagsForResep(slug) {
+    const tags = [];
+
+    Object.entries(resepData).forEach(([kategori, subkategoriObj]) => {
+        Object.entries(subkategoriObj).forEach(([subkategori, resepList]) => {
+            const match = resepList.find((r) => r.slug === slug);
+            if (match) {
+                const label = subkategori
+                    .replace(/_/g, ' ')
+                    .replace(/\b\w/g, (c) => c.toUpperCase());
+                tags.push({
+                    label, // yang ditampilkan
+                    href: `/recipe/${kategori}/${subkategori}`, // yang diklik
+                });
+            }
+        });
+    });
+
+    return tags;
+}
+
 export default function DetailResep({ auth, kategori, subkategori, slug }) {
     const resep = findResep(kategori, subkategori, slug);
+    const tags = findTagsForResep(slug);
 
     const [showPopup, setShowPopup] = useState(false);
 
@@ -65,18 +88,16 @@ export default function DetailResep({ auth, kategori, subkategori, slug }) {
                         onSave={handleSave}
                         onUnsave={handleUnsave}
                     />
+
                     <DetailTabs
                         bahan={resep.bahan}
                         langkah={resep.langkah}
                         nutrisi={resep.nutrisi}
                     />
+
+                    {/* ✅ Menampilkan tag berdasarkan hasil pencarian */}
                     <TagList
-                        tags={[
-                            'Sarapan',
-                            'Diabetes',
-                            'Rendah Kalori',
-                            'Ketogenic',
-                        ]}
+                        tags={findTagsForResep(resep.slug)}
                         title="Kategori yang Relevan"
                         animated={true}
                     />

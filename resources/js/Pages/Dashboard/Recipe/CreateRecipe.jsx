@@ -1,6 +1,6 @@
+import DashboardNavbar from '@/Components/Dashboard/Navbar';
 import RecipeForm from '@/Components/Dashboard/Recipe/RecipeForm';
 import DashboardSidebar from '@/Components/Dashboard/Sidebar';
-import DashboardNavbar from '@/Components/Dashboard/Navbar';
 import { Head } from '@inertiajs/react';
 import { useState } from 'react';
 
@@ -57,7 +57,7 @@ export default function CreateRecipe() {
                         </button>
                     </div>
 
-                    <div className="rounded-lg p-6 shadow-sm bg-white">
+                    <div className="rounded-lg bg-white p-6 shadow-sm">
                         <RecipeForm />
                     </div>
                 </main>
