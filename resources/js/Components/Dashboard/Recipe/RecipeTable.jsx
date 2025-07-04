@@ -1,3 +1,5 @@
+import getAllRecipesAdmin from '@/data/getAllRecipesAdmin';
+import kategoriData from '@/data/kategoriData';
 import { router } from '@inertiajs/react';
 import { useState } from 'react';
 import { FiFilter, FiPlus, FiSearch } from 'react-icons/fi';
@@ -10,37 +12,18 @@ export default function RecipeTable({ showTitle = true }) {
     const [showSearch, setShowSearch] = useState(false);
     const [showFilter, setShowFilter] = useState(false);
 
-    const recipes = [
-        {
-            name: 'Smoothie Pisang Almond',
-            dish: 'Minuman',
-            conditions: 'Penyakit Jantung, Diabetes',
-            diet: 'Dairy Free, Vegan',
-            allergy: 'Almond (Tree Nuts)',
-            nutrition: 'High Fiber, Low Sugar',
-        },
-        {
-            name: 'Oatmeal Buah Berry',
-            dish: 'Sarapan',
-            conditions: 'Penyakit Jantung, Diabetes',
-            diet: 'Vegan, Gluten Free',
-            allergy: 'Gluten',
-            nutrition: 'High Fiber, Low Sugar',
-        },
-        {
-            name: 'Ayam Panggang Lemon',
-            dish: 'Makanan Utama',
-            conditions: 'Kesehatan Tulang, Penyakit Jantung',
-            diet: 'High Protein, Low Carb',
-            allergy: '-',
-            nutrition: 'High Protein, Low Fat',
-        },
+    const recipes = getAllRecipesAdmin();
+
+    const dishOptions = [
+        'All',
+        ...kategoriData.hidangan.subkategori.map((s) => s.nama),
     ];
 
     const filteredRecipes = recipes.filter((recipe) => {
-        const matchSearch = recipe.name
-            .toLowerCase()
+        const matchSearch = recipe.judul
+            ?.toLowerCase()
             .includes(searchQuery.toLowerCase());
+
         const matchFilter = filterDish === 'All' || recipe.dish === filterDish;
         return matchSearch && matchFilter;
     });
@@ -70,10 +53,11 @@ export default function RecipeTable({ showTitle = true }) {
                         onChange={(e) => setFilterDish(e.target.value)}
                         className="rounded-lg border border-gray-300 px-4 py-2 text-sm shadow-sm focus:border-[#70B9BE] focus:outline-none focus:ring-2 focus:ring-[#70B9BE]"
                     >
-                        <option value="All">Semua Hidangan</option>
-                        <option value="Minuman">Minuman</option>
-                        <option value="Sarapan">Sarapan</option>
-                        <option value="Makanan Utama">Makanan Utama</option>
+                        {dishOptions.map((dish, idx) => (
+                            <option key={idx} value={dish}>
+                                {dish === 'All' ? 'Semua Hidangan' : dish}
+                            </option>
+                        ))}
                     </select>
 
                     <button
@@ -130,10 +114,11 @@ export default function RecipeTable({ showTitle = true }) {
                             onChange={(e) => setFilterDish(e.target.value)}
                             className="w-full rounded-lg border border-gray-300 px-4 py-2 text-sm shadow-sm focus:border-[#70B9BE] focus:outline-none focus:ring-2 focus:ring-[#70B9BE]"
                         >
-                            <option value="All">Semua Hidangan</option>
-                            <option value="Minuman">Minuman</option>
-                            <option value="Sarapan">Sarapan</option>
-                            <option value="Makanan Utama">Makanan Utama</option>
+                            {dishOptions.map((dish, idx) => (
+                                <option key={idx} value={dish}>
+                                    {dish === 'All' ? 'Semua Hidangan' : dish}
+                                </option>
+                            ))}
                         </select>
                     </div>
                 )}
@@ -175,12 +160,15 @@ export default function RecipeTable({ showTitle = true }) {
                             filteredRecipes.map((recipe, index) => (
                                 <RecipeRow
                                     key={index}
-                                    name={recipe.name}
+                                    name={recipe.judul}
+                                    image={recipe.gambar}
+                                    slug={recipe.slug}
                                     dish={recipe.dish}
-                                    conditions={recipe.conditions}
+                                    conditions={recipe.kondisi}
                                     diet={recipe.diet}
-                                    allergy={recipe.allergy}
-                                    nutrition={recipe.nutrition}
+                                    allergy={recipe.alergi}
+                                    nutrition={recipe.nutrisi}
+                                    method={recipe.metode}
                                     isOpen={openRowIndex === index}
                                     onToggle={() =>
                                         setOpenRowIndex(

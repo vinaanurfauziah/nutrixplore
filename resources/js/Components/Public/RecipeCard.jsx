@@ -1,5 +1,5 @@
-import { motion } from 'framer-motion';
 import SaveButton from '@/Components/Common/SaveButton';
+import { motion } from 'framer-motion';
 
 const RecipeCard = ({
     title,
@@ -21,14 +21,14 @@ const RecipeCard = ({
                 <img
                     src={imageUrl}
                     alt={title}
-                    className="h-full w-full object-cover rounded-2xl"
+                    className="h-full w-full rounded-2xl object-cover"
                 />
             </div>
 
             {/* Overlay Konten */}
             <div className="absolute bottom-3 left-3 right-3 rounded-xl bg-[#70B9BE]/95 px-3 py-2 text-white shadow-md sm:bottom-4 sm:left-4 sm:right-4 sm:px-4 sm:py-3">
                 <div className="flex h-full flex-col justify-between">
-                    <h3 className="line-clamp-2 text-sm font-semibold leading-snug sm:text-base md:text-lg min-h-[2.8rem] sm:min-h-[3.2rem]">
+                    <h3 className="line-clamp-2 min-h-[2.8rem] text-sm font-semibold leading-snug sm:min-h-[3.2rem] sm:text-base md:text-lg">
                         <a href={link} className="hover:underline">
                             {title}
                         </a>

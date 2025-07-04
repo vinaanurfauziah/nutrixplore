@@ -102,6 +102,12 @@ Route::get('/dashboard/recipe/create', function () {
     return Inertia::render('Dashboard/Recipe/CreateRecipe');
 })->middleware(['auth', 'verified'])->name('dashboard.recipe.create');
 
+Route::get('/dashboard/recipe/edit/{slug}', function ($slug) {
+    return Inertia::render('Dashboard/Recipe/EditRecipe', [
+        'slug' => $slug,
+    ]);
+})->middleware(['auth', 'verified'])->name('dashboard.recipe.edit');
+
 Route::post('/dashboard/recipe', [RecipeController::class, 'store'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard.recipe.store');

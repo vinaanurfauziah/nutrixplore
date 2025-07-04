@@ -1,6 +1,6 @@
 import { FiEdit2, FiMoreVertical, FiTrash2 } from 'react-icons/fi';
 
-export default function ArticleRow({ title, category, isOpen, onToggle }) {
+export default function ArticleRow({ title, category, imageUrl, isOpen, onToggle }) {
     const handleEdit = () => {
         console.log('Edit Artikel:', title);
     };
@@ -15,8 +15,13 @@ export default function ArticleRow({ title, category, isOpen, onToggle }) {
         <tr className="relative border-t">
             <td className="px-4 py-3">{title}</td>
             <td className="px-4 py-3">
-                <div className="mx-auto h-10 w-10 rounded bg-gray-200" />
-            </td>
+    <img
+        src={imageUrl}
+        alt={title}
+        className="h-10 w-10 rounded object-cover"
+    />
+</td>
+
             <td className="px-4 py-3">{category}</td>
             <td className="relative px-4 py-3">
                 <button

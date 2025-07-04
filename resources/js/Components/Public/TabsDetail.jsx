@@ -4,7 +4,7 @@ import { IoDocumentTextOutline } from 'react-icons/io5';
 
 export default function TabsDetail({ bahan = [], langkah = [], nutrisi = {} }) {
     return (
-        <div className="w-full overflow-x-auto">
+        <div className="w-full overflow-x-auto rounded-xl bg-white px-4 pb-4 pt-6 shadow-md dark:bg-gray-800 sm:px-6">
             <Tabs
                 aria-label="Tabs resep"
                 variant="default"

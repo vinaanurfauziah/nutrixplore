@@ -4,6 +4,7 @@ import { FiEdit2, FiMoreVertical, FiTrash2 } from 'react-icons/fi';
 export default function RecipeRow({
     name,
     image,
+    slug,
     dish,
     conditions,
     diet,
@@ -14,18 +15,9 @@ export default function RecipeRow({
     onToggle,
 }) {
     const handleEdit = () => {
-        router.get('/dashboard/resep/edit', {
-            recipe: {
-                name,
-                dish,
-                conditions,
-                diet,
-                allergy,
-                nutrition,
-                method,
-            },
-        });
-    };
+    router.get(`/dashboard/recipe/edit/${slug}`);
+};
+
 
     const handleDelete = () => {
         if (confirm(`Yakin ingin menghapus resep "${name}"?`)) {
@@ -44,7 +36,7 @@ export default function RecipeRow({
                 />
             </td>
 
-            <td className="px-4 py-3">{dish}</td>
+            <td className="px-4 py-3">{dish || '-'}</td>
             <td className="px-4 py-3">{conditions || '-'}</td>
             <td className="px-4 py-3">{diet || '-'}</td>
             <td className="px-4 py-3">{allergy || '-'}</td>

@@ -1,8 +1,8 @@
+import artikelData from '@/data/artikelData';
 import { router } from '@inertiajs/react';
 import { useState } from 'react';
 import { FiFilter, FiPlus, FiSearch } from 'react-icons/fi';
 import ArticleRow from './ArticleRow';
-import artikelData from '@/data/artikelData';
 
 export default function ArticleTable({ showTitle = true }) {
     const [searchQuery, setSearchQuery] = useState('');
@@ -11,11 +11,18 @@ export default function ArticleTable({ showTitle = true }) {
     const [showSearch, setShowSearch] = useState(false);
     const [showFilter, setShowFilter] = useState(false);
 
+    // Ambil data artikel dan siapkan data minimal
     const articles = artikelData.map((item) => ({
-    title: item.title,
-    category: item.category,
-}));
+        title: item.title,
+        category: item.category,
+        imageUrl: item.imageUrl,
+    }));
 
+    // Buat opsi kategori unik otomatis dari artikelData
+    const categoryOptions = [
+        'All',
+        ...new Set(artikelData.map((item) => item.category)),
+    ];
 
     const filteredArticles = articles.filter((article) => {
         const matchSearch = article.title
@@ -48,10 +55,11 @@ export default function ArticleTable({ showTitle = true }) {
                     onChange={(e) => setFilterCategory(e.target.value)}
                     className="rounded-lg border border-gray-300 px-4 py-2 text-sm shadow-sm focus:border-[#70B9BE] focus:outline-none focus:ring-2 focus:ring-[#70B9BE]"
                 >
-                    <option value="All">Semua Kategori</option>
-                    <option value="Tips Masak Sehat">Tips Masak Sehat</option>
-                    <option value="Bahan Makanan">Bahan Makanan</option>
-                    <option value="Kondisi Kesehatan">Kondisi Kesehatan</option>
+                    {categoryOptions.map((cat, idx) => (
+                        <option key={idx} value={cat}>
+                            {cat === 'All' ? 'Semua Kategori' : cat}
+                        </option>
+                    ))}
                 </select>
                 <button
                     onClick={() => router.get('/dashboard/article/create')}
@@ -107,14 +115,11 @@ export default function ArticleTable({ showTitle = true }) {
                         onChange={(e) => setFilterCategory(e.target.value)}
                         className="w-full rounded-lg border border-gray-300 px-4 py-2 text-sm shadow-sm focus:border-[#70B9BE] focus:outline-none focus:ring-2 focus:ring-[#70B9BE]"
                     >
-                        <option value="All">Semua Kategori</option>
-                        <option value="Tips Masak Sehat">
-                            Tips Masak Sehat
-                        </option>
-                        <option value="Bahan Makanan">Bahan Makanan</option>
-                        <option value="Kondisi Kesehatan">
-                            Kondisi Kesehatan
-                        </option>
+                        {categoryOptions.map((cat, idx) => (
+                            <option key={idx} value={cat}>
+                                {cat === 'All' ? 'Semua Kategori' : cat}
+                            </option>
+                        ))}
                     </select>
                 </div>
             )}
@@ -145,6 +150,7 @@ export default function ArticleTable({ showTitle = true }) {
                                     index={index}
                                     title={article.title}
                                     category={article.category}
+                                    imageUrl={article.imageUrl}
                                     isOpen={openRowIndex === index}
                                     onToggle={() =>
                                         setOpenRowIndex(
