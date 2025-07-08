@@ -9,12 +9,11 @@ export default function MeasurementTable() {
     const [showSearch, setShowSearch] = useState(false);
 
     const units = [
-    { id: 1, name: 'Gram', symbol: 'g', type: 'Berat' },
-    { id: 2, name: 'Kilogram', symbol: 'kg', type: 'Berat' },
-    { id: 3, name: 'Mililiter', symbol: 'ml', type: 'Volume' },
-    { id: 4, name: 'Liter', symbol: 'l', type: 'Volume' },
-];
-
+        { id: 1, name: 'Gram', symbol: 'g', type: 'Berat' },
+        { id: 2, name: 'Kilogram', symbol: 'kg', type: 'Berat' },
+        { id: 3, name: 'Mililiter', symbol: 'ml', type: 'Volume' },
+        { id: 4, name: 'Liter', symbol: 'l', type: 'Volume' },
+    ];
 
     const filteredUnits = units.filter((unit) =>
         unit.name.toLowerCase().includes(searchQuery.toLowerCase()),
@@ -93,33 +92,36 @@ export default function MeasurementTable() {
                         </tr>
                     </thead>
                     <tbody className="text-gray-800">
-    {filteredUnits.length > 0 ? (
-        filteredUnits.map((unit, index) => (
-            <MeasurementRow
-                key={unit.id}
-                id={unit.id}
-                index={index}
-                name={unit.name}
-                symbol={unit.symbol}
-                type={unit.type}
-                isOpen={openRowIndex === index}
-                onToggle={() =>
-                    setOpenRowIndex(openRowIndex === index ? null : index)
-                }
-            />
-        ))
-    ) : (
-        <tr>
-            <td
-                colSpan="4"
-                className="px-4 py-4 text-center text-gray-500"
-            >
-                Tidak ada satuan ditemukan.
-            </td>
-        </tr>
-    )}
-</tbody>
-
+                        {filteredUnits.length > 0 ? (
+                            filteredUnits.map((unit, index) => (
+                                <MeasurementRow
+                                    key={unit.id}
+                                    id={unit.id}
+                                    index={index}
+                                    name={unit.name}
+                                    symbol={unit.symbol}
+                                    type={unit.type}
+                                    isOpen={openRowIndex === index}
+                                    onToggle={() =>
+                                        setOpenRowIndex(
+                                            openRowIndex === index
+                                                ? null
+                                                : index,
+                                        )
+                                    }
+                                />
+                            ))
+                        ) : (
+                            <tr>
+                                <td
+                                    colSpan="4"
+                                    className="px-4 py-4 text-center text-gray-500"
+                                >
+                                    Tidak ada satuan ditemukan.
+                                </td>
+                            </tr>
+                        )}
+                    </tbody>
                 </table>
             </div>
         </div>

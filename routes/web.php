@@ -23,13 +23,20 @@ Route::get('/recipe', function () {
     return Inertia::render('Recipe/Index');
 })->name('recipe');
 
-Route::get('/recipe/hidangan', function () {
-    return Inertia::render('Recipe/Hidangan');
-})->name('recipe.hidangan');
+// Route::get('/recipe/hidangan', function () {
+//     return Inertia::render('Recipe/Hidangan');
+// })->name('recipe.hidangan');
+// // tes
+// Route::get('/recipe/kategori/hidangan', function () {
+//     return Inertia::render('Recipe/Kategori');
+// })->name('recipe.kategori.hidangan');
+
+// tes doang yg kategori resep
 // tes
-Route::get('/recipe/kategori/hidangan', function () {
+Route::get('/recipe/hidangan', function () {
     return Inertia::render('Recipe/Kategori');
 })->name('recipe.kategori.hidangan');
+
 
 Route::get('/article', fn () => Inertia::render('Article/Index'));
 

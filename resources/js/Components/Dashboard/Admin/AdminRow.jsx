@@ -1,5 +1,5 @@
 import { router } from '@inertiajs/react';
-import { useState, useRef, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { FiEdit2, FiMoreVertical, FiTrash2 } from 'react-icons/fi';
 
 export default function AdminRow({ id, name, email }) {
