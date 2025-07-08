@@ -15,7 +15,7 @@ const Navbar = ({ auth }) => {
     const closeMenu = () => setIsMenuOpen(false);
 
     return (
-        <nav className="border-gray-200 bg-white px-4 py-2.5 text-lg dark:bg-gray-800 lg:px-6 z-50 relative">
+        <nav className="relative z-50 border-gray-200 bg-white px-4 py-2.5 text-lg dark:bg-gray-800 lg:px-6">
             <div className="mx-auto flex max-w-screen-2xl flex-wrap items-center justify-between">
                 <a href="/" className="flex items-center">
                     <img

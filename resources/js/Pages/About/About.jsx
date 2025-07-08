@@ -21,7 +21,6 @@ export default function About({ auth }) {
                 />
 
                 <main>
-                    {/* About Intro Section */}
                     <motion.section
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -31,7 +30,6 @@ export default function About({ auth }) {
                         <AboutIntro />
                     </motion.section>
 
-                    {/* Feature List Section */}
                     <motion.section
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -41,7 +39,6 @@ export default function About({ auth }) {
                         <FeatureList />
                     </motion.section>
 
-                    {/* Join Community Section */}
                     <motion.section
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}

@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use App\Models\MeasurementUnit;
+use Illuminate\Support\Facades\File;
+
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -25,23 +27,16 @@ Route::get('/recipe/hidangan', function () {
     return Inertia::render('Recipe/Hidangan');
 })->name('recipe.hidangan');
 // tes
-Route::get('/recipe/hidangan', function () {
+Route::get('/recipe/kategori/hidangan', function () {
     return Inertia::render('Recipe/Kategori');
 })->name('recipe.kategori.hidangan');
 
-// tes artikel ==============
-// Route halaman daftar artikel
 Route::get('/article', fn () => Inertia::render('Article/Index'));
 
-// Route halaman detail artikel
 Route::get('/article/{slug}', function ($slug) {
     return Inertia::render('Article/DetailArticle', ['slug' => $slug]);
 });
 
-// artikel ==========
-
-// tes
-// Subkategori dulu
 Route::get('/recipe/{kategoriSlug}/{subkategoriSlug}', function ($kategoriSlug, $subkategoriSlug) {
     return Inertia::render('Recipe/Subkategori', [
         'kategoriSlug' => $kategoriSlug,
@@ -49,7 +44,6 @@ Route::get('/recipe/{kategoriSlug}/{subkategoriSlug}', function ($kategoriSlug, 
     ]);
 })->name('recipe.subkategori');
 
-// tes detail resep
 Route::get('/recipe/{kategori}/{subkategori}/{slug}', function ($kategori, $subkategori, $slug) {
     return Inertia::render('Recipe/DetailResep', [
         'kategori' => $kategori,
@@ -58,7 +52,37 @@ Route::get('/recipe/{kategori}/{subkategori}/{slug}', function ($kategori, $subk
     ]);
 });
 
-// Baru Kategori
+Route::get('/dashboard/kelola-admin/edit/{id}', function ($id) {
+    return Inertia::render('Dashboard/Admin/KelolaAdmin/Edit', [
+        'id' => $id,
+    ]);
+})->middleware(['auth', 'verified'])->name('dashboard.kelola-admin.edit');
+
+Route::get('/dashboard/article/edit/{slug}', function ($slug) {
+    return Inertia::render('Dashboard/Article/EditArticle', [
+        'slug' => $slug,
+    ]);
+})->middleware(['auth', 'verified'])->name('dashboard.article.edit');
+// di atas tes
+
+Route::get('/dashboard/article/category/edit/{id}', function ($id) {
+    return Inertia::render('Dashboard/Article/EditCategoryArticle', [
+        'categoryId' => $id,
+    ]);
+})->middleware(['auth', 'verified'])->name('dashboard.article.category.edit');
+
+Route::get('/dashboard/article/category/create', function () {
+    return Inertia::render('Dashboard/Article/CreateCategoryArticle');
+})->middleware(['auth', 'verified'])->name('dashboard.article.category.create');
+
+// tes sub kategori
+Route::get('/dashboard/recipe/category-recipe/edit-subkategori/{slug}', function ($slug) {
+    return Inertia::render('Dashboard/Recipe/CategoryRecipe/EditSubkategori', [
+        'slug' => $slug, // cukup kirim slug, nanti ambil datanya di frontend (kategoriData.js)
+    ]);
+});
+
+
 Route::get('/recipe/{kategoriSlug}', function ($kategoriSlug) {
     return Inertia::render('Recipe/Kategori', [
         'kategoriSlug' => $kategoriSlug,
@@ -103,8 +127,34 @@ Route::get('/dashboard/recipe/create', function () {
 })->middleware(['auth', 'verified'])->name('dashboard.recipe.create');
 
 Route::get('/dashboard/recipe/edit/{slug}', function ($slug) {
+    $jsonPath = resource_path('js/data/resepData.json');
+
+    if (!File::exists($jsonPath)) {
+        abort(404, 'File resepData.json tidak ditemukan');
+    }
+
+    $allRecipes = json_decode(file_get_contents($jsonPath), true);
+
+    $found = null;
+
+    foreach ($allRecipes as $kategori => $subkategori) {
+        foreach ($subkategori as $sub => $resepList) {
+            foreach ($resepList as $resep) {
+                if (isset($resep['slug']) && $resep['slug'] === $slug) {
+                    $found = $resep;
+                    break 3;
+                }
+            }
+        }
+    }
+
+    if (!$found) {
+        abort(404, 'Resep tidak ditemukan');
+    }
+
     return Inertia::render('Dashboard/Recipe/EditRecipe', [
         'slug' => $slug,
+        'resep' => $found,
     ]);
 })->middleware(['auth', 'verified'])->name('dashboard.recipe.edit');
 
@@ -121,11 +171,11 @@ Route::get('/dashboard/recipe/measurement-units/create', function () {
 })->middleware(['auth', 'verified'])->name('dashboard.recipe.measurement-units.create');
 
 Route::get('/dashboard/recipe/measurement-units/{id}/edit', function ($id) {
-    $unit = MeasurementUnit::findOrFail($id);
     return Inertia::render('Dashboard/Recipe/MeasurementUnits/Edit', [
-        'unit' => $unit,
+        'id' => $id, // sementara hanya kirim ID
     ]);
 })->middleware(['auth', 'verified'])->name('dashboard.recipe.measurement-units.edit');
+
 
 Route::put('/dashboard/recipe/measurement-units/{id}', [MeasurementUnitController::class, 'update'])->name('dashboard.recipe.measurement-units.update');
 

@@ -11,14 +11,12 @@ export default function ArticleTable({ showTitle = true }) {
     const [showSearch, setShowSearch] = useState(false);
     const [showFilter, setShowFilter] = useState(false);
 
-    // Ambil data artikel dan siapkan data minimal
     const articles = artikelData.map((item) => ({
         title: item.title,
         category: item.category,
         imageUrl: item.imageUrl,
     }));
 
-    // Buat opsi kategori unik otomatis dari artikelData
     const categoryOptions = [
         'All',
         ...new Set(artikelData.map((item) => item.category)),
@@ -151,6 +149,7 @@ export default function ArticleTable({ showTitle = true }) {
                                     title={article.title}
                                     category={article.category}
                                     imageUrl={article.imageUrl}
+                                    slug={artikelData[index].slug}
                                     isOpen={openRowIndex === index}
                                     onToggle={() =>
                                         setOpenRowIndex(

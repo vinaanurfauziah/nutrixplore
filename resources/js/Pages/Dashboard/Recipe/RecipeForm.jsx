@@ -1,17 +1,15 @@
 import getAllRecipesAdmin from '@/data/getAllRecipesAdmin';
 import { useEffect, useState } from 'react';
 
-export default function RecipeForm({ mode = 'create', slug = null }) {
-    const [formData, setFormData] = useState({
-        judul: '',
-        gambar: '',
-        dish: '',
-        kondisi: '',
-        diet: '',
-        alergi: '',
-        nutrisi: '',
-        metode: '',
-    });
+export default function RecipeForm({ mode = 'create', slug, data = {} }) {
+    const [judul, setJudul] = useState(mode === 'edit' ? data.judul : '');
+    const [gambar, setGambar] = useState(mode === 'edit' ? data.gambar : '');
+    const [dish, setDish] = useState(mode === 'edit' ? data.dish : '');
+    const [kondisi, setKondisi] = useState(mode === 'edit' ? data.kondisi : '');
+    const [diet, setDiet] = useState(mode === 'edit' ? data.diet : '');
+    const [alergi, setAlergi] = useState(mode === 'edit' ? data.alergi : '');
+    const [nutrisi, setNutrisi] = useState(mode === 'edit' ? data.nutrisi : '');
+    const [metode, setMetode] = useState(mode === 'edit' ? data.metode : '');
 
     // Ambil data resep jika mode edit
     useEffect(() => {
@@ -43,8 +41,17 @@ export default function RecipeForm({ mode = 'create', slug = null }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('Submit Resep:', formData);
-        // Di sinilah kamu akan memanggil route POST/PUT ke server
+        const updatedData = {
+            judul,
+            gambar,
+            dish,
+            kondisi,
+            diet,
+            alergi,
+            nutrisi,
+            metode,
+        };
+        console.log('Data yang akan diupdate:', updatedData);
     };
 
     return (

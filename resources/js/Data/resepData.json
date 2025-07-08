@@ -1,0 +1,24 @@
+{
+  "hidangan": {
+    "sarapan": [
+      {
+        "id": 1,
+        "judul": "Nasi Goreng Sehat",
+        "slug": "nasi-goreng-sehat",
+        "gambar": "/images/nasi-goreng.jpg",
+        "durasi": 20,
+        "kalori": 223,
+        "bahan": [
+          { "jumlah": "1 piring", "nama": "nasi putih" }
+        ],
+        "langkah": ["Panaskan minyak.", "Tumis bawang.", "Sajikan."],
+        "nutrisi": {
+          "kalori": 223,
+          "protein": "6g",
+          "lemak": "5g",
+          "karbohidrat": "35g"
+        }
+      }
+    ]
+  }
+}

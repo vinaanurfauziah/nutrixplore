@@ -1,8 +1,8 @@
 import getAllRecipesAdmin from '@/data/getAllRecipesAdmin';
-import kategoriData from '@/data/kategoriData';
 import { router } from '@inertiajs/react';
 import { useState } from 'react';
 import { FiFilter, FiPlus, FiSearch } from 'react-icons/fi';
+import CategoryFilterDropdown from './CategoryFilterDropdown';
 import RecipeRow from './RecipeRow';
 
 export default function RecipeTable({ showTitle = true }) {
@@ -14,23 +14,25 @@ export default function RecipeTable({ showTitle = true }) {
 
     const recipes = getAllRecipesAdmin();
 
-    const dishOptions = [
-        'All',
-        ...kategoriData.hidangan.subkategori.map((s) => s.nama),
-    ];
-
     const filteredRecipes = recipes.filter((recipe) => {
         const matchSearch = recipe.judul
             ?.toLowerCase()
             .includes(searchQuery.toLowerCase());
 
-        const matchFilter = filterDish === 'All' || recipe.dish === filterDish;
+        const matchFilter =
+            filterDish === 'All' ||
+            recipe.dish === filterDish ||
+            recipe.kondisi === filterDish ||
+            recipe.diet === filterDish ||
+            recipe.alergi === filterDish ||
+            recipe.nutrisi === filterDish ||
+            recipe.metode === filterDish;
+
         return matchSearch && matchFilter;
     });
 
     return (
         <div className="rounded-lg bg-white p-4 shadow-sm">
-            {/* Judul */}
             <div className="mb-4 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                 {showTitle && (
                     <h2 className="text-lg font-semibold">Daftar Resep</h2>
@@ -48,17 +50,11 @@ export default function RecipeTable({ showTitle = true }) {
                         onChange={(e) => setSearchQuery(e.target.value)}
                         className="rounded-lg border border-gray-300 px-4 py-2 text-sm shadow-sm focus:border-[#70B9BE] focus:outline-none focus:ring-2 focus:ring-[#70B9BE]"
                     />
-                    <select
-                        value={filterDish}
-                        onChange={(e) => setFilterDish(e.target.value)}
-                        className="rounded-lg border border-gray-300 px-4 py-2 text-sm shadow-sm focus:border-[#70B9BE] focus:outline-none focus:ring-2 focus:ring-[#70B9BE]"
-                    >
-                        {dishOptions.map((dish, idx) => (
-                            <option key={idx} value={dish}>
-                                {dish === 'All' ? 'Semua Hidangan' : dish}
-                            </option>
-                        ))}
-                    </select>
+
+                    <CategoryFilterDropdown
+                        filterDish={filterDish}
+                        setFilterDish={setFilterDish}
+                    />
 
                     <button
                         onClick={() => router.get('/dashboard/recipe/create')}
@@ -80,7 +76,7 @@ export default function RecipeTable({ showTitle = true }) {
                     <button
                         onClick={() => setShowFilter(!showFilter)}
                         className="text-[#70B9BE]"
-                        title="Filter Hidangan"
+                        title="Filter"
                     >
                         <FiFilter size={20} />
                     </button>
@@ -93,7 +89,6 @@ export default function RecipeTable({ showTitle = true }) {
                     </button>
                 </div>
 
-                {/* Input Search Mobile */}
                 {showSearch && (
                     <div className="mt-2 md:hidden">
                         <input
@@ -103,23 +98,6 @@ export default function RecipeTable({ showTitle = true }) {
                             onChange={(e) => setSearchQuery(e.target.value)}
                             className="w-full rounded-lg border border-gray-300 px-4 py-2 text-sm shadow-sm focus:border-[#70B9BE] focus:outline-none focus:ring-2 focus:ring-[#70B9BE]"
                         />
-                    </div>
-                )}
-
-                {/* Filter Select Mobile */}
-                {showFilter && (
-                    <div className="mt-2 md:hidden">
-                        <select
-                            value={filterDish}
-                            onChange={(e) => setFilterDish(e.target.value)}
-                            className="w-full rounded-lg border border-gray-300 px-4 py-2 text-sm shadow-sm focus:border-[#70B9BE] focus:outline-none focus:ring-2 focus:ring-[#70B9BE]"
-                        >
-                            {dishOptions.map((dish, idx) => (
-                                <option key={idx} value={dish}>
-                                    {dish === 'All' ? 'Semua Hidangan' : dish}
-                                </option>
-                            ))}
-                        </select>
                     </div>
                 )}
             </div>
@@ -151,7 +129,10 @@ export default function RecipeTable({ showTitle = true }) {
                                 Nutrisi
                             </th>
                             <th className="px-4 py-3 text-sm font-semibold">
-                                Action
+                                Metode
+                            </th>
+                            <th className="px-4 py-3 text-sm font-semibold">
+                                Aksi
                             </th>
                         </tr>
                     </thead>
@@ -182,7 +163,7 @@ export default function RecipeTable({ showTitle = true }) {
                         ) : (
                             <tr>
                                 <td
-                                    colSpan="8"
+                                    colSpan="9"
                                     className="px-4 py-4 text-center text-gray-500"
                                 >
                                     Tidak ada resep yang ditemukan.

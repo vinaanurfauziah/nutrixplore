@@ -64,7 +64,6 @@ import {
     TbMoodCheck,
 } from 'react-icons/tb';
 
-// Peta nama string ke komponen ikon
 const iconMap = {
     LuSalad,
     LuEggFried,

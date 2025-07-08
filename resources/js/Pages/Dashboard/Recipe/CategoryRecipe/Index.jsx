@@ -1,5 +1,5 @@
 import DashboardNavbar from '@/Components/Dashboard/Navbar';
-import CategoryTable from '@/Components/Dashboard/Recipe/CategoryTable';
+import SubcategoryTable from '@/Components/Dashboard/Recipe/SubcategoryTable';
 import DashboardSidebar from '@/Components/Dashboard/Sidebar';
 import { Head } from '@inertiajs/react';
 import { useState } from 'react';
@@ -13,15 +13,13 @@ export default function Index() {
 
     return (
         <>
-            <Head title="Kategori Resep" />
+            <Head title="Subkategori Resep" />
 
             <div className="flex min-h-screen bg-gray-100">
-                {/* Sidebar Desktop */}
                 <aside className="hidden w-64 bg-white shadow-md md:block">
                     <DashboardSidebar />
                 </aside>
 
-                {/* Sidebar Mobile */}
                 {isSidebarOpen && (
                     <div
                         className="fixed inset-0 z-40 bg-black bg-opacity-50 md:hidden"
@@ -36,21 +34,17 @@ export default function Index() {
                     </div>
                 )}
 
-                {/* Main Content */}
                 <main className="flex-1 px-4 py-6 md:px-8">
-                    {/* Navbar */}
                     <DashboardNavbar
                         toggleSidebar={toggleSidebar}
-                        breadcrumbItems={[{ label: 'Kategori Resep' }]}
+                        breadcrumbItems={[{ label: 'Subkategori Resep' }]}
                     />
 
-                    {/* Judul Halaman */}
                     <h1 className="mb-4 text-2xl font-bold text-gray-800">
-                        Kategori Resep
+                        Subkategori Resep
                     </h1>
 
-                    {/* Tabel Kategori */}
-                    <CategoryTable />
+                    <SubcategoryTable />
                 </main>
             </div>
         </>

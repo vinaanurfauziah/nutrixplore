@@ -1,3 +1,4 @@
+import artikelData from '@/data/artikelData';
 import { router } from '@inertiajs/react';
 import { useState } from 'react';
 import { FiPlus, FiSearch } from 'react-icons/fi';
@@ -8,13 +9,12 @@ export default function CategoryTable() {
     const [openRowIndex, setOpenRowIndex] = useState(null);
     const [showSearch, setShowSearch] = useState(false);
 
-    const categories = [
-        { name: 'Kesehatan Mental', count: 10 },
-        { name: 'Nutrisi Anak', count: 7 },
-        { name: 'Tips Keluarga', count: 5 },
-        { name: 'Pola Makan Sehat', count: 6 },
-        { name: 'Olahraga', count: 4 },
-    ];
+    const categories = Object.entries(
+        artikelData.reduce((acc, artikel) => {
+            acc[artikel.category] = (acc[artikel.category] || 0) + 1;
+            return acc;
+        }, {}),
+    ).map(([name, count]) => ({ name, count }));
 
     const filteredCategories = categories.filter((cat) =>
         cat.name.toLowerCase().includes(searchQuery.toLowerCase()),
@@ -22,7 +22,6 @@ export default function CategoryTable() {
 
     return (
         <div className="rounded-lg bg-white p-4 shadow-sm">
-            {/* Header */}
             <div className="mb-4 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                 <h2 className="text-lg font-semibold">Daftar Kategori</h2>
             </div>
@@ -40,7 +39,7 @@ export default function CategoryTable() {
                     />
                     <button
                         onClick={() =>
-                            router.get('/dashboard/recipe/categories/create')
+                            router.get('/dashboard/article/category/create')
                         }
                         className="rounded-lg bg-[#70B9BE] px-5 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-[#51979e] focus:outline-none focus:ring-4 focus:ring-[#a1d3d7]"
                     >
@@ -48,7 +47,7 @@ export default function CategoryTable() {
                     </button>
                 </div>
 
-                {/* Mobile Controls (Icons) */}
+                {/* Mobile Controls */}
                 <div className="flex items-center gap-4 md:hidden">
                     <button
                         onClick={() => setShowSearch(!showSearch)}
@@ -59,7 +58,7 @@ export default function CategoryTable() {
                     </button>
                     <button
                         onClick={() =>
-                            router.get('/dashboard/recipe/categories/create')
+                            router.get('/dashboard/article/category/create')
                         }
                         className="text-[#70B9BE]"
                         title="Tambah Kategori"

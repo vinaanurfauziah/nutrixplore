@@ -4,7 +4,6 @@ import { LuPrinter } from 'react-icons/lu';
 export default function RecipeActionButtons({ onSave, onUnsave }) {
     return (
         <div className="relative w-full py-4 sm:static sm:flex sm:flex-row sm:items-center sm:justify-start sm:gap-4">
-            {/* Tombol Langsung ke Resep */}
             <div className="sm:static">
                 <a
                     href="#detail-resep"
@@ -14,9 +13,7 @@ export default function RecipeActionButtons({ onSave, onUnsave }) {
                 </a>
             </div>
 
-            {/* Tombol Simpan & Print di kanan atas pada layar kecil */}
             <div className="absolute right-0 top-4 flex gap-2 sm:static sm:ml-4 sm:flex-row">
-                {/* Tombol Simpan */}
                 <button
                     onClick={onSave}
                     className="inline-flex items-center justify-center rounded-md border border-[#70B9BE] bg-white px-3 py-2 text-sm font-medium text-[#70B9BE] transition-all duration-300 hover:bg-[#70B9BE] hover:text-white focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-900"
@@ -30,7 +27,6 @@ export default function RecipeActionButtons({ onSave, onUnsave }) {
                     <span className="ml-2 hidden sm:inline">Simpan Resep</span>
                 </button>
 
-                {/* Tombol Print */}
                 <a
                     href="#"
                     className="inline-flex items-center justify-center rounded-md border border-[#70B9BE] bg-white px-3 py-2 text-sm font-medium text-[#70B9BE] hover:bg-[#70B9BE] hover:text-white focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-900"

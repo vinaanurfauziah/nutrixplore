@@ -53,15 +53,12 @@ export default function Index() {
                     </div>
                 )}
 
-                {/* Main Content */}
                 <main className="flex-1 px-4 py-4 sm:px-6 md:px-8">
-                    {/* Navbar Mobile */}
                     <DashboardNavbar
                         toggleSidebar={toggleSidebar}
                         breadcrumbItems={[{ label: 'Dashboard Member' }]}
                     />
 
-                    {/* Header Selamat Datang */}
                     <motion.div
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -76,7 +73,6 @@ export default function Index() {
                         </p>
                     </motion.div>
 
-                    {/* Resep Tersimpan */}
                     <div className="rounded-lg bg-white p-6 shadow-sm">
                         <div className="mb-4 flex items-center justify-between">
                             <h2 className="text-lg font-semibold text-gray-800">
@@ -106,7 +102,6 @@ export default function Index() {
                         </div>
                     </div>
 
-                    {/* Artikel Tersimpan */}
                     <div className="mt-8 rounded-lg bg-white p-6 shadow-sm">
                         <div className="mb-4 flex items-center justify-between">
                             <h2 className="text-lg font-semibold text-gray-800">

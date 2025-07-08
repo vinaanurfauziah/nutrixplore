@@ -8,7 +8,6 @@ export default function DashboardNavbar({
     return (
         <header className="sticky top-0 z-30 mb-6 w-full bg-white shadow-sm">
             <div className="mx-auto max-w-screen-2xl space-y-2 px-4 py-3 sm:px-6 md:px-8">
-                {/* Tombol Hamburger */}
                 <div className="flex items-center justify-between">
                     <button
                         onClick={toggleSidebar}
@@ -19,7 +18,6 @@ export default function DashboardNavbar({
                     </button>
                 </div>
 
-                {/* Breadcrumb */}
                 {breadcrumbItems.length > 0 && (
                     <div>
                         <Breadcrumb items={breadcrumbItems} />

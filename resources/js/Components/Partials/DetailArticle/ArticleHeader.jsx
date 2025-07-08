@@ -5,7 +5,6 @@ export default function ArticleHeader() {
     return (
         <section className="bg-white dark:bg-gray-800">
             <div className="w-full max-w-[680px] px-4 pt-10 lg:ml-[calc((100%-680px)/4)]">
-                {/* Judul Artikel */}
                 <h1 className="mb-5 text-4xl font-extrabold leading-snug text-gray-900 dark:text-white md:text-5xl">
                     Lorem Ipsum Dolor Sit Amet
                 </h1>

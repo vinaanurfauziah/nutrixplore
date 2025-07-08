@@ -14,7 +14,6 @@ function findResep(kategori, subkategori, slug) {
     return resepData?.[kategori]?.[subkategori]?.find((r) => r.slug === slug);
 }
 
-// ✅ Fungsi tambahan untuk menemukan semua kategori relevan berdasarkan slug
 function findTagsForResep(slug) {
     const tags = [];
 
@@ -26,8 +25,8 @@ function findTagsForResep(slug) {
                     .replace(/_/g, ' ')
                     .replace(/\b\w/g, (c) => c.toUpperCase());
                 tags.push({
-                    label, // yang ditampilkan
-                    href: `/recipe/${kategori}/${subkategori}`, // yang diklik
+                    label,
+                    href: `/recipe/${kategori}/${subkategori}`,
                 });
             }
         });
@@ -95,7 +94,6 @@ export default function DetailResep({ auth, kategori, subkategori, slug }) {
                         nutrisi={resep.nutrisi}
                     />
 
-                    {/* ✅ Menampilkan tag berdasarkan hasil pencarian */}
                     <TagList
                         tags={findTagsForResep(resep.slug)}
                         title="Kategori yang Relevan"

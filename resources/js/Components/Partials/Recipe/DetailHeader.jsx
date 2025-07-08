@@ -1,6 +1,5 @@
-// Components/Partials/Recipe/DetailHeader.jsx
-import Navbar from '@/Components/Templates/Navbar';
 import Breadcrumb from '@/Components/Common/Breadcrumb';
+import Navbar from '@/Components/Templates/Navbar';
 
 export default function DetailHeader({ auth }) {
     return (

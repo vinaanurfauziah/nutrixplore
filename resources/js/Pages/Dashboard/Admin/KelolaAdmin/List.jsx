@@ -142,6 +142,7 @@ export default function List() {
                                         filteredAdmins.map((admin) => (
                                             <AdminRow
                                                 key={admin.id}
+                                                id={admin.id}
                                                 name={admin.name}
                                                 email={admin.email}
                                             />

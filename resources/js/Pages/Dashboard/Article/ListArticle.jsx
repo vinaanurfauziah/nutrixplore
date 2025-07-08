@@ -16,12 +16,10 @@ export default function ListArticle() {
             <Head title="Daftar Artikel" />
 
             <div className="flex min-h-screen bg-gray-100">
-                {/* Sidebar Desktop */}
                 <aside className="hidden w-64 bg-white shadow-md md:block">
                     <DashboardSidebar />
                 </aside>
 
-                {/* Sidebar Mobile */}
                 {isSidebarOpen && (
                     <div
                         className="fixed inset-0 z-40 bg-black bg-opacity-50 md:hidden"
@@ -36,20 +34,16 @@ export default function ListArticle() {
                     </div>
                 )}
 
-                {/* Main Content */}
                 <main className="max-w-full flex-1 overflow-x-hidden px-4 py-4 sm:px-6 md:px-8">
-                    {/* Navbar */}
                     <DashboardNavbar
                         toggleSidebar={toggleSidebar}
                         breadcrumbItems={[{ label: 'Daftar Artikel' }]}
                     />
 
-                    {/* Judul Halaman */}
                     <h1 className="mb-4 text-2xl font-bold text-gray-800">
                         Daftar Artikel
                     </h1>
 
-                    {/* Tabel Artikel dalam container scroll */}
                     <div className="max-h-[70vh] overflow-auto rounded-lg shadow">
                         <ArticleTable showTitle={false} />
                     </div>

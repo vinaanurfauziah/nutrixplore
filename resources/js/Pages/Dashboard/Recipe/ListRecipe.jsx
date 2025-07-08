@@ -16,12 +16,10 @@ export default function ListRecipe() {
             <Head title="Daftar Resep" />
 
             <div className="flex min-h-screen bg-gray-100">
-                {/* Sidebar Desktop */}
                 <aside className="hidden w-64 bg-white shadow-md md:block">
                     <DashboardSidebar />
                 </aside>
 
-                {/* Sidebar Mobile */}
                 {isSidebarOpen && (
                     <div
                         className="fixed inset-0 z-40 bg-black bg-opacity-50 md:hidden"

@@ -10,7 +10,7 @@ export default function Create() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        post(route('dashboard.recipe.measurement-units.store')); // nanti buat rutenya di backend
+        post(route('dashboard.recipe.measurement-units.store'));
     };
 
     return (

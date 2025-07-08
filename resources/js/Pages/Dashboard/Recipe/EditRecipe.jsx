@@ -1,12 +1,11 @@
 import DashboardNavbar from '@/Components/Dashboard/Navbar';
 import RecipeForm from '@/Components/Dashboard/Recipe/RecipeForm';
 import DashboardSidebar from '@/Components/Dashboard/Sidebar';
-import { Head, usePage } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
 import { useState } from 'react';
 
-export default function EditRecipe() {
+export default function EditRecipe({ slug, resep }) {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-    const { slug } = usePage().props; // Ambil slug dari props Inertia
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
@@ -17,12 +16,10 @@ export default function EditRecipe() {
             <Head title="Edit Resep" />
 
             <div className="flex min-h-screen bg-gray-100">
-                {/* Sidebar Desktop */}
                 <aside className="hidden w-64 bg-white shadow-md md:block">
                     <DashboardSidebar />
                 </aside>
 
-                {/* Sidebar Mobile */}
                 {isSidebarOpen && (
                     <div
                         className="fixed inset-0 z-40 bg-black bg-opacity-50 md:hidden"
@@ -37,7 +34,6 @@ export default function EditRecipe() {
                     </div>
                 )}
 
-                {/* Main Content */}
                 <main className="flex-1 px-4 py-4 sm:px-6 md:px-8">
                     <DashboardNavbar
                         toggleSidebar={toggleSidebar}
@@ -59,8 +55,7 @@ export default function EditRecipe() {
                     </div>
 
                     <div className="rounded-lg bg-white p-6 shadow-sm">
-                        {/* ✅ Kirim slug ke RecipeForm */}
-                        <RecipeForm mode="edit" slug={slug} />
+                        <RecipeForm mode="edit" slug={slug} data={resep} />
                     </div>
                 </main>
             </div>

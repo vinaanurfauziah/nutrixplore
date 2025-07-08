@@ -19,7 +19,8 @@ export default function getAllRecipesAdmin() {
                     )?.nama || formatLabel(subkategoriSlug);
 
                 const labelKategori =
-                    kategoriData?.[kategoriSlug]?.nama || formatLabel(kategoriSlug);
+                    kategoriData?.[kategoriSlug]?.nama ||
+                    formatLabel(kategoriSlug);
 
                 const existing = allRecipes.find((r) => r.slug === resep.slug);
 
@@ -32,14 +33,12 @@ export default function getAllRecipesAdmin() {
                         }
                     });
 
-                    // tambahkan kategori jika belum ada
                     if (kategoriSlug === 'hidangan') existing.dish = labelSub;
                     if (kategoriSlug === 'kondisi') existing.kondisi = labelSub;
                     if (kategoriSlug === 'diet') existing.diet = labelSub;
                     if (kategoriSlug === 'alergi') existing.alergi = labelSub;
                     if (kategoriSlug === 'nutrisi') existing.nutrisi = labelSub;
                     if (kategoriSlug === 'metode') existing.metode = labelSub;
-
                 } else {
                     allRecipes.push({
                         ...resep,
@@ -47,12 +46,17 @@ export default function getAllRecipesAdmin() {
                         subkategori: subkategoriSlug,
                         labelKategori,
                         labels: newLabels,
-                        dish: kategoriSlug === 'hidangan' ? labelSub : undefined,
-                        kondisi: kategoriSlug === 'kondisi' ? labelSub : undefined,
+                        dish:
+                            kategoriSlug === 'hidangan' ? labelSub : undefined,
+                        kondisi:
+                            kategoriSlug === 'kondisi' ? labelSub : undefined,
                         diet: kategoriSlug === 'diet' ? labelSub : undefined,
-                        alergi: kategoriSlug === 'alergi' ? labelSub : undefined,
-                        nutrisi: kategoriSlug === 'nutrisi' ? labelSub : undefined,
-                        metode: kategoriSlug === 'metode' ? labelSub : undefined,
+                        alergi:
+                            kategoriSlug === 'alergi' ? labelSub : undefined,
+                        nutrisi:
+                            kategoriSlug === 'nutrisi' ? labelSub : undefined,
+                        metode:
+                            kategoriSlug === 'metode' ? labelSub : undefined,
                     });
                 }
             });

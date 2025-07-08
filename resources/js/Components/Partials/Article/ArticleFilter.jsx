@@ -8,7 +8,10 @@ export default function ArticleFilter({ options, selected = [], onChange }) {
             if (selected.includes(option)) {
                 updated = selected.filter((item) => item !== option);
             } else {
-                updated = [...selected.filter((item) => item !== 'Semua Artikel'), option];
+                updated = [
+                    ...selected.filter((item) => item !== 'Semua Artikel'),
+                    option,
+                ];
             }
 
             if (updated.length === 0) {

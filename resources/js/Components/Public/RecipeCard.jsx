@@ -16,7 +16,6 @@ const RecipeCard = ({
             transition={{ type: 'spring', stiffness: 300, damping: 20 }}
             className="relative flex h-full flex-col overflow-hidden rounded-2xl shadow-md transition hover:shadow-xl"
         >
-            {/* Gambar */}
             <div className="aspect-[3/4] w-full">
                 <img
                     src={imageUrl}
@@ -25,7 +24,6 @@ const RecipeCard = ({
                 />
             </div>
 
-            {/* Overlay Konten */}
             <div className="absolute bottom-3 left-3 right-3 rounded-xl bg-[#70B9BE]/95 px-3 py-2 text-white shadow-md sm:bottom-4 sm:left-4 sm:right-4 sm:px-4 sm:py-3">
                 <div className="flex h-full flex-col justify-between">
                     <h3 className="line-clamp-2 min-h-[2.8rem] text-sm font-semibold leading-snug sm:min-h-[3.2rem] sm:text-base md:text-lg">

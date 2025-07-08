@@ -1,4 +1,3 @@
-// resources/js/Components/Dashboard/Article/ArticleGeneralInfoCard.jsx
 import { useState } from 'react';
 import { FiUploadCloud } from 'react-icons/fi';
 

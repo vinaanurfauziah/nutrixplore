@@ -1,4 +1,3 @@
-// konten
 import ArticleTable from './Article/ArticleTable';
 import RecipeTable from './Recipe/RecipeTable';
 import StatBox from './Stat/StatBox';

@@ -22,7 +22,6 @@ export default function CategoryTable() {
 
     return (
         <div className="rounded-lg bg-white p-4 shadow-sm">
-            {/* Header */}
             <div className="mb-4 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                 <h2 className="text-lg font-semibold">Daftar Kategori</h2>
             </div>
@@ -41,7 +40,9 @@ export default function CategoryTable() {
 
                     <button
                         onClick={() =>
-                            router.get('/dashboard/recipe/categories/create')
+                            router.get(
+                                '/dashboard/recipe/category-recipe/create',
+                            )
                         }
                         className="rounded-lg bg-[#70B9BE] px-5 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-[#51979e] focus:outline-none focus:ring-4 focus:ring-[#a1d3d7]"
                     >
@@ -61,7 +62,9 @@ export default function CategoryTable() {
 
                     <button
                         onClick={() =>
-                            router.get('/dashboard/recipe/categories/create')
+                            router.get(
+                                '/dashboard/recipe/category-recipe/create',
+                            )
                         }
                         className="text-[#70B9BE]"
                         title="Tambah Kategori"

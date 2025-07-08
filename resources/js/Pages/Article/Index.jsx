@@ -5,7 +5,7 @@ import { Head } from '@inertiajs/react';
 import { useState } from 'react';
 
 import FilterOptions from '@/data/FilterOptions';
-import getAllArticles from '@/data/getAllArticles'; // ✅ pakai ini saja
+import getAllArticles from '@/data/getAllArticles';
 
 import SaveSuccessPopup from '@/Components/Common/SaveSuccessPopup';
 import SectionHeading from '@/Components/Common/SectionHeading';
@@ -15,7 +15,7 @@ import ArticleGrid from '@/Components/Partials/Article/ArticleGrid';
 import { motion } from 'framer-motion';
 
 export default function Article({ auth }) {
-    const artikelData = getAllArticles(); // ✅ Pindahkan ke sini
+    const artikelData = getAllArticles(); 
 
     const artikelOptions = FilterOptions.Artikel || [];
 

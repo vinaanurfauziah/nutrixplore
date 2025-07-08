@@ -1,12 +1,13 @@
 // Components/Common/FormInputGroup.jsx
+import InputError from './InputError';
 import InputLabel from './InputLabel';
 import TextInput from './TextInput';
-import InputError from './InputError';
 
 export default function FormInputGroup({
     id,
     type = 'text',
     name,
+    label,
     value,
     placeholder,
     autoComplete,
@@ -16,7 +17,7 @@ export default function FormInputGroup({
 }) {
     return (
         <div className="mx-auto mt-4 block w-full max-w-md font-normal">
-            <InputLabel htmlFor={id} value={name === 'email' ? 'Email' : 'Kata Sandi'} />
+            <InputLabel htmlFor={id} value={label} />
             <TextInput
                 id={id}
                 type={type}

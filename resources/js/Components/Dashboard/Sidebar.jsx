@@ -35,7 +35,6 @@ export default function SidebarComponent({ onClose }) {
             aria-label="Sidebar navigasi"
             className="flex h-screen flex-col"
         >
-            {/* Tombol Tutup (mobile only) */}
             {onClose && (
                 <div className="flex justify-end p-4 md:hidden">
                     <button
@@ -85,7 +84,7 @@ export default function SidebarComponent({ onClose }) {
                                         'dashboard.recipe.category-recipe',
                                     )}
                                 >
-                                    Kategori Resep
+                                    Subkategori Resep
                                 </SidebarItem>
                                 <SidebarItem
                                     as={Link}
