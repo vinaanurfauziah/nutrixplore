@@ -91,7 +91,7 @@ export default function TabsDetail({ bahan = [], langkah = [], nutrisi = {} }) {
                             <h1 className="mb-4 text-2xl font-extrabold leading-tight tracking-tight text-gray-900 dark:text-white sm:text-3xl md:text-4xl lg:mb-8">
                                 Informasi Nutrisi Per Porsi
                             </h1>
-                            <p className="mb-4 max-w-2xl text-lg font-normal text-gray-500 dark:text-gray-400 md:text-xl lg:mb-8">
+                            {/* <p className="mb-4 max-w-2xl text-lg font-normal text-gray-500 dark:text-gray-400 md:text-xl lg:mb-8">
                                 Ukuran Per porsi:
                                 <span className="font-semibold text-gray-900 dark:text-white">
                                     &nbsp;
@@ -99,7 +99,7 @@ export default function TabsDetail({ bahan = [], langkah = [], nutrisi = {} }) {
                                         ? `${bahan[0].jumlah} ${bahan[0].nama}`
                                         : '1 porsi'}
                                 </span>
-                            </p>
+                            </p> */}
                             <ul className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-2 text-base font-normal text-gray-800 dark:text-gray-200 sm:grid-cols-2 sm:text-lg">
                                 {Object.entries(nutrisi).map(([key, val]) => (
                                     <li key={key}>
