@@ -46,6 +46,7 @@ export default function Login({ status, canResetPassword }) {
                             type="email"
                             value={data.email}
                             placeholder="Masukkan email anda"
+                            label="Email"
                             autoComplete="username"
                             isFocused={true}
                             onChange={(e) => setData('email', e.target.value)}
@@ -58,6 +59,7 @@ export default function Login({ status, canResetPassword }) {
                             type="password"
                             value={data.password}
                             placeholder="Masukkan kata sandi anda"
+                            label="Kata Sandi"
                             autoComplete="current-password"
                             onChange={(e) =>
                                 setData('password', e.target.value)
