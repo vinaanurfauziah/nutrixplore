@@ -36,7 +36,7 @@ export default function CreateCategoryArticle() {
                     </div>
                 )}
 
-                <main className="flex-1 px-4 py-4 sm:px-6 md:px-8">
+                <main className="flex-1 p-6 md:p-8">
                     <DashboardNavbar
                         toggleSidebar={toggleSidebar}
                         breadcrumbItems={[
@@ -52,34 +52,36 @@ export default function CreateCategoryArticle() {
                         Tambah Kategori Artikel
                     </h1>
 
-                    <form
-                        onSubmit={handleSubmit}
-                        className="max-w-lg space-y-4 rounded bg-white p-6 shadow"
-                    >
-                        <div>
-                            <label
-                                htmlFor="name"
-                                className="mb-1 block font-medium text-gray-700"
-                            >
-                                Nama Kategori
-                            </label>
-                            <input
-                                type="text"
-                                id="name"
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
-                                className="w-full rounded border border-gray-300 px-4 py-2 focus:border-[#70B9BE] focus:ring-[#70B9BE]"
-                                required
-                            />
-                        </div>
+                    <div className="rounded-lg bg-white p-6 shadow-sm">
+                        <form onSubmit={handleSubmit} className="space-y-4">
+                            <div className="max-w-lg">
+                                <label
+                                    htmlFor="name"
+                                    className="mb-1 block font-medium text-gray-700"
+                                >
+                                    Nama Kategori
+                                </label>
+                                <input
+                                    type="text"
+                                    id="name"
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                    className="w-full rounded border border-gray-300 px-4 py-2 focus:border-[#70B9BE] focus:ring-[#70B9BE]"
+                                    required
+                                />
+                            </div>
 
-                        <button
-                            type="submit"
-                            className="rounded bg-[#70B9BE] px-4 py-2 font-semibold text-white hover:bg-[#51979e]"
-                        >
-                            Simpan
-                        </button>
-                    </form>
+                            <div>
+                                {' '}
+                                <button
+                                    type="submit"
+                                    className="inline-flex items-center justify-center rounded-lg bg-[#70B9BE] px-5 py-3 text-sm font-medium text-white hover:bg-[#51979e] focus:ring-4 focus:ring-blue-300"
+                                >
+                                    Simpan
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </main>
             </div>
         </>

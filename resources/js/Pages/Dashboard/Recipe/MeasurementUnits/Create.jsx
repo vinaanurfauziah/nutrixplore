@@ -1,5 +1,7 @@
+import DashboardNavbar from '@/Components/Dashboard/Navbar';
 import DashboardSidebar from '@/Components/Dashboard/Sidebar';
 import { Head, useForm } from '@inertiajs/react';
+import { useState } from 'react';
 
 export default function Create() {
     const { data, setData, post, processing, errors } = useForm({
@@ -13,6 +15,11 @@ export default function Create() {
         post(route('dashboard.recipe.measurement-units.store'));
     };
 
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const toggleSidebar = () => {
+        setIsSidebarOpen(!isSidebarOpen);
+    };
+
     return (
         <>
             <Head title="Tambah Satuan Takaran" />
@@ -22,7 +29,31 @@ export default function Create() {
                     <DashboardSidebar />
                 </aside>
 
+                {isSidebarOpen && (
+                    <div
+                        className="fixed inset-0 z-40 bg-black bg-opacity-50 md:hidden"
+                        onClick={toggleSidebar}
+                    >
+                        <div
+                            className="absolute left-0 top-0 z-50 h-full w-64 bg-white shadow-md"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <DashboardSidebar onClose={toggleSidebar} />
+                        </div>
+                    </div>
+                )}
+
                 <main className="flex-1 p-6 md:p-8">
+                    <DashboardNavbar
+                        toggleSidebar={toggleSidebar}
+                        breadcrumbItems={[
+                            {
+                                label: 'Satuan Takaran',
+                                href: '/dashboard/recipe/measurement-units',
+                            },
+                            { label: 'Tambah Satuan Takaran' },
+                        ]}
+                    />
                     <h1 className="mb-6 text-2xl font-bold text-gray-800">
                         Tambah Satuan Takaran
                     </h1>
