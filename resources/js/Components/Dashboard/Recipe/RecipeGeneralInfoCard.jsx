@@ -1,3 +1,4 @@
+import MultiSelectCheckbox from '@/Components/Common/MultiSelectCheckbox';
 import { useEffect, useState } from 'react';
 import { FiUploadCloud } from 'react-icons/fi';
 
@@ -8,10 +9,11 @@ export default function RecipeGeneralInfoCard({ defaultData = null }) {
         prepTime: '',
         cookTime: '',
         servings: '',
+        health: [],
         dish: '',
-        diet: '',
-        allergy: '',
-        nutrition: '',
+        diet: [],
+        allergy: [],
+        nutrition: [],
         method: '',
     });
 
@@ -25,8 +27,23 @@ export default function RecipeGeneralInfoCard({ defaultData = null }) {
     }, [defaultData]);
 
     const handleChange = (e) => {
-        const { name, value, files } = e.target;
-        setForm({ ...form, [name]: files ? files[0] : value });
+        const { name, value, files, multiple, selectedOptions } = e.target;
+
+        if (files) {
+            setForm({ ...form, [name]: files[0] });
+        } else if (multiple) {
+            const values = Array.from(
+                selectedOptions,
+                (option) => option.value,
+            );
+            setForm({ ...form, [name]: values });
+        } else {
+            setForm({ ...form, [name]: value });
+        }
+    };
+
+    const handleMultiSelectChange = (name, values) => {
+        setForm({ ...form, [name]: values });
     };
 
     return (
@@ -36,6 +53,7 @@ export default function RecipeGeneralInfoCard({ defaultData = null }) {
             </h2>
 
             <div className="space-y-5">
+                {/* Upload Foto */}
                 <label className="flex cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-gray-300 p-6 text-center hover:border-gray-400">
                     <FiUploadCloud className="text-4xl text-gray-400" />
                     <div className="text-sm font-medium text-gray-700">
@@ -59,6 +77,7 @@ export default function RecipeGeneralInfoCard({ defaultData = null }) {
                     />
                 </label>
 
+                {/* Input Teks */}
                 {[
                     {
                         label: 'Nama Resep',
@@ -103,72 +122,132 @@ export default function RecipeGeneralInfoCard({ defaultData = null }) {
                     </div>
                 ))}
 
-                {[
-                    {
-                        label: 'Kategori Hidangan',
-                        name: 'dish',
-                        options: ['', 'utama', 'pembuka', 'penutup', 'cemilan'],
-                    },
-                    {
-                        label: 'Kategori Diet',
-                        name: 'diet',
-                        options: [
+                {/* Multi-select */}
+                <MultiSelectCheckbox
+                    label="Kategori Kondisi Kesehatan"
+                    name="health"
+                    options={[
+                        'stroke',
+                        'obesitas',
+                        'hipertensi',
+                        'paru_kronis',
+                        'ginjal_kronis',
+                        'kanker',
+                        'kesehatan_mata',
+                        'anti_peradangan',
+                        'kesehatan_jantung',
+                        'kesehatan_otak',
+                        'kesehatan_kulit',
+                        'dukungan_imunitas',
+                        'peningkat_mood',
+                        'pencegahan_kanker',
+                        'kesehatan_pencernaan',
+                        'kesehatan_tulang',
+                        'diabetes',
+                    ]}
+                    selectedValues={form.health}
+                    onChange={handleMultiSelectChange}
+                />
+
+                {/* Select biasa */}
+                <div>
+                    <label className="mb-1 block text-sm font-medium text-gray-700">
+                        Kategori Hidangan
+                    </label>
+                    <select
+                        name="dish"
+                        value={form.dish}
+                        onChange={handleChange}
+                        className="w-full rounded-md border px-3 py-2 text-sm shadow-sm"
+                    >
+                        {[
                             '',
-                            'vegan',
-                            'vegetarian',
-                            'rendah-karbo',
-                            'tinggi-protein',
-                        ],
-                    },
-                    {
-                        label: 'Kategori Alergi',
-                        name: 'allergy',
-                        options: [
-                            '',
-                            'gluten',
-                            'susu',
-                            'kacang',
-                            'telur',
-                            'makanan laut',
-                        ],
-                    },
-                    {
-                        label: 'Kategori Nutrisi',
-                        name: 'nutrition',
-                        options: [
-                            '',
-                            'rendah-kalori',
-                            'tinggi-serat',
-                            'tinggi-protein',
-                        ],
-                    },
-                    {
-                        label: 'Metode Memasak',
-                        name: 'method',
-                        options: ['', 'rebus', 'panggang', 'goreng', 'kukus'],
-                    },
-                ].map(({ label, name, options }) => (
-                    <div key={name}>
-                        <label className="mb-1 block text-sm font-medium text-gray-700">
-                            {label}
-                        </label>
-                        <select
-                            name={name}
-                            value={form[name]}
-                            onChange={handleChange}
-                            className="w-full rounded-md border px-3 py-2 text-sm shadow-sm"
-                        >
-                            {options.map((option) => (
+                            'sarapan',
+                            'pembuka',
+                            'utama',
+                            'penutup',
+                            'pelengkap',
+                            'cemilan',
+                            'berkuah',
+                            'minuman',
+                        ].map((option) => (
+                            <option key={option} value={option}>
+                                {option === ''
+                                    ? 'Pilih Kategori Hidangan'
+                                    : option.charAt(0).toUpperCase() +
+                                      option.slice(1)}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+
+                {/* Multi-select */}
+                <MultiSelectCheckbox
+                    label="Kategori Diet"
+                    name="diet"
+                    options={[
+                        'paleo',
+                        'vegan',
+                        'rendah-karbohidrat',
+                        'the-dukan',
+                        'the-ultra-low-fat',
+                        'keto',
+                        'mediterrania',
+                        'intermittent-fasting',
+                    ]}
+                    selectedValues={form.diet}
+                    onChange={handleMultiSelectChange}
+                />
+
+                <MultiSelectCheckbox
+                    label="Kategori Alergi"
+                    name="allergy"
+                    options={[
+                        'alergi_susu',
+                        'alergi_telur',
+                        'kacang',
+                        'alergi_ikan',
+                        'makanan laut',
+                    ]}
+                    selectedValues={form.allergy}
+                    onChange={handleMultiSelectChange}
+                />
+
+                <MultiSelectCheckbox
+                    label="Kategori Nutrisi"
+                    name="nutrition"
+                    options={[
+                        'rendah-kalori',
+                        'tinggi-serat',
+                        'tinggi-protein',
+                    ]}
+                    selectedValues={form.nutrition}
+                    onChange={handleMultiSelectChange}
+                />
+
+                {/* Select biasa */}
+                <div>
+                    <label className="mb-1 block text-sm font-medium text-gray-700">
+                        Metode Memasak
+                    </label>
+                    <select
+                        name="method"
+                        value={form.method}
+                        onChange={handleChange}
+                        className="w-full rounded-md border px-3 py-2 text-sm shadow-sm"
+                    >
+                        {['', 'rebus', 'panggang', 'goreng', 'kukus'].map(
+                            (option) => (
                                 <option key={option} value={option}>
                                     {option === ''
-                                        ? `Pilih ${label}`
+                                        ? 'Pilih Metode Memasak'
                                         : option.charAt(0).toUpperCase() +
-                                          option.slice(1).replace('-', ' ')}
+                                          option.slice(1)}
                                 </option>
-                            ))}
-                        </select>
-                    </div>
-                ))}
+                            ),
+                        )}
+                    </select>
+                </div>
             </div>
         </div>
     );

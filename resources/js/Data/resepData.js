@@ -1441,15 +1441,24 @@ const resepData = {
                 cook: 150,
                 bahan: [
                     { jumlah: '500 g', nama: 'daging sapi, potong kotak' },
-                    { jumlah: '500 ml', nama: 'santan kental (dari 1 butir kelapa)' },
+                    {
+                        jumlah: '500 ml',
+                        nama: 'santan kental (dari 1 butir kelapa)',
+                    },
                     { jumlah: '2 batang', nama: 'serai, memarkan' },
                     { jumlah: '3 lembar', nama: 'daun jeruk' },
-                    { jumlah: '1 lembar', nama: 'daun kunyit, simpulkan (opsional)' },
+                    {
+                        jumlah: '1 lembar',
+                        nama: 'daun kunyit, simpulkan (opsional)',
+                    },
                     { jumlah: '', nama: 'garam secukupnya' },
                     // Bumbu halus
                     { jumlah: '8 butir', nama: 'bawang merah' },
                     { jumlah: '5 siung', nama: 'bawang putih' },
-                    { jumlah: '5 buah', nama: 'cabai merah keriting (atau sesuai selera)' },
+                    {
+                        jumlah: '5 buah',
+                        nama: 'cabai merah keriting (atau sesuai selera)',
+                    },
                     { jumlah: '3 butir', nama: 'kemiri' },
                     { jumlah: '2 cm', nama: 'jahe' },
                     { jumlah: '2 cm', nama: 'lengkuas' },
@@ -1733,7 +1742,10 @@ const resepData = {
                 durasi: 15,
                 cook: 20,
                 bahan: [
-                    { jumlah: '100 g', nama: 'daging ayam tanpa kulit (rebus), potong kecil' },
+                    {
+                        jumlah: '100 g',
+                        nama: 'daging ayam tanpa kulit (rebus), potong kecil',
+                    },
                     { jumlah: '75 g', nama: 'jagung manis pipil' },
                     { jumlah: '80 g', nama: 'wortel, potong dadu kecil' },
                     { jumlah: '70 g', nama: 'kentang, potong dadu kecil' },
@@ -1958,7 +1970,10 @@ const resepData = {
                 bahan: [
                     { jumlah: '100 g', nama: 'nangka muda' },
                     { jumlah: '100 ml', nama: 'santan kental' },
-                    { jumlah: '', nama: 'bumbu gulai lengkap (kunyit, ketumbar, bawang, cabai)' },
+                    {
+                        jumlah: '',
+                        nama: 'bumbu gulai lengkap (kunyit, ketumbar, bawang, cabai)',
+                    },
                     { jumlah: '', nama: 'daun salam' },
                     { jumlah: '', nama: 'lengkuas' },
                     { jumlah: '', nama: 'garam secukupnya' },
