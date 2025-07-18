@@ -1,4 +1,3 @@
-// Components/Common/ShareBox.jsx
 import {
     FaFacebookF,
     FaInstagram,
