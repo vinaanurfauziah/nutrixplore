@@ -169,21 +169,6 @@ const kategoriData = {
             { nama: 'Kukus', slug: 'kukus', icon: 'CgSmartHomeCooker' },
             { nama: 'Panggang', slug: 'panggang', icon: 'TbGrill' },
             { nama: 'Tumis', slug: 'tumis', icon: 'CgSmartHomeCooker' },
-            {
-                nama: 'Merebus Perlahan',
-                slug: 'merebus_perlahan',
-                icon: 'LuCookingPot',
-            },
-            {
-                nama: 'Menggulai (Stewing)',
-                slug: 'menggulai',
-                icon: 'GiPressureCooker',
-            },
-            {
-                nama: 'Menggoreng Cepat (Stir Frying)',
-                slug: 'menggoreng_cepat',
-                icon: 'TbCooker',
-            },
         ],
     },
 };

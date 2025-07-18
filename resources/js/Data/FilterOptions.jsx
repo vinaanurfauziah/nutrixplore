@@ -58,16 +58,7 @@ const FilterOptions = {
         'Rendah Lemak',
         'Tanpa Kacang',
     ],
-    'Metode Memasak': [
-        'Merebus',
-        'Menggoreng',
-        'Mengukus',
-        'Memanggang',
-        'Menumis',
-        'Merebus Perlahan',
-        'Menggulai (Stewing)',
-        'Menggoreng Cepat(Stir Frying)',
-    ],
+    'Metode Memasak': ['Rebus', 'Goreng', 'Kukus', 'Panggang', 'Tumis'],
     Artikel: [
         'Semua Artikel',
         'Kondisi Kesehatan',

@@ -115,7 +115,7 @@ export default function RecipeGeneralInfoCard({ defaultData = null }) {
                             className="w-full rounded-md border px-3 py-2 pr-16 text-sm shadow-sm"
                         />
                         {unit && (
-                            <span className="absolute right-4 top-9 text-sm text-gray-500">
+                            <span className="absolute right-4 top-9 text-sm text-gray-700">
                                 {unit}
                             </span>
                         )}
@@ -127,23 +127,23 @@ export default function RecipeGeneralInfoCard({ defaultData = null }) {
                     label="Kategori Kondisi Kesehatan"
                     name="health"
                     options={[
-                        'stroke',
-                        'obesitas',
-                        'hipertensi',
-                        'paru_kronis',
-                        'ginjal_kronis',
-                        'kanker',
-                        'kesehatan_mata',
-                        'anti_peradangan',
-                        'kesehatan_jantung',
-                        'kesehatan_otak',
-                        'kesehatan_kulit',
-                        'dukungan_imunitas',
-                        'peningkat_mood',
-                        'pencegahan_kanker',
-                        'kesehatan_pencernaan',
-                        'kesehatan_tulang',
-                        'diabetes',
+                        'Stroke',
+                        'Obesitas',
+                        'Hipertensi',
+                        'Paru_kronis',
+                        'Ginjal_kronis',
+                        'Kanker',
+                        'Kesehatan_mata',
+                        'Anti_peradangan',
+                        'Kesehatan_jantung',
+                        'Kesehatan_otak',
+                        'Kesehatan_kulit',
+                        'Dukungan_imunitas',
+                        'Peningkat_mood',
+                        'Pencegahan_kanker',
+                        'Kesehatan_pencernaan',
+                        'Kesehatan_tulang',
+                        'Diabetes',
                     ]}
                     selectedValues={form.health}
                     onChange={handleMultiSelectChange}
@@ -162,14 +162,14 @@ export default function RecipeGeneralInfoCard({ defaultData = null }) {
                     >
                         {[
                             '',
-                            'sarapan',
-                            'pembuka',
-                            'utama',
-                            'penutup',
-                            'pelengkap',
-                            'cemilan',
-                            'berkuah',
-                            'minuman',
+                            'Sarapan',
+                            'Pembuka',
+                            'Utama',
+                            'Penutup',
+                            'Pelengkap',
+                            'Cemilan',
+                            'Berkuah',
+                            'Minuman',
                         ].map((option) => (
                             <option key={option} value={option}>
                                 {option === ''
@@ -186,14 +186,14 @@ export default function RecipeGeneralInfoCard({ defaultData = null }) {
                     label="Kategori Diet"
                     name="diet"
                     options={[
-                        'paleo',
-                        'vegan',
-                        'rendah-karbohidrat',
-                        'the-dukan',
-                        'the-ultra-low-fat',
-                        'keto',
-                        'mediterrania',
-                        'intermittent-fasting',
+                        'Paleo',
+                        'Vegan',
+                        'Rendah Karbohidrat',
+                        'The Dukan',
+                        'The Ultra Low Fat',
+                        'Keto',
+                        'Mediterrania',
+                        'Intermittent fasting',
                     ]}
                     selectedValues={form.diet}
                     onChange={handleMultiSelectChange}
@@ -203,11 +203,14 @@ export default function RecipeGeneralInfoCard({ defaultData = null }) {
                     label="Kategori Alergi"
                     name="allergy"
                     options={[
-                        'alergi_susu',
-                        'alergi_telur',
-                        'kacang',
-                        'alergi_ikan',
-                        'makanan laut',
+                        'Alergi susu',
+                        'Alergi telur',
+                        'Alergi kacang',
+                        'Alergi ikan',
+                        'Alergi kerang',
+                        'Alergi ayam',
+                        'Alergi kuning telur',
+                        'Alergi gandum',
                     ]}
                     selectedValues={form.allergy}
                     onChange={handleMultiSelectChange}
@@ -217,9 +220,14 @@ export default function RecipeGeneralInfoCard({ defaultData = null }) {
                     label="Kategori Nutrisi"
                     name="nutrition"
                     options={[
-                        'rendah-kalori',
-                        'tinggi-serat',
-                        'tinggi-protein',
+                        'Tinggi Protein',
+                        'Tinggi Serat',
+                        'Rendah Natrium',
+                        'Rendah Karbohidrat',
+                        'Rendah Gula',
+                        'Tinggi Kalsium',
+                        'Rendah Lemak',
+                        'Tanpa Kacang',
                     ]}
                     selectedValues={form.nutrition}
                     onChange={handleMultiSelectChange}
@@ -236,16 +244,21 @@ export default function RecipeGeneralInfoCard({ defaultData = null }) {
                         onChange={handleChange}
                         className="w-full rounded-md border px-3 py-2 text-sm shadow-sm"
                     >
-                        {['', 'rebus', 'panggang', 'goreng', 'kukus'].map(
-                            (option) => (
-                                <option key={option} value={option}>
-                                    {option === ''
-                                        ? 'Pilih Metode Memasak'
-                                        : option.charAt(0).toUpperCase() +
-                                          option.slice(1)}
-                                </option>
-                            ),
-                        )}
+                        {[
+                            '',
+                            'Rebus',
+                            'Goreng',
+                            'Kukus',
+                            'Panggang',
+                            'Tumis',
+                        ].map((option) => (
+                            <option key={option} value={option}>
+                                {option === ''
+                                    ? 'Pilih Metode Memasak'
+                                    : option.charAt(0).toUpperCase() +
+                                      option.slice(1)}
+                            </option>
+                        ))}
                     </select>
                 </div>
             </div>

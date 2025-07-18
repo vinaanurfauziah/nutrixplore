@@ -30,7 +30,7 @@ const resepData = {
                 },
             },
             {
-                id: 58,
+                id: 55,
                 judul: 'Bubur Jagung Manis Susu',
                 gambar: '/images/bubur-jagung-manis-susu.jpg',
                 slug: 'bubur-jagung-manis-susu',
@@ -1520,7 +1520,7 @@ const resepData = {
                 },
             },
             {
-                id: 59,
+                id: 56,
                 judul: 'Oatmeal Pisang dan Susu ',
                 gambar: '/images/oatmeal-pisang-dan-susu.jpg',
                 slug: 'oatmeal-pisang-dan-susu',
@@ -1781,7 +1781,7 @@ const resepData = {
     },
 
     metode: {
-        merebus: [
+        rebus: [
             {
                 id: 50,
                 judul: 'Sayur Asem Segar',
@@ -1810,7 +1810,7 @@ const resepData = {
                 },
             },
         ],
-        menggoreng: [
+        goreng: [
             {
                 id: 51,
                 judul: 'Perkedel Singkong dan Wortel',
@@ -1842,7 +1842,7 @@ const resepData = {
                 },
             },
         ],
-        mengukus: [
+        kukus: [
             {
                 id: 52,
                 judul: 'Ikan Kukus Jahe',
@@ -1871,7 +1871,7 @@ const resepData = {
                 },
             },
         ],
-        memanggang: [
+        panggang: [
             {
                 id: 53,
                 judul: 'Kentang Panggang Rosemary',
@@ -1900,7 +1900,7 @@ const resepData = {
                 },
             },
         ],
-        menumis: [
+        tumis: [
             {
                 id: 54,
                 judul: 'Tumis Kangkung dan Jagung Manis',
@@ -1924,98 +1924,6 @@ const resepData = {
                 nutrisi: {
                     kalori: '85 kkal',
                     protein: '2.0 g',
-                    lemak: '5.0 g',
-                    serat: '2.5 g',
-                },
-            },
-        ],
-        merebus_perlahan: [
-            {
-                id: 55,
-                judul: 'Sayur Daun Kelor dan Labu Kuning',
-                gambar: '/images/sayur-kelor-labu-kuning.jpg',
-                slug: 'sayur-daun-kelor-labu-kuning',
-                kalori: 60,
-                durasi: 10,
-                cook: 15,
-                bahan: [
-                    { jumlah: '50 g', nama: 'daun kelor' },
-                    { jumlah: '100 g', nama: 'labu kuning' },
-                    { jumlah: '100 ml', nama: 'santan encer' },
-                    { jumlah: '10 g', nama: 'bawang merah & putih' },
-                    { jumlah: '400 ml', nama: 'air' },
-                    { jumlah: '', nama: 'garam secukupnya' },
-                ],
-                langkah: [
-                    'Rebus labu kuning dengan santan encer, bawang merah & putih, dan air di api kecil.',
-                    'Tambahkan daun kelor di akhir, rebus perlahan selama 5 menit.',
-                ],
-                nutrisi: {
-                    kalori: '60 kkal',
-                    serat: '2.5 g',
-                    vitamin_a: 'sangat tinggi',
-                    kalsium: '100 mg',
-                },
-            },
-        ],
-        menggulai: [
-            {
-                id: 56,
-                judul: 'Gulai Nangka Muda',
-                gambar: '/images/gulai-nangka-muda.jpeg',
-                slug: 'gulai-nangka-muda',
-                kalori: 190,
-                durasi: 10,
-                cook: 30,
-                bahan: [
-                    { jumlah: '100 g', nama: 'nangka muda' },
-                    { jumlah: '100 ml', nama: 'santan kental' },
-                    {
-                        jumlah: '',
-                        nama: 'bumbu gulai lengkap (kunyit, ketumbar, bawang, cabai)',
-                    },
-                    { jumlah: '', nama: 'daun salam' },
-                    { jumlah: '', nama: 'lengkuas' },
-                    { jumlah: '', nama: 'garam secukupnya' },
-                ],
-                langkah: [
-                    'Tumis bumbu gulai lengkap bersama daun salam dan lengkuas hingga harum.',
-                    'Tambahkan santan, aduk rata agar tidak pecah.',
-                    'Masukkan nangka muda, masak hingga empuk dan santan menyusut.',
-                ],
-                nutrisi: {
-                    kalori: '190 kkal',
-                    protein: '3.0 g',
-                    lemak: '7.0 g',
-                    karbohidrat: '25.0 g',
-                    serat: '2.0 g',
-                },
-            },
-        ],
-        menggoreng_cepat: [
-            {
-                id: 57,
-                judul: 'Stir Fry Buncis & Tahu',
-                gambar: '/images/stirfry-buncis-tahu.jpg',
-                slug: 'stir-fry-buncis-tahu',
-                kalori: 110,
-                durasi: 10,
-                cook: 10,
-                bahan: [
-                    { jumlah: '100 g', nama: 'buncis' },
-                    { jumlah: '100 g', nama: 'tahu putih' },
-                    { jumlah: '5 g', nama: 'bawang putih' },
-                    { jumlah: '1 sdm (13.6 g)', nama: 'minyak kelapa' },
-                    { jumlah: '', nama: 'garam secukupnya' },
-                ],
-                langkah: [
-                    'Panaskan wajan, tumis bawang putih hingga harum.',
-                    'Masukkan tahu, goreng cepat selama 2 menit. Aduk rata.',
-                    'Tambahkan buncis, masak cepat hingga setengah matang.',
-                ],
-                nutrisi: {
-                    kalori: '110 kkal',
-                    protein: '6.0 g',
                     lemak: '5.0 g',
                     serat: '2.5 g',
                 },
