@@ -49,26 +49,56 @@ export default function MultiSelectCheckbox({
     // 💡 Tambahkan fungsi untuk menentukan warna berdasarkan nilai
     const getColorClasses = (val) => {
         const colorMap = {
-            diabetes: 'bg-red-100 text-red-700',
-            hipertensi: 'bg-yellow-100 text-yellow-700',
-            stroke: 'bg-orange-100 text-orange-700',
-            jantung: 'bg-pink-100 text-pink-700',
-            vegan: 'bg-green-100 text-green-700',
-            vegetarian: 'bg-emerald-100 text-emerald-700',
-            'rendah-karbo': 'bg-blue-100 text-blue-700',
-            'tinggi-protein': 'bg-indigo-100 text-indigo-700',
-            gluten: 'bg-purple-100 text-purple-700',
-            susu: 'bg-cyan-100 text-cyan-700',
-            kacang: 'bg-teal-100 text-teal-700',
-            telur: 'bg-rose-100 text-rose-700',
-            'makanan laut': 'bg-sky-100 text-sky-700',
-            'rendah-kalori': 'bg-lime-100 text-lime-700',
-            'tinggi-serat': 'bg-amber-100 text-amber-700',
-            default: 'bg-gray-200 text-gray-800',
+            Stroke: 'bg-orange-100 text-orange-700',
+            Obesitas: 'bg-rose-100 text-rose-700',
+            Hipertensi: 'bg-yellow-100 text-yellow-700',
+            Paru_kronis: 'bg-teal-100 text-teal-700',
+            Ginjal_kronis: 'bg-blue-100 text-blue-700',
+            Kanker: 'bg-pink-100 text-pink-700',
+            Kesehatan_mata: 'bg-indigo-100 text-indigo-700',
+            Anti_peradangan: 'bg-red-100 text-red-700',
+            Kesehatan_jantung: 'bg-purple-100 text-purple-700',
+            Kesehatan_otak: 'bg-sky-100 text-sky-700',
+            Kesehatan_kulit: 'bg-lime-100 text-lime-700',
+            Dukungan_imunitas: 'bg-emerald-100 text-emerald-700',
+            Peningkat_mood: 'bg-fuchsia-100 text-fuchsia-700',
+            Pencegahan_kanker: 'bg-cyan-100 text-cyan-700',
+            Kesehatan_pencernaan: 'bg-green-100 text-green-700',
+            Kesehatan_tulang: 'bg-amber-100 text-amber-700',
+            Diabetes: 'bg-red-200 text-red-800',
+
+            // Diet
+            Paleo: 'bg-green-100 text-green-700',
+            Vegan: 'bg-emerald-100 text-emerald-700',
+            'The Dukan': 'bg-indigo-100 text-indigo-700',
+            'The Ultra Low Fat': 'bg-yellow-100 text-yellow-700',
+            Keto: 'bg-pink-100 text-pink-700',
+            Mediterrania: 'bg-orange-100 text-orange-700',
+            'Intermittent fasting': 'bg-purple-100 text-purple-700',
+
+            // Allergy
+            'Alergi susu': 'bg-cyan-100 text-cyan-700',
+            'Alergi telur': 'bg-rose-100 text-rose-700',
+            'Alergi kacang': 'bg-teal-100 text-teal-700',
+            'Alergi ikan': 'bg-sky-100 text-sky-700',
+            'Alergi kerang': 'bg-blue-200 text-blue-800',
+            'Alergi ayam': 'bg-yellow-200 text-yellow-800',
+            'Alergi kuning telur': 'bg-lime-200 text-lime-800',
+            'Alergi gandum': 'bg-gray-200 text-gray-800',
+
+            // Nutrition
+            'Tinggi Protein': 'bg-indigo-100 text-indigo-700',
+            'Tinggi Serat': 'bg-amber-100 text-amber-700',
+            'Rendah Natrium': 'bg-lime-100 text-lime-700',
+            'Rendah Karbohidrat': 'bg-blue-100 text-blue-700',
+            'Rendah Gula': 'bg-rose-100 text-rose-700',
+            'Tinggi Kalsium': 'bg-purple-100 text-purple-700',
+            'Rendah Lemak': 'bg-orange-100 text-orange-700',
+            'Tanpa Kacang': 'bg-green-100 text-green-700',
         };
 
         return `flex items-center gap-1 rounded-full px-2 py-0.5 text-xs ${
-            colorMap[val] || colorMap.default
+            colorMap[val] || 'bg-gray-200 text-gray-800'
         }`;
     };
 
@@ -80,7 +110,7 @@ export default function MultiSelectCheckbox({
 
             <div
                 onClick={() => setIsOpen(!isOpen)}
-                className="flex min-h-[40px] w-full cursor-pointer flex-wrap gap-2 rounded-md border border-gray-300 bg-white px-3 py-2 text-sm shadow-sm focus-within:border-purple-600 focus-within:ring-1 focus-within:ring-purple-600"
+                className="flex min-h-[40px] w-full cursor-pointer flex-wrap gap-2 rounded-md border border-gray-700 bg-white px-3 py-2 text-sm shadow-sm focus-within:border-purple-600 focus-within:ring-1 focus-within:ring-purple-600"
                 tabIndex={0}
             >
                 {selectedValues.length > 0 ? (
@@ -104,7 +134,7 @@ export default function MultiSelectCheckbox({
                         </span>
                     ))
                 ) : (
-                    <span className="text-gray-400">{`Pilih ${label}`}</span>
+                    <span className="text-gray-800">{`Pilih ${label}`}</span>
                 )}
             </div>
 
