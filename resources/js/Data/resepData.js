@@ -837,11 +837,11 @@ const resepData = {
                 ],
                 nutrisi: {
                     kalori: '90 kkal',
-                    protein: '±7 g',
-                    karbohidrat: 'rendah',
-                    serat: 'sedang',
-                    indeks_glikemik: 'rendah',
-                },
+                    protein: '7 g',
+                    karbohidrat: '5 g',
+                    serat: '3 g',
+                    indeks_glikemik: '30 (rendah)'
+                }
             },
         ],
     },
