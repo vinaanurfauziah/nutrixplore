@@ -1,5 +1,4 @@
 import SaveButton from '@/Components/Common/SaveButton';
-import { motion } from 'framer-motion';
 
 const RecipeCard = ({
     title,
@@ -11,11 +10,7 @@ const RecipeCard = ({
     onUnsave,
 }) => {
     return (
-        <motion.div
-            whileHover={{ scale: 1.03 }}
-            transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-            className="relative flex h-full flex-col overflow-hidden rounded-2xl shadow-md transition hover:shadow-xl"
-        >
+        <div className="relative flex h-full flex-col overflow-hidden rounded-2xl shadow-md transition-transform duration-300 hover:scale-[1.03] hover:shadow-xl">
             <div className="aspect-[3/4] w-full">
                 <img
                     src={imageUrl}
@@ -44,7 +39,7 @@ const RecipeCard = ({
                     </div>
                 </div>
             </div>
-        </motion.div>
+        </div>
     );
 };
 

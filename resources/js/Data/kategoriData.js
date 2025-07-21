@@ -143,14 +143,14 @@ const kategoriData = {
                 icon: 'GiSaltShaker',
             },
             {
-                nama: 'Rendah Karbohidrat',
-                slug: 'rendah_karbohidrat',
+                nama: 'Rendah Energi',
+                slug: 'rendah_lemak',
                 icon: 'BiBowlRice',
             },
             { nama: 'Rendah Gula', slug: 'rendah_gula', icon: 'LuCandy' },
             {
-                nama: 'Tinggi Kalsium',
-                slug: 'tinggi_kalsium',
+                nama: 'Rendah Kolesterol',
+                slug: 'rendah_kolesterol',
                 icon: 'FaBone',
             },
             {
@@ -158,7 +158,6 @@ const kategoriData = {
                 slug: 'rendah_lemak',
                 icon: 'GiChickenLeg',
             },
-            { nama: 'Tanpa Kacang', slug: 'tanpa_kacang', icon: 'GiPeanut' },
         ],
     },
     metode: {
@@ -169,21 +168,6 @@ const kategoriData = {
             { nama: 'Kukus', slug: 'kukus', icon: 'CgSmartHomeCooker' },
             { nama: 'Panggang', slug: 'panggang', icon: 'TbGrill' },
             { nama: 'Tumis', slug: 'tumis', icon: 'CgSmartHomeCooker' },
-            {
-                nama: 'Merebus Perlahan',
-                slug: 'merebus_perlahan',
-                icon: 'LuCookingPot',
-            },
-            {
-                nama: 'Menggulai (Stewing)',
-                slug: 'menggulai',
-                icon: 'GiPressureCooker',
-            },
-            {
-                nama: 'Menggoreng Cepat (Stir Frying)',
-                slug: 'menggoreng_cepat',
-                icon: 'TbCooker',
-            },
         ],
     },
 };

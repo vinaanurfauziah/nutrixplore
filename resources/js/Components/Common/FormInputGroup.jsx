@@ -1,4 +1,3 @@
-// Components/Common/FormInputGroup.jsx
 import InputError from './InputError';
 import InputLabel from './InputLabel';
 import TextInput from './TextInput';

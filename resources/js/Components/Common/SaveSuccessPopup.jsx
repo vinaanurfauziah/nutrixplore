@@ -36,7 +36,7 @@ export default function SaveSuccessPopup({
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
             <div className="animate-fade-in w-[90%] max-w-md rounded-2xl bg-white p-8 shadow-2xl dark:bg-gray-800">
                 <div className="mb-4 flex justify-center">
-                    <FaCheckCircle className="animate-glow-bounce h-16 w-16 text-green-500" />
+                    <FaCheckCircle className="h-16 w-16 animate-glow-bounce text-green-500" />
                 </div>
                 <p className="text-center text-xl font-semibold text-gray-800 dark:text-white">
                     {customMessage || message.title}

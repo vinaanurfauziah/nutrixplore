@@ -15,7 +15,7 @@ import ArticleGrid from '@/Components/Partials/Article/ArticleGrid';
 import { motion } from 'framer-motion';
 
 export default function Article({ auth }) {
-    const artikelData = getAllArticles(); 
+    const artikelData = getAllArticles();
 
     const artikelOptions = FilterOptions.Artikel || [];
 

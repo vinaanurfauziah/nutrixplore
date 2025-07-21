@@ -3,7 +3,7 @@ import { Link } from '@inertiajs/react';
 const Breadcrumb = ({ items }) => {
     return (
         <nav
-            className="border-gray-200 bg-white px-4 py-4 text-sm sm:text-base dark:bg-gray-800"
+            className="border-gray-200 bg-white px-4 py-4 text-sm dark:bg-gray-800 sm:text-base"
             aria-label="Breadcrumb"
         >
             <div className="mx-auto max-w-screen-2xl">

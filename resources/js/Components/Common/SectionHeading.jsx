@@ -1,4 +1,3 @@
-// Components/Common/SectionHeading.jsx
 export default function SectionHeading({ subtitle, title }) {
     return (
         <>
