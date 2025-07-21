@@ -1559,7 +1559,7 @@ const resepData = {
                 gambar: '/images/sayur-bening-bayam-labu.jpeg',
                 slug: 'sayur-bening-bayam-labu-siam',
                 kalori: 35,
-                durasi: 10,
+                durasi: 25,
                 cook: 15,
                 bahan: [
                     { jumlah: '100 g', nama: 'bayam segar' },
@@ -1578,12 +1578,13 @@ const resepData = {
                     'Tambahkan sedikit garam jika diperbolehkan dalam diet, angkat dan sajikan hangat.',
                 ],
                 nutrisi: {
+                    berat_saji: '300 g',
                     kalori: '35 kkal',
+                    natrium: '≤15 mg',
                     protein: '1.5 g',
                     lemak: '0.5 g',
                     karbohidrat: '5.5 g',
                     serat: '2.0 g',
-                    natrium: '≤15 mg',
                     kalium: '300 mg',
                     vitamin_c: '12 mg',
                 },
