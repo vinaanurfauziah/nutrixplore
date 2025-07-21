@@ -158,7 +158,6 @@ const kategoriData = {
                 slug: 'rendah_lemak',
                 icon: 'GiChickenLeg',
             },
-            { nama: 'Tanpa Kacang', slug: 'tanpa_kacang', icon: 'GiPeanut' },
         ],
     },
     metode: {

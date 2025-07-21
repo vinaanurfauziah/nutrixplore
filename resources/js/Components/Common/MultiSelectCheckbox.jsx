@@ -94,7 +94,6 @@ export default function MultiSelectCheckbox({
             'Rendah Gula': 'bg-rose-100 text-rose-700',
             'Tinggi Kalsium': 'bg-purple-100 text-purple-700',
             'Rendah Lemak': 'bg-orange-100 text-orange-700',
-            'Tanpa Kacang': 'bg-green-100 text-green-700',
         };
 
         return `flex items-center gap-1 rounded-full px-2 py-0.5 text-xs ${

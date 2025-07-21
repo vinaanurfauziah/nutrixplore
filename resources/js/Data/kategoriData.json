@@ -70,7 +70,6 @@
       { "nama": "Rendah Gula", "slug": "rendah_gula", "icon": "LuCandy" },
       { "nama": "Tinggi Kalsium", "slug": "tinggi_kalsium", "icon": "FaBone" },
       { "nama": "Rendah Lemak", "slug": "rendah_lemak", "icon": "GiChickenLeg" },
-      { "nama": "Tanpa Kacang", "slug": "tanpa_kacang", "icon": "GiPeanut" }
     ]
   },
   "metode": {

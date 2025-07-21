@@ -30,7 +30,7 @@ const resepData = {
                 },
             },
             {
-                id: 55,
+                id: 54,
                 judul: 'Bubur Jagung Manis Susu',
                 gambar: '/images/bubur-jagung-manis-susu.jpg',
                 slug: 'bubur-jagung-manis-susu',
@@ -1520,7 +1520,7 @@ const resepData = {
                 },
             },
             {
-                id: 56,
+                id: 55,
                 judul: 'Oatmeal Pisang dan Susu ',
                 gambar: '/images/oatmeal-pisang-dan-susu.jpg',
                 slug: 'oatmeal-pisang-dan-susu',
@@ -1732,58 +1732,12 @@ const resepData = {
                 },
             },
         ],
-        tanpa_kacang: [
-            {
-                id: 49,
-                judul: 'Sup Jagung Wortel Ayam',
-                gambar: '/images/sup-jagung-wortel-ayam.jpeg',
-                slug: 'sup-jagung-wortel-ayam',
-                kalori: 180,
-                durasi: 15,
-                cook: 20,
-                bahan: [
-                    {
-                        jumlah: '100 g',
-                        nama: 'daging ayam tanpa kulit (rebus), potong kecil',
-                    },
-                    { jumlah: '75 g', nama: 'jagung manis pipil' },
-                    { jumlah: '80 g', nama: 'wortel, potong dadu kecil' },
-                    { jumlah: '70 g', nama: 'kentang, potong dadu kecil' },
-                    { jumlah: '5 g', nama: 'daun bawang, iris halus' },
-                    { jumlah: '5 g', nama: 'seledri, iris halus' },
-                    { jumlah: '6 g', nama: 'bawang putih, iris tipis' },
-                    { jumlah: '8 g', nama: 'bawang merah, iris tipis' },
-                    { jumlah: '0.5 g', nama: 'merica bubuk' },
-                    { jumlah: '2 g', nama: 'garam' },
-                    { jumlah: '600 g', nama: 'air kaldu / air biasa' },
-                    { jumlah: '10 g', nama: 'minyak goreng (untuk menumis)' },
-                ],
-                langkah: [
-                    'Potong ayam, wortel, dan kentang kecil-kecil. Iris bawang putih dan bawang merah.',
-                    'Panaskan minyak, tumis bawang putih dan merah hingga harum.',
-                    'Tambahkan air atau kaldu, masukkan ayam, jagung, wortel, dan kentang.',
-                    'Masak hingga wortel dan kentang empuk (sekitar 15–20 menit).',
-                    'Tambahkan garam dan merica bubuk, koreksi rasa.',
-                    'Masukkan irisan daun bawang dan seledri sebelum mematikan api.',
-                    'Sajikan hangat.',
-                ],
-                nutrisi: {
-                    kalori: '180 kkal',
-                    protein: '14 g',
-                    lemak: '7 g',
-                    karbohidrat: '18 g',
-                    serat: '2.5 g',
-                    natrium: '250 mg',
-                    kolesterol: '40 mg',
-                },
-            },
-        ],
     },
 
     metode: {
         rebus: [
             {
-                id: 50,
+                id: 49,
                 judul: 'Sayur Asem Segar',
                 gambar: '/images/sayur-asem.jpeg',
                 slug: 'sayur-asem',
@@ -1812,7 +1766,7 @@ const resepData = {
         ],
         goreng: [
             {
-                id: 51,
+                id: 50,
                 judul: 'Perkedel Singkong dan Wortel',
                 gambar: '/images/perkedel-singkong-wortel.jpg',
                 slug: 'perkedel-singkong-wortel',
@@ -1844,7 +1798,7 @@ const resepData = {
         ],
         kukus: [
             {
-                id: 52,
+                id: 51,
                 judul: 'Ikan Kukus Jahe',
                 gambar: '/images/ikan-kukus-jahe.jpg',
                 slug: 'ikan-kukus-jahe',
@@ -1873,7 +1827,7 @@ const resepData = {
         ],
         panggang: [
             {
-                id: 53,
+                id: 52,
                 judul: 'Kentang Panggang Rosemary',
                 gambar: '/images/kentang-panggang-rosemary.jpg',
                 slug: 'kentang-panggang',
@@ -1902,7 +1856,7 @@ const resepData = {
         ],
         tumis: [
             {
-                id: 54,
+                id: 53,
                 judul: 'Tumis Kangkung dan Jagung Manis',
                 gambar: '/images/tumis-kangkung-jagung.jpeg',
                 slug: 'tumis-kangkung-jagung-manis',

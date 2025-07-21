@@ -56,7 +56,6 @@ const FilterOptions = {
         'Rendah Gula',
         'Tinggi Kalsium',
         'Rendah Lemak',
-        'Tanpa Kacang',
     ],
     'Metode Memasak': ['Rebus', 'Goreng', 'Kukus', 'Panggang', 'Tumis'],
     Artikel: [

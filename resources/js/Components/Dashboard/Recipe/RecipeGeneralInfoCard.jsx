@@ -227,7 +227,6 @@ export default function RecipeGeneralInfoCard({ defaultData = null }) {
                         'Rendah Gula',
                         'Tinggi Kalsium',
                         'Rendah Lemak',
-                        'Tanpa Kacang',
                     ]}
                     selectedValues={form.nutrition}
                     onChange={handleMultiSelectChange}
