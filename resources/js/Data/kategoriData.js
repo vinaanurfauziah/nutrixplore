@@ -149,8 +149,8 @@ const kategoriData = {
             },
             { nama: 'Rendah Gula', slug: 'rendah_gula', icon: 'LuCandy' },
             {
-                nama: 'Tinggi Kalsium',
-                slug: 'tinggi_kalsium',
+                nama: 'Rendah Kolesterol',
+                slug: 'rendah_kolesterol',
                 icon: 'FaBone',
             },
             {

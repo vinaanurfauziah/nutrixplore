@@ -1666,7 +1666,7 @@ const resepData = {
                 },
             },
         ],
-        tinggi_kalsium: [
+        rendah_kolesterol: [
             {
                 id: 47,
                 judul: 'Tumis Daun Kelor & Tahu Putih',
@@ -1692,10 +1692,12 @@ const resepData = {
                     'Masak hingga daun kelor layu, sajikan hangat.',
                 ],
                 nutrisi: {
+                    berat_saji: '150 g',
                     kalori: '100 kkal',
                     protein: '7.5 g',
                     lemak: '5.0 g',
                     karbohidrat: '4.0 g',
+                    kolesterol: '0 mg',
                     kalsium: '≥300 mg',
                     serat: '2.5 g',
                     zat_besi: '2.0 mg',
