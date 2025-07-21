@@ -1708,7 +1708,7 @@ const resepData = {
                 gambar: '/images/sup-labu-wortel-putren.jpg',
                 slug: 'sup-labu-siam-wortel-jagung-muda',
                 kalori: 40,
-                durasi: 10,
+                durasi: 25,
                 cook: 15,
                 bahan: [
                     { jumlah: '100 g', nama: 'labu siam' },
