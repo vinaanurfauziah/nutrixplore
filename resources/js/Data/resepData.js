@@ -1727,6 +1727,7 @@ const resepData = {
                     'Sajikan hangat sebagai menu utama atau pendamping nasi rendah kalori.',
                 ],
                 nutrisi: {
+                    berat_saji: '350 g',
                     kalori: '40 kkal',
                     protein: '1.5 g',
                     lemak: '<0.5 g',
