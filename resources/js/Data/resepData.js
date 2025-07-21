@@ -1653,6 +1653,7 @@ const resepData = {
                     'Sajikan hangat, cocok sebagai lauk rendah gula.',
                 ],
                 nutrisi: {
+                    berat_saji: '±250 g',
                     kalori: '95 kkal',
                     protein: '7.0 g',
                     lemak: '5.0 g',
