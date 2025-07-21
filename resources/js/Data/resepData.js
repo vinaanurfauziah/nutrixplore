@@ -901,7 +901,7 @@ const resepData = {
                 },
             },
         ],
-        rendah_karbohidrat: [
+        rendah_energi: [
             {
                 id: 28,
                 judul: 'Orak Arik Telur Jamur',
@@ -1590,7 +1590,7 @@ const resepData = {
                 },
             },
         ],
-        rendah_karbohidrat: [
+        rendah_energi: [
             {
                 id: 45,
                 judul: 'Tumis Sawi Putih, Tahu, dan Jamur',
@@ -1617,6 +1617,7 @@ const resepData = {
                     'Sajikan hangat, cocok disantap tanpa nasi atau dengan nasi shirataki.',
                 ],
                 nutrisi: {
+                    berat_saji: 225,
                     kalori: '90 kkal',
                     protein: '6 g',
                     lemak: '5 g',

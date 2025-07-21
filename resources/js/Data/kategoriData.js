@@ -143,8 +143,8 @@ const kategoriData = {
                 icon: 'GiSaltShaker',
             },
             {
-                nama: 'Rendah Karbohidrat',
-                slug: 'rendah_karbohidrat',
+                nama: 'Rendah Energi',
+                slug: 'rendah_lemak',
                 icon: 'BiBowlRice',
             },
             { nama: 'Rendah Gula', slug: 'rendah_gula', icon: 'LuCandy' },

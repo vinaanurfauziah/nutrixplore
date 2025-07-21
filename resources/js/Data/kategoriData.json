@@ -66,7 +66,7 @@
       { "nama": "Tinggi Protein", "slug": "tinggi_protein", "icon": "LuEggFried" },
       { "nama": "Tinggi Serat", "slug": "tinggi_serat", "icon": "GiHerbsBundle" },
       { "nama": "Rendah Natrium", "slug": "rendah_natrium", "icon": "GiSaltShaker" },
-      { "nama": "Rendah Karbohidrat", "slug": "rendah_karbohidrat", "icon": "BiBowlRice" },
+      { "nama": "Rendah Energi", "slug": "rendah_energi", "icon": "BiBowlRice" },
       { "nama": "Rendah Gula", "slug": "rendah_gula", "icon": "LuCandy" },
       { "nama": "Tinggi Kalsium", "slug": "tinggi_kalsium", "icon": "FaBone" },
       { "nama": "Rendah Lemak", "slug": "rendah_lemak", "icon": "GiChickenLeg" },
