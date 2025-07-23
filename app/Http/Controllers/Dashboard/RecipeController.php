@@ -10,6 +10,8 @@ use App\Models\HealthTag;
 
 class RecipeController extends Controller
 {
+  
+
     public function index()
     {
         return Recipe::with(['ingredients', 'steps', 'nutrition', 'healthTags'])->get();
@@ -17,11 +19,20 @@ class RecipeController extends Controller
 
     public function show($slug)
     {
-        return Recipe::with(['ingredients', 'steps', 'nutrition', 'healthTags'])->where('slug', $slug)->firstOrFail();
+        return Recipe::with(['ingredients', 'steps', 'nutrition', 'healthTags'])
+            ->where('slug', $slug)
+            ->firstOrFail();
     }
+
+  
 
     public function store(Request $request)
     {
+        $user = $request->user();
+        if ($user->role !== 'admin') {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+
         $validated = $request->validate([
             'judul' => 'required|string',
             'slug' => 'required|string|unique:recipes,slug',
@@ -34,12 +45,16 @@ class RecipeController extends Controller
         ]);
 
         $recipe = Recipe::create($validated);
-
         return response()->json($recipe, 201);
     }
 
     public function update(Request $request, $id)
     {
+        $user = $request->user();
+        if ($user->role !== 'admin') {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+
         $recipe = Recipe::findOrFail($id);
 
         $validated = $request->validate([
@@ -54,40 +69,63 @@ class RecipeController extends Controller
         ]);
 
         $recipe->update($validated);
-
         return response()->json($recipe);
     }
 
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
+        $user = $request->user();
+        if ($user->role !== 'admin') {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+
         $recipe = Recipe::findOrFail($id);
         $recipe->delete();
 
         return response()->json(['message' => 'Recipe deleted']);
     }
-    public function saveRecipe($id)
-{
-    $user = auth()->user();
-    $recipe = Recipe::findOrFail($id);
 
-    if (!$user->savedRecipes()->where('recipe_id', $id)->exists()) {
-        $user->savedRecipes()->attach($recipe);
+ 
+
+    public function saveRecipe($id)
+    {
+        $user = auth()->user();
+
+        // Opsional: validasi role user biasa
+        if ($user->role !== 'user') {
+            return response()->json(['message' => 'Only users can save recipes'], 403);
+        }
+
+        $recipe = Recipe::findOrFail($id);
+
+        if (!$user->savedRecipes()->where('recipe_id', $id)->exists()) {
+            $user->savedRecipes()->attach($recipe);
+        }
+
+        return response()->json(['message' => 'Recipe saved']);
     }
 
-    return response()->json(['message' => 'Recipe saved']);
-}
-public function unsaveRecipe($id)
-{
-    $user = auth()->user();
-    $user->savedRecipes()->detach($id);
+    public function unsaveRecipe($id)
+    {
+        $user = auth()->user();
 
-    return response()->json(['message' => 'Recipe removed from saved list']);
-}
-public function getSavedRecipes()
-{
-    $user = auth()->user();
-    $savedRecipes = $user->savedRecipes()->with(['ingredients', 'steps', 'nutrition', 'healthTags'])->get();
+        if ($user->role !== 'user') {
+            return response()->json(['message' => 'Only users can unsave recipes'], 403);
+        }
 
-    return response()->json($savedRecipes);
-}
+        $user->savedRecipes()->detach($id);
+        return response()->json(['message' => 'Recipe removed from saved list']);
+    }
+
+    public function getSavedRecipes()
+    {
+        $user = auth()->user();
+
+        if ($user->role !== 'user') {
+            return response()->json(['message' => 'Only users can view saved recipes'], 403);
+        }
+
+        $savedRecipes = $user->savedRecipes()->with(['ingredients', 'steps', 'nutrition', 'healthTags'])->get();
+        return response()->json($savedRecipes);
+    }
 }

@@ -242,5 +242,18 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+//Routes for Recipe
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/recipes', [RecipeController::class, 'index'])->name('recipes.index');
+    Route::get('/recipes/create', [RecipeController::class, 'create'])->name('recipes.create');
+    Route::post('/recipes', [RecipeController::class, 'store'])->name('recipes.store');
+    Route::get('/recipes/{slug}', [RecipeController::class, 'show'])->name('recipes.show');
+    Route::get('/recipes/{id}/edit', [RecipeController::class, 'edit'])->name('recipes.edit');
+    Route::put('/recipes/{id}', [RecipeController::class, 'update'])->name('recipes.update');
+    Route::delete('/recipes/{id}', [RecipeController::class, 'destroy'])->name('recipes.destroy');
 
+    Route::post('/recipes/{id}/save', [RecipeController::class, 'saveRecipe'])->name('recipes.save');
+    Route::delete('/recipes/{id}/unsave', [RecipeController::class, 'unsaveRecipe'])->name('recipes.unsave');
+    Route::get('/saved-recipes', [RecipeController::class, 'getSavedRecipes'])->name('recipes.saved');
+});
 require __DIR__.'/auth.php';
