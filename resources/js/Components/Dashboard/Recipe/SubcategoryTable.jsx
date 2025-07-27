@@ -1,29 +1,24 @@
-import kategoriData from '@/data/kategoriData';
-import { router } from '@inertiajs/react';
+import { router, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 import { FiPlus, FiSearch } from 'react-icons/fi';
 import SubcategoryRow from './SubcategoryRow';
+import DashboardNavbar from '@/Components/Dashboard/Navbar';
 
 export default function SubcategoryTable() {
+    const { subcategories = [] } = usePage().props;
+
     const [searchQuery, setSearchQuery] = useState('');
     const [showSearch, setShowSearch] = useState(false);
     const [openMenuIndex, setOpenMenuIndex] = useState(null);
 
-    const allSubcategories = Object.entries(kategoriData).flatMap(
-        ([kategoriSlug, kategoriObj]) =>
-            kategoriObj.subkategori.map((sub) => ({
-                kategori: kategoriObj.nama,
-                kategoriSlug,
-                nama: sub.nama,
-                slug: sub.slug,
-            }))
-    );
-
-    const filtered = allSubcategories.filter(
-        (sub) =>
-            sub.nama.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            sub.kategori.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    const filtered = subcategories.filter((sub) => {
+        const kategori = sub?.kategori_label ?? ''; 
+        const nama = sub?.name ?? '';
+        return (
+            nama.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            kategori.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+    });
 
     return (
         <div className="rounded-lg bg-white p-4 shadow-sm">
@@ -38,7 +33,6 @@ export default function SubcategoryTable() {
                         onChange={(e) => setSearchQuery(e.target.value)}
                         className="rounded-lg border border-gray-300 px-4 py-2 text-sm shadow-sm focus:border-[#70B9BE] focus:outline-none focus:ring-2 focus:ring-[#70B9BE]"
                     />
-
                     <button
                         onClick={() =>
                             router.get('/dashboard/recipe/category-recipe/create')
@@ -90,32 +84,26 @@ export default function SubcategoryTable() {
                         <tr>
                             <th className="px-4 py-3">Kategori</th>
                             <th className="px-4 py-3">Nama Subkategori</th>
-                            <th className="hidden px-4 py-3 md:table-cell">Slug</th>
                             <th className="px-4 py-3">Aksi</th>
                         </tr>
                     </thead>
                     <tbody className="text-gray-800">
                         {filtered.length > 0 ? (
                             filtered.map((sub, idx) => (
-                                <SubcategoryRow
-                                    key={idx}
-                                    nama={sub.nama}
-                                    slug={sub.slug}
-                                    kategori={sub.kategori}
-                                    isOpen={openMenuIndex === idx}
-                                    onToggle={() =>
-                                        setOpenMenuIndex(
-                                            openMenuIndex === idx ? null : idx
-                                        )
-                                    }
-                                />
+    <SubcategoryRow
+        key={sub.id}
+        id={sub.id}
+        nama={sub.name}
+        kategori={sub.category} 
+        isOpen={openMenuIndex === idx}
+        onToggle={() =>
+            setOpenMenuIndex(openMenuIndex === idx ? null : idx)
+        }
+    />
                             ))
                         ) : (
                             <tr>
-                                <td
-                                    colSpan="4"
-                                    className="px-4 py-4 text-center text-gray-500"
-                                >
+                                <td colSpan="3" className="px-4 py-4 text-center text-gray-500">
                                     Tidak ada subkategori atau kategori yang cocok.
                                 </td>
                             </tr>

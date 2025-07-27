@@ -11,10 +11,18 @@ return new class extends Migration
         Schema::create('ingredients', function (Blueprint $table) {
             $table->id();
             $table->foreignId('recipe_id')->constrained()->onDelete('cascade');
-            $table->string('jumlah');
             $table->string('nama');
+            $table->string('jumlah');
+            $table->enum('takaran', [
+                'gram',
+                'ml',
+                'sdt',
+                'sdm',
+            ]);
+            
             $table->timestamps();
         });
+
     }
 
     public function down()

@@ -14,6 +14,7 @@ return new class extends Migration
             $table->integer('urutan');
             $table->text('deskripsi');
             $table->timestamps();
+       
         });
     }
 

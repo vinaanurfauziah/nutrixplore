@@ -6,7 +6,7 @@ import DetailHero from '@/Components/Partials/Recipe/DetailHero';
 import DetailTabs from '@/Components/Partials/Recipe/DetailTabs';
 import Footer from '@/Components/Templates/Footer';
 import Navbar from '@/Components/Templates/Navbar';
-import resepData from '@/data/resepData';
+import resepData from '@/Data/getAllRecipes';
 import { Head } from '@inertiajs/react';
 import { useState } from 'react';
 

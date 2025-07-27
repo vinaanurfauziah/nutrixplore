@@ -1,5 +1,5 @@
 import kategoriData from '@/data/kategoriData';
-import resepData from '@/data/resepData';
+import  resepData from '@/data/resepData'; // Adjust the import path as necessary
 
 function formatLabel(slug) {
     return slug

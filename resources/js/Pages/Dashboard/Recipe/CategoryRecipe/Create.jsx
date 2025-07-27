@@ -1,37 +1,35 @@
 import DashboardNavbar from '@/Components/Dashboard/Navbar';
 import DashboardSidebar from '@/Components/Dashboard/Sidebar';
-import kategoriData from '@/data/kategoriData';
 import { Head, useForm } from '@inertiajs/react';
 import { useState } from 'react';
 
 export default function CreateSubkategori() {
-    const { data, setData, post, processing, errors } = useForm({
-        nama: '',
-        kategoriSlug: '',
+    const { data, setData, post, processing, errors, reset } = useForm({
+        name: '',
+        type: '',
     });
+
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const kategori = kategoriData[data.kategoriSlug];
-        if (!kategori) {
-            alert('Kategori induk tidak ditemukan!');
+        if (!data.type) {
+            alert('Pilih kategori utama terlebih dahulu.');
             return;
         }
 
-        console.log('Subkategori baru:', {
-            nama: data.nama,
-            slug: data.nama.toLowerCase().replace(/\s+/g, '-'),
-            kategori: kategori.nama,
-            kategoriSlug: data.kategoriSlug,
+        post('/dashboard/recipe/category-recipe/create', {
+            preserveScroll: true,
+            onSuccess: () => {
+                reset();
+                alert('Subkategori berhasil ditambahkan!');
+            },
+            onError: () => {
+                alert('Gagal menambahkan subkategori. Periksa isian.');
+            },
         });
-
-        alert('Subkategori berhasil ditambahkan!');
-    };
-
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-    const toggleSidebar = () => {
-        setIsSidebarOpen(!isSidebarOpen);
     };
 
     return (
@@ -78,46 +76,41 @@ export default function CreateSubkategori() {
                                 </label>
                                 <input
                                     type="text"
-                                    value={data.nama}
+                                    value={data.name}
                                     onChange={(e) =>
-                                        setData('nama', e.target.value)
+                                        setData('name', e.target.value)
                                     }
                                     className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-[#70B9BE] focus:ring-[#70B9BE]"
                                     required
                                 />
-                                {errors.nama && (
+                                {errors.name && (
                                     <p className="mt-1 text-sm text-red-600">
-                                        {errors.nama}
+                                        {errors.name}
                                     </p>
                                 )}
                             </div>
 
                             <div className="max-w-lg">
                                 <label className="block text-sm font-medium text-gray-700">
-                                    Kategori Induk
+                                    Pilih Kategori Induk
                                 </label>
                                 <select
-                                    value={data.kategoriSlug}
+                                    value={data.type}
                                     onChange={(e) =>
-                                        setData('kategoriSlug', e.target.value)
+                                        setData('type', e.target.value)
                                     }
                                     className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-[#70B9BE] focus:ring-[#70B9BE]"
                                     required
                                 >
-                                    <option value="">
-                                        -- Pilih Kategori --
-                                    </option>
-                                    {Object.entries(kategoriData).map(
-                                        ([slug, kategori]) => (
-                                            <option key={slug} value={slug}>
-                                                {kategori.nama}
-                                            </option>
-                                        ),
-                                    )}
+                                    <option value="">-- Pilih Kategori --</option>
+                                    <option value="health">Kategori Kesehatan</option>
+                                    <option value="allergy">Kategori Alergi</option>
+                                    <option value="nutrition">Kategori Nutrisi</option>
+                                    <option value="diet">Kategori Diet</option>
                                 </select>
-                                {errors.kategoriSlug && (
+                                {errors.type && (
                                     <p className="mt-1 text-sm text-red-600">
-                                        {errors.kategoriSlug}
+                                        {errors.type}
                                     </p>
                                 )}
                             </div>
@@ -128,7 +121,7 @@ export default function CreateSubkategori() {
                                     disabled={processing}
                                     className="inline-flex items-center justify-center rounded-lg bg-[#70B9BE] px-5 py-3 text-sm font-medium text-white hover:bg-[#51979e] focus:ring-4 focus:ring-blue-300"
                                 >
-                                    Simpan Subkategori
+                                    {processing ? 'Menyimpan...' : 'Simpan Subkategori'}
                                 </button>
                             </div>
                         </form>

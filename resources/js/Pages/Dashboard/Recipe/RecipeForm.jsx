@@ -1,21 +1,27 @@
-import getAllRecipesAdmin from '@/data/getAllRecipesAdmin';
+
 import { useEffect, useState } from 'react';
 
 export default function RecipeForm({ mode = 'create', slug, data = {} }) {
-    const [judul, setJudul] = useState(mode === 'edit' ? data.judul : '');
-    const [gambar, setGambar] = useState(mode === 'edit' ? data.gambar : '');
-    const [dish, setDish] = useState(mode === 'edit' ? data.dish : '');
-    const [kondisi, setKondisi] = useState(mode === 'edit' ? data.kondisi : '');
-    const [diet, setDiet] = useState(mode === 'edit' ? data.diet : '');
-    const [alergi, setAlergi] = useState(mode === 'edit' ? data.alergi : '');
-    const [nutrisi, setNutrisi] = useState(mode === 'edit' ? data.nutrisi : '');
-    const [metode, setMetode] = useState(mode === 'edit' ? data.metode : '');
+    const [formData, setFormData] = useState({
+        judul: mode === 'edit' ? data.judul || '' : '',
+        gambar: mode === 'edit' ? data.gambar || '' : '',
+        dish: mode === 'edit' ? data.dish || '' : '',
+        kondisi: mode === 'edit' ? data.kondisi || '' : '',
+        diet: mode === 'edit' ? data.diet || '' : '',
+        alergi: mode === 'edit' ? data.alergi || '' : '',
+        nutrisi: mode === 'edit'
+            ? Array.isArray(data.nutrisi)
+                ? data.nutrisi.join(', ')
+                : data.nutrisi || ''
+            : '',
+        metode: mode === 'edit' ? data.metode || '' : '',
+    });
 
     // Ambil data resep jika mode edit
     useEffect(() => {
-        if (mode === 'edit' && slug) {
+        if (mode === 'edit' && id) {
             const recipe = getAllRecipesAdmin().find(
-                (item) => item.slug === slug,
+                (item) => item.id === id,
             );
             if (recipe) {
                 setFormData({
@@ -41,16 +47,7 @@ export default function RecipeForm({ mode = 'create', slug, data = {} }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const updatedData = {
-            judul,
-            gambar,
-            dish,
-            kondisi,
-            diet,
-            alergi,
-            nutrisi,
-            metode,
-        };
+        const updatedData = { ...formData };
         console.log('Data yang akan diupdate:', updatedData);
     };
 

@@ -22,7 +22,7 @@ import { route } from 'ziggy-js';
 
 export default function SidebarComponent({ onClose }) {
     const { auth } = usePage().props;
-    const userRole = auth?.user?.role || 'member';
+    const userRole = auth?.user?.role || 'user';
     const { post } = useForm();
 
     const handleLogout = (e) => {
@@ -147,38 +147,39 @@ export default function SidebarComponent({ onClose }) {
                         </>
                     ) : (
                         <>
-                            <SidebarItem
-                                as={Link}
-                                href={route('member.dashboard')}
-                                icon={HiChartPie}
-                            >
-                                Dashboard Member
-                            </SidebarItem>
+    <SidebarItem
+        as={Link}
+        href={route('dashboardMember.DashboardPage')}
+        icon={HiChartPie}
+    >
+        Dashboard Member
+    </SidebarItem>
 
-                            <SidebarItem
-                                as={Link}
-                                href={route('dashboardMember.saved.recipes')}
-                                icon={HiClipboardList}
-                            >
-                                Resep Tersimpan
-                            </SidebarItem>
+    <SidebarItem
+        as={Link}
+        href={route('dashboardMember.saved.recipes')}
+        icon={HiClipboardList}
+    >
+        Resep Tersimpan
+    </SidebarItem>
 
-                            <SidebarItem
-                                as={Link}
-                                href={route('dashboardMember.saved.articles')}
-                                icon={HiBookmark}
-                            >
-                                Artikel Tersimpan
-                            </SidebarItem>
+    <SidebarItem
+        as={Link}
+        href={route('dashboardMember.saved.articles')}
+        icon={HiBookmark}
+    >
+        Artikel Tersimpan
+    </SidebarItem>
 
-                            <SidebarItem
-                                as={Link}
-                                href={route('dashboardMember.profile')}
-                                icon={HiUser}
-                            >
-                                Profil Saya
-                            </SidebarItem>
-                        </>
+    <SidebarItem
+        as={Link}
+        href={route('dashboardMember.profile')}
+        icon={HiUser}
+    >
+        Profil Saya
+    </SidebarItem>
+</>
+
                     )}
                 </SidebarItemGroup>
             </SidebarItems>

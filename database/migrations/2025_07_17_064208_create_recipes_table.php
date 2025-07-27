@@ -37,6 +37,7 @@ return new class extends Migration
                 'Menggoreng Cepat(Stir Frying)'
             ]);
             $table->timestamps();
+       
         });
     }
 

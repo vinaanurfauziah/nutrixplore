@@ -8,13 +8,14 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('health_recipe', function (Blueprint $table) {
-            $table->foreignId('recipe_id')->constrained()->onDelete('cascade');
-            $table->foreignId('health_tag_id')->constrained()->onDelete('cascade');
-            $table->primary(['recipe_id', 'health_tag_id']);
-        });
-    }
+       Schema::create('recipe_health_tag', function (Blueprint $table) {
+         $table->id();
+         $table->foreignId('recipe_id')->constrained()->onDelete('cascade');
+         $table->foreignId('health_tag_id')->constrained()->onDelete('cascade');
+}); 
 
+    }
+    
     public function down()
     {
         Schema::dropIfExists('health_recipe');

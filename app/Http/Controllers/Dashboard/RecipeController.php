@@ -5,96 +5,271 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Inertia\Inertia;
 use App\Models\Recipe;
 use App\Models\HealthTag;
+use App\Models\AllergyTag;
+use App\Models\NutritionTag;
+use App\Models\DietTag;
+use Illuminate\Support\Facades\Storage;
+use App\Models\Ingredient;
+use App\Models\Step;
 
 class RecipeController extends Controller
 {
-  
 
-    public function index()
-    {
-        return Recipe::with(['ingredients', 'steps', 'nutrition', 'healthTags'])->get();
-    }
+public function index()
+{
+    $totalResep = Recipe::count();
+    $recipes = Recipe::with([
+        'ingredients', 'steps', 'nutrition', 'healthTags', 'allergyTags', 'nutritionTags', 'dietTags'
+    ])->get();
 
+    return Inertia::render('Dashboard/Admin/Index', [
+        'totalResep' => $totalResep,
+        'recipes' => $recipes->map(function ($recipe) {
+            return [
+             
+                'id' => $recipe->id,
+                'judul' => $recipe->judul,
+                'slug' => $recipe->slug,
+                'gambar' => $recipe->gambar,
+                'kategori_hidangan' => $recipe->kategori_hidangan,
+                'metode_memasak' => $recipe->metode_memasak,
+                'diet_tags' => $recipe->dietTags->map(fn($t) => ['name' => $t->name]),
+                'health_tags' => $recipe->healthTags->map(fn($t) => ['name' => $t->name]),
+                'allergy_tags' => $recipe->allergyTags->map(fn($t) => ['name' => $t->name]),
+                'nutrition_tags' => $recipe->nutritionTags->map(fn($t) => ['name' => $t->name]),
+            ];
+        }),
+        'kategoriHidangan' => Recipe::KATEGORI_HIDANGAN,
+        'metodeMemasak' => Recipe::METODE_MEMASAK,
+        'healthTags' => HealthTag::all()->map(fn($tag) => ['label' => $tag->name, 'value' => $tag->id]),
+        'allergyTags' => AllergyTag::all()->map(fn($tag) => ['label' => $tag->name, 'value' => $tag->id]),
+        'nutritionTags' => NutritionTag::all()->map(fn($tag) => ['label' => $tag->name, 'value' => $tag->id]),
+        'dietTags' => DietTag::all()->map(fn($tag) => ['label' => $tag->name, 'value' => $tag->id]),
+    ]);
+}
     public function show($slug)
     {
-        return Recipe::with(['ingredients', 'steps', 'nutrition', 'healthTags'])
+        $recipe = Recipe::with(['ingredients', 'steps', 'nutrition', 'healthTags', 'allergyTags', 'nutritionTags'])
             ->where('slug', $slug)
             ->firstOrFail();
-    }
 
-  
-
-    public function store(Request $request)
-    {
-        $user = $request->user();
-        if ($user->role !== 'admin') {
-            return response()->json(['message' => 'Unauthorized'], 403);
-        }
-
-        $validated = $request->validate([
-            'judul' => 'required|string',
-            'slug' => 'required|string|unique:recipes,slug',
-            'gambar' => 'required|string',
-            'kalori' => 'required|integer',
-            'durasi' => 'required|integer',
-            'cook' => 'required|integer',
-            'kategori_hidangan' => ['required', Rule::in(Recipe::KATEGORI_HIDANGAN)],
-            'metode_memasak' => ['required', Rule::in(Recipe::METODE_MEMASAK)],
+        return Inertia::render('Recipes/Show', [
+            'recipe' => $recipe,
         ]);
-
-        $recipe = Recipe::create($validated);
-        return response()->json($recipe, 201);
     }
 
-    public function update(Request $request, $id)
+    public function create()
     {
-        $user = $request->user();
-        if ($user->role !== 'admin') {
-            return response()->json(['message' => 'Unauthorized'], 403);
-        }
-
-        $recipe = Recipe::findOrFail($id);
-
-        $validated = $request->validate([
-            'judul' => 'sometimes|string',
-            'slug' => 'sometimes|string|unique:recipes,slug,' . $id,
-            'gambar' => 'sometimes|string',
-            'kalori' => 'sometimes|integer',
-            'durasi' => 'sometimes|integer',
-            'cook' => 'sometimes|integer',
-            'kategori_hidangan' => ['required', Rule::in(Recipe::KATEGORI_HIDANGAN)],
-            'metode_memasak' => ['required', Rule::in(Recipe::METODE_MEMASAK)],
+        return Inertia::render('Dashboard/Recipe/CreateRecipe', [
+            'kategoriHidangan' => Recipe::KATEGORI_HIDANGAN,
+            'metodeMemasak' => Recipe::METODE_MEMASAK,
+            'healthTags' => HealthTag::select('id', 'name')->get(),
+            'allergyTags' => AllergyTag::select('id', 'name')->get(),
+            'nutritionTags' => NutritionTag::select('id', 'name')->get(),
+            'dietTags' => DietTag::select('id', 'name')->get(),
+            'takaranOptions' => Ingredient::TAKARAN,
         ]);
-
-        $recipe->update($validated);
-        return response()->json($recipe);
     }
+
+public function store(Request $request)
+{
+    $validated = $request->validate([
+        'judul' => 'required|string|max:255',
+        'slug' => 'nullable|string|unique:recipes',
+        'gambar' => 'required|image|max:10240',
+        'kalori' => 'required|numeric',
+        'durasi' => 'required|numeric',
+        'cook' => 'required|numeric',
+        'kategori_hidangan' => 'required|string',
+        'metode_memasak' => 'required|string',
+
+        'ingredients' => 'required|array|min:1',
+        'ingredients.*.nama' => 'required|string',
+        'ingredients.*.jumlah' => 'required|string',
+        'ingredients.*.takaran' => 'required|string|in:gram,ml,sdt,sdm',
+
+        'steps' => 'required|array|min:1',
+        'steps.*.deskripsi' => 'required|string',
+
+   'nutritions' => 'required|array',
+    'nutritions.*.jumlah' => 'nullable|numeric',
+    'nutritions.*.takaran' => 'required|in:gram,mg,kcal,IU',
+    'nutritions.*.nama' => 'required|string|max:255',
+
+
+
+        'health_tags' => 'array',
+        'health_tags.*' => 'exists:health_tags,id',
+        'allergy_tags' => 'array',
+        'allergy_tags.*' => 'exists:allergy_tags,id',
+        'nutrition_tags' => 'array',
+        'nutrition_tags.*' => 'exists:nutrition_tags,id',
+        'diet_tags' => 'array',
+        'diet_tags.*' => 'exists:diet_tags,id',
+    ]);
+
+    // Simpan gambar
+    $gambarPath = null;
+    if ($request->hasFile('gambar')) {
+        $gambarPath = $request->file('gambar')->store('recipes', 'public');
+    }
+
+    // Simpan data utama resep
+    $recipe = Recipe::create([
+        'judul' => $validated['judul'],
+        'slug' => $validated['slug'],
+        'gambar' => $gambarPath,
+        'kalori' => $validated['kalori'],
+        'durasi' => $validated['durasi'],
+        'cook' => $validated['cook'],
+        'kategori_hidangan' => $validated['kategori_hidangan'],
+        'metode_memasak' => $validated['metode_memasak'],
+        'user_id' => auth()->id(),
+    ]);
+
+    // Simpan ingredients
+    $recipe->ingredients()->createMany($validated['ingredients']);
+
+    // Simpan steps dengan urutan
+    $stepsWithOrder = collect($validated['steps'])->map(function ($step, $index) {
+        return [
+            'urutan' => $index + 1,
+            'deskripsi' => $step['deskripsi'],
+        ];
+    })->toArray();
+    $recipe->steps()->createMany($stepsWithOrder);
+
+    $recipe->nutrition()->createMany($validated['nutritions']);
+
+    // Sinkronisasi tag
+    $recipe->healthTags()->sync($validated['health_tags'] ?? []);
+    $recipe->allergyTags()->sync($validated['allergy_tags'] ?? []);
+    $recipe->nutritionTags()->sync($validated['nutrition_tags'] ?? []);
+    $recipe->dietTags()->sync($validated['diet_tags'] ?? []);
+
+    return redirect()->route('dashboard')->with('success', 'Resep berhasil dibuat.');
+}
+public function edit($id)
+{
+    $recipe = Recipe::with([
+        'ingredients', 'steps', 'nutrition',
+        'healthTags', 'allergyTags', 'nutritionTags', 'dietTags'
+    ])->findOrFail($id);
+
+    return Inertia::render('Dashboard/Recipe/EditRecipe', [
+        'resep' => $recipe, // ✅ Harus ada ini
+        'healthTags' => HealthTag::all(),
+        'allergyTags' => AllergyTag::all(),
+        'nutritionTags' => NutritionTag::all(),
+        'dietTags' => DietTag::all(),
+    ]);
+}
+
 
     public function destroy(Request $request, $id)
     {
         $user = $request->user();
-        if ($user->role !== 'admin') {
-            return response()->json(['message' => 'Unauthorized'], 403);
-        }
+        if ($user->role !== 'admin') abort(403, 'Unauthorized');
 
         $recipe = Recipe::findOrFail($id);
         $recipe->delete();
 
-        return response()->json(['message' => 'Recipe deleted']);
+        return redirect()->route('dashboard')->with('success', 'Recipe deleted.');
+    }
+    public function update(Request $request, $id)
+{
+    $recipe = Recipe::findOrFail($id);
+
+    $validated = $request->validate([
+        'judul' => 'required|string|max:255',
+        'slug' => [
+            'nullable', 'string', Rule::unique('recipes')->ignore($recipe->id),
+        ],
+        'gambar' => 'nullable|image|max:10240',
+        'kalori' => 'required|numeric',
+        'durasi' => 'required|numeric',
+        'cook' => 'required|numeric',
+        'kategori_hidangan' => 'required|string',
+        'metode_memasak' => 'required|string',
+
+        'ingredients' => 'required|array|min:1',
+        'ingredients.*.nama' => 'required|string',
+        'ingredients.*.jumlah' => 'required|string',
+        'ingredients.*.takaran' => 'required|string|in:gram,ml,sdt,sdm',
+
+        'steps' => 'required|array|min:1',
+        'steps.*.deskripsi' => 'required|string',
+
+        'nutritions' => 'required|array',
+        'nutritions.*.jumlah' => 'nullable|numeric',
+        'nutritions.*.takaran' => 'required|in:gram,mg,kcal,IU',
+        'nutritions.*.nama' => 'required|string|max:255',
+
+        'health_tags' => 'array',
+        'health_tags.*' => 'exists:health_tags,id',
+        'allergy_tags' => 'array',
+        'allergy_tags.*' => 'exists:allergy_tags,id',
+        'nutrition_tags' => 'array',
+        'nutrition_tags.*' => 'exists:nutrition_tags,id',
+        'diet_tags' => 'array',
+        'diet_tags.*' => 'exists:diet_tags,id',
+    ]);
+
+    // Update gambar jika diunggah ulang
+    if ($request->hasFile('gambar')) {
+        if ($recipe->gambar) {
+            Storage::disk('public')->delete($recipe->gambar);
+        }
+        $gambarPath = $request->file('gambar')->store('recipes', 'public');
+        $recipe->gambar = $gambarPath;
     }
 
- 
+    // Update data utama
+    $recipe->update([
+        'judul' => $validated['judul'],
+        'slug' => $validated['slug'],
+        'kalori' => $validated['kalori'],
+        'durasi' => $validated['durasi'],
+        'cook' => $validated['cook'],
+        'kategori_hidangan' => $validated['kategori_hidangan'],
+        'metode_memasak' => $validated['metode_memasak'],
+    ]);
+
+    // Hapus dan simpan ulang ingredients
+    $recipe->ingredients()->delete();
+    $recipe->ingredients()->createMany($validated['ingredients']);
+
+    // Hapus dan simpan ulang steps
+    $recipe->steps()->delete();
+    $stepsWithOrder = collect($validated['steps'])->map(function ($step, $index) {
+        return [
+            'urutan' => $index + 1,
+            'deskripsi' => $step['deskripsi'],
+        ];
+    })->toArray();
+    $recipe->steps()->createMany($stepsWithOrder);
+
+    // Hapus dan simpan ulang nutrition
+    $recipe->nutrition()->delete();
+    $recipe->nutrition()->createMany($validated['nutritions']);
+
+    // Sinkronisasi tag
+    $recipe->healthTags()->sync($validated['health_tags'] ?? []);
+    $recipe->allergyTags()->sync($validated['allergy_tags'] ?? []);
+    $recipe->nutritionTags()->sync($validated['nutrition_tags'] ?? []);
+    $recipe->dietTags()->sync($validated['diet_tags'] ?? []);
+
+    return redirect()->route('dashboard')->with('success', 'Resep berhasil diperbarui.');
+}
+
 
     public function saveRecipe($id)
     {
         $user = auth()->user();
-
-        // Opsional: validasi role user biasa
-        if ($user->role !== 'user') {
-            return response()->json(['message' => 'Only users can save recipes'], 403);
-        }
+        if ($user->role !== 'user') abort(403, 'Only users can save recipes');
 
         $recipe = Recipe::findOrFail($id);
 
@@ -102,30 +277,28 @@ class RecipeController extends Controller
             $user->savedRecipes()->attach($recipe);
         }
 
-        return response()->json(['message' => 'Recipe saved']);
+        return redirect()->back()->with('success', 'Recipe saved');
     }
 
     public function unsaveRecipe($id)
     {
         $user = auth()->user();
-
-        if ($user->role !== 'user') {
-            return response()->json(['message' => 'Only users can unsave recipes'], 403);
-        }
+        if ($user->role !== 'user') abort(403, 'Only users can unsave recipes');
 
         $user->savedRecipes()->detach($id);
-        return response()->json(['message' => 'Recipe removed from saved list']);
+
+        return redirect()->back()->with('success', 'Recipe removed from saved list');
     }
 
     public function getSavedRecipes()
     {
         $user = auth()->user();
+        if ($user->role !== 'user') abort(403, 'Only users can view saved recipes');
 
-        if ($user->role !== 'user') {
-            return response()->json(['message' => 'Only users can view saved recipes'], 403);
-        }
+        $savedRecipes = $user->savedRecipes()->with(['ingredients', 'steps', 'nutrition', 'healthTags', 'allergyTags', 'nutritionTags'])->get();
 
-        $savedRecipes = $user->savedRecipes()->with(['ingredients', 'steps', 'nutrition', 'healthTags'])->get();
-        return response()->json($savedRecipes);
+        return Inertia::render('Recipes/Saved', [
+            'savedRecipes' => $savedRecipes,
+        ]);
     }
 }
