@@ -108,9 +108,9 @@ const getSelectedObjects = (ids, options) =>
         {[
            { label: 'Judul Resep', name: 'judul', placeholder: 'Judul Resep' },
   { label: 'Slug', name: 'slug', placeholder: 'Slug' },
-  { label: 'Total Kalori', name: 'total_kalori', placeholder: 'Total Kalori', unit: 'kkal' },
+  { label: 'Total Kalori', name: 'kalori', placeholder: 'Total Kalori', unit: 'kkal' },
   { label: 'Durasi Memasak', name: 'durasi', placeholder: 'Durasi', unit: 'menit' },
-  { label: 'Jumlah Porsi', name: 'porsi', placeholder: 'Jumlah Porsi', unit: 'porsi' },
+  { label: 'Jumlah Porsi', name: 'cook', placeholder: 'Jumlah Porsi', unit: 'porsi' },
         ].map(({ label, name, placeholder, unit }) => (
           <div key={name} className="relative">
             <label className="mb-1 block text-sm font-medium text-gray-700">{label}</label>

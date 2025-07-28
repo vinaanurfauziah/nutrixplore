@@ -26,24 +26,23 @@ class SubCategoryController extends Controller
     ];
 
     public function index()
-{
-    $data = collect($this->labelMap)->flatMap(function ($label, $type) {
-        $modelClass = $this->modelMap[$type];
-        return $modelClass::select('id', 'name')->get()->map(function ($item) use ($label, $type) {
-            return [
-                'id' => $item->id,
-                'name' => $item->name,
-                'category' => $label, // ← label seperti "Kategori Kesehatan"
-                'type' => $type,
-            ];
+    {
+        $data = collect($this->labelMap)->flatMap(function ($label, $type) {
+            $modelClass = $this->modelMap[$type];
+            return $modelClass::select('id', 'name')->get()->map(function ($item) use ($label, $type) {
+                return [
+                    'id' => $item->id,
+                    'name' => $item->name,
+                    'category' => $label,
+                    'type' => $type,
+                ];
+            });
         });
-    });
 
-    return Inertia::render('Dashboard/Recipe/CategoryRecipe/Index', [
-        'subcategories' => $data,
-    ]);
-}
-
+        return Inertia::render('Dashboard/Recipe/CategoryRecipe/Index', [
+            'subcategories' => $data,
+        ]);
+    }
 
     public function store(Request $request)
     {
@@ -54,8 +53,7 @@ class SubCategoryController extends Controller
 
         $modelClass = $this->modelMap[$validated['type']];
 
-        $existing = $modelClass::where('name', $validated['name'])->first();
-        if ($existing) {
+        if ($modelClass::where('name', $validated['name'])->exists()) {
             return redirect()->back()
                 ->withErrors(['name' => 'Tag sudah ada.'])
                 ->withInput();
@@ -67,47 +65,53 @@ class SubCategoryController extends Controller
             ->with('success', 'Tag berhasil ditambahkan.');
     }
 
-  public function update(Request $request, $id)
+    public function edit($type, $id)
+    {
+        if (!isset($this->modelMap[$type])) {
+            abort(404, 'Kategori tidak ditemukan.');
+        }
+
+        $modelClass = $this->modelMap[$type];
+        $tag = $modelClass::findOrFail($id);
+
+        return Inertia::render('Dashboard/Recipe/CategoryRecipe/EditSubkategori', [
+            'tag' => [
+                'id' => $tag->id,
+                'name' => $tag->name,
+                'label' => $this->labelMap[$type],
+                'type' => $type,
+            ],
+        ]);
+    }
+public function update(Request $request, $type, $id)
 {
+    if (!isset($this->modelMap[$type])) {
+        abort(404, 'Kategori tidak ditemukan.');
+    }
+
     $validated = $request->validate([
-        'type' => 'required|in:health,allergy,nutrition,diet',
         'name' => 'required|string|max:255',
     ]);
 
-    $modelClass = $this->modelMap[$validated['type']];
-    $tag = $modelClass::find($id);
-
-    if (!$tag) {
-        return redirect()->back()->withErrors([
-            'message' => 'Tag tidak ditemukan.',
-        ]);
-    }
-
+    $modelClass = $this->modelMap[$type];
+    $tag = $modelClass::findOrFail($id);
     $tag->update(['name' => $validated['name']]);
 
     return redirect()->route('dashboard.recipe.category-recipe')
         ->with('success', 'Tag berhasil diperbarui.');
 }
 
-public function destroy(Request $request, $id)
+public function destroy(Request $request, $type, $id)
 {
-    $validated = $request->validate([
-        'type' => 'required|in:health,allergy,nutrition,diet',
-    ]);
-
-    $modelClass = $this->modelMap[$validated['type']];
-    $tag = $modelClass::find($id);
-
-    if (!$tag) {
-        return redirect()->back()->withErrors([
-            'message' => 'Tag tidak ditemukan.',
-        ]);
+    if (!isset($this->modelMap[$type])) {
+        abort(404, 'Kategori tidak ditemukan.');
     }
 
+    $modelClass = $this->modelMap[$type];
+    $tag = $modelClass::findOrFail($id);
     $tag->delete();
 
-    return redirect()->route('dashboard.recipe.category-recipe.index')
+    return redirect()->route('dashboard.recipe.category-recipe')
         ->with('success', 'Tag berhasil dihapus.');
 }
-
 }

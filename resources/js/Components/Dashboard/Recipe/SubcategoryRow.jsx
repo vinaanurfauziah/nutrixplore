@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { router } from '@inertiajs/react';
 import { FiEdit2, FiMoreVertical, FiTrash2 } from 'react-icons/fi';
 
-export default function SubcategoryRow({ nama, slug, kategori, isOpen, onToggle }) {
+export default function SubcategoryRow({ id, nama, kategori, kategoriType, isOpen, onToggle }) {
     const menuRef = useRef(null);
 
     useEffect(() => {
@@ -21,15 +21,13 @@ export default function SubcategoryRow({ nama, slug, kategori, isOpen, onToggle 
         };
     }, [isOpen, onToggle]);
 
-    // ✅ Di sinilah letaknya
     const handleEdit = () => {
-        router.get(`/dashboard/recipe/category-recipe/edit-subkategori/${slug}`);
+        router.get(route('dashboard.subcategories.edit', { type: kategoriType, id }));
     };
 
     const handleDelete = () => {
-        if (confirm(`Yakin ingin menghapus subkategori "${nama}"?`)) {
-            console.log('Menghapus subkategori:', slug);
-            // Tambahkan logic hapus backend jika ada
+        if (confirm('Yakin ingin menghapus subkategori ini?')) {
+            router.delete(route('dashboard.subcategories.destroy', { type: kategoriType, id }));
         }
     };
 
@@ -37,7 +35,6 @@ export default function SubcategoryRow({ nama, slug, kategori, isOpen, onToggle 
         <tr className="relative border-t">
             <td className="px-4 py-2">{kategori}</td>
             <td className="px-4 py-2 font-medium">{nama}</td>
-            <td className="px-4 py-2 text-gray-500 hidden md:table-cell">{slug}</td>
             <td className="relative px-4 py-2">
                 <div ref={menuRef} className="relative">
                     <button

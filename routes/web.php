@@ -70,8 +70,11 @@ Route::get('/dashboard/recipe/category-recipe/create', fn () => Inertia::render(
 Route::post('/dashboard/recipe/category-recipe/create', [SubCategoryController::class, 'store'])
     ->middleware(['auth', 'verified', 'role:admin'])
     ->name('dashboard.tags.store');
+Route::get('/dashboard/recipe/category-recipe/edit/{type}/{id}', [SubCategoryController::class, 'edit'])->name('dashboard.subcategories.edit');
+Route::put('/dashboard/recipe/category-recipe/{type}/{id}', [SubCategoryController::class, 'update'])->name('dashboard.subcategories.update');
+Route::delete('/dashboard/recipe/category-recipe/{type}/{id}', [SubCategoryController::class, 'destroy'])->name('dashboard.subcategories.destroy');
 
-Route::get('/dashboard/recipe/category-recipe/edit-subkategori/{slug}', fn ($slug) => Inertia::render('Dashboard/Recipe/CategoryRecipe/EditSubkategori', compact('slug')))->middleware(['auth', 'verified']);
+
 
 Route::get('/dashboard/article', fn () => Inertia::render('Dashboard/Article/ListArticle'))->middleware(['auth', 'verified'])->name('dashboard.article.list');
 Route::get('/dashboard/article/create', fn () => Inertia::render('Dashboard/Article/CreateArticle'))->middleware(['auth', 'verified'])->name('dashboard.article.create');
