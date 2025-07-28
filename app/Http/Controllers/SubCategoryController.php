@@ -74,7 +74,7 @@ class SubCategoryController extends Controller
         $modelClass = $this->modelMap[$type];
         $tag = $modelClass::findOrFail($id);
 
-        return Inertia::render('Dashboard/Recipe/CategoryRecipe/EditSubkategori', [
+        return Inertia::render('Dashboard/Recipe/CategoryRecipe/Edit', [
             'tag' => [
                 'id' => $tag->id,
                 'name' => $tag->name,

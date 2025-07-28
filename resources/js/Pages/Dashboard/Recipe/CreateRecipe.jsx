@@ -89,7 +89,7 @@ export default function CreateRecipe({ healthTags, allergyTags, nutritionTags, d
               id="recipe-form"
               onSubmit={handleSubmit}
               encType="multipart/form-data"
-              className="grid grid-cols-1 gap-6 md:grid-cols-2"
+            
             >
               <RecipeForm
                 data={data}
