@@ -14,7 +14,7 @@ export default function TagList({
                         {tags.map((tag, index) => (
                             <a
                                 key={index}
-                                href={tag.href}
+                                href={ '#'}
                                 className={`inline-flex items-center justify-center rounded-full px-5 py-2 text-sm font-semibold text-white shadow-sm transition duration-300 ease-in-out focus:outline-none focus:ring-4 ${
                                     animated
                                         ? 'bg-gradient-to-r from-[#70B9BE] to-[#45A29E] hover:-translate-y-0.5 hover:scale-105 hover:from-gray-700 hover:to-gray-600 hover:shadow-lg focus:ring-[#70B9BE] dark:from-gray-700 dark:to-gray-600'

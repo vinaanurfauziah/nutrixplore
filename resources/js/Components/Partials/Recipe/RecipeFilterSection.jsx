@@ -2,12 +2,24 @@ import FilterButton from '@/Components/Common/FilterButton';
 import SectionHeading from '@/Components/Common/SectionHeading';
 import RecipeCard from '@/Components/Public/RecipeCard';
 import { router } from '@inertiajs/react';
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { FiX } from 'react-icons/fi';
 
 export default function RecipeFilterSection({ recipes = [], filterOptions = {}, activeFilters: initialFilters = [], onSave, onUnsave }) {
 
     const [activeFilters, setActiveFilters] = useState(initialFilters);
+
+    useEffect(() => {
+        console.log('Active Filters:', activeFilters);
+    }, [activeFilters]);
+
+    useEffect(() => {
+        console.log('Filter Options:', filterOptions);
+    }, [filterOptions]);
+
+    useEffect(() => {
+        console.log('Recipes:', recipes);
+    }, [recipes]);
 
     const handleFilterChange = (label) => {
         let updatedFilters = activeFilters.includes(label)
@@ -21,15 +33,19 @@ export default function RecipeFilterSection({ recipes = [], filterOptions = {}, 
             preserveScroll: true,
         });
     };
-const dynamicFilterOptions = useMemo(() => ({
-    'Hidangan': filterOptions.dish || [],
-    'Kondisi Kesehatan': filterOptions.health?.map(h => h.name) || [],
-    'Diet': filterOptions.diet?.map(d => d.name) || [],
-    'Alergi': filterOptions.allergy?.map(a => a.name) || [],
-    'Nutrisi': filterOptions.nutrition?.map(n => n.name) || [],
-    'Metode Memasak': filterOptions.cooking || [],
-}), [filterOptions]);
 
+    const dynamicFilterOptions = useMemo(() => ({
+        'Hidangan': filterOptions.dish || [],
+        'Kondisi Kesehatan': filterOptions.health?.map(h => h.name) || [],
+        'Diet': filterOptions.diet?.map(d => d.name) || [],
+        'Alergi': filterOptions.allergy?.map(a => a.name) || [],
+        'Nutrisi': filterOptions.nutrition?.map(n => n.name) || [],
+        'Metode Memasak': filterOptions.cooking || [],
+    }), [filterOptions]);
+
+    useEffect(() => {
+        console.log('Dynamic Filter Options:', dynamicFilterOptions);
+    }, [dynamicFilterOptions]);
 
     const groupedFilters = useMemo(() => {
         const groups = {};
@@ -41,11 +57,12 @@ const dynamicFilterOptions = useMemo(() => ({
                 }
             });
         });
+        console.log('Grouped Filters:', groups);
         return groups;
     }, [activeFilters, dynamicFilterOptions]);
 
     const recipesWithLabels = useMemo(() => {
-        return recipes.map((recipe) => {
+        const processed = recipes.map((recipe) => {
             const labels = [
                 ...recipe.diet_tags?.map((tag) => tag.name) || [],
                 ...recipe.health_tags?.map((tag) => tag.name) || [],
@@ -56,15 +73,20 @@ const dynamicFilterOptions = useMemo(() => ({
             ];
             return { ...recipe, labels };
         });
+        console.log('Recipes With Labels:', processed);
+        return processed;
     }, [recipes]);
 
     const filteredRecipes = useMemo(() => {
         if (activeFilters.length === 0) return recipesWithLabels;
 
-        return recipesWithLabels.filter((recipe) => {
+        const filtered = recipesWithLabels.filter((recipe) => {
             if (!Array.isArray(recipe.labels)) return false;
             return activeFilters.every((label) => recipe.labels.includes(label));
         });
+
+        console.log('Filtered Recipes:', filtered);
+        return filtered;
     }, [activeFilters, recipesWithLabels]);
 
     return (
@@ -129,7 +151,7 @@ const dynamicFilterOptions = useMemo(() => ({
                                 <RecipeCard
                                     title={recipe.judul}
                                     imageUrl={recipe.gambar}
-                                    link={`/recipe/${recipe.kategori_hidangan}/${recipe.slug}`}
+                                    link={`/recipe/${recipe.slug}`}
                                     kalori={recipe.kalori}
                                     durasi={recipe.durasi}
                                     onSave={() => onSave(recipe.id)}

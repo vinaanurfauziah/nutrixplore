@@ -43,22 +43,73 @@ public function publicPage(Request $request)
     })
     ->get();
 
-    return Inertia::render('Recipe/Index', [
-        'recipes' => $recipes,
-        'activeFilters' => $filters,
-        'filterOptions' => [
-            'diet' => DietTag::all(),
-            'health' => HealthTag::all(),
-            'allergy' => AllergyTag::all(),
-            'nutrition' => NutritionTag::all(),
-            'dish' => Recipe::distinct()->pluck('kategori_hidangan')->filter()->values(),
-            'cooking' => Recipe::distinct()->pluck('metode_memasak')->filter()->values(),
-        ],
-    ]);
+// Map gambar to full URL or default
+$recipes = $recipes->map(function ($recipe) {
+    $recipe->gambar = $recipe->gambar
+        ? asset('storage/' . $recipe->gambar)
+        : asset('images/default.jpg');
+    return $recipe;
+});
+
+return Inertia::render('Recipe/Index', [
+    'recipes' => $recipes,
+    'activeFilters' => $filters,
+    'filterOptions' => [
+        'diet' => DietTag::all(),
+        'health' => HealthTag::all(),
+        'allergy' => AllergyTag::all(),
+        'nutrition' => NutritionTag::all(),
+        'dish' => Recipe::distinct()->pluck('kategori_hidangan')->filter()->values(),
+        'cooking' => Recipe::distinct()->pluck('metode_memasak')->filter()->values(),
+    ],
+    
+]);
 }
 
+public function show($slug)
+{
+    $resep = Recipe::with([
+        'ingredients',
+        'steps',
+        'nutrition',
+        'healthTags',
+        'allergyTags',
+        'nutritionTags',
+        'dietTags'
+    ])->where('slug', $slug)->first();
 
+    if (!$resep) {
+        abort(404);
+    }
 
+    $recipeImage = $resep->gambar
+        ? asset('storage/' . $resep->gambar)
+        : asset('images/default.jpg');
+
+    $resep->gambar = $recipeImage;
+
+    // Gabungkan semua tag ke satu koleksi
+    $tags = collect([
+        ['kategori' => 'Kategori Kesehatan', 'items' => $resep->healthTags],
+        ['kategori' => 'Kategori Alergi', 'items' => $resep->allergyTags],
+        ['kategori' => 'Kategori Nutrisi', 'items' => $resep->nutritionTags],
+        ['kategori' => 'Kategori Diet', 'items' => $resep->dietTags],
+    ])
+    ->flatMap(function ($group) {
+        return collect($group['items'])->map(function ($tag) use ($group) {
+            return [
+                'label' => $tag->name,
+                'kategori' => $group['kategori'],
+            ];
+        });
+    })
+    ->values();
+
+    return Inertia::render('Recipe/DetailResep', [
+        'resep' => $resep,
+        'tags' => $tags,
+    ]);
+}
 
 
 public function index()
@@ -118,16 +169,7 @@ public function list()
         }),
     ]);
 }
-    public function show($slug)
-    {
-        $recipe = Recipe::with(['ingredients', 'steps', 'nutrition', 'healthTags', 'allergyTags', 'nutritionTags'])
-            ->where('slug', $slug)
-            ->firstOrFail();
-
-        return Inertia::render('Dashboard/Recipe/ListRecipe', [
-            'recipe' => $recipe,
-        ]);
-    }
+ 
 
     public function create()
     {

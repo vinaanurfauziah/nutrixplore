@@ -1,117 +1,85 @@
-import Breadcrumb from '@/Components/Common/Breadcrumb';
-import SaveSuccessPopup from '@/Components/Common/SaveSuccessPopup';
-import ShareBox from '@/Components/Common/ShareBox';
-import TagList from '@/Components/Common/TagList';
-import DetailHero from '@/Components/Partials/Recipe/DetailHero';
-import DetailTabs from '@/Components/Partials/Recipe/DetailTabs';
-import Footer from '@/Components/Templates/Footer';
-import Navbar from '@/Components/Templates/Navbar';
-import resepData from '@/Data/getAllRecipes';
-import { Head } from '@inertiajs/react';
-import { useState } from 'react';
+    import { Head } from '@inertiajs/react';
+    import { useState } from 'react';
 
-function findResep(kategori, subkategori, slug) {
-    return resepData?.[kategori]?.[subkategori]?.find((r) => r.slug === slug);
-}
+    import Breadcrumb from '@/Components/Common/Breadcrumb';
+    import SaveSuccessPopup from '@/Components/Common/SaveSuccessPopup';
+    import ShareBox from '@/Components/Common/ShareBox';
+    import TagList from '@/Components/Common/TagList';
+    import DetailHero from '@/Components/Partials/Recipe/DetailHero';
+    import DetailTabs from '@/Components/Partials/Recipe/DetailTabs';
+    import Footer from '@/Components/Templates/Footer';
+    import Navbar from '@/Components/Templates/Navbar';
+    export default function DetailResep({ auth, resep, tags }) {
+        const [showPopup, setShowPopup] = useState(false);
 
-function findTagsForResep(slug) {
-    const tags = [];
+        if (!resep) {
+            return <div>Resep tidak ditemukan</div>;
+        }
 
-    Object.entries(resepData).forEach(([kategori, subkategoriObj]) => {
-        Object.entries(subkategoriObj).forEach(([subkategori, resepList]) => {
-            const match = resepList.find((r) => r.slug === slug);
-            if (match) {
-                const label = subkategori
-                    .replace(/_/g, ' ')
-                    .replace(/\b\w/g, (c) => c.toUpperCase());
-                tags.push({
-                    label,
-                    href: `/recipe/${kategori}/${subkategori}`,
-                });
-            }
-        });
-    });
+        const handleSave = () => {
+            setShowPopup(true);
+            setTimeout(() => setShowPopup(false), 3000);
+        };
 
-    return tags;
-}
+        const handleUnsave = () => {
+            console.log('Resep dibatalkan penyimpanannya');
+        };
 
-export default function DetailResep({ auth, kategori, subkategori, slug }) {
-    const resep = findResep(kategori, subkategori, slug);
-    const tags = findTagsForResep(slug);
+        return (
+            <>
+                <Head title={resep.judul} />
+                <div className="flex min-h-screen flex-col">
+                    <Navbar auth={auth} />
 
-    const [showPopup, setShowPopup] = useState(false);
+                    <Breadcrumb
+                        items={[
+                            { label: 'Resep', href: '/recipe' },
+                            {
+                                label: resep.kategori_hidangan,
+                                href: `/recipe/${resep.kategori_hidangan}`,
+                            },
+                            { label: resep.judul, href: '#' },
+                        ]}
+                    />
 
-    const handleSave = () => {
-        setShowPopup(true);
-        setTimeout(() => {
-            setShowPopup(false);
-        }, 3000);
-    };
+                    <main className="flex-grow space-y-8">
+                        <DetailHero
+                            title={resep.judul}
+                            stats={{
+                                kalori: resep.kalori,
+                                durasi: resep.durasi,
+                                cook: resep.durasi,
+                                porsi: resep.porsi || 1,
+                            }}
+                            gambar={resep.gambar}
+                            onSave={handleSave}
+                            onUnsave={handleUnsave}
+                        />
 
-    const handleUnsave = () => {
-        console.log('Resep dibatalkan penyimpanannya');
-    };
+                        <DetailTabs
+                            bahan={resep.ingredients}
+        langkah={resep.steps}
+        nutrisi={resep.nutrition}
+                        />
 
-    if (!resep) {
-        return <div>Resep tidak ditemukan</div>;
+<TagList
+    tags={tags} // langsung dari props (array of string)
+    title="Kategori yang Relevan"
+    animated={true}
+/>
+
+                        <ShareBox label="Bagikan Resep Ini:" bg="gray" />
+                    </main>
+
+                    <Footer />
+
+                    {showPopup && (
+                        <SaveSuccessPopup
+                            type="resep"
+                            onClose={() => setShowPopup(false)}
+                        />
+                    )}
+                </div>
+            </>
+        );
     }
-
-    return (
-        <>
-            <Head title={resep.judul} />
-            <div className="flex min-h-screen flex-col">
-                <Navbar auth={auth} />
-
-                <Breadcrumb
-                    items={[
-                        { label: 'Resep', href: '/recipe' },
-                        { label: kategori, href: `/recipe/${kategori}` },
-                        {
-                            label: subkategori,
-                            href: `/recipe/${kategori}/${subkategori}`,
-                        },
-                        { label: slug.replace(/-/g, ' '), href: '#' },
-                    ]}
-                />
-
-                <main className="flex-grow space-y-8">
-                    <DetailHero
-                        title={resep.judul}
-                        stats={{
-                            kalori: resep.kalori,
-                            durasi: resep.durasi,
-                            cook: resep.durasi,
-                            porsi: resep.porsi || 1,
-                        }}
-                        gambar={resep.gambar}
-                        onSave={handleSave}
-                        onUnsave={handleUnsave}
-                    />
-
-                    <DetailTabs
-                        bahan={resep.bahan}
-                        langkah={resep.langkah}
-                        nutrisi={resep.nutrisi}
-                    />
-
-                    <TagList
-                        tags={findTagsForResep(resep.slug)}
-                        title="Kategori yang Relevan"
-                        animated={true}
-                    />
-
-                    <ShareBox label="Bagikan Resep Ini:" bg="gray" />
-                </main>
-
-                <Footer />
-
-                {showPopup && (
-                    <SaveSuccessPopup
-                        type="resep"
-                        onClose={() => setShowPopup(false)}
-                    />
-                )}
-            </div>
-        </>
-    );
-}
