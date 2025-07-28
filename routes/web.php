@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\File;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\AdminController;
 use App\Models\User;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\ArticleCategoryController;
 
 
 
@@ -28,7 +30,7 @@ Route::get('/', function () {
     ]);
 });
 Route::get('/about', fn () => Inertia::render('About/About'))->name('about');
-Route::get('/recipe', fn () => Inertia::render('Recipe/Index'))->name('recipe');
+Route::get('/recipe', [RecipeController::class, 'publicPage'])->name('recipe');
 
 
 Route::get('/recipe/hidangan', fn () => Inertia::render('Recipe/Kategori'))->name('recipe.kategori.hidangan');
@@ -77,11 +79,28 @@ Route::delete('/dashboard/recipe/category-recipe/{type}/{id}', [SubCategoryContr
 
 
 Route::get('/dashboard/article', fn () => Inertia::render('Dashboard/Article/ListArticle'))->middleware(['auth', 'verified'])->name('dashboard.article.list');
-Route::get('/dashboard/article/create', fn () => Inertia::render('Dashboard/Article/CreateArticle'))->middleware(['auth', 'verified'])->name('dashboard.article.create');
+Route::get('/dashboard/article/create',)->middleware(['auth', 'verified'])->name('dashboard.article.create');
 Route::get('/dashboard/article/edit/{slug}', fn ($slug) => Inertia::render('Dashboard/Article/EditArticle', compact('slug')))->middleware(['auth', 'verified'])->name('dashboard.article.edit');
-Route::get('/dashboard/article/category', fn () => Inertia::render('Dashboard/Article/CategoryArticle'))->middleware(['auth', 'verified'])->name('dashboard.article.category');
+
+Route::prefix('dashboard')->middleware(['auth', 'verified', 'role:admin'])->group(function () {
+    Route::get('article', [ArticleController::class, 'index'])->name('dashboard.article.index');
+    Route::get('article/list', [ArticleController::class, 'list'])->name('dashboard.article.list');
+    Route::get('article/create', [ArticleController::class, 'create'])->name('dashboard.article.create');
+    Route::get('article/{article}/edit', [ArticleController::class, 'edit'])->name('dashboard.article.edit');
+    Route::post('article/store', [ArticleController::class, 'store'])->name('dashboard.article.store');
+    Route::put('article/{article}', [ArticleController::class, 'update'])->name('dashboard.article.update');
+    Route::delete('article/{article}', [ArticleController::class, 'destroy'])->name('dashboard.article.destroy');
+    
+});
+
+
+Route::get('/dashboard/article/category', [ArticleCategoryController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard.article.category');
 Route::get('/dashboard/article/category/create', fn () => Inertia::render('Dashboard/Article/CreateCategoryArticle'))->middleware(['auth', 'verified'])->name('dashboard.article.category.create');
-Route::get('/dashboard/article/category/edit/{id}', fn ($id) => Inertia::render('Dashboard/Article/EditCategoryArticle', ['categoryId' => $id]))->middleware(['auth', 'verified'])->name('dashboard.article.category.edit');
+Route::post('/dashboard/article/category/store', [ArticleCategoryController::class, 'store'])->middleware(['auth', 'verified'])->name('dashboard.article.category.store');
+Route::get('/dashboard/article/category/edit/{id}', [ArticleCategoryController::class, 'edit'])->middleware(['auth', 'verified'])->name('dashboard.article.category.edit');
+Route::put('/dashboard/article/category/{articleCategory}', [ArticleCategoryController::class, 'update'])->middleware(['auth', 'verified'])->name('dashboard.article.category.update');
+Route::delete('/dashboard/article/category/{articleCategory}', [ArticleCategoryController::class, 'destroy'])->middleware(['auth', 'verified'])->name('dashboard.article.category.destroy');
+Route::get('/dashboard/article/category/list', [ArticleCategoryController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard.article.category.list');
 
 
 

@@ -1,20 +1,12 @@
-import artikelData from '@/data/artikelData';
 import { router } from '@inertiajs/react';
 import { useState } from 'react';
 import { FiPlus, FiSearch } from 'react-icons/fi';
 import CategoryRow from './CategoryRow';
 
-export default function CategoryTable() {
+export default function CategoryTable({ categories = [] }) {
     const [searchQuery, setSearchQuery] = useState('');
     const [openRowIndex, setOpenRowIndex] = useState(null);
     const [showSearch, setShowSearch] = useState(false);
-
-    const categories = Object.entries(
-        artikelData.reduce((acc, artikel) => {
-            acc[artikel.category] = (acc[artikel.category] || 0) + 1;
-            return acc;
-        }, {}),
-    ).map(([name, count]) => ({ name, count }));
 
     const filteredCategories = categories.filter((cat) =>
         cat.name.toLowerCase().includes(searchQuery.toLowerCase()),
@@ -28,7 +20,6 @@ export default function CategoryTable() {
 
             {/* Controls */}
             <div className="mb-4">
-                {/* Desktop Controls */}
                 <div className="hidden flex-col gap-2 sm:flex-row sm:items-center md:flex">
                     <input
                         type="text"
@@ -47,7 +38,7 @@ export default function CategoryTable() {
                     </button>
                 </div>
 
-                {/* Mobile Controls */}
+                {/* Mobile */}
                 <div className="flex items-center gap-4 md:hidden">
                     <button
                         onClick={() => setShowSearch(!showSearch)}
@@ -67,7 +58,6 @@ export default function CategoryTable() {
                     </button>
                 </div>
 
-                {/* Mobile Search Input */}
                 {showSearch && (
                     <div className="mt-2 md:hidden">
                         <input
@@ -86,34 +76,25 @@ export default function CategoryTable() {
                 <table className="min-w-full table-auto text-left text-sm">
                     <thead className="border-b text-gray-600">
                         <tr>
-                            <th className="px-4 py-3 text-sm font-semibold">
-                                Nama Kategori
-                            </th>
-                            <th className="px-4 py-3 text-sm font-semibold">
-                                Jumlah Artikel
-                            </th>
-                            <th className="px-4 py-3 text-sm font-semibold">
-                                Aksi
-                            </th>
+                            <th className="px-4 py-3 text-sm font-semibold">Nama Kategori</th>
+                            <th className="px-4 py-3 text-sm font-semibold">Jumlah Artikel</th>
+                            <th className="px-4 py-3 text-sm font-semibold">Aksi</th>
                         </tr>
                     </thead>
                     <tbody className="text-gray-800">
                         {filteredCategories.length > 0 ? (
                             filteredCategories.map((category, index) => (
-                                <CategoryRow
-                                    key={index}
-                                    index={index}
-                                    name={category.name}
-                                    count={category.count}
-                                    isOpen={openRowIndex === index}
-                                    onToggle={() =>
-                                        setOpenRowIndex(
-                                            openRowIndex === index
-                                                ? null
-                                                : index,
-                                        )
-                                    }
-                                />
+                               <CategoryRow
+    key={category.id}
+    id={category.id}
+    index={index}
+    name={category.name}
+    count={category.articles_count}
+    isOpen={openRowIndex === index}
+    onToggle={() =>
+        setOpenRowIndex(openRowIndex === index ? null : index)
+    }   
+/>
                             ))
                         ) : (
                             <tr>

@@ -1,25 +1,18 @@
-import artikelData from '@/data/artikelData';
 import { router } from '@inertiajs/react';
 import { useState } from 'react';
 import { FiFilter, FiPlus, FiSearch } from 'react-icons/fi';
 import ArticleRow from './ArticleRow';
 
-export default function ArticleTable({ showTitle = true }) {
+export default function ArticleTable({ articles = [], showTitle = true }) {
     const [searchQuery, setSearchQuery] = useState('');
     const [filterCategory, setFilterCategory] = useState('All');
     const [openRowIndex, setOpenRowIndex] = useState(null);
     const [showSearch, setShowSearch] = useState(false);
     const [showFilter, setShowFilter] = useState(false);
 
-    const articles = artikelData.map((item) => ({
-        title: item.title,
-        category: item.category,
-        imageUrl: item.imageUrl,
-    }));
-
     const categoryOptions = [
         'All',
-        ...new Set(artikelData.map((item) => item.category)),
+        ...new Set(articles.map((item) => item.category?.name || 'Tidak Ada Kategori')),
     ];
 
     const filteredArticles = articles.filter((article) => {
@@ -27,19 +20,18 @@ export default function ArticleTable({ showTitle = true }) {
             .toLowerCase()
             .includes(searchQuery.toLowerCase());
         const matchFilter =
-            filterCategory === 'All' || article.category === filterCategory;
+            filterCategory === 'All' ||
+            (article.category?.name === filterCategory);
         return matchSearch && matchFilter;
     });
 
     return (
         <div className="rounded-lg bg-white p-4 shadow-sm">
             <div className="mb-4 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-                {showTitle && (
-                    <h2 className="text-lg font-semibold">Daftar Artikel</h2>
-                )}
+                {showTitle && <h2 className="text-lg font-semibold">Daftar Artikel</h2>}
             </div>
 
-            {/* Desktop Filters */}
+            {/* Desktop Filter */}
             <div className="mb-4 hidden flex-col gap-2 sm:flex-row sm:items-center md:flex">
                 <input
                     type="text"
@@ -67,32 +59,28 @@ export default function ArticleTable({ showTitle = true }) {
                 </button>
             </div>
 
-            {/* Mobile Icons */}
+            {/* Mobile Filters */}
             <div className="mb-4 flex items-center gap-4 md:hidden">
                 <button
                     onClick={() => setShowSearch(!showSearch)}
                     className="text-[#70B9BE]"
-                    title="Cari"
                 >
                     <FiSearch size={20} />
                 </button>
                 <button
                     onClick={() => setShowFilter(!showFilter)}
                     className="text-[#70B9BE]"
-                    title="Filter Kategori"
                 >
                     <FiFilter size={20} />
                 </button>
                 <button
                     onClick={() => router.get('/dashboard/article/create')}
                     className="text-[#70B9BE]"
-                    title="Tambah Artikel"
                 >
                     <FiPlus size={20} />
                 </button>
             </div>
 
-            {/* Mobile Search Input */}
             {showSearch && (
                 <div className="mb-2 md:hidden">
                     <input
@@ -105,7 +93,6 @@ export default function ArticleTable({ showTitle = true }) {
                 </div>
             )}
 
-            {/* Mobile Filter Select */}
             {showFilter && (
                 <div className="mb-2 md:hidden">
                     <select
@@ -126,46 +113,33 @@ export default function ArticleTable({ showTitle = true }) {
                 <table className="min-w-full table-auto whitespace-nowrap text-left text-sm">
                     <thead className="border-b text-gray-600">
                         <tr>
-                            <th className="px-4 py-3 text-sm font-semibold">
-                                Nama Artikel
-                            </th>
-                            <th className="px-4 py-3 text-sm font-semibold">
-                                Gambar
-                            </th>
-                            <th className="px-4 py-3 text-sm font-semibold">
-                                Kategori
-                            </th>
-                            <th className="px-4 py-3 text-sm font-semibold">
-                                Action
-                            </th>
+                            <th className="px-4 py-3 text-sm font-semibold">Nama Artikel</th>
+                            <th className="px-4 py-3 text-sm font-semibold">Gambar</th>
+                            <th className="px-4 py-3 text-sm font-semibold">Kategori</th>
+                            <th className="px-4 py-3 text-sm font-semibold">Action</th>
                         </tr>
                     </thead>
                     <tbody className="text-gray-800">
                         {filteredArticles.length > 0 ? (
                             filteredArticles.map((article, index) => (
                                 <ArticleRow
-                                    key={index}
+                                    key={article.id}
                                     index={index}
                                     title={article.title}
-                                    category={article.category}
-                                    imageUrl={article.imageUrl}
-                                    slug={artikelData[index].slug}
+                                    category={article.category?.name}
+                                    imageUrl={article.image}
+                                    slug={article.slug}
                                     isOpen={openRowIndex === index}
                                     onToggle={() =>
                                         setOpenRowIndex(
-                                            openRowIndex === index
-                                                ? null
-                                                : index,
+                                            openRowIndex === index ? null : index
                                         )
                                     }
                                 />
                             ))
                         ) : (
                             <tr>
-                                <td
-                                    colSpan="4"
-                                    className="px-4 py-4 text-center text-gray-500"
-                                >
+                                <td colSpan="4" className="px-4 py-4 text-center text-gray-500">
                                     Tidak ada artikel yang ditemukan.
                                 </td>
                             </tr>

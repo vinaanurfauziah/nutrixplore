@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { router } from '@inertiajs/react';
 import { FiEdit2, FiMoreVertical, FiTrash2 } from 'react-icons/fi';
 
-export default function CategoryRow({ name, count, index, isOpen, onToggle }) {
+export default function CategoryRow({ id, name, count, index, isOpen, onToggle }) {
     const menuRef = useRef(null);
 
     useEffect(() => {
@@ -22,12 +22,14 @@ export default function CategoryRow({ name, count, index, isOpen, onToggle }) {
     }, [isOpen, onToggle]);
 
     const handleEdit = () => {
-        router.get(`/dashboard/article/category/edit/${name}`);
+        router.get(`/dashboard/article/category/edit/${id}`);
     };
 
     const handleDelete = () => {
         if (confirm(`Yakin ingin menghapus kategori "${name}"?`)) {
-            console.log('Hapus kategori:', name);
+           router.delete(route('dashboard.article.category.destroy', id), {
+                preserveScroll: true,
+            });
         }
     };
 

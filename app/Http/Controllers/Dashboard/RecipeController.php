@@ -18,8 +18,51 @@ use Illuminate\Validation\Rule;
 
 class RecipeController extends Controller
 {
+public function publicPage(Request $request) 
+{
+
+    $filters = $request->filters ?? [];
+
+    $recipes = Recipe::with([
+        'dietTags',
+        'healthTags',
+        'allergyTags',
+        'nutritionTags',
+    ])
+    ->when($filters, function ($query) use ($filters) {
+        $query->whereHas('dietTags', function ($q) use ($filters) {
+            $q->whereIn('name', $filters);
+        })->orWhereHas('healthTags', function ($q) use ($filters) {
+            $q->whereIn('name', $filters);
+        })->orWhereHas('allergyTags', function ($q) use ($filters) {
+            $q->whereIn('name', $filters);
+        })->orWhereHas('nutritionTags', function ($q) use ($filters) {
+            $q->whereIn('name', $filters);
+        })->orWhereIn('kategori_hidangan', $filters)
+          ->orWhereIn('metode_memasak', $filters);
+    })
+    ->get();
+
+    return Inertia::render('Recipe/Index', [
+        'recipes' => $recipes,
+        'activeFilters' => $filters,
+        'filterOptions' => [
+            'diet' => DietTag::all(),
+            'health' => HealthTag::all(),
+            'allergy' => AllergyTag::all(),
+            'nutrition' => NutritionTag::all(),
+            'dish' => Recipe::distinct()->pluck('kategori_hidangan')->filter()->values(),
+            'cooking' => Recipe::distinct()->pluck('metode_memasak')->filter()->values(),
+        ],
+    ]);
+}
+
+
+
+
 
 public function index()
+
 {
     $totalResep = Recipe::count();
     $recipes = Recipe::with([
