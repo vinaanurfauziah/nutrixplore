@@ -56,9 +56,9 @@ export default function EditCategoryArticle({ categoryId }) {
 
                     <form
                         onSubmit={handleSubmit}
-                        className="max-w-lg space-y-4 rounded bg-white p-6 shadow"
+                        className="rounded-lg bg-white p-6 shadow-sm"
                     >
-                        <div>
+                        <div className="max-w-lg">
                             <label
                                 htmlFor="name"
                                 className="mb-1 block font-medium text-gray-700"
@@ -77,7 +77,7 @@ export default function EditCategoryArticle({ categoryId }) {
 
                         <button
                             type="submit"
-                            className="rounded bg-[#70B9BE] px-4 py-2 font-semibold text-white hover:bg-[#51979e]"
+                            className="rounded bg-[#70B9BE] px-4 py-2 mt-4 font-semibold text-white hover:bg-[#51979e]"
                         >
                             Simpan Perubahan
                         </button>
