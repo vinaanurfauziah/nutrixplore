@@ -1,5 +1,7 @@
 import DashboardSidebar from '@/Components/Dashboard/Sidebar';
 import { Head, useForm } from '@inertiajs/react';
+import DashboardNavbar from '@/Components/Dashboard/Navbar';
+import { useState } from 'react'; // ⬅️ ditambahkan
 
 export default function EditSubkategori({ tag }) {
     const { data, setData, put, processing, errors } = useForm({
@@ -11,6 +13,9 @@ export default function EditSubkategori({ tag }) {
         put(`/dashboard/recipe/category-recipe/${tag.type}/${tag.id}`);
     };
 
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false); // ⬅️ ditambahkan
+    const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen); // ⬅️ ditambahkan
+
     return (
         <>
             <Head title={`Edit ${tag.label}`} />
@@ -20,14 +25,39 @@ export default function EditSubkategori({ tag }) {
                     <DashboardSidebar />
                 </aside>
 
-                <main className="flex-1 p-6 md:p-8">
-                    <div className="max-w-2xl rounded-lg bg-white p-6 shadow-sm">
-                        <h1 className="mb-6 text-2xl font-bold text-gray-800">
-                            Edit {tag.label}
-                        </h1>
+                {/* ⬇️ Sidebar responsif mobile */}
+                {isSidebarOpen && ( // ⬅️ ditambahkan
+                    <div
+                        className="fixed inset-0 z-40 bg-black bg-opacity-50 md:hidden"
+                        onClick={toggleSidebar}
+                    >
+                        <div
+                            className="absolute left-0 top-0 z-50 h-full w-64 bg-white shadow-md"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <DashboardSidebar onClose={toggleSidebar} />
+                        </div>
+                    </div>
+                )}
 
+                <main className="flex-1 p-6 md:p-8">
+                    <DashboardNavbar // ⬅️ ditambahkan
+                        toggleSidebar={toggleSidebar}
+                        breadcrumbItems={[
+                            {
+                                label: 'Kategori Resep',
+                                href: `/dashboard/recipe/category-recipe/${tag.type}`,
+                            },
+                            { label: `Edit ${tag.label}` },
+                        ]}
+                    />
+                    <h1 className="mb-6 text-2xl font-bold text-gray-800">
+                            Edit {tag.label}
+                    </h1>
+
+                    <div className="rounded-lg bg-white p-6 shadow-sm">
                         <form onSubmit={handleSubmit} className="space-y-4">
-                            <div>
+                            <div className="max-w-lg">
                                 <label className="block text-sm font-medium text-gray-700">
                                     Nama Subkategori
                                 </label>
