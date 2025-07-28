@@ -18,11 +18,11 @@ export default function EditRecipe({
     judul: resep?.judul ?? '',
     slug: resep?.slug ?? '',
     gambar: null,
-    total_kalori: resep.kalori || '',
+    kalori: resep.kalori || '',
     durasi: resep.durasi || '',
-    porsi: resep.cook || '',
-    kategori: resep.kategori_hidangan || '',
-    metode: resep.metode_memasak || '',
+    cook: resep.cook || '',
+    kategori_hidangan: resep.kategori_hidangan || '',
+    metode_memasak: resep.metode_memasak || '',
     ingredients: resep?.ingredients ?? [],
     steps: resep?.steps ?? [],
     nutritions: resep?.nutrition ?? [],
@@ -32,20 +32,20 @@ export default function EditRecipe({
     diet_tags: resep?.diet_tags?.map((t) => t.id) ?? [],
   });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    put(route('dashboard.recipe.update', resep.id), {
-      preserveScroll: true,
-      onSuccess: () => {
-        console.log('Resep berhasil diperbarui');
-      },
-      onError: (errors) => {
-        console.error(errors);
-      },
-    });
-  };
+const handleSubmit = (e) => {
+  e.preventDefault();
+  put(route('dashboard.recipe.update', resep.id), {
+    preserveScroll: true,
+    onSuccess: () => {
+      console.log('✅ Resep berhasil diperbarui');
+    },
+    onError: (errors) => {
+      console.error('❌ Error update:', errors);
+    },
+  });
+};
 
-  // ✅ Cek jika resep belum tersedia
+
   if (!resep) {
     return (
       <div className="flex h-screen items-center justify-center bg-gray-100">

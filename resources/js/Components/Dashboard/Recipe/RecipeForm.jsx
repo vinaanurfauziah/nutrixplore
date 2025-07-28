@@ -73,55 +73,53 @@ export default function RecipeForm({
   };
 
   return (
-    <form id="recipe-form">
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        {/* Kolom Kiri */}
-        <div className="space-y-6">
-          <RecipeGeneralInfoCard
-            data={data}
-            setData={setData}
-            errors={errors}
-            defaultData={defaultData}
-            healthTags={healthTags}
-            allergyTags={allergyTags}
-            nutritionTags={nutritionTags}
-            dietTags={dietTags}
-          />
-        </div>
+  <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+    {/* Kolom Kiri */}
+    <div className="space-y-6">
+      <RecipeGeneralInfoCard
+        data={data}
+        setData={setData}
+        errors={errors}
+        defaultData={defaultData}
+        healthTags={healthTags}
+        allergyTags={allergyTags}
+        nutritionTags={nutritionTags}
+        dietTags={dietTags}
+      />
+    </div>
 
-        {/* Kolom Kanan */}
-        <div className="space-y-6">
-          <IngredientCard
-            ingredients={
-              Array.isArray(data.ingredients) && data.ingredients.length > 0
-                ? data.ingredients
-                : [{ jumlah: '', takaran: 'gram', nama: '' }]
-            }
-            setIngredients={handleIngredientsChange}
-            errors={errors}
-          />
+    {/* Kolom Kanan */}
+    <div className="space-y-6">
+      <IngredientCard
+        ingredients={
+          Array.isArray(data.ingredients) && data.ingredients.length > 0
+            ? data.ingredients
+            : [{ jumlah: '', takaran: 'gram', nama: '' }]
+        }
+        setIngredients={handleIngredientsChange}
+        errors={errors}
+      />
 
-          <StepCard
-            steps={
-              Array.isArray(data.steps) && data.steps.length > 0
-                ? data.steps
-                : [{ deskripsi: '' }]
-            }
-            setSteps={handleStepsChange}
-            errors={errors}
-          />
+      <StepCard
+        steps={
+          Array.isArray(data.steps) && data.steps.length > 0
+            ? data.steps
+            : [{ deskripsi: '' }]
+        }
+        setSteps={handleStepsChange}
+        errors={errors}
+      />
 
-          <NutritionCard
-            nutritions={
-              Array.isArray(data.nutritions) && data.nutritions.length > 0
-                ? data.nutritions
-                : [{ jumlah: '', takaran: 'gram', nama: '' }]
-            }
-            setNutritions={handleNutritionsChange}
-            errors={errors}
-          />
-        </div>
-      </div>
-    </form>
-  );
+      <NutritionCard
+        nutritions={
+          Array.isArray(data.nutritions) && data.nutritions.length > 0
+            ? data.nutritions
+            : [{ jumlah: '', takaran: 'gram', nama: '' }]
+        }
+        setNutritions={handleNutritionsChange}
+        errors={errors}
+      />
+    </div>
+  </div>
+);
 }

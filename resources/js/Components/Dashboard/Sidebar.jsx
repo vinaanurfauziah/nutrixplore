@@ -68,7 +68,7 @@ export default function SidebarComponent({ onClose }) {
                             >
                                 <SidebarItem
                                     as={Link}
-                                    href={route('dashboard.recipe.list')}
+                                    href={route('dashboard.recipe.alllist')}
                                 >
                                     Daftar Resep
                                 </SidebarItem>

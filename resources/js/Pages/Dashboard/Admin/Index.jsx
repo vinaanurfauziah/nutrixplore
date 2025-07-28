@@ -4,12 +4,12 @@ import DashboardSidebar from '@/Components/Dashboard/Sidebar';
 import { Head } from '@inertiajs/react';
 import { useState } from 'react';
 
-export default function Index() {
+export default function Index({ auth }) {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
-    const toggleSidebar = () => {
-        setIsSidebarOpen(!isSidebarOpen);
-    };
+    const user = auth?.user;
+    const isAdmin = user?.role === 'admin';
 
     return (
         <>
@@ -43,7 +43,15 @@ export default function Index() {
                         breadcrumbItems={[{ label: 'Dashboard Admin' }]}
                     />
 
-                    <Content />
+                    {isAdmin ? (
+                        <>
+                            <Content />
+                        </>
+                    ) : (
+                        <div className="text-center text-gray-600">
+                            Kamu tidak punya akses ke halaman ini.
+                        </div>
+                    )}
                 </main>
             </div>
         </>

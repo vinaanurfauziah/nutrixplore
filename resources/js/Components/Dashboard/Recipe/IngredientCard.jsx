@@ -10,12 +10,11 @@ export default function IngredientCard({ ingredients, setIngredients }) {
       { jumlah: '', takaran: 'gram', nama: '' },
     ]);
   };
-
-  const updateIngredient = (index, field, value) => {
-    const updated = [...ingredients];
-    updated[index][field] = field === 'jumlah' ? parseFloat(value) || '' : value;
-    setIngredients(updated);
-  };
+const updateIngredient = (index, field, value) => {
+  const updated = [...ingredients];
+  updated[index][field] = value; // jangan ubah ke number
+  setIngredients(updated);
+};
 
   const removeIngredient = (index) => {
     const updated = [...ingredients];

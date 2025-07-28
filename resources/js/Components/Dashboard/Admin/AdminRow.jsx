@@ -12,7 +12,15 @@ export default function AdminRow({ id, name, email }) {
 
     const handleDelete = () => {
         if (confirm(`Yakin ingin menghapus admin "${name}"?`)) {
-            console.log('Menghapus admin:', name);
+            router.delete(route('dashboard.kelola-admin.destroy', id), {
+                preserveScroll: true,
+                onSuccess: () => {
+                    setIsOpen(false); // tutup dropdown setelah hapus
+                },
+                onError: () => {
+                    alert("Gagal menghapus admin.");
+                }
+            });
         }
     };
 

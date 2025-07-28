@@ -5,20 +5,15 @@ import { Head, Link } from '@inertiajs/react';
 import { useState } from 'react';
 import { FiPlus, FiSearch } from 'react-icons/fi';
 
-export default function List() {
+export default function List({ admins = [] }) {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const [showSearch, setShowSearch] = useState(false);
 
-    const dummyAdmins = [
-        { id: 1, name: 'Admin Utama', email: 'admin@example.com' },
-        { id: 2, name: 'Admin Kedua', email: 'admin2@example.com' },
-    ];
-
-    const filteredAdmins = dummyAdmins.filter(
+    const filteredAdmins = admins.filter(
         (admin) =>
             admin.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            admin.email.toLowerCase().includes(searchQuery.toLowerCase()),
+            admin.email.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     const toggleSidebar = () => {
@@ -76,9 +71,7 @@ export default function List() {
                                     className="rounded-lg border border-gray-300 px-4 py-2 text-sm shadow-sm focus:border-[#70B9BE] focus:outline-none focus:ring-2 focus:ring-[#70B9BE]"
                                 />
                                 <Link
-                                    href={route(
-                                        'dashboard.kelola-admin.create',
-                                    )}
+                                    href={route('dashboard.kelola-admin.create')}
                                     className="rounded-lg bg-[#70B9BE] px-5 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-[#51979e] focus:outline-none focus:ring-4 focus:ring-[#a1d3d7]"
                                 >
                                     + Tambah Admin
@@ -95,9 +88,7 @@ export default function List() {
                                     <FiSearch size={20} />
                                 </button>
                                 <Link
-                                    href={route(
-                                        'dashboard.kelola-admin.create',
-                                    )}
+                                    href={route('dashboard.kelola-admin.create')}
                                     className="text-[#70B9BE]"
                                     title="Tambah Admin"
                                 >
@@ -126,15 +117,9 @@ export default function List() {
                             <table className="min-w-full table-auto text-left text-sm">
                                 <thead className="border-b text-gray-600">
                                     <tr>
-                                        <th className="px-4 py-3 font-semibold">
-                                            Nama
-                                        </th>
-                                        <th className="px-4 py-3 font-semibold">
-                                            Email
-                                        </th>
-                                        <th className="px-4 py-3 font-semibold">
-                                            Aksi
-                                        </th>
+                                        <th className="px-4 py-3 font-semibold">Nama</th>
+                                        <th className="px-4 py-3 font-semibold">Email</th>
+                                        <th className="px-4 py-3 font-semibold">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody className="text-gray-800">

@@ -1,6 +1,6 @@
 import DashboardNavbar from '@/Components/Dashboard/Navbar';
 import DashboardSidebar from '@/Components/Dashboard/Sidebar';
-import { Head } from '@inertiajs/react';
+import { Head, router } from '@inertiajs/react';
 import { useState } from 'react';
 
 export default function Create() {
@@ -23,7 +23,8 @@ export default function Create() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(form);
+
+        router.post(route('dashboard.kelola-admin.store'), form);
     };
 
     return (

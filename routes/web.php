@@ -9,6 +9,13 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\MeasurementUnit;
 use Illuminate\Support\Facades\File;
 use App\Http\Controllers\SubCategoryController;
+use App\Http\Controllers\AdminController;
+use App\Models\User;
+
+
+
+
+
 
 
 
@@ -37,6 +44,7 @@ Route::get('/dashboard', [RecipeController::Class , 'index'])
     ->name('dashboard');
 // Route untuk Recipe
 Route::get('/dashboard/recipe', [RecipeController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard.recipe.list');
+Route::get('/dashboard/recipe/recipelist', [RecipeController::class, 'list'])->middleware(['auth', 'verified'])->name('dashboard.recipe.alllist');
 Route::get('/dashboard/recipe/create', [RecipeController::class, 'create'])
     ->middleware(['auth', 'verified', 'role:admin']) // contoh pakai role
     ->name('dashboard.recipe.create');
@@ -56,7 +64,7 @@ Route::get('/dashboard/recipe/measurement-units/create', fn () => Inertia::rende
 Route::get('/dashboard/recipe/measurement-units/{id}/edit', fn ($id) => Inertia::render('Dashboard/Recipe/MeasurementUnits/Edit', compact('id')))->middleware(['auth', 'verified'])->name('dashboard.recipe.measurement-units.edit');
 // ✅ Route untuk Tag
 Route::get('/dashboard/recipe/category-recipe', [SubCategoryController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard.recipe.category-recipe');
-Route::get('/dashboard/recipe/category-recipe/create', fn () => Inertia::render('Dashboard/Recipe/CategoryRecipe/CreateSubkategori'))
+Route::get('/dashboard/recipe/category-recipe/create', fn () => Inertia::render('Dashboard/Recipe/CategoryRecipe/Create'))
     ->middleware(['auth', 'verified', 'role:admin'])
     ->name('dashboard.recipe.category-recipe.create');
 Route::post('/dashboard/recipe/category-recipe/create', [SubCategoryController::class, 'store'])
@@ -72,11 +80,18 @@ Route::get('/dashboard/article/category', fn () => Inertia::render('Dashboard/Ar
 Route::get('/dashboard/article/category/create', fn () => Inertia::render('Dashboard/Article/CreateCategoryArticle'))->middleware(['auth', 'verified'])->name('dashboard.article.category.create');
 Route::get('/dashboard/article/category/edit/{id}', fn ($id) => Inertia::render('Dashboard/Article/EditCategoryArticle', ['categoryId' => $id]))->middleware(['auth', 'verified'])->name('dashboard.article.category.edit');
 
-Route::get('/dashboard/kelola-admin/edit/{id}', fn ($id) => Inertia::render('Dashboard/Admin/KelolaAdmin/Edit', compact('id')))->middleware(['auth', 'verified'])->name('dashboard.kelola-admin.edit');
+
+
+// Route untuk Admin Management
 Route::middleware(['auth', 'verified'])->prefix('dashboard/kelola-admin')->name('dashboard.kelola-admin.')->group(function () {
-    Route::get('/list', fn () => Inertia::render('Dashboard/Admin/KelolaAdmin/List'))->name('list');
-    Route::get('/create', fn () => Inertia::render('Dashboard/Admin/KelolaAdmin/Create'))->name('create');
+    Route::get('/list', [AdminController::class, 'index'])->name('list');
+    Route::get('/create', [AdminController::class, 'create'])->name('create');
+    Route::post('/store', [AdminController::class, 'store'])->name('store');
+    Route::get('/{id}/edit', [AdminController::class, 'edit'])->name('edit');
+    Route::put('/{id}', [AdminController::class, 'update'])->name('update');
+    Route::delete('/{id}', [AdminController::class, 'destroy'])->name('destroy');
 });
+
 
 Route::get('/dashboard/profile', fn () => Inertia::render('Profile/SharedProfile'))->middleware(['auth', 'verified'])->name('dashboard.profile');
 Route::get('/dashboard/member/Index', fn () => Inertia::render('Dashboard/Member/Index'))->name('dashboardMember.DashboardPage');

@@ -63,7 +63,7 @@ class SubCategoryController extends Controller
 
         $modelClass::create(['name' => $validated['name']]);
 
-        return redirect()->route('dashboard.recipe.category-recipe.index')
+        return redirect()->route('dashboard.recipe.category-recipe')
             ->with('success', 'Tag berhasil ditambahkan.');
     }
 
@@ -85,7 +85,7 @@ class SubCategoryController extends Controller
 
     $tag->update(['name' => $validated['name']]);
 
-    return redirect()->route('dashboard.recipe.category-recipe.index')
+    return redirect()->route('dashboard.recipe.category-recipe')
         ->with('success', 'Tag berhasil diperbarui.');
 }
 
