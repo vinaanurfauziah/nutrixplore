@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { usePage, router, Head } from '@inertiajs/react';
 import DashboardSidebar from '@/Components/Dashboard/Sidebar';
-import measurementData from '@/data/measurementData';
 import DashboardNavbar from '@/Components/Dashboard/Navbar';
 
 export default function Edit() {
