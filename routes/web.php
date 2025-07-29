@@ -136,7 +136,6 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::resource('recipes', RecipeController::class)->except(['show', 'create', 'edit']);
     Route::post('recipes/{id}/save', [RecipeController::class, 'saveRecipe'])->name('recipes.save');
     Route::post('recipes/{id}/unsave', [RecipeController::class, 'unsaveRecipe'])->name('recipes.unsave');
     Route::get('recipes/saved', [RecipeController::class, 'getSavedRecipes'])->name('recipes.saved');
