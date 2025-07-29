@@ -2,7 +2,6 @@ import { Head, useForm } from '@inertiajs/react';
 
 import FormInputGroup from '@/Components/Common/FormInputGroup';
 import PrimaryButton from '@/Components/Common/PrimaryButton';
-import AuthGoogleButton from '@/Components/Partials/Auth/AuthGoogleButton';
 import AuthImage from '@/Components/Partials/Auth/AuthImage';
 import AuthLayout from '@/Components/Partials/Auth/AuthLayout';
 import AuthLinkSwitch from '@/Components/Partials/Auth/AuthLinkSwitch';
@@ -92,7 +91,6 @@ export default function Register() {
                             </PrimaryButton>
                         </div>
 
-                        <AuthGoogleButton disabled={processing} />
                         <AuthLinkSwitch type="register" />
                     </form>
                 </div>

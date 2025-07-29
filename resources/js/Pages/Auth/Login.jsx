@@ -1,7 +1,6 @@
 import { Head, useForm } from '@inertiajs/react';
 
 // Layout & Section
-import AuthGoogleButton from '@/Components/Partials/Auth/AuthGoogleButton';
 import AuthImage from '@/Components/Partials/Auth/AuthImage';
 import AuthLayout from '@/Components/Partials/Auth/AuthLayout';
 import AuthLinkSwitch from '@/Components/Partials/Auth/AuthLinkSwitch';
@@ -84,7 +83,6 @@ export default function Login({ status, canResetPassword }) {
                             </PrimaryButton>
                         </div>
 
-                        <AuthGoogleButton disabled={processing} />
                         <AuthLinkSwitch type="login" />
                     </form>
                 </div>
