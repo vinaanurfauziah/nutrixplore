@@ -24,7 +24,7 @@ const artikelData = [
             'Tips: Konsultasikan ke dokter atau ahli gizi sebelum mencoba resep baru, untuk memastikan sesuai kebutuhan fungsi ginjal.',
 
             '4. Kolesterol Tinggi',
-            'Kondisi ini membutuhkan pengurangan asupan lemak jenuh dan trans. Resep dengan bahan seperti kacang-kacangan, ikan berlemak sehat (seperti salmon), dan minyak zaitun sangat dianjurkan.',
+            'Kondisi ini membutuhkan pengurdadaangan asupan lemak jenuh dan trans. Resep dengan bahan seperti kacang-kacangan, ikan berlemak sehat (seperti salmon), dan minyak zaitun sangat dianjurkan.',
             'Tips: Hindari proses penggorengan berulang, dan lebih utamakan metode memanggang, mengukus, atau merebus.',
         ],
         tags: ['Kondisi Kesehatan'],
