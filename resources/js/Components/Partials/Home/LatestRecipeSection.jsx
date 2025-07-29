@@ -56,9 +56,9 @@ const handleUnsave = (recipeId) => {
                             link={`/recipe/${recipe.slug}`}
                             kalori={recipe.kalori}
                             durasi={recipe.durasi}
-                             onSave={() => handleSave(recipe.id)}
-                             onUnsave={() => handleUnsave(recipe.id)}
-                            isSaved={true}
+                            onSave={() => handleSave(recipe.id)}
+                            onUnsave={() => handleUnsave(recipe.id)}
+                            
                         />
                     ))}
 

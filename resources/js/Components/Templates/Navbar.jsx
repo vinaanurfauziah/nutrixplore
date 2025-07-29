@@ -66,16 +66,20 @@ const Navbar = ({ auth }) => {
                             {dropdownOpen && (
                                 <div className="absolute right-0 z-50 mt-2 w-48 rounded-md border bg-white shadow-lg dark:border-gray-700 dark:bg-gray-800">
                                     <Link
-                                        href={route('dashboard')}
-                                        className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700"
-                                        onClick={() => {
-                                            closeDropdown();
-                                            closeMenu();
-                                        }}
-                                    >
-                                        <FiHome className="text-base" />
-                                        Dashboard
-                                    </Link>
+    href={
+        auth.user.is_admin
+            ? route('dashboard') // admin
+            : route('dashboardMember.DashboardPage') // member
+    }
+    className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700"
+    onClick={() => {
+        closeDropdown();
+        closeMenu();
+    }}
+>
+    <FiHome className="text-base" />
+    {auth.user.is_admin ? 'Admin Dashboard' : 'Dashboard'}
+</Link>
                                     <Link
                                         method="post"
                                         href={route('logout')}

@@ -36,10 +36,10 @@ Route::get('/article/{slug}', fn ($slug) => Inertia::render('Article/DetailArtic
 Route::get('/recipe/{kategoriSlug}/{subkategoriSlug}', fn ($kategoriSlug, $subkategoriSlug) => Inertia::render('Recipe/Subkategori', compact('kategoriSlug', 'subkategoriSlug')))->name('recipe.subkategori');
 Route::get('/recipe/{slug}', [RecipeController::class, 'show']);
 
-Route::get('/dashboard', [RecipeController::Class , 'index'])
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
-// Route untuk Recipe
+    Route::get('/dashboard', [RecipeController::Class , 'index'])
+        ->middleware(['auth', 'verified'])
+        ->name('dashboard');
+    // Route untuk Recipe
 
 Route::get('/dashboard/recipe', [RecipeController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard.recipe.list');
 Route::get('/dashboard/recipe/recipelist', [RecipeController::class, 'list'])->middleware(['auth', 'verified'])->name('dashboard.recipe.alllist');

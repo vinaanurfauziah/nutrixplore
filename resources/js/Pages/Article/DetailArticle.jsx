@@ -4,8 +4,7 @@ import TagList from '@/Components/Common/TagList';
 import Footer from '@/Components/Templates/Footer';
 import Navbar from '@/Components/Templates/Navbar';
 import { Head } from '@inertiajs/react';
-
-import artikelData from '@/data/artikelData';
+import artikelData from '@/data/artikelData.js'; 
 
 export default function DetailArticle({ auth, slug }) {
     const article = artikelData.find((item) => item.slug === slug);

@@ -5,7 +5,6 @@ import RecipeCard from '@/Components/Public/RecipeCard';
 import CategoryCard from '@/Components/Public/CategoryCard';
 import kategoriData from '@/data/kategoriData';
 
-// Import ikon dari beberapa paket icon
 import * as LuIcons from 'react-icons/lu';
 import * as BiIcons from 'react-icons/bi';
 import * as BsIcons from 'react-icons/bs';
@@ -16,17 +15,10 @@ import * as GiIcons from 'react-icons/gi';
 import * as RiIcons from 'react-icons/ri';
 import * as PiIcons from 'react-icons/pi';
 
-
 export default function Category({ auth, recipes = [], subcategories = [], kategoriSlug }) {
     
     const Icons = {
-    ...LuIcons,
-    ...BiIcons,
-    ...BsIcons,
-    ...CgIcons,
-    ...FaIcons,
-    ...TbIcons,
-    ...LuIcons,
+      ...LuIcons,
     ...BiIcons,
     ...BsIcons,
     ...CgIcons,
