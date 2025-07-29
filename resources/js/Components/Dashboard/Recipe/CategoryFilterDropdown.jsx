@@ -1,4 +1,4 @@
-import kategoriData from '@/data/kategoriData';
+
 import { useEffect, useRef, useState } from 'react';
 
 export default function CategoryFilterDropdown({ filterDish, setFilterDish }) {
