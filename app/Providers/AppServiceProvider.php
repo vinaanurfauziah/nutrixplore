@@ -2,32 +2,27 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Route; 
+use Illuminate\Support\Facades\URL; // <-- tambahkan ini
+use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\RoleMiddleware;
-use Illuminate\Support\Facades\URLs;
+use Illuminate\Support\Facades\Vite;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     */
     public function register(): void
     {
         //
     }
 
-    /**
-     * Bootstrap any application services.
-     */
     public function boot(): void
     {
-      if (env('APP_ENV') === 'production') {
+        if (env('APP_ENV') === 'production') {
             URL::forceScheme('https');
         }
 
         Vite::prefetch(concurrency: 3);
+
         Route::aliasMiddleware('role', RoleMiddleware::class);
     }
 }

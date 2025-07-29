@@ -1,12 +1,25 @@
 import Content from '@/Components/Dashboard/Content';
 import DashboardNavbar from '@/Components/Dashboard/Navbar';
 import DashboardSidebar from '@/Components/Dashboard/Sidebar';
-import { Head } from '@inertiajs/react';
+import { Head, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 
 export default function Index({ auth }) {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
+
+    const { 
+        totalResep, 
+        totalArtikel, 
+        recipes, 
+        articles, 
+        kategoriHidangan, 
+        metodeMemasak, 
+        healthTags, 
+        allergyTags, 
+        nutritionTags, 
+        dietTags 
+    } = usePage().props;
 
     const user = auth?.user;
     const isAdmin = user?.role === 'admin';
@@ -44,9 +57,18 @@ export default function Index({ auth }) {
                     />
 
                     {isAdmin ? (
-                        <>
-                            <Content />
-                        </>
+                        <Content
+                            totalResep={totalResep}
+                            totalArtikel={totalArtikel}
+                            recipes={recipes}
+                            articles={articles}
+                            kategoriHidangan={kategoriHidangan}
+                            metodeMemasak={metodeMemasak}
+                            healthTags={healthTags}
+                            allergyTags={allergyTags}
+                            nutritionTags={nutritionTags}
+                            dietTags={dietTags}
+                        />
                     ) : (
                         <div className="text-center text-gray-600">
                             Kamu tidak punya akses ke halaman ini.

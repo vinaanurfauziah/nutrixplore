@@ -18,6 +18,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Article;
 
 
 class RecipeController extends Controller
@@ -220,22 +221,29 @@ public function subkategori($kategori, $subkategori)
 
 
 public function index()
-
 {
     $totalResep = Recipe::count();
+    $totalArtikel = Article::count(); // ✅ Tambahan count artikel
+
     $recipes = Recipe::with([
-        'ingredients', 'steps', 'nutrition', 'healthTags', 'allergyTags', 'nutritionTags', 'dietTags'
+        'ingredients', 'steps', 'nutrition',
+        'healthTags', 'allergyTags', 'nutritionTags', 'dietTags'
     ])->get();
+
+    $articles = Article::with('category')->latest()->get();
 
     return Inertia::render('Dashboard/Admin/Index', [
         'totalResep' => $totalResep,
+        'totalArtikel' => $totalArtikel, // ✅ Kirim ke frontend
+
         'recipes' => $recipes->map(function ($recipe) {
             return [
-             
                 'id' => $recipe->id,
                 'judul' => $recipe->judul,
                 'slug' => $recipe->slug,
-                'gambar' => $recipe->gambar,
+                'gambar' => $recipe->gambar
+                    ? asset('storage/' . $recipe->gambar)
+                    : asset('images/default.jpg'),
                 'kategori_hidangan' => $recipe->kategori_hidangan,
                 'metode_memasak' => $recipe->metode_memasak,
                 'diet_tags' => $recipe->dietTags->map(fn($t) => ['name' => $t->name]),
@@ -244,14 +252,47 @@ public function index()
                 'nutrition_tags' => $recipe->nutritionTags->map(fn($t) => ['name' => $t->name]),
             ];
         }),
+
+        'articles' => $articles->map(function ($article) {
+            $imagePath = $article->image_path
+                ? str_replace('public/', '', $article->image_path)
+                : null;
+
+            return [
+                'id' => $article->id,
+                'title' => $article->title,
+                'slug' => $article->slug,
+                'description' => $article->short_description,
+                'image' => ($imagePath && \Storage::disk('public')->exists($imagePath))
+                    ? asset('storage/' . $imagePath)
+                    : asset('images/default-article.jpg'),
+                'category' => $article->category?->name,
+                'date' => $article->created_at->format('d M Y'),
+            ];
+        }),
+
         'kategoriHidangan' => Recipe::KATEGORI_HIDANGAN,
         'metodeMemasak' => Recipe::METODE_MEMASAK,
-        'healthTags' => HealthTag::all()->map(fn($tag) => ['label' => $tag->name, 'value' => $tag->id]),
-        'allergyTags' => AllergyTag::all()->map(fn($tag) => ['label' => $tag->name, 'value' => $tag->id]),
-        'nutritionTags' => NutritionTag::all()->map(fn($tag) => ['label' => $tag->name, 'value' => $tag->id]),
-        'dietTags' => DietTag::all()->map(fn($tag) => ['label' => $tag->name, 'value' => $tag->id]),
+
+        'healthTags' => HealthTag::all()->map(fn($tag) => [
+            'label' => $tag->name,
+            'value' => $tag->id,
+        ]),
+        'allergyTags' => AllergyTag::all()->map(fn($tag) => [
+            'label' => $tag->name,
+            'value' => $tag->id,
+        ]),
+        'nutritionTags' => NutritionTag::all()->map(fn($tag) => [
+            'label' => $tag->name,
+            'value' => $tag->id,
+        ]),
+        'dietTags' => DietTag::all()->map(fn($tag) => [
+            'label' => $tag->name,
+            'value' => $tag->id,
+        ]),
     ]);
 }
+
 public function list()
 {
     $recipes = Recipe::with([
