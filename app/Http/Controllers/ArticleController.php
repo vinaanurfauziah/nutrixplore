@@ -11,12 +11,7 @@ use Inertia\Inertia;
 
 class ArticleController extends Controller
 {
-    public function index()
-    {
-        return Inertia::render('Dashboard/Article/Index', [
-            'articles' => Article::with('category')->latest()->get(),
-        ]);
-    }
+    
 
     public function create()
     {
@@ -75,14 +70,25 @@ public function publicIndex()
         return redirect()->route('dashboard.article.list')->with('success', 'Artikel berhasil ditambahkan');
     }
 
-    public function edit(Article $article)
-    {
-        return Inertia::render('Dashboard/Article/EditArticle', [ // ✅ perhatikan nama file React-nya
-            'article' => $article->load('category'),
-            'categories' => ArticleCategory::select('id', 'name')->get(),
-        ]);
-    }
+public function edit(Article $article)
+{
+    $article->load('category');
 
+    return Inertia::render('Dashboard/Article/EditArticle', [
+        'article' => [
+            'id' => $article->id,
+            'slug' => $article->slug,
+            'title' => $article->title,
+            'short_description' => $article->short_description,
+            'content' => $article->content,
+            'category' => $article->category ? [
+                'id' => $article->category->id,
+                'name' => $article->category->name,
+            ] : null,
+        ],
+        'categories' => ArticleCategory::select('id', 'name')->get(),
+    ]);
+}
     public function update(Request $request, Article $article)
     {
         $validated = $request->validate([
@@ -109,17 +115,14 @@ public function publicIndex()
             'image_path' => $article->image_path,
         ]);
 
-        return redirect()->route('dashboard.article.index')->with('success', 'Artikel berhasil diperbarui');
+        return redirect()->route('dashboard.article.list')->with('success', 'Artikel berhasil diperbarui');
     }
 
-    public function destroy(Article $article)
-    {
-        if ($article->image_path) {
-            Storage::delete($article->image_path);
-        }
+public function destroy($id)
+{
+    $article = Article::findOrFail($id);
+    $article->delete();
 
-        $article->delete();
-
-        return back()->with('success', 'Artikel berhasil dihapus');
-    }
+    return redirect()->back()->with('message', 'Artikel berhasil dihapus');
+}
 }

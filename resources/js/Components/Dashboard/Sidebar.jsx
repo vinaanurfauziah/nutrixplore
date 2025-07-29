@@ -96,27 +96,26 @@ export default function SidebarComponent({ onClose }) {
                                 </SidebarItem>
                             </SidebarCollapse>
 
-                            <SidebarCollapse icon={HiBookmark} label="Artikel">
-                                <SidebarItem
-                                    as={Link}
-                                    href={route('dashboard.article.list')}
-                                >
-                                    Daftar Artikel
-                                </SidebarItem>
-                                <SidebarItem
-                                    as={Link}
-                                    href={route('dashboard.article.create')}
-                                >
-                                    Buat Artikel Baru
-                                </SidebarItem>
-                                <SidebarItem
-                                    as={Link}
-                                    href={route('dashboard.article.category')}
-                                >
-                                    Kategori Artikel
-                                </SidebarItem>
-                            </SidebarCollapse>
-
+                         <SidebarCollapse icon={HiBookmark} label="Artikel">
+    <SidebarItem
+        as={Link}
+        href={route('dashboard.article.list')} 
+    >
+        Daftar Artikel
+    </SidebarItem>
+    <SidebarItem
+        as={Link}
+        href={route('dashboard.article.create')}
+    >
+        Buat Artikel Baru
+    </SidebarItem>
+    <SidebarItem
+        as={Link}
+        href={route('dashboard.article.category')}
+    >
+        Kategori Artikel
+    </SidebarItem>
+</SidebarCollapse>
                             <SidebarCollapse
                                 icon={HiUsers}
                                 label="Kelola Admin"

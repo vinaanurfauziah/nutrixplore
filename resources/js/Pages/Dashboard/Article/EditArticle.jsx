@@ -1,38 +1,47 @@
+import { useState } from 'react';
+import { Head, useForm } from '@inertiajs/react';
+import ArticleDetailCard from '@/Components/Dashboard/Article/ArticleDetailCard';
+import ArticleGeneralInfoCard from '@/Components/Dashboard/Article/ArticleGeneralInfoCard';
 import DashboardNavbar from '@/Components/Dashboard/Navbar';
 import DashboardSidebar from '@/Components/Dashboard/Sidebar';
-import artikelData from '@/data/artikelData';
-import { Head, useForm } from '@inertiajs/react';
-import { useState } from 'react';
+import { useEffect } from 'react';
 
-export default function EditArticle({ slug }) {
+export default function EditArticle({ article, categories }) {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
-
-    const article = artikelData.find((item) => item.slug === slug);
-
-    const { data, setData, put, processing, errors } = useForm({
-        title: article?.title || '',
-        description: article?.description || '',
-        category: article?.category || '',
-        content: article?.content?.join('\n\n') || '',
-    });
+    
+const { data, setData, put, processing, errors } = useForm({
+    image: null,
+    title: article.title || '',
+    slug: article.slug || '', // Tambahkan ini
+    short_description: article.short_description || '',
+    category_id: article.category?.id || '',
+    content: article.content || '',
+});
+   
+    useEffect(() => {
+    if (article) {
+        setData({
+            image: null,
+            title: article.title || '',
+            short_description: article.short_description || '',
+            category_id: article.category?.id || '',
+            content: article.content || '',
+        });
+    }
+}, [article]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Simulasi update. Nanti ganti dengan PUT request ke backend
-        alert(`Artikel "${data.title}" berhasil disimpan (simulasi)`);
-        console.log('Data artikel yang disimpan:', data);
-        // Contoh jika ada backend:
-        // put(route('dashboard.article.update', slug), { preserveScroll: true });
-    };
 
-    if (!article) {
-        return (
-            <div className="p-4 text-center text-red-600">
-                Artikel tidak ditemukan.
-            </div>
-        );
-    }
+        put(route('dashboard.article.update', article.slug), {
+            preserveScroll: true,
+            forceFormData: true,
+            onSuccess: () => {
+                alert(`Artikel "${data.title}" berhasil diperbarui.`);
+            },
+        });
+    };
 
     return (
         <>
@@ -66,88 +75,45 @@ export default function EditArticle({ slug }) {
                         breadcrumbItems={[
                             {
                                 label: 'Daftar Artikel',
-                                href: '/dashboard/article',
+                                href: route('dashboard.article.list'),
                             },
                             { label: 'Edit Artikel' },
                         ]}
                     />
 
                     <div className="mb-6 flex items-center justify-between">
-                        <h1 className="text-2xl font-bold text-gray-800">
-                            Edit Artikel
-                        </h1>
+                        <h1 className="text-2xl font-bold text-gray-800">Edit Artikel</h1>
                         <button
                             type="submit"
-                            form="edit-article-form"
-                            className="inline-flex items-center justify-center rounded-lg bg-[#70B9BE] px-5 py-2.5 text-sm font-medium text-white hover:bg-[#51979e]"
+                            form="article-form"
+                            disabled={processing}
+                            className="inline-flex items-center justify-center rounded-lg bg-[#70B9BE] px-5 py-2.5 text-sm font-medium text-white hover:bg-[#51979e] disabled:opacity-50"
                         >
                             Simpan Perubahan
                         </button>
                     </div>
 
                     <form
-                        id="edit-article-form"
+                        id="article-form"
                         onSubmit={handleSubmit}
-                        className="space-y-6 rounded bg-white p-6 shadow md:max-w-3xl"
+                        encType="multipart/form-data"
                     >
-                        <div>
-                            <label className="mb-1 block font-semibold text-gray-700">
-                                Judul Artikel
-                            </label>
-                            <input
-                                type="text"
-                                value={data.title}
-                                onChange={(e) =>
-                                    setData('title', e.target.value)
-                                }
-                                className="w-full rounded border border-gray-300 px-4 py-2 focus:border-[#70B9BE] focus:ring-[#70B9BE]"
-                                required
-                            />
-                        </div>
-
-                        <div>
-                            <label className="mb-1 block font-semibold text-gray-700">
-                                Deskripsi
-                            </label>
-                            <textarea
-                                value={data.description}
-                                onChange={(e) =>
-                                    setData('description', e.target.value)
-                                }
-                                className="w-full rounded border border-gray-300 px-4 py-2 focus:border-[#70B9BE] focus:ring-[#70B9BE]"
-                                rows={2}
-                                required
-                            />
-                        </div>
-
-                        <div>
-                            <label className="mb-1 block font-semibold text-gray-700">
-                                Kategori
-                            </label>
-                            <input
-                                type="text"
-                                value={data.category}
-                                onChange={(e) =>
-                                    setData('category', e.target.value)
-                                }
-                                className="w-full rounded border border-gray-300 px-4 py-2 focus:border-[#70B9BE] focus:ring-[#70B9BE]"
-                                required
-                            />
-                        </div>
-
-                        <div>
-                            <label className="mb-1 block font-semibold text-gray-700">
-                                Konten
-                            </label>
-                            <textarea
-                                value={data.content}
-                                onChange={(e) =>
-                                    setData('content', e.target.value)
-                                }
-                                className="w-full rounded border border-gray-300 px-4 py-2 focus:border-[#70B9BE] focus:ring-[#70B9BE]"
-                                rows={10}
-                                required
-                            />
+                        <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+                            <div className="lg:col-span-1">
+                                <ArticleGeneralInfoCard
+                                    data={data}
+                                    setData={setData}
+                                    errors={errors}
+                                    categories={categories}
+                                />
+                            </div>
+                            <div className="lg:col-span-2">
+                                <ArticleDetailCard
+                                     value={data.content}
+  onChange={(val) => setData('content', val)}
+  error={errors.content}
+                                />
+                            </div>
                         </div>
                     </form>
                 </main>

@@ -54,6 +54,20 @@ export default function ArticleGeneralInfoCard({ data, setData, errors, categori
                     />
                     {errors.title && <p className="text-sm text-red-600">{errors.title}</p>}
                 </div>
+                {/* Slug Artikel */}
+<div>
+    <label className="mb-1 block text-sm font-medium text-gray-700">
+        Slug Artikel
+    </label>
+    <input
+        name="slug"
+        value={data.slug}
+        onChange={handleChange}
+        placeholder="Masukkan slug artikel"
+        className="w-full rounded-md border px-3 py-2 text-sm shadow-sm"
+    />
+    {errors.slug && <p className="text-sm text-red-600">{errors.slug}</p>}
+</div>
 
                 {/* Deskripsi Singkat */}
                 <div>

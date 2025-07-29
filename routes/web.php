@@ -74,18 +74,15 @@ Route::delete('/dashboard/recipe/category-recipe/{type}/{id}', [SubCategoryContr
 
 
 
-Route::get('/dashboard/article', fn () => Inertia::render('Dashboard/Article/ListArticle'))->middleware(['auth', 'verified'])->name('dashboard.article.list');
-Route::get('/dashboard/article/create',)->middleware(['auth', 'verified'])->name('dashboard.article.create');
-Route::get('/dashboard/article/edit/{slug}', fn ($slug) => Inertia::render('Dashboard/Article/EditArticle', compact('slug')))->middleware(['auth', 'verified'])->name('dashboard.article.edit');
+
 
 Route::prefix('dashboard')->middleware(['auth', 'verified', 'role:admin'])->group(function () {
-    Route::get('article', [ArticleController::class, 'index'])->name('dashboard.article.index');
     Route::get('article/list', [ArticleController::class, 'list'])->name('dashboard.article.list');
     Route::get('article/create', [ArticleController::class, 'create'])->name('dashboard.article.create');
-    Route::get('article/{article}/edit', [ArticleController::class, 'edit'])->name('dashboard.article.edit');
+    Route::get('article/edit/{slug}', [ArticleController::class, 'edit'])->name('dashboard.article.edit');
     Route::post('article/store', [ArticleController::class, 'store'])->name('dashboard.article.store');
     Route::put('article/{article}', [ArticleController::class, 'update'])->name('dashboard.article.update');
-    Route::delete('article/{article}', [ArticleController::class, 'destroy'])->name('dashboard.article.destroy');
+    Route::delete('article/{id}', [ArticleController::class, 'destroy'])->name('dashboard.article.destroy');
     
 });
 

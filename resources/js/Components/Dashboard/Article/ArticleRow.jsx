@@ -3,10 +3,11 @@ import { FiEdit2, FiMoreVertical, FiTrash2 } from 'react-icons/fi';
 import { router } from '@inertiajs/react';
 
 export default function ArticleRow({
+    id,
     title,
     category,
     imageUrl,
-    slug, // ← penting: menerima prop slug
+    slug,
     isOpen,
     onToggle,
 }) {
@@ -32,14 +33,15 @@ export default function ArticleRow({
     }, [isOpen, onToggle]);
 
     const handleEdit = () => {
-        router.get(`/dashboard/article/edit/${slug}`);
+         router.get(route('dashboard.article.edit', slug));
     };
 
-    const handleDelete = () => {
-        if (confirm(`Yakin ingin menghapus artikel "${title}"?`)) {
-            console.log('Hapus Artikel:', title);
-        }
-    };
+   const handleDelete = () => {
+    if (confirm(`Yakin ingin menghapus artikel "${title}"?`)) {
+        router.delete(route('dashboard.article.destroy', id));
+        console.log('Deleting article ID:', id);
+    }
+};
 
     return (
         <tr className="relative border-t">

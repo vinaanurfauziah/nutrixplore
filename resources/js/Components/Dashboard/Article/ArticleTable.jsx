@@ -124,6 +124,7 @@ export default function ArticleTable({ articles = [], showTitle = true }) {
                             filteredArticles.map((article, index) => (
                                 <ArticleRow
                                     key={article.id}
+                                    id={article.id} 
                                     index={index}
                                     title={article.title}
                                     category={article.category?.name}
