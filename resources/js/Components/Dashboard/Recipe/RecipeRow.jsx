@@ -38,7 +38,7 @@ const handleEdit = () => {
 
   const handleDelete = () => {
     if (confirm(`Yakin ingin menghapus resep "${judul}"?`)) {
-      router.delete(route('recipes.destroy', id));
+      router.delete(route('dashboard.recipe.destroy', id));
     }
   };
 
