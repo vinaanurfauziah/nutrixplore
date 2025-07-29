@@ -135,10 +135,5 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::post('recipes/{id}/save', [RecipeController::class, 'saveRecipe'])->name('recipes.save');
-    Route::post('recipes/{id}/unsave', [RecipeController::class, 'unsaveRecipe'])->name('recipes.unsave');
-    Route::get('recipes/saved', [RecipeController::class, 'getSavedRecipes'])->name('recipes.saved');
-});
 
 require __DIR__.'/auth.php';
