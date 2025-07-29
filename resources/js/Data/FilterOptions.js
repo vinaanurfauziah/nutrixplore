@@ -64,7 +64,7 @@ const FilterOptions = {
         'Nutrisi dan Pola Makan',
         'Gaya Hidup Sehat',
         'Bahan Makanan',
-        'Tips Makan Sehat',
+        'Tips Makan Sehadat',
     ],
 };
 
