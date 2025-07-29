@@ -36,11 +36,11 @@ export default function Welcome({ auth, recipes, articles }) {
                     </motion.div>
 
                     <motion.div {...fadeInUp}>
-                         <LatestRecipeSection auth = {auth} recipes={recipes}  />
+                        <LatestRecipeSection auth={auth} recipes={recipes} />
                     </motion.div>
 
                     <motion.div {...fadeInUp}>
-                        <HealthArticleSection  auth = {auth} articles={articles}   />
+                        <HealthArticleSection auth={auth} articles={articles} />
                     </motion.div>
 
                     <motion.div {...fadeInUp}>

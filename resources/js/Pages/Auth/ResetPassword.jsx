@@ -1,6 +1,5 @@
 import PrimaryButton from '@/Components/Common/PrimaryButton';
 import AuthDescription from '@/Components/Partials/Auth/AuthDescription';
-import AuthFieldGroup from '@/Components/Partials/Auth/AuthFieldGroup';
 import AuthImage from '@/Components/Partials/Auth/AuthImage';
 import { Head, useForm } from '@inertiajs/react';
 
@@ -33,53 +32,7 @@ export default function ResetPassword({ token, email }) {
                             Silakan masukkan kata sandi baru Anda yang berbeda
                             dari yang sebelumnya digunakan.
                         </AuthDescription>
-
-                        <form onSubmit={submit}>
-                            <AuthFieldGroup
-                                id="email"
-                                name="email"
-                                type="email"
-                                label="Email"
-                                value={data.email}
-                                placeholder="Masukkan email anda"
-                                autoComplete="username"
-                                onChange={(e) =>
-                                    setData('email', e.target.value)
-                                }
-                                error={errors.email}
-                            />
-
-                            <AuthFieldGroup
-                                id="password"
-                                name="password"
-                                type="password"
-                                label="Kata Sandi"
-                                value={data.password}
-                                placeholder="Masukkan kata sandi anda"
-                                autoComplete="new-password"
-                                onChange={(e) =>
-                                    setData('password', e.target.value)
-                                }
-                                error={errors.password}
-                                isFocused
-                            />
-
-                            <AuthFieldGroup
-                                id="password_confirmation"
-                                name="password_confirmation"
-                                type="password"
-                                label="Konfirmasi Kata Sandi"
-                                value={data.password_confirmation}
-                                placeholder="Konfirmasi kata sandi anda"
-                                autoComplete="new-password"
-                                onChange={(e) =>
-                                    setData(
-                                        'password_confirmation',
-                                        e.target.value,
-                                    )
-                                }
-                                error={errors.password_confirmation}
-                            />
+                        <form onSubmit={submit} className="mt-6 space-y-4">
 
                             <div className="flex flex-col items-center">
                                 <PrimaryButton

@@ -189,10 +189,10 @@ const kategoriData = {
         nama: 'Metode Memasak',
         subkategori: [
             { nama: 'Merebus', slug: 'merebus', icon: 'PiCookingPotFill' },
-            { nama: 'Goreng', slug: 'goreng', icon: 'TbCooker' },
-            { nama: 'Kukus', slug: 'kukus', icon: 'CgSmartHomeCooker' },
-            { nama: 'Panggang', slug: 'panggang', icon: 'TbGrill' },
-            { nama: 'Tumis', slug: 'tumis', icon: 'CgSmartHomeCooker' },
+            { nama: 'Menggoreng', slug: 'goreng', icon: 'TbCooker' },
+            { nama: 'Mengukus', slug: 'kukus', icon: 'CgSmartHomeCooker' },
+            { nama: 'Memanggang', slug: 'panggang', icon: 'TbGrill' },
+            { nama: 'Menumis', slug: 'tumis', icon: 'CgSmartHomeCooker' },
         ],
     },
 };
