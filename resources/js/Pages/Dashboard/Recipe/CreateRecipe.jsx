@@ -34,7 +34,7 @@ export default function CreateRecipe({
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        post(route('recipes.store'), {
+        post(route('dashboard.recipe.store'), {
             forceFormData: true,
             onSuccess: () => {
                 router.get('/dashboard/recipe');

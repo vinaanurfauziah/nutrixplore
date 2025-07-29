@@ -19,35 +19,43 @@ class ArticleController extends Controller
         ]);
     }
 
-    public function listArticle()
-    {
-        $articles = Article::with('category')->latest()->get();
+public function listArticle()
+{
+    $articles = Article::with('category')->latest()->get();
 
-        $articles->transform(function ($article) {
-            return [
-                'id' => $article->id,
-                'title' => $article->title,
-                'slug' => $article->slug,
-                'short_description' => $article->short_description,
-                'content' => $article->content,
-                'image' => $article->image_path
-                    ? asset(str_replace('public/', 'storage/', $article->image_path))
-                    : asset('images/default-article.jpg'),
-                'category' => $article->category ? [
-                    'id' => $article->category->id,
-                    'name' => $article->category->name,
-                ] : null,
-            ];
-        });
+    $articles->transform(function ($article) {
+        $imagePath = $article->image_path
+            ? str_replace('public/', '', $article->image_path)
+            : null;
 
-        return Inertia::render('Article/Index', [
-            'articles' => $articles,
-        ]);
-    }
+        return [
+            'id' => $article->id,
+            'title' => $article->title,
+            'slug' => $article->slug,
+            'short_description' => $article->short_description,
+            'content' => $article->content,
+            'image' => ($imagePath && Storage::disk('public')->exists($imagePath))
+                ? asset('storage/' . $imagePath)
+                : asset('images/default-article.jpg'),
+            'category' => $article->category ? [
+                'id' => $article->category->id,
+                'name' => $article->category->name,
+            ] : null,
+        ];
+    });
+
+    return Inertia::render('Article/Index', [
+        'articles' => $articles,
+    ]);
+}
+
 
     public function show($slug)
     {
         $article = Article::with('category')->where('slug', $slug)->firstOrFail();
+          $imagePath = $article->image_path
+            ? str_replace('public/', '', $article->image_path)
+            : null;
 
         return Inertia::render('Article/DetailArticle', [
             'article' => [
@@ -56,9 +64,9 @@ class ArticleController extends Controller
                 'slug' => $article->slug,
                 'description' => $article->short_description,
                 'content' => $article->content,
-                'image' => $article->image_path
-                    ? asset('storage/' . $article->image_path)
-                    : asset('images/default-article.jpg'),
+                'image' => ($imagePath && Storage::disk('public')->exists($imagePath))
+                ? asset('storage/' . $imagePath)
+                : asset('images/default-article.jpg'),
                 'category' => $article->category?->name,
                 'tags' => [], // Tambahkan jika ada relasi tags
                 'date' => $article->created_at->format('d M Y'),

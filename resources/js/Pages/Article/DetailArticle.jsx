@@ -50,6 +50,16 @@ export default function DetailArticle({ auth, article }) {
                                 </div>
                             </div>
                         </section>
+                        {article.image && (
+    <div className="mb-6">
+        <img
+            src={article.image}
+            alt={article.title}
+            className="w-full h-64 object-cover rounded-xl shadow-md"
+        />
+    </div>
+)}
+
 
                         {/* Konten */}
                         <section className="bg-white dark:bg-gray-800">

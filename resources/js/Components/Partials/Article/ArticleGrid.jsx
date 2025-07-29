@@ -18,7 +18,7 @@ export default function ArticleGrid({
                             category={article.category}
                             title={article.title}
                             description={article.description}
-                            imageUrl={article.imageUrl}
+                            imageUrl={article.image}
                             slug={article.slug}
                             onSave={onSave}
                             onUnsave={onUnsave}
