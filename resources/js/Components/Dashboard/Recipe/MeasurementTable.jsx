@@ -1,7 +1,7 @@
 import { router } from '@inertiajs/react';
 import { useState } from 'react';
 import { FiPlus, FiSearch } from 'react-icons/fi';
-import MeasurementRow from './MeasurementRow';
+
 
 export default function MeasurementTable() {
     const [searchQuery, setSearchQuery] = useState('');
