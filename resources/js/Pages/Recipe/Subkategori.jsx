@@ -6,7 +6,12 @@ import Navbar from '@/Components/Templates/Navbar';
 import { Head } from '@inertiajs/react';
 import { useState } from 'react';
 
-export default function SubKategori({ auth, kategoriSlug, subkategoriSlug, recipes }) {
+export default function SubKategori({
+    auth,
+    kategoriSlug,
+    subkategoriSlug,
+    recipes,
+}) {
     const [showPopup, setShowPopup] = useState(false);
 
     const handleSave = () => {
@@ -40,7 +45,7 @@ export default function SubKategori({ auth, kategoriSlug, subkategoriSlug, recip
                 />
                 <main className="flex-grow bg-white dark:bg-gray-900">
                     <section className="mx-auto max-w-screen-2xl px-4 py-8 lg:py-16">
-                        <h3 className="mb-8 text-center text-lg font-extrabold text-[#70B9BE] dark:text-white">
+                        <h3 className="mb-8 text-center text-lg font-extrabold uppercase text-[#70B9BE] dark:text-white">
                             {subkategoriSlug.replace(/-/g, ' ')}
                         </h3>
 

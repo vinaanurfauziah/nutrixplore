@@ -25,7 +25,7 @@ export default function ArticleGeneralInfoCard({ data, setData, errors, categori
                     <button
                         type="button"
                         onClick={handleButtonClick}
-                        className="rounded-md bg-purple-600 px-4 py-1.5 text-sm font-medium text-white hover:bg-purple-700"
+                        className="rounded-md bg-[#70B9BE] px-4 py-1.5 text-sm font-medium text-white hover:bg-gray-500"
                     >
                         Cari File
                     </button>
