@@ -6,7 +6,12 @@ import Footer from '@/Components/Templates/Footer';
 import { Head } from '@inertiajs/react';
 import { useState } from 'react';
 
-export default function Recipe({ auth, recipes, activeFilters = [], filterOptions = {} }) {
+export default function Recipe({
+    auth,
+    recipes,
+    activeFilters = [],
+    filterOptions = {},
+}) {
     const [showPopup, setShowPopup] = useState(false);
 
     const handleSave = () => {
@@ -27,15 +32,14 @@ export default function Recipe({ auth, recipes, activeFilters = [], filterOption
                 <RecipeHeader auth={auth} />
                 <main>
                     <RecipeCategorySection />
-                       <RecipeFilterSection
-                        auth={auth} 
-    recipes={recipes}
-    activeFilters={activeFilters} 
-    filterOptions={filterOptions}
+                    <RecipeFilterSection
+                        auth={auth}
+                        recipes={recipes}
+                        activeFilters={activeFilters}
+                        filterOptions={filterOptions}
                         onSave={handleSave}
                         onUnsave={handleUnsave}
-    />
-
+                    />
                 </main>
                 <Footer className="mt-auto" />
                 {showPopup && (

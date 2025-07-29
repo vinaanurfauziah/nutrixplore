@@ -20,31 +20,51 @@ const kategoriData = {
         nama: 'Kondisi Kesehatan',
         subkategori: [
             { nama: 'Stroke', slug: 'stroke', icon: 'FaBrain' },
-            { nama: 'Obesitas', slug: 'obesitas', icon: 'GiFat' },
+            { nama: 'Obesitas/Overweight', slug: 'obesitas', icon: 'GiFat' },
             { nama: 'Hipertensi', slug: 'hipertensi', icon: 'GiHeartBeats' },
-            { nama: 'Paru', slug: 'paru', icon: 'FaLungs' },
-            { nama: 'Ginjal', slug: 'ginjal', icon: 'GiKidneys' },
-            { nama: 'Kanker', slug: 'kanker', icon: 'GiTumor' },
-            { nama: 'Mata', slug: 'mata', icon: 'FaEye' },
-            { nama: 'Radang', slug: 'radang', icon: 'GiJoint' },
-            { nama: 'Jantung', slug: 'jantung', icon: 'BsFillHeartPulseFill' },
-            { nama: 'Otak', slug: 'otak', icon: 'GiBrain' },
-            { nama: 'Kulit', slug: 'kulit', icon: 'FaRegFaceFrown' },
-            { nama: 'Imunitas', slug: 'imunitas', icon: 'GiAntibody' },
-            { nama: 'Mood', slug: 'mood', icon: 'TbMoodCheck' },
+            { nama: 'Penyakit Paru Kronis', slug: 'paru', icon: 'FaLungs' },
             {
-                nama: 'Cegah Kanker',
+                nama: 'Penyakit Ginjal Kronis',
+                slug: 'ginjal',
+                icon: 'GiKidneys',
+            },
+            {
+                nama: 'Dukungan Nutrisi untuk Pasien Kanker',
+                slug: 'kanker',
+                icon: 'GiTumor',
+            },
+            { nama: 'Kesehatan Mata', slug: 'mata', icon: 'FaEye' },
+            { nama: 'Anti Peradangan', slug: 'radang', icon: 'GiJoint' },
+            {
+                nama: 'Kesehatan Jantung',
+                slug: 'jantung',
+                icon: 'BsFillHeartPulseFill',
+            },
+            { nama: 'Kesehatan Otak', slug: 'otak', icon: 'GiBrain' },
+            { nama: 'Dukungan Imunitas', slug: 'imunitas', icon: 'GiAntibody' },
+            { nama: 'Peningkat Mood', slug: 'mood', icon: 'TbMoodCheck' },
+            {
+                nama: 'Pencegahan Kanker',
                 slug: 'cegah-kanker',
                 icon: 'FaRibbon',
             },
-            { nama: 'Pencernaan', slug: 'pencernaan', icon: 'GiStomach' },
-            { nama: 'Tulang', slug: 'tulang', icon: 'FaBone' },
+            {
+                nama: 'Kesehatan Pencernaan',
+                slug: 'pencernaan',
+                icon: 'GiStomach',
+            },
+            { nama: 'Kesehatan Tulang', slug: 'tulang', icon: 'FaBone' },
             { nama: 'Diabetes', slug: 'diabetes', icon: 'GiBlood' },
         ],
     },
     diet: {
         nama: 'Diet',
         subkategori: [
+            {
+                nama: 'Ikan',
+                slug: 'ikan',
+                icon: 'FaFish',
+            },
             {
                 nama: 'Paleo',
                 slug: 'paleo',
@@ -56,17 +76,17 @@ const kategoriData = {
                 icon: 'LuVegan',
             },
             {
-                nama: 'Low-Carb',
-                slug: 'low-carb',
+                nama: 'Rendah Karbohidrat',
+                slug: 'rendah-karbohidrat',
                 icon: 'GiFishEggs',
             },
             {
-                nama: 'The Dukan',
-                slug: 'the-dukan',
+                nama: 'Dukan',
+                slug: 'dukan',
                 icon: 'TbMeat',
             },
             {
-                nama: 'The Ultra-Low-Fat',
+                nama: 'The Ultra Low Fat',
                 slug: 'ultra-low-fat',
                 icon: 'GiFruitBowl',
             },
@@ -76,8 +96,8 @@ const kategoriData = {
                 icon: 'PiAvocadoFill',
             },
             {
-                nama: 'Mediterrania',
-                slug: 'mediterrania',
+                nama: 'Mediterania',
+                slug: 'mediterania',
                 icon: 'GiOlive',
             },
             {
@@ -98,9 +118,9 @@ const kategoriData = {
                 icon: 'GiPeanut',
             },
             {
-                nama: 'Ikan',
-                slug: 'ikan',
-                icon: 'FaFish',
+                nama: 'Kacang Kedelai',
+                slug: 'kacang-kedelai',
+                icon: 'LuBean',
             },
             {
                 nama: 'Kerang',
@@ -121,6 +141,11 @@ const kategoriData = {
                 nama: 'Gandum',
                 slug: 'gandum',
                 icon: 'GiWheat',
+            },
+            {
+                nama: 'Wijen',
+                slug: 'wijen',
+                icon: 'GiSesame',
             },
         ],
     },
@@ -163,7 +188,7 @@ const kategoriData = {
     metode: {
         nama: 'Metode Memasak',
         subkategori: [
-            { nama: 'Rebus', slug: 'rebus', icon: 'PiCookingPotFill' },
+            { nama: 'Merebus', slug: 'merebus', icon: 'PiCookingPotFill' },
             { nama: 'Goreng', slug: 'goreng', icon: 'TbCooker' },
             { nama: 'Kukus', slug: 'kukus', icon: 'CgSmartHomeCooker' },
             { nama: 'Panggang', slug: 'panggang', icon: 'TbGrill' },

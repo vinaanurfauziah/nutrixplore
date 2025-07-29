@@ -72,7 +72,7 @@ export default function RecipeCategorySection() {
                                     </div>
                                 }
                                 text={item.text}
-                      href={`/recipe/kategori/${item.value}`}
+                                href={`/recipe/kategori/${item.value}`}
                             />
                         </motion.li>
                     ))}
