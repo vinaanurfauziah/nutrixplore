@@ -2,7 +2,7 @@ import Breadcrumb from '@/Components/Common/Breadcrumb';
 import CategoryCard from '@/Components/Public/CategoryCard';
 import Footer from '@/Components/Templates/Footer';
 import Navbar from '@/Components/Templates/Navbar';
-import kategoriData from '@/data/kategoriData';
+import kategoriData from '../../data/kategoriData';
 import { Head } from '@inertiajs/react';
 
 // Import ikon dari beberapa paket icon

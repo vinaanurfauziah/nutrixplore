@@ -196,5 +196,4 @@ const kategoriData = {
         ],
     },
 };
-
 export default kategoriData;
