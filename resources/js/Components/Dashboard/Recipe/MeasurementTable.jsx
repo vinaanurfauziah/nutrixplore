@@ -1,26 +1,21 @@
-import { router } from '@inertiajs/react';
+import { router, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 import { FiPlus, FiSearch } from 'react-icons/fi';
-
+import MeasurementRow from './MeasurementRow';
 
 export default function MeasurementTable() {
+    const { units = [] } = usePage().props; // Ambil dari props Inertia
     const [searchQuery, setSearchQuery] = useState('');
     const [openRowIndex, setOpenRowIndex] = useState(null);
     const [showSearch, setShowSearch] = useState(false);
 
-    const units = [
-        { id: 1, name: 'Gram', symbol: 'g', type: 'Berat' },
-        { id: 2, name: 'Kilogram', symbol: 'kg', type: 'Berat' },
-        { id: 3, name: 'Mililiter', symbol: 'ml', type: 'Volume' },
-        { id: 4, name: 'Liter', symbol: 'l', type: 'Volume' },
-    ];
-
     const filteredUnits = units.filter((unit) =>
-        unit.name.toLowerCase().includes(searchQuery.toLowerCase()),
+        unit.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     return (
         <div className="rounded-lg bg-white p-4 shadow-sm">
+            {/* Header */}
             <div className="mb-4">
                 {/* Desktop */}
                 <div className="hidden flex-col gap-2 sm:flex-row sm:items-center md:flex">
@@ -31,13 +26,8 @@ export default function MeasurementTable() {
                         onChange={(e) => setSearchQuery(e.target.value)}
                         className="rounded-lg border border-gray-300 px-4 py-2 text-sm shadow-sm focus:border-[#70B9BE] focus:outline-none focus:ring-2 focus:ring-[#70B9BE]"
                     />
-
                     <button
-                        onClick={() =>
-                            router.get(
-                                '/dashboard/recipe/measurement-units/create',
-                            )
-                        }
+                        onClick={() => router.get(route('dashboard.recipe.measurement-units.create'))}
                         className="rounded-lg bg-[#70B9BE] px-5 py-2.5 text-sm font-medium text-white shadow-sm hover:bg-[#51979e] focus:outline-none focus:ring-4 focus:ring-[#a1d3d7]"
                     >
                         + Tambah Satuan
@@ -54,11 +44,7 @@ export default function MeasurementTable() {
                         <FiSearch size={20} />
                     </button>
                     <button
-                        onClick={() =>
-                            router.get(
-                                '/dashboard/recipe/measurement-units/create',
-                            )
-                        }
+                        onClick={() => router.get(route('dashboard.recipe.measurement-units.create'))}
                         className="text-[#70B9BE]"
                         title="Tambah Satuan"
                     >
@@ -66,7 +52,7 @@ export default function MeasurementTable() {
                     </button>
                 </div>
 
-                {/* Input Search Mobile */}
+                {/* Mobile Input */}
                 {showSearch && (
                     <div className="mt-2 md:hidden">
                         <input
@@ -103,11 +89,7 @@ export default function MeasurementTable() {
                                     type={unit.type}
                                     isOpen={openRowIndex === index}
                                     onToggle={() =>
-                                        setOpenRowIndex(
-                                            openRowIndex === index
-                                                ? null
-                                                : index,
-                                        )
+                                        setOpenRowIndex(openRowIndex === index ? null : index)
                                     }
                                 />
                             ))

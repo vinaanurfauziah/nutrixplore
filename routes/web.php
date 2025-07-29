@@ -15,6 +15,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ArticleCategoryController;
 use App\Http\Controllers\Guest;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\MeasurementController ;
 
 Route::get('/', [Guest::class, 'index'])->name('home');
 Route::get('/about', fn () => Inertia::render('About/About'))->name('about');
@@ -53,7 +54,10 @@ Route::delete('/dashboard/recipe/{id}', [RecipeController::class, 'destroy'])
 Route::put('/dashboard/recipe/{id}', [RecipeController::class, 'update'])->name('dashboard.recipe.update');
 
 // Route untuk Measurement Unit
-Route::get('/dashboard/recipe/measurement-units', fn () => Inertia::render('Dashboard/Recipe/MeasurementUnits/Index'))->middleware(['auth', 'verified'])->name('dashboard.recipe.measurement-units');
+Route::get(
+    '/dashboard/recipe/measurement-units',
+    [MeasurementController::class, 'index']
+)->middleware(['auth', 'verified'])->name('dashboard.recipe.measurement-units');
 Route::get('/dashboard/recipe/measurement-units/create', fn () => Inertia::render('Dashboard/Recipe/MeasurementUnits/Create'))->middleware(['auth', 'verified'])->name('dashboard.recipe.measurement-units.create');
 Route::get('/dashboard/recipe/measurement-units/{id}/edit', fn ($id) => Inertia::render('Dashboard/Recipe/MeasurementUnits/Edit', compact('id')))->middleware(['auth', 'verified'])->name('dashboard.recipe.measurement-units.edit');
 // ✅ Route untuk Tag

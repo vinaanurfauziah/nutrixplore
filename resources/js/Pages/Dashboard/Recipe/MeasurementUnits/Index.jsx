@@ -4,12 +4,10 @@ import DashboardSidebar from '@/Components/Dashboard/Sidebar';
 import { Head } from '@inertiajs/react';
 import { useState } from 'react';
 
-export default function Index() {
+export default function Index({ measurements }) {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-    const toggleSidebar = () => {
-        setIsSidebarOpen(!isSidebarOpen);
-    };
+    const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
     return (
         <>
@@ -44,7 +42,7 @@ export default function Index() {
                         Satuan Takaran
                     </h1>
 
-                    <MeasurementTable />
+                    <MeasurementTable units={measurements} />
                 </main>
             </div>
         </>
