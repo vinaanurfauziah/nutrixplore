@@ -2,7 +2,6 @@
     import SaveSuccessPopup from '@/Components/Common/SaveSuccessPopup';
     import SectionHeading from '@/Components/Common/SectionHeading';
     import RecipeCard from '@/Components/Public/RecipeCard';
-    import getAllRecipes from '@/Data/getAllRecipes';
     import { useState } from 'react';
     import { router } from '@inertiajs/react';
 
