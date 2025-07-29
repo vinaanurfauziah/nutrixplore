@@ -15,8 +15,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ArticleCategoryController;
 use App\Http\Controllers\Guest;
 
-
-Route::get('/',[Guest::class, 'index']);
+Route::get('/', [Guest::class, 'index'])->name('home');
 Route::get('/about', fn () => Inertia::render('About/About'))->name('about');
 Route::get('/recipe', [RecipeController::class, 'publicPage'])->name('recipe');
 Route::get('/recipe/kategori/{kategori}', [RecipeController::class, 'kategori']);
