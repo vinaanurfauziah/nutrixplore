@@ -66,8 +66,8 @@ const Navbar = ({ auth }) => {
                             {dropdownOpen && (
                                 <div className="absolute right-0 z-50 mt-2 w-48 rounded-md border bg-white shadow-lg dark:border-gray-700 dark:bg-gray-800">
                                     <Link
-    href={
-        auth.user.is_admin
+     href={
+        auth.user.role === 'admin'
             ? route('dashboard') // admin
             : route('dashboardMember.DashboardPage') // member
     }
