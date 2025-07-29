@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route; 
 use App\Http\Middleware\RoleMiddleware;
-use Illuminate\Support\Facades\URLs
+use Illuminate\Support\Facades\URLs;
 
 class AppServiceProvider extends ServiceProvider
 {
