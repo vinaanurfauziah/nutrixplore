@@ -1,24 +1,52 @@
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { FiUploadCloud } from 'react-icons/fi';
 
 export default function ArticleGeneralInfoCard({ data, setData, errors, categories = [] }) {
     const fileInputRef = useRef(null);
+    const [previewUrl, setPreviewUrl] = useState(null);
 
     const handleChange = (e) => {
         const { name, value, files } = e.target;
-        setData(name, files ? files[0] : value);
+        if (files && files[0]) {
+            setData(name, files[0]);
+            setPreviewUrl(URL.createObjectURL(files[0]));
+        } else {
+            setData(name, value);
+        }
     };
 
     const handleButtonClick = () => {
         fileInputRef.current.click();
     };
 
+    useEffect(() => {
+        // Jika sedang edit dan gambar sebelumnya adalah string (dari server)
+        if (data.image && typeof data.image === 'string') {
+            setPreviewUrl(`/storage/${data.image}`);
+        }
+
+        // Cleanup URL object jika upload file baru
+        return () => {
+            if (previewUrl && typeof previewUrl !== 'string') {
+                URL.revokeObjectURL(previewUrl);
+            }
+        };
+    }, [data.image]);
+
     return (
         <div className="h-[calc(100vh-7rem)] overflow-y-auto rounded-xl border bg-white p-6 shadow-sm">
             <h2 className="mb-5 text-xl font-semibold text-gray-800">Informasi Umum</h2>
 
             <div className="space-y-4">
-                <div className="flex cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-gray-300 p-6 text-center hover:border-gray-400">
+                {/* Upload Gambar + Preview */}
+                <div className="flex flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-gray-300 p-6 text-center hover:border-gray-400">
+                    {previewUrl && (
+                        <img
+                            src={previewUrl}
+                            alt="Preview"
+                            className="mb-4 h-40 w-auto rounded-md object-cover"
+                        />
+                    )}
                     <FiUploadCloud className="text-4xl text-gray-400" />
                     <div className="text-sm font-medium text-gray-700">Pilih Gambar Artikel</div>
                     <p className="text-xs text-gray-500">PNG atau JPEG, maksimal 10MB</p>
@@ -54,20 +82,21 @@ export default function ArticleGeneralInfoCard({ data, setData, errors, categori
                     />
                     {errors.title && <p className="text-sm text-red-600">{errors.title}</p>}
                 </div>
+
                 {/* Slug Artikel */}
-<div>
-    <label className="mb-1 block text-sm font-medium text-gray-700">
-        Slug Artikel
-    </label>
-    <input
-        name="slug"
-        value={data.slug}
-        onChange={handleChange}
-        placeholder="Masukkan slug artikel"
-        className="w-full rounded-md border px-3 py-2 text-sm shadow-sm"
-    />
-    {errors.slug && <p className="text-sm text-red-600">{errors.slug}</p>}
-</div>
+                <div>
+                    <label className="mb-1 block text-sm font-medium text-gray-700">
+                        Slug Artikel
+                    </label>
+                    <input
+                        name="slug"
+                        value={data.slug}
+                        onChange={handleChange}
+                        placeholder="Masukkan slug artikel"
+                        className="w-full rounded-md border px-3 py-2 text-sm shadow-sm"
+                    />
+                    {errors.slug && <p className="text-sm text-red-600">{errors.slug}</p>}
+                </div>
 
                 {/* Deskripsi Singkat */}
                 <div>
@@ -87,7 +116,7 @@ export default function ArticleGeneralInfoCard({ data, setData, errors, categori
                     )}
                 </div>
 
-                {/* Kategori */}
+                {/* Kategori Artikel */}
                 <div>
                     <label className="mb-1 block text-sm font-medium text-gray-700">
                         Kategori Artikel

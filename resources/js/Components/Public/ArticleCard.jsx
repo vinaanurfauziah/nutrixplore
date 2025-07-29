@@ -19,7 +19,7 @@ const ArticleCard = ({
 
             <div className="absolute bottom-6 left-4 right-4 rounded-2xl bg-[#70B9BE]/95 px-5 py-5 text-white shadow-lg">
                 <span className="text-sm font-medium uppercase tracking-wide text-white/90">
-                    {category}
+                    {category?.name}
                 </span>
                 <h3 className="mt-1 line-clamp-2 text-base font-semibold leading-snug sm:text-lg md:text-xl">
                     <a href={`/article/${slug}`} className="hover:underline">

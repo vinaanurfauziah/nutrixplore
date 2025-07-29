@@ -13,15 +13,10 @@ use App\Http\Controllers\AdminController;
 use App\Models\User;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ArticleCategoryController;
+use App\Http\Controllers\Guest;
 
 
-
-
-
-
-
-
-Route::get('/',[RecipeController::class, 'landingpage']);
+Route::get('/',[Guest::class, 'index']);
 Route::get('/about', fn () => Inertia::render('About/About'))->name('about');
 Route::get('/recipe', [RecipeController::class, 'publicPage'])->name('recipe');
 Route::get('/recipe/kategori/{kategori}', [RecipeController::class, 'kategori']);
@@ -31,7 +26,7 @@ Route::get('/recipe/{kategori}/{subkategori}', [RecipeController::class, 'subkat
 Route::get('/recipe/hidangan', fn () => Inertia::render('Recipe/Kategori'))->name('recipe.kategori.hidangan');
 
 Route::get('/article', fn () => Inertia::render('Article/Index'))->name('article');
-Route::get('/article/{slug}', fn ($slug) => Inertia::render('Article/DetailArticle', ['slug' => $slug]))->name('article.detailArticle');
+Route::get('/article/{slug}', [ArticleController::class, 'show'])->name('article.show');
 
 Route::get('/recipe/{kategoriSlug}/{subkategoriSlug}', fn ($kategoriSlug, $subkategoriSlug) => Inertia::render('Recipe/Subkategori', compact('kategoriSlug', 'subkategoriSlug')))->name('recipe.subkategori');
 Route::get('/recipe/{slug}', [RecipeController::class, 'show']);
@@ -81,7 +76,7 @@ Route::prefix('dashboard')->middleware(['auth', 'verified', 'role:admin'])->grou
     Route::get('article/create', [ArticleController::class, 'create'])->name('dashboard.article.create');
     Route::get('article/edit/{slug}', [ArticleController::class, 'edit'])->name('dashboard.article.edit');
     Route::post('article/store', [ArticleController::class, 'store'])->name('dashboard.article.store');
-    Route::put('article/{article}', [ArticleController::class, 'update'])->name('dashboard.article.update');
+    Route::put('article/update', [ArticleController::class, 'update'])->name('dashboard.article.update');
     Route::delete('article/{id}', [ArticleController::class, 'destroy'])->name('dashboard.article.destroy');
     
 });

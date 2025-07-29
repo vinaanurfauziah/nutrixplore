@@ -20,19 +20,26 @@ class ArticleController extends Controller
         ]);
     }
    
-public function show(Article $article)
+public function show($slug)
 {
-    return Inertia::render('Dashboard/Article/ListArticle', [
-        'article' => $article->load('category'),
+    $article = Article::with('category')->where('slug', $slug)->firstOrFail();
+
+    return Inertia::render('Article/DetailArticle', [
+        'article' => [
+            'id' => $article->id,
+            'title' => $article->title,
+            'slug' => $article->slug,
+            'description' => $article->short_description,
+            'content' => $article->content, // diasumsikan berupa HTML
+            'image' => $article->image_path
+                ? asset('storage/' . $article->image_path)
+                : asset('images/default-article.jpg'),
+            'category' => $article->category?->name ?? null,
+            'tags' => [], // Tambahkan jika kamu punya relasi tags
+            'date' => $article->created_at->format('d M Y'),
+        ],
     ]);
 }
-
-    public function list()
-    {
-        return Inertia::render('Dashboard/Article/ListArticle', [
-            'articles' => Article::with('category')->latest()->get(),
-        ]);
-    }
 
 // Menampilkan semua artikel (misalnya untuk frontend publik)
 public function publicIndex()
@@ -55,7 +62,7 @@ public function publicIndex()
 
         $imagePath = null;
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('public/articles');
+         $imagePath = $request->file('image')->store('articles', 'public');
         }
 
         Article::create([
@@ -89,7 +96,7 @@ public function edit(Article $article)
         'categories' => ArticleCategory::select('id', 'name')->get(),
     ]);
 }
-    public function update(Request $request, Article $article)
+    public function update(Request $request)
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',

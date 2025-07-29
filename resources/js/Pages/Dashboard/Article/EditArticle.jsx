@@ -4,32 +4,19 @@ import ArticleDetailCard from '@/Components/Dashboard/Article/ArticleDetailCard'
 import ArticleGeneralInfoCard from '@/Components/Dashboard/Article/ArticleGeneralInfoCard';
 import DashboardNavbar from '@/Components/Dashboard/Navbar';
 import DashboardSidebar from '@/Components/Dashboard/Sidebar';
-import { useEffect } from 'react';
 
 export default function EditArticle({ article, categories }) {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
-    
-const { data, setData, put, processing, errors } = useForm({
-    image: null,
-    title: article.title || '',
-    slug: article.slug || '', // Tambahkan ini
-    short_description: article.short_description || '',
-    category_id: article.category?.id || '',
-    content: article.content || '',
-});
-   
-    useEffect(() => {
-    if (article) {
-        setData({
-            image: null,
-            title: article.title || '',
-            short_description: article.short_description || '',
-            category_id: article.category?.id || '',
-            content: article.content || '',
-        });
-    }
-}, [article]);
+
+    const { data, setData, put, processing, errors } = useForm({
+        image: null,
+        title: article?.title || '',
+        slug: article?.slug || '',
+        short_description: article?.short_description || '',
+        category_id: article?.category?.id || '',
+        content: article?.content || '',
+    });
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -46,7 +33,6 @@ const { data, setData, put, processing, errors } = useForm({
     return (
         <>
             <Head title={`Edit: ${article.title}`} />
-
             <div className="flex min-h-screen bg-gray-100">
                 {/* Sidebar Desktop */}
                 <aside className="hidden w-64 bg-white shadow-md md:block">
@@ -55,10 +41,7 @@ const { data, setData, put, processing, errors } = useForm({
 
                 {/* Sidebar Mobile */}
                 {isSidebarOpen && (
-                    <div
-                        className="fixed inset-0 z-40 bg-black bg-opacity-50 md:hidden"
-                        onClick={toggleSidebar}
-                    >
+                    <div className="fixed inset-0 z-40 bg-black bg-opacity-50 md:hidden" onClick={toggleSidebar}>
                         <div
                             className="absolute left-0 top-0 z-50 h-full w-64 bg-white shadow-md"
                             onClick={(e) => e.stopPropagation()}
@@ -73,10 +56,7 @@ const { data, setData, put, processing, errors } = useForm({
                     <DashboardNavbar
                         toggleSidebar={toggleSidebar}
                         breadcrumbItems={[
-                            {
-                                label: 'Daftar Artikel',
-                                href: route('dashboard.article.list'),
-                            },
+                            { label: 'Daftar Artikel', href: route('dashboard.article.list') },
                             { label: 'Edit Artikel' },
                         ]}
                     />
@@ -93,15 +73,11 @@ const { data, setData, put, processing, errors } = useForm({
                         </button>
                     </div>
 
-                    <form
-                        id="article-form"
-                        onSubmit={handleSubmit}
-                        encType="multipart/form-data"
-                    >
+                    <form id="article-form" onSubmit={handleSubmit} encType="multipart/form-data">
                         <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
                             <div className="lg:col-span-1">
                                 <ArticleGeneralInfoCard
-                                    data={data}
+                                    data={data || {}} // 🛡 Proteksi jika data belum siap
                                     setData={setData}
                                     errors={errors}
                                     categories={categories}
@@ -109,9 +85,9 @@ const { data, setData, put, processing, errors } = useForm({
                             </div>
                             <div className="lg:col-span-2">
                                 <ArticleDetailCard
-                                     value={data.content}
-  onChange={(val) => setData('content', val)}
-  error={errors.content}
+                                    value={data.content || ''}
+                                    onChange={(val) => setData('content', val)}
+                                    error={errors.content}
                                 />
                             </div>
                         </div>

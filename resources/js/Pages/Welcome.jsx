@@ -10,7 +10,7 @@ import HealthArticleSection from '@/Components/Partials/Home/HealthArticleSectio
 import HeroSection from '@/Components/Partials/Home/HeroSection';
 import LatestRecipeSection from '@/Components/Partials/Home/LatestRecipeSection';
 
-export default function Welcome({ auth, recipes }) {
+export default function Welcome({ auth, recipes, articles }) {
     const fadeInUp = {
         initial: { opacity: 0, y: 40 },
         whileInView: { opacity: 1, y: 0 },
@@ -40,7 +40,7 @@ export default function Welcome({ auth, recipes }) {
                     </motion.div>
 
                     <motion.div {...fadeInUp}>
-                        <HealthArticleSection />
+                        <HealthArticleSection  auth = {auth} articles={articles}   />
                     </motion.div>
 
                     <motion.div {...fadeInUp}>

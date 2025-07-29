@@ -23,24 +23,7 @@ use Illuminate\Support\Facades\Auth;
 class RecipeController extends Controller
 {
 
- public function landingPage()
-{
-    $latestRecipes = Recipe::latest()->take(4)->get();
-    $latestRecipes->transform(function ($recipe) {
-    $recipe->gambar = $recipe->gambar
-        ? asset('storage/' . $recipe->gambar)
-        : asset('images/default.jpg');
-    return $recipe;
-    });
-
-    return Inertia::render('Welcome', [
-        'recipes' => $latestRecipes,
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-}
+ 
 public function publicPage(Request $request) 
 {
 

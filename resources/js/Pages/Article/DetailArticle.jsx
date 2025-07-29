@@ -4,11 +4,8 @@ import TagList from '@/Components/Common/TagList';
 import Footer from '@/Components/Templates/Footer';
 import Navbar from '@/Components/Templates/Navbar';
 import { Head } from '@inertiajs/react';
-import artikelData from '@/data/artikelData.js'; 
 
-export default function DetailArticle({ auth, slug }) {
-    const article = artikelData.find((item) => item.slug === slug);
-
+export default function DetailArticle({ auth, article }) {
     if (!article) {
         return (
             <>
@@ -57,25 +54,24 @@ export default function DetailArticle({ auth, slug }) {
                         {/* Konten */}
                         <section className="bg-white dark:bg-gray-800">
                             <div className="w-full px-4 py-4 lg:px-0">
-                                <div className="mx-auto w-full max-w-[680px] text-lg leading-8 text-gray-800 dark:text-gray-300">
-                                    {article.content.map((text, i) => (
-                                        <p key={i} className="mb-6">
-                                            {text}
-                                        </p>
-                                    ))}
-                                </div>
+                                <div
+                                    className="mx-auto w-full max-w-[680px] text-lg leading-8 text-gray-800 dark:text-gray-300 prose dark:prose-invert"
+                                    dangerouslySetInnerHTML={{ __html: article.content }}
+                                />
                             </div>
                         </section>
 
                         {/* Tag */}
-                        <TagList
-                            tags={article.tags.map((tag) => ({
-                                label: tag,
-                                href: `/article?tags=${encodeURIComponent(tag)}`,
-                            }))}
-                            title="Topik Terkait"
-                            animated={false}
-                        />
+                        {article.tags.length > 0 && (
+                            <TagList
+                                tags={article.tags.map((tag) => ({
+                                    label: tag,
+                                    href: `/article?tags=${encodeURIComponent(tag)}`,
+                                }))}
+                                title="Topik Terkait"
+                                animated={false}
+                            />
+                        )}
 
                         {/* Share */}
                         <ShareBox label="Bagikan Artikel Ini:" bg="white" />
