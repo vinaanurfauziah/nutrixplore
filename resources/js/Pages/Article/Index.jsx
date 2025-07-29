@@ -1,11 +1,9 @@
+import { useState, useMemo } from 'react';
+import { Head, usePage } from '@inertiajs/react';
+
 import Breadcrumb from '@/Components/Common/Breadcrumb';
 import Footer from '@/Components/Templates/Footer';
 import Navbar from '@/Components/Templates/Navbar';
-import { Head } from '@inertiajs/react';
-import { useState } from 'react';
-
-import FilterOptions from '@/data/FilterOptions';
-import getAllArticles from '@/data/getAllArticles';
 
 import SaveSuccessPopup from '@/Components/Common/SaveSuccessPopup';
 import SectionHeading from '@/Components/Common/SectionHeading';
@@ -14,28 +12,23 @@ import ArticleGrid from '@/Components/Partials/Article/ArticleGrid';
 
 import { motion } from 'framer-motion';
 
-export default function Article({ auth }) {
-    const artikelData = getAllArticles();
-
-    const artikelOptions = FilterOptions.Artikel || [];
+export default function Article({ auth, articles }) {
+    const artikelOptions = useMemo(() => {
+        const categories = articles.map((a) => a.category);
+        const unique = [...new Set(categories)];
+        return ['Semua Artikel', ...unique];
+    }, [articles]);
 
     const [showPopup, setShowPopup] = useState(false);
-    const [selectedCategories, setSelectedCategories] = useState([
-        'Semua Artikel',
-    ]);
+    const [selectedCategories, setSelectedCategories] = useState(['Semua Artikel']);
 
-    // Filter berdasarkan kategori
     const filteredArticles = selectedCategories.includes('Semua Artikel')
-        ? artikelData
-        : artikelData.filter((article) =>
-              selectedCategories.includes(article.category),
-          );
+        ? articles
+        : articles.filter((article) => selectedCategories.includes(article.category));
 
     const handleSave = () => {
         setShowPopup(true);
-        setTimeout(() => {
-            setShowPopup(false);
-        }, 3000);
+        setTimeout(() => setShowPopup(false), 3000);
     };
 
     const handleUnsave = () => {
@@ -44,12 +37,9 @@ export default function Article({ auth }) {
 
     return (
         <>
-            <Head title="Article" />
+            <Head title="Artikel" />
             <div className="flex min-h-screen flex-col">
-                <header>
-                    <Navbar auth={auth} />
-                </header>
-
+                <Navbar auth={auth} />
                 <Breadcrumb items={[{ label: 'Artikel', href: '/article' }]} />
 
                 <main>
@@ -66,14 +56,12 @@ export default function Article({ auth }) {
                                     title="Temukan artikel tentang kondisi kesehatan, nutrisi, bahan makanan, dan tips memasak untuk mendukung gaya hidup sehat."
                                 />
 
-                                {/* Filter Kategori */}
                                 <ArticleFilter
                                     options={artikelOptions}
                                     selected={selectedCategories}
                                     onChange={setSelectedCategories}
                                 />
 
-                                {/* Daftar Artikel atau Fallback */}
                                 {filteredArticles.length > 0 ? (
                                     <ArticleGrid
                                         key={selectedCategories.join(',')}
@@ -83,26 +71,8 @@ export default function Article({ auth }) {
                                     />
                                 ) : (
                                     <div className="mt-12 text-center text-gray-500 dark:text-gray-400">
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            strokeWidth={1.5}
-                                            stroke="currentColor"
-                                            className="mx-auto mb-4 h-16 w-16 text-[#70B9BE]"
-                                        >
-                                            <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                d="M16.5 10.5V6.75A2.25 2.25 0 0014.25 4.5H5.25A2.25 2.25 0 003 6.75v10.5A2.25 2.25 0 005.25 19.5h9A2.25 2.25 0 0016.5 17.25v-3.75m0 0L21 15m-4.5-1.5l4.5-4.5"
-                                            />
-                                        </svg>
-                                        <p className="text-lg font-semibold">
-                                            Oops! Tidak ada artikel ditemukan.
-                                        </p>
-                                        <p className="mt-1 text-sm">
-                                            Coba pilih kategori lain, ya!
-                                        </p>
+                                        <p className="text-lg font-semibold">Oops! Tidak ada artikel ditemukan.</p>
+                                        <p className="mt-1 text-sm">Coba pilih kategori lain, ya!</p>
                                     </div>
                                 )}
                             </div>

@@ -19,7 +19,27 @@ class ArticleController extends Controller
             'categories' => ArticleCategory::select('id', 'name')->get(),
         ]);
     }
-   
+public function listArticle() {
+     $articles = Article::with('category')->latest()->get();
+
+    $articles->transform(function ($article) {
+        return [
+            'id' => $article->id,
+            'title' => $article->title,
+            'slug' => $article->slug,
+            'short_description' => $article->short_description,
+            'content' => $article->content,
+            'image' => $article->image_path
+                ? asset(str_replace('public/', 'storage/', $article->image_path))
+                : asset('images/default-article.jpg'),
+            'category' => $article->category?->name ?? 'Tidak Ada Kategori',
+        ];
+    });
+
+    return Inertia::render('Article/Index', [
+        'articles' => $articles,
+    ]);
+   }
 public function show($slug)
 {
     $article = Article::with('category')->where('slug', $slug)->firstOrFail();

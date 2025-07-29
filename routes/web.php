@@ -25,10 +25,11 @@ Route::get('/recipe/{kategori}/{subkategori}', [RecipeController::class, 'subkat
 
 Route::get('/recipe/hidangan', fn () => Inertia::render('Recipe/Kategori'))->name('recipe.kategori.hidangan');
 
-Route::get('/article', fn () => Inertia::render('Article/Index'))->name('article');
+Route::get('/article', [ArticleController::class,'listArticle'])->name('article');
 Route::get('/article/{slug}', [ArticleController::class, 'show'])->name('article.show');
 
-Route::get('/recipe/{kategoriSlug}/{subkategoriSlug}', fn ($kategoriSlug, $subkategoriSlug) => Inertia::render('Recipe/Subkategori', compact('kategoriSlug', 'subkategoriSlug')))->name('recipe.subkategori');
+
+
 Route::get('/recipe/{slug}', [RecipeController::class, 'show']);
 
     Route::get('/dashboard', [RecipeController::Class , 'index'])
