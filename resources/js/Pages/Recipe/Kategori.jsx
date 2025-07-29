@@ -12,6 +12,10 @@ import * as BsIcons from 'react-icons/bs';
 import * as CgIcons from 'react-icons/cg';
 import * as FaIcons from 'react-icons/fa';
 import * as TbIcons from 'react-icons/tb';
+import * as GiIcons from 'react-icons/gi';
+import * as RiIcons from 'react-icons/ri';
+import * as PiIcons from 'react-icons/pi';
+
 
 export default function Category({ auth, recipes = [], subcategories = [], kategoriSlug }) {
     
@@ -22,6 +26,15 @@ export default function Category({ auth, recipes = [], subcategories = [], kateg
     ...CgIcons,
     ...FaIcons,
     ...TbIcons,
+    ...LuIcons,
+    ...BiIcons,
+    ...BsIcons,
+    ...CgIcons,
+    ...FaIcons,
+    ...TbIcons,
+    ...GiIcons,
+    ...RiIcons,
+    ...PiIcons,
 };
 
     
