@@ -1,8 +1,7 @@
 import { usePage } from '@inertiajs/react';
 import ArticleTable from './Article/ArticleTable';
 import RecipeTable from './Recipe/RecipeTable';
-import StatBox from './Stat/StatBox';
-
+import StatBox from './Stat/Statbox';
 export default function Content() {
     const { totalResep } = usePage().props;
     return (
