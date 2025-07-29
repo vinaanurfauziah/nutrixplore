@@ -6,37 +6,36 @@ import { LiaAllergiesSolid } from 'react-icons/lia';
 import { PiCarrot, PiCookingPot } from 'react-icons/pi';
 import { RiHealthBookLine } from 'react-icons/ri';
 import { TbBowlSpoon } from 'react-icons/tb';
-
 const categories = [
     {
         icon: <TbBowlSpoon className="h-10 w-10 text-[#70B9BE]" />,
         text: 'Hidangan',
-        href: '/recipe/hidangan',
+        value: 'hidangan', // ✅ cocok, karena controller handle kolom kategori_hidangan
     },
     {
         icon: <RiHealthBookLine className="h-10 w-10 text-[#70B9BE]" />,
         text: 'Kondisi Kesehatan',
-        href: '/recipe/kondisi',
+        value: 'kondisi', // ✅ cocok dengan kategoriMap
     },
     {
         icon: <GiWheat className="h-10 w-10 text-[#70B9BE]" />,
         text: 'Diet',
-        href: '/recipe/diet',
+        value: 'diet', // ✅ cocok
     },
     {
         icon: <LiaAllergiesSolid className="h-10 w-10 text-[#70B9BE]" />,
         text: 'Alergi',
-        href: '/recipe/alergi',
+        value: 'alergi', // ✅ cocok
     },
     {
         icon: <PiCarrot className="h-10 w-10 text-[#70B9BE]" />,
         text: 'Nutrisi',
-        href: '/recipe/nutrisi',
+        value: 'nutrisi', // ✅ cocok
     },
     {
         icon: <PiCookingPot className="h-10 w-10 text-[#70B9BE]" />,
         text: 'Metode Memasak',
-        href: '/recipe/metode',
+        value: 'metode', // ✅ cocok, karena controller handle kolom metode_memasak
     },
 ];
 
@@ -73,7 +72,7 @@ export default function RecipeCategorySection() {
                                     </div>
                                 }
                                 text={item.text}
-                                href={item.href}
+                      href={`/recipe/kategori/${item.value}`}
                             />
                         </motion.li>
                     ))}

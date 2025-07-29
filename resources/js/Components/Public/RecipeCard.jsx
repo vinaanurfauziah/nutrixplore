@@ -8,6 +8,7 @@ const RecipeCard = ({
     durasi,
     onSave,
     onUnsave,
+    isSaved,
 }) => {
     return (
         <div className="relative flex h-full flex-col overflow-hidden rounded-2xl shadow-md transition-transform duration-300 hover:scale-[1.03] hover:shadow-xl">
@@ -34,6 +35,7 @@ const RecipeCard = ({
                         <SaveButton
                             onSave={onSave}
                             onUnsave={onUnsave}
+                            isSaved={isSaved}
                             className="ml-2"
                         />
                     </div>

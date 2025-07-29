@@ -15,9 +15,32 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Ingredient;
 use App\Models\Step;
 use Illuminate\Validation\Rule;
+use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+
 
 class RecipeController extends Controller
 {
+
+ public function landingPage()
+{
+    $latestRecipes = Recipe::latest()->take(4)->get();
+    $latestRecipes->transform(function ($recipe) {
+    $recipe->gambar = $recipe->gambar
+        ? asset('storage/' . $recipe->gambar)
+        : asset('images/default.jpg');
+    return $recipe;
+    });
+
+    return Inertia::render('Welcome', [
+        'recipes' => $latestRecipes,
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
+}
 public function publicPage(Request $request) 
 {
 
@@ -90,6 +113,7 @@ public function show($slug)
 
     // Gabungkan semua tag ke satu koleksi
     $tags = collect([
+
         ['kategori' => 'Kategori Kesehatan', 'items' => $resep->healthTags],
         ['kategori' => 'Kategori Alergi', 'items' => $resep->allergyTags],
         ['kategori' => 'Kategori Nutrisi', 'items' => $resep->nutritionTags],
@@ -108,6 +132,106 @@ public function show($slug)
     return Inertia::render('Recipe/DetailResep', [
         'resep' => $resep,
         'tags' => $tags,
+    ]);
+}
+public function kategori($kategori)
+{
+    $kategoriMap = [
+        'diet' => DietTag::class,
+        'kondisi' => HealthTag::class, // 'kondisi' di frontend → HealthTag di backend
+        'alergi' => AllergyTag::class,
+        'nutrisi' => NutritionTag::class,
+    ];
+
+    // Kalau kategori termasuk relasi tag (many-to-many)
+    if (isset($kategoriMap[$kategori])) {
+        $tagModel = $kategoriMap[$kategori];
+
+        // Ambil semua subkategori (tag) dengan id, name, dan slug
+        $subcategories = $tagModel::all(['id', 'name']);
+
+        // Ambil semua resep yang punya relasi ke tag tersebut
+        $relationName = match ($kategori) {
+            'diet' => 'dietTags',
+            'kondisi' => 'healthTags',
+            'alergi' => 'allergyTags',
+            'nutrisi' => 'nutritionTags',
+        };
+
+        $recipes = Recipe::with([
+            'dietTags', 'healthTags', 'allergyTags', 'nutritionTags'
+        ])->whereHas($relationName)->get();
+    }
+
+    // Kalau kategori langsung dari kolom recipe: 'hidangan' atau 'metode'
+    elseif (in_array($kategori, ['hidangan', 'metode'])) {
+        $column = $kategori === 'hidangan' ? 'kategori_hidangan' : 'metode_memasak';
+
+        // Subkategori dikumpulkan dari kolom terkait
+        $subcategories = Recipe::select($column)
+            ->distinct()
+            ->whereNotNull($column)
+            ->get()
+            ->map(function ($item) use ($column) {
+                return [
+                    'name' => ucwords(str_replace(['-', '_'], ' ', $item->$column)),
+                    'slug' => $item->$column,
+                ];
+            });
+
+        $recipes = Recipe::whereNotNull($column)->get();
+    }
+
+    // Jika kategori tidak dikenali
+    else {
+        abort(404);
+    }
+
+    // Format gambar resep
+    $recipes->each(function ($recipe) {
+        $recipe->gambar = $recipe->gambar
+            ? asset('storage/' . $recipe->gambar)
+            : asset('images/default.jpg');
+    });
+
+    return Inertia::render('Recipe/Kategori', [
+        'kategoriSlug' => $kategori,
+        'recipes' => $recipes,
+        'subcategories' => $subcategories,
+    ]);
+}
+public function subkategori($kategori, $subkategori)
+{
+    $kategoriMap = [
+        'diet' => [DietTag::class, 'dietTags'],
+        'kondisi' => [HealthTag::class, 'healthTags'],
+        'alergi' => [AllergyTag::class, 'allergyTags'],
+        'nutrisi' => [NutritionTag::class, 'nutritionTags'],
+    ];
+
+    if (isset($kategoriMap[$kategori])) {
+        [$model, $relation] = $kategoriMap[$kategori];
+
+        // Ambil tag berdasarkan nama yang diformat dari slug
+        $tagName = str_replace('-', ' ', $subkategori);
+        $tag = $model::where('name', $tagName)->firstOrFail(); // bisa juga pakai 'slug' kalau kamu punya
+
+        $recipes = Recipe::with($relation)
+            ->whereHas($relation, fn($q) => $q->where($q->getModel()->getTable() . '.id', $tag->id))
+            ->get();
+    } elseif (in_array($kategori, ['hidangan', 'metode'])) {
+        $column = $kategori === 'hidangan' ? 'kategori_hidangan' : 'metode_memasak';
+        $recipes = Recipe::where($column, $subkategori)->get();
+    } else {
+        abort(404);
+    }
+
+    $recipes->each(fn($r) => $r->gambar = $r->gambar ? asset('storage/' . $r->gambar) : asset('images/default.jpg'));
+
+    return Inertia::render('Recipe/Subkategori', [
+        'kategoriSlug' => $kategori,
+        'subkategoriSlug' => $subkategori,
+        'recipes' => $recipes,
     ]);
 }
 
@@ -426,14 +550,30 @@ public function update(Request $request, $id)
     }
 
     public function getSavedRecipes()
-    {
-        $user = auth()->user();
-        if ($user->role !== 'user') abort(403, 'Only users can view saved recipes');
+{
+    $user = auth()->user();
 
-        $savedRecipes = $user->savedRecipes()->with(['ingredients', 'steps', 'nutrition', 'healthTags', 'allergyTags', 'nutritionTags'])->get();
-
-        return Inertia::render('Recipes/Saved', [
-            'savedRecipes' => $savedRecipes,
-        ]);
+    // Batasi hanya untuk user biasa
+    if ($user->role !== 'user') {
+        abort(403, 'Only users can view saved recipes');
     }
+
+    // Ambil resep yang sudah disimpan oleh user
+    $savedRecipes = $user->savedRecipes()
+        ->with(['ingredients', 'steps', 'nutrition', 'healthTags', 'allergyTags', 'nutritionTags', 'dietTags'])
+        ->get();
+
+    // Ubah path gambar menjadi URL publik
+    $savedRecipes->transform(function ($recipe) {
+        $recipe->gambar = $recipe->gambar
+            ? asset('storage/' . $recipe->gambar)
+            : asset('images/default.jpg');
+        return $recipe;
+    });
+
+    // Kirim ke halaman React melalui Inertia
+    return Inertia::render('Dashboard/Member/SavedRecipes', [
+        'savedRecipes' => $savedRecipes,
+    ]);
+}
 }

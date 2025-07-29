@@ -1,13 +1,39 @@
 import FilterButton from '@/Components/Common/FilterButton';
 import SectionHeading from '@/Components/Common/SectionHeading';
+import SaveSuccessPopup from '@/Components/Common/SaveSuccessPopup';
 import RecipeCard from '@/Components/Public/RecipeCard';
 import { router } from '@inertiajs/react';
 import { useMemo, useState, useEffect } from 'react';
 import { FiX } from 'react-icons/fi';
 
-export default function RecipeFilterSection({ recipes = [], filterOptions = {}, activeFilters: initialFilters = [], onSave, onUnsave }) {
-
+export default function RecipeFilterSection({ auth, recipes = [], filterOptions = {}, activeFilters: initialFilters = [] }) {
     const [activeFilters, setActiveFilters] = useState(initialFilters);
+    const [showPopup, setShowPopup] = useState(false);
+
+    const handleSave = (recipeId) => {
+        router.post(`/recipes/save/${recipeId}`, {}, {
+            onSuccess: () => {
+                setShowPopup(true);
+                setTimeout(() => setShowPopup(false), 3000);
+            },
+            onError: (error) => {
+                alert('Gagal menyimpan resep');
+                console.error(error);
+            }
+        });
+    };
+
+    const handleUnsave = (recipeId) => {
+        router.post(`/recipes/unsave/${recipeId}`, {}, {
+            onSuccess: () => {
+                console.log('Resep dihapus dari daftar simpan');
+            },
+            onError: (error) => {
+                alert('Gagal unsave resep');
+                console.error(error);
+            }
+        });
+    };
 
     useEffect(() => {
         console.log('Active Filters:', activeFilters);
@@ -43,10 +69,6 @@ export default function RecipeFilterSection({ recipes = [], filterOptions = {}, 
         'Metode Memasak': filterOptions.cooking || [],
     }), [filterOptions]);
 
-    useEffect(() => {
-        console.log('Dynamic Filter Options:', dynamicFilterOptions);
-    }, [dynamicFilterOptions]);
-
     const groupedFilters = useMemo(() => {
         const groups = {};
         Object.entries(dynamicFilterOptions).forEach(([category, options]) => {
@@ -57,12 +79,11 @@ export default function RecipeFilterSection({ recipes = [], filterOptions = {}, 
                 }
             });
         });
-        console.log('Grouped Filters:', groups);
         return groups;
     }, [activeFilters, dynamicFilterOptions]);
 
     const recipesWithLabels = useMemo(() => {
-        const processed = recipes.map((recipe) => {
+        return recipes.map((recipe) => {
             const labels = [
                 ...recipe.diet_tags?.map((tag) => tag.name) || [],
                 ...recipe.health_tags?.map((tag) => tag.name) || [],
@@ -73,20 +94,15 @@ export default function RecipeFilterSection({ recipes = [], filterOptions = {}, 
             ];
             return { ...recipe, labels };
         });
-        console.log('Recipes With Labels:', processed);
-        return processed;
     }, [recipes]);
 
     const filteredRecipes = useMemo(() => {
         if (activeFilters.length === 0) return recipesWithLabels;
 
-        const filtered = recipesWithLabels.filter((recipe) => {
+        return recipesWithLabels.filter((recipe) => {
             if (!Array.isArray(recipe.labels)) return false;
             return activeFilters.every((label) => recipe.labels.includes(label));
         });
-
-        console.log('Filtered Recipes:', filtered);
-        return filtered;
     }, [activeFilters, recipesWithLabels]);
 
     return (
@@ -154,8 +170,8 @@ export default function RecipeFilterSection({ recipes = [], filterOptions = {}, 
                                     link={`/recipe/${recipe.slug}`}
                                     kalori={recipe.kalori}
                                     durasi={recipe.durasi}
-                                    onSave={() => onSave(recipe.id)}
-                                    onUnsave={() => onUnsave(recipe.id)}
+                                    onSave={() => handleSave(recipe.id)}
+                                    onUnsave={() => handleUnsave(recipe.id)}
                                 />
                             </div>
                         ))}
@@ -164,6 +180,10 @@ export default function RecipeFilterSection({ recipes = [], filterOptions = {}, 
                     <p className="text-center text-gray-500 dark:text-gray-400">
                         Tidak ada resep ditemukan untuk filter yang dipilih.
                     </p>
+                )}
+
+                {showPopup && (
+                    <SaveSuccessPopup onClose={() => setShowPopup(false)} />
                 )}
             </div>
         </section>

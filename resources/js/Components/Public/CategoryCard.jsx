@@ -1,6 +1,6 @@
 import { Link } from '@inertiajs/react';
 
-export default function CategoryCard({ icon, text, href = '#' }) {
+export default function CategoryCard({ icon, text, href  }) {
     return (
         <li className="w-full">
             <Link

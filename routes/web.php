@@ -21,16 +21,11 @@ use App\Http\Controllers\ArticleCategoryController;
 
 
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+Route::get('/',[RecipeController::class, 'landingpage']);
 Route::get('/about', fn () => Inertia::render('About/About'))->name('about');
 Route::get('/recipe', [RecipeController::class, 'publicPage'])->name('recipe');
+Route::get('/recipe/kategori/{kategori}', [RecipeController::class, 'kategori']);
+Route::get('/recipe/{kategori}/{subkategori}', [RecipeController::class, 'subkategori']);
 
 
 Route::get('/recipe/hidangan', fn () => Inertia::render('Recipe/Kategori'))->name('recipe.kategori.hidangan');
@@ -116,9 +111,16 @@ Route::middleware(['auth', 'verified'])->prefix('dashboard/kelola-admin')->name(
 });
 
 
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::post('/recipes/save/{id}', [RecipeController::class, 'saveRecipe'])->name('recipes.save');
+    Route::post('/recipes/unsave/{id}', [RecipeController::class, 'unsaveRecipe'])->name('recipes.unsave');
+  
+});
 Route::get('/dashboard/profile', fn () => Inertia::render('Profile/SharedProfile'))->middleware(['auth', 'verified'])->name('dashboard.profile');
 Route::get('/dashboard/member/Index', fn () => Inertia::render('Dashboard/Member/Index'))->name('dashboardMember.DashboardPage');
-Route::get('/dashboard/member/saved-recipes', fn () => Inertia::render('Dashboard/Member/SavedRecipes'))->name('dashboardMember.saved.recipes');
+Route::get('/dashboard/member/saved-recipes', [RecipeController::class, 'getSavedRecipes'])->name('dashboardMember.saved.recipes');
 Route::get('/dashboard/member/saved-articles', fn () => Inertia::render('Dashboard/Member/SavedArticles'))->name('dashboardMember.saved.articles');
 Route::get('/dashboard/member/profile', fn () => Inertia::render('Profile/SharedProfile', [
     'mustVerifyEmail' => Auth::user() instanceof Illuminate\Contracts\Auth\MustVerifyEmail,
