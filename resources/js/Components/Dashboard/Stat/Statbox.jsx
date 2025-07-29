@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+git add import { motion } from 'framer-motion';
 import { HiBookOpen, HiClipboardList } from 'react-icons/hi';
 
 const icons = {
