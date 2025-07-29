@@ -36,7 +36,7 @@ class ArticleCategoryController extends Controller
 
     public function edit(ArticleCategory $articleCategory)
     {
-        return Inertia::render('Dashboard/Article/EditCategory', [
+        return Inertia::render('Dashboard\Article\EditCategoryArticle', [
             'category' => $articleCategory,
         ]);
     }
@@ -45,7 +45,7 @@ class ArticleCategoryController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'type' => 'nullable|string|max:255',
+            
         ]);
 
         $articleCategory->update($validated);

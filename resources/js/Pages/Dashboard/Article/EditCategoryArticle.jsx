@@ -1,11 +1,14 @@
 import DashboardNavbar from '@/Components/Dashboard/Navbar';
 import DashboardSidebar from '@/Components/Dashboard/Sidebar';
-import { Head } from '@inertiajs/react';
+import { Head, router, useForm } from '@inertiajs/react';
 import { useState } from 'react';
 
-export default function EditCategoryArticle({ categoryId }) {
+export default function EditCategoryArticle({ category }) {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-    const [name, setName] = useState(categoryId || '');
+
+    const { data, setData, put, processing, errors } = useForm({
+        name: category.name || '',
+    });
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
@@ -13,13 +16,20 @@ export default function EditCategoryArticle({ categoryId }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        alert(`Simpan kategori: ${name}`);
+
+        put(route('dashboard.article.category.update', category.id), {
+            preserveScroll: true,
+            onSuccess: () => {
+                alert('Kategori berhasil diperbarui.');
+            },
+        });
     };
 
     return (
         <>
             <Head title="Edit Kategori Artikel" />
             <div className="flex min-h-screen bg-gray-100">
+                {/* Sidebar */}
                 <aside className="hidden w-64 bg-white shadow-md md:block">
                     <DashboardSidebar />
                 </aside>
@@ -38,6 +48,7 @@ export default function EditCategoryArticle({ categoryId }) {
                     </div>
                 )}
 
+                {/* Main Content */}
                 <main className="flex-1 px-4 py-4 sm:px-6 md:px-8">
                     <DashboardNavbar
                         toggleSidebar={toggleSidebar}
@@ -56,9 +67,9 @@ export default function EditCategoryArticle({ categoryId }) {
 
                     <form
                         onSubmit={handleSubmit}
-                        className="rounded-lg bg-white p-6 shadow-sm"
+                        className="rounded-lg bg-white p-6 shadow-sm max-w-xl"
                     >
-                        <div className="max-w-lg">
+                        <div className="mb-4">
                             <label
                                 htmlFor="name"
                                 className="mb-1 block font-medium text-gray-700"
@@ -68,18 +79,22 @@ export default function EditCategoryArticle({ categoryId }) {
                             <input
                                 type="text"
                                 id="name"
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
+                                value={data.name}
+                                onChange={(e) => setData('name', e.target.value)}
                                 className="w-full rounded border border-gray-300 px-4 py-2 focus:border-[#70B9BE] focus:ring-[#70B9BE]"
                                 required
                             />
+                            {errors.name && (
+                                <p className="mt-1 text-sm text-red-600">{errors.name}</p>
+                            )}
                         </div>
 
                         <button
                             type="submit"
-                            className="rounded bg-[#70B9BE] px-4 py-2 mt-4 font-semibold text-white hover:bg-[#51979e]"
+                            disabled={processing}
+                            className="rounded bg-[#70B9BE] px-4 py-2 font-semibold text-white hover:bg-[#51979e]"
                         >
-                            Simpan Perubahan
+                            {processing ? 'Menyimpan...' : 'Simpan Perubahan'}
                         </button>
                     </form>
                 </main>

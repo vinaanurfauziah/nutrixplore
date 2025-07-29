@@ -138,7 +138,7 @@ public function listArticle()
     {
         $article->load('category');
 
-        return Inertia::render('Dashboard/Article/EditArticle', [
+return Inertia::render(' Dashboard/Article/EditCategoryArticle', [
             'article' => [
                 'id' => $article->id,
                 'slug' => $article->slug,
