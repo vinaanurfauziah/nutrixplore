@@ -8,11 +8,11 @@ export default function SaveButton({
     showLabel = false,
     labelSaved = 'Tersimpan',
     labelUnsaved = 'Simpan Resep',
-    isSaved = false, // ✅ Tambahkan prop ini
+    isSaved = false,
+    articleId, // ✅ Tambahkan
 }) {
     const [saved, setSaved] = useState(isSaved);
 
-    // ✅ Sinkronisasi jika `isSaved` berubah dari luar
     useEffect(() => {
         setSaved(isSaved);
     }, [isSaved]);
@@ -20,10 +20,10 @@ export default function SaveButton({
     const handleClick = () => {
         if (saved) {
             setSaved(false);
-            onUnsave?.();
+            onUnsave?.(articleId); // ✅ Kirim ID artikel
         } else {
             setSaved(true);
-            onSave?.();
+            onSave?.(articleId); // ✅ Kirim ID artikel
         }
     };
 

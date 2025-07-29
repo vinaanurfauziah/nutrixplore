@@ -2,23 +2,15 @@ import DashboardNavbar from '@/Components/Dashboard/Navbar';
 import DashboardSidebar from '@/Components/Dashboard/Sidebar';
 import ArticleCard from '@/Components/Public/ArticleCard';
 import RecipeCard from '@/Components/Public/RecipeCard';
-import getAllRecipes from '@/Data/getAllRecipes';
-import artikelData from '@/data/artikelData';
 import { Head, Link } from '@inertiajs/react';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 
-export default function Index() {
+export default function Index({ auth, recipes = [], articles = [] }) {
     const [showPopup, setShowPopup] = useState(false);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-    const toggleSidebar = () => {
-        setIsSidebarOpen(!isSidebarOpen);
-    };
-
-    const allRecipes = getAllRecipes();
-    const latestSavedRecipes = allRecipes.slice(0, 4);
-    const latestSavedArticles = artikelData.slice(0, 4);
+    const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
     const handleSave = () => {
         setShowPopup(true);
@@ -73,6 +65,7 @@ export default function Index() {
                         </p>
                     </motion.div>
 
+                    {/* Resep Tersimpan */}
                     <div className="rounded-lg bg-white p-6 shadow-sm">
                         <div className="mb-4 flex items-center justify-between">
                             <h2 className="text-lg font-semibold text-gray-800">
@@ -87,12 +80,12 @@ export default function Index() {
                         </div>
 
                         <div className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3 lg:grid-cols-4">
-                            {latestSavedRecipes.map((recipe) => (
+                            {recipes.slice(0, 4).map((recipe) => (
                                 <RecipeCard
                                     key={recipe.id}
                                     title={recipe.judul}
                                     imageUrl={recipe.gambar}
-                                    link={`/recipe/${recipe.kategori}/${recipe.subkategori}/${recipe.slug}`}
+                                    link={`/recipe/${recipe.kategori?.slug}/${recipe.subkategori?.slug}/${recipe.slug}`}
                                     kalori={recipe.kalori}
                                     durasi={recipe.durasi}
                                     onSave={handleSave}
@@ -102,6 +95,7 @@ export default function Index() {
                         </div>
                     </div>
 
+                    {/* Artikel Tersimpan */}
                     <div className="mt-8 rounded-lg bg-white p-6 shadow-sm">
                         <div className="mb-4 flex items-center justify-between">
                             <h2 className="text-lg font-semibold text-gray-800">
@@ -116,9 +110,9 @@ export default function Index() {
                         </div>
 
                         <div className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3 lg:grid-cols-4">
-                            {latestSavedArticles.map((article, index) => (
+                            {articles.slice(0, 4).map((article) => (
                                 <ArticleCard
-                                    key={index}
+                                    key={article.id}
                                     category={article.category}
                                     title={article.title}
                                     description={article.description}
@@ -130,6 +124,13 @@ export default function Index() {
                             ))}
                         </div>
                     </div>
+
+                    {/* Popup Notifikasi */}
+                    {showPopup && (
+                        <div className="fixed bottom-6 right-6 z-50 rounded bg-green-500 px-4 py-2 text-white shadow-md">
+                            Disimpan ke Favorit!
+                        </div>
+                    )}
                 </main>
             </div>
         </>

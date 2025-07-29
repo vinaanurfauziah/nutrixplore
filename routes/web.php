@@ -14,6 +14,7 @@ use App\Models\User;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ArticleCategoryController;
 use App\Http\Controllers\Guest;
+use App\Http\Controllers\MemberController;
 
 Route::get('/', [Guest::class, 'index'])->name('home');
 Route::get('/about', fn () => Inertia::render('About/About'))->name('about');
@@ -72,7 +73,7 @@ Route::delete('/dashboard/recipe/category-recipe/{type}/{id}', [SubCategoryContr
 
 
 Route::prefix('dashboard')->middleware(['auth', 'verified', 'role:admin'])->group(function () {
-    Route::get('article/list', [ArticleController::class, 'list'])->name('dashboard.article.list');
+    Route::get('article/list', [ArticleController::class, 'adminList'])->name('dashboard.article.list');
     Route::get('article/create', [ArticleController::class, 'create'])->name('dashboard.article.create');
     Route::get('article/edit/{slug}', [ArticleController::class, 'edit'])->name('dashboard.article.edit');
     Route::post('article/store', [ArticleController::class, 'store'])->name('dashboard.article.store');
@@ -90,6 +91,10 @@ Route::put('/dashboard/article/category/{articleCategory}', [ArticleCategoryCont
 Route::delete('/dashboard/article/category/{articleCategory}', [ArticleCategoryController::class, 'destroy'])->middleware(['auth', 'verified'])->name('dashboard.article.category.destroy');
 Route::get('/dashboard/article/category/list', [ArticleCategoryController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard.article.category.list');
 
+Route::middleware(['auth'])->group(function () {
+    Route::post('/articles/save/{article}', [ArticleController::class, 'save'])->name('articles.save');
+    Route::delete('/articles/unsave/{article}', [ArticleController::class, 'unsave'])->name('articles.unsave');
+});
 
 
 // Route untuk Admin Management
@@ -111,9 +116,10 @@ Route::middleware(['auth'])->group(function () {
   
 });
 Route::get('/dashboard/profile', fn () => Inertia::render('Profile/SharedProfile'))->middleware(['auth', 'verified'])->name('dashboard.profile');
-Route::get('/dashboard/member/Index', fn () => Inertia::render('Dashboard/Member/Index'))->name('dashboardMember.DashboardPage');
+Route::get('/dashboard/member/Index', [MemberController::class,'savedContent'])->name('dashboardMember.DashboardPage');
 Route::get('/dashboard/member/saved-recipes', [RecipeController::class, 'getSavedRecipes'])->name('dashboardMember.saved.recipes');
-Route::get('/dashboard/member/saved-articles', fn () => Inertia::render('Dashboard/Member/SavedArticles'))->name('dashboardMember.saved.articles');
+Route::get('/dashboard/member/saved-articles', [ArticleController::class, 'getSavedArticles'])
+    ->name('dashboardMember.saved.articles');
 Route::get('/dashboard/member/profile', fn () => Inertia::render('Profile/SharedProfile', [
     'mustVerifyEmail' => Auth::user() instanceof Illuminate\Contracts\Auth\MustVerifyEmail,
     'status' => session('status'),

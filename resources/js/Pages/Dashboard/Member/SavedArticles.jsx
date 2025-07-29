@@ -1,13 +1,14 @@
 import DashboardNavbar from '@/Components/Dashboard/Navbar';
 import DashboardSidebar from '@/Components/Dashboard/Sidebar';
 import ArticleCard from '@/Components/Public/ArticleCard';
-import artikelData from '@/data/artikelData';
-import { Head } from '@inertiajs/react';
+import { Head, usePage } from '@inertiajs/react';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 
 export default function SavedArticles() {
-    const savedArticles = artikelData.slice(0, 8);
+    const { props } = usePage();
+    const savedArticles = props.savedArticles ?? [];
+
     const [showPopup, setShowPopup] = useState(false);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -62,20 +63,24 @@ export default function SavedArticles() {
                             Artikel Tersimpan
                         </h1>
 
-                        <div className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3 lg:grid-cols-4">
-                            {savedArticles.map((article, index) => (
-                                <ArticleCard
-                                    key={index}
-                                    category={article.category}
-                                    title={article.title}
-                                    description={article.description}
-                                    imageUrl={article.imageUrl}
-                                    slug={article.slug}
-                                    onSave={handleSave}
-                                    onUnsave={handleUnsave}
-                                />
-                            ))}
-                        </div>
+                        {savedArticles.length === 0 ? (
+                            <p className="text-gray-500">Belum ada artikel yang disimpan.</p>
+                        ) : (
+                            <div className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3 lg:grid-cols-4">
+                                {savedArticles.map((article, index) => (
+                                    <ArticleCard
+                                        key={index}
+                                        category={article.category?.name}
+                                        title={article.title}
+                                        description={article.description}
+                                        imageUrl={article.image}
+                                        slug={article.slug}
+                                        onSave={handleSave}
+                                        onUnsave={handleUnsave}
+                                    />
+                                ))}
+                            </div>
+                        )}
                     </motion.div>
                 </main>
             </div>

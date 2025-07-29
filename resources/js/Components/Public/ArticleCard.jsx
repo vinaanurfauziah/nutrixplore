@@ -6,6 +6,8 @@ const ArticleCard = ({
     description,
     imageUrl,
     slug,
+    articleId,
+    isSaved,
     onSave,
     onUnsave,
 }) => {
@@ -29,6 +31,8 @@ const ArticleCard = ({
                 <div className="mt-2 flex items-center justify-between text-sm text-white/80 sm:text-base">
                     <p className="line-clamp-2 pr-2">{description}</p>
                     <SaveButton
+                        articleId={articleId}
+                        isSaved={isSaved}
                         onSave={onSave}
                         onUnsave={onUnsave}
                         className="ml-2"
@@ -38,5 +42,6 @@ const ArticleCard = ({
         </div>
     );
 };
+
 
 export default ArticleCard;

@@ -22,6 +22,7 @@ export default function ArticleGrid({
                             slug={article.slug}
                             onSave={onSave}
                             onUnsave={onUnsave}
+                            isSaved={article.is_saved}
                         />
                     </div>
                 ))}

@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Article;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -54,6 +55,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function scopeAdmins($query)
 {
     return $query->where('role', 'admin');
+}
+
+    public function savedArticles()
+{
+    return $this->belongsToMany(Article::class, 'article_user')->withTimestamps();
 }
 }
 

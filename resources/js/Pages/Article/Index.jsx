@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { Head, usePage } from '@inertiajs/react';
+import { Head, usePage, router } from '@inertiajs/react';
 
 import Breadcrumb from '@/Components/Common/Breadcrumb';
 import Footer from '@/Components/Templates/Footer';
@@ -14,26 +14,71 @@ import { motion } from 'framer-motion';
 
 export default function Article({ auth, articles }) {
     const artikelOptions = useMemo(() => {
-        const categories = articles.map((a) => a.category);
-        const unique = [...new Set(categories)];
-        return ['Semua Artikel', ...unique];
+        const unique = [
+            ...new Map(articles.map((a) => [a.category?.id, a.category?.name])).entries(),
+        ]
+            .filter(([id, name]) => id && name)
+            .map(([id, name]) => ({ id, name }));
+
+        return [{ id: 'all', name: 'Semua Artikel' }, ...unique];
     }, [articles]);
 
     const [showPopup, setShowPopup] = useState(false);
-    const [selectedCategories, setSelectedCategories] = useState(['Semua Artikel']);
+    const [selectedCategories, setSelectedCategories] = useState(['all']);
 
-    const filteredArticles = selectedCategories.includes('Semua Artikel')
-        ? articles
-        : articles.filter((article) => selectedCategories.includes(article.category));
+    const filteredArticles = useMemo(() => {
+        if (selectedCategories.includes('all')) return articles;
 
-    const handleSave = () => {
-        setShowPopup(true);
-        setTimeout(() => setShowPopup(false), 3000);
-    };
+        return articles.filter((article) =>
+            article.category && selectedCategories.includes(article.category.id)
+        );
+    }, [articles, selectedCategories]);
 
-    const handleUnsave = () => {
-        console.log('Artikel dibatalkan penyimpanannya');
-    };
+    const handleSave = (articleId) => {
+    if (!auth?.user) {
+        router.visit(route('login')); // redirect ke login jika belum login
+        return;
+    }
+
+    // Gunakan route helper jika tersedia, fallback ke string
+    const url = route?.has('articles.save')
+        ? route('articles.save', articleId)
+        : `/articles/save/${articleId}`;
+
+    router.post(url, {}, {
+        onSuccess: () => {
+            setShowPopup(true);
+            setTimeout(() => setShowPopup(false), 3000);
+        },
+        onError: (errors) => {
+            console.error('Save error:', errors);
+            alert('Gagal menyimpan artikel.');
+        },
+        preserveScroll: true,
+    });
+};
+
+const handleUnsave = (articleId) => {
+    if (!auth?.user) {
+        router.visit(route('login'));
+        return;
+    }
+
+    const url = route?.has('articles.unsave')
+        ? route('articles.unsave', articleId)
+        : `/articles/unsave/${articleId}`;
+
+    router.delete(url, {
+        onSuccess: () => {
+            alert('Artikel dihapus dari simpanan.');
+        },
+        onError: (errors) => {
+            console.error('Unsave error:', errors);
+            alert('Gagal menghapus artikel dari simpanan.');
+        },
+        preserveScroll: true,
+    });
+};
 
     return (
         <>
@@ -57,7 +102,7 @@ export default function Article({ auth, articles }) {
                                 />
 
                                 <ArticleFilter
-                                    options={artikelOptions}
+                                    options={artikelOptions} // ✅ sekarang kirim id dan name
                                     selected={selectedCategories}
                                     onChange={setSelectedCategories}
                                 />
