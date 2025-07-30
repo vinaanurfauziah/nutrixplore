@@ -122,18 +122,10 @@ Route::middleware(['auth'])->group(function () {
   
 });
 Route::get('/dashboard/profile', fn () => Inertia::render('Profile/SharedProfile'))->middleware(['auth', 'verified'])->name('dashboard.profile');
-Route::get('/dashboard/member/Index', [MemberController::class,'savedContent'])->name('dashboardMember.DashboardPage')->middleware('signed');
+Route::get('/dashboard/member/Index', [MemberController::class,'savedContent'])->name('dashboardMember.DashboardPage');
 Route::get('/dashboard/member/saved-recipes', [RecipeController::class, 'getSavedRecipes'])->name('dashboardMember.saved.recipes');
 Route::get('/dashboard/member/saved-articles', [ArticleController::class, 'getSavedArticles'])
     ->name('dashboardMember.saved.articles');
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $user = Auth::user();
-    if (! $user || $user->id != $request->route('id')) {
-        return redirect('/login');
-    }
-    $request->fulfill();
-    return redirect('/dashboard/member/profile');
-})->middleware(['auth', 'signed'])->name('verification.verify');
 
 
 Route::middleware('auth')->group(function () {
