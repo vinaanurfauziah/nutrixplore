@@ -18,9 +18,6 @@ use App\Http\Controllers\MemberController;
 use App\Http\Controllers\MeasurementController ;
 use App\Http\Controllers\Auth\VerifyEmailController;
 
-Route::get('/email/verify/{id}/{hash}', VerifyEmailController::class)
-    ->middleware(['auth', 'signed'])
-    ->name('verification.verify');
 
 Route::get('/', [Guest::class, 'index'])->name('home');
 Route::get('/about', fn () => Inertia::render('About/About'))->name('about');
@@ -126,16 +123,17 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/recipes/unsave/{id}', [RecipeController::class, 'unsaveRecipe'])->name('recipes.unsave');
   
 });
-
-
-Route::get('/dashboard/member/index', [MemberController::class, 'savedContent'])
-    ->name('dashboard.member.index')
-    ->middleware(['auth', 'verified']);
 Route::get('/dashboard/profile', fn () => Inertia::render('Profile/SharedProfile'))->middleware(['auth', 'verified'])->name('dashboard.profile');
+Route::get('/dashboard/member/Index', [MemberController::class, 'savedContent'])
+    ->name('dashboardMember.DashboardPage')
+    ->middleware(['auth', 'verified']);
 Route::get('/dashboard/member/saved-recipes', [RecipeController::class, 'getSavedRecipes'])->name('dashboardMember.saved.recipes');
 Route::get('/dashboard/member/saved-articles', [ArticleController::class, 'getSavedArticles'])
     ->name('dashboardMember.saved.articles');
-
+Route::get('/dashboard/member/profile', fn () => Inertia::render('Dashboard/Member/Index', [
+    'mustVerifyEmail' => Auth::user() instanceof Illuminate\Contracts\Auth\MustVerifyEmail,
+    'status' => session('status'),
+]))->middleware(['auth', 'verified'])->name('dashboardMember.profile');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
