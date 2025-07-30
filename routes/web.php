@@ -127,10 +127,21 @@ Route::get('/dashboard/member/Index', [MemberController::class,'savedContent'])-
 Route::get('/dashboard/member/saved-recipes', [RecipeController::class, 'getSavedRecipes'])->name('dashboardMember.saved.recipes');
 Route::get('/dashboard/member/saved-articles', [ArticleController::class, 'getSavedArticles'])
     ->name('dashboardMember.saved.articles');
-Route::get('/dashboard/member/profile', fn () => Inertia::render('welcome', [
-    'mustVerifyEmail' => Auth::user() instanceof Illuminate\Contracts\Auth\MustVerifyEmail,
-    'status' => session('status'),
-]))->middleware(['auth', 'verified'])->name('dashboardMember.profile');
+Route::get('/dashboard/member/profile', function () {
+    $user = Auth::user();
+
+    // Cek role user
+    if ($user->role !== 'user') {
+        abort(403, 'Unauthorized');
+    }
+
+    return Inertia::render('welcome', [
+        'mustVerifyEmail' => $user instanceof Illuminate\Contracts\Auth\MustVerifyEmail,
+        'status' => session('status'),
+        'user' => $user,
+        'role' => $user->role,
+    ]);
+})->middleware(['auth', 'verified'])->name('dashboardMember.profile');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
