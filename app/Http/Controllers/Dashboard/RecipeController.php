@@ -223,7 +223,6 @@ public function subkategori($kategori, $subkategori)
 public function index()
 {
     $totalResep = Recipe::count();
-    $totalArtikel = Article::count(); // ✅ Tambahan count artikel
 
     $recipes = Recipe::with([
         'ingredients', 'steps', 'nutrition',
@@ -234,7 +233,6 @@ public function index()
 
     return Inertia::render('Dashboard/Admin/Index', [
         'totalResep' => $totalResep,
-        'totalArtikel' => $totalArtikel, // ✅ Kirim ke frontend
 
         'recipes' => $recipes->map(function ($recipe) {
             return [
@@ -292,7 +290,6 @@ public function index()
         ]),
     ]);
 }
-
 public function list()
 {
     $recipes = Recipe::with([
