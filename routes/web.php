@@ -16,6 +16,7 @@ use App\Http\Controllers\ArticleCategoryController;
 use App\Http\Controllers\Guest;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\MeasurementController ;
+use App\Http\Controllers\Auth\VerifyEmailController;
 
 
 Route::get('/', [Guest::class, 'index'])->name('home');
