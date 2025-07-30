@@ -17,7 +17,6 @@ use App\Http\Controllers\Guest;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\MeasurementController ;
 
-
 Route::get('/', [Guest::class, 'index'])->name('home');
 Route::get('/about', fn () => Inertia::render('About/About'))->name('about');
 Route::get('/recipe', [RecipeController::class, 'publicPage'])->name('recipe');
@@ -127,21 +126,15 @@ Route::get('/dashboard/member/Index', [MemberController::class,'savedContent'])-
 Route::get('/dashboard/member/saved-recipes', [RecipeController::class, 'getSavedRecipes'])->name('dashboardMember.saved.recipes');
 Route::get('/dashboard/member/saved-articles', [ArticleController::class, 'getSavedArticles'])
     ->name('dashboardMember.saved.articles');
-Route::get('/dashboard/member/profile', function () {
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $user = Auth::user();
-
-    // Cek role user
-    if ($user->role !== 'user') {
-        abort(403, 'Unauthorized');
+    if (! $user || $user->id != $request->route('id')) {
+        return redirect('/login');
     }
+    $request->fulfill();
+    return redirect('/dashboard/member/profile');
+})->middleware(['auth', 'signed'])->name('verification.verify');
 
-    return Inertia::render('welcome', [
-        'mustVerifyEmail' => $user instanceof Illuminate\Contracts\Auth\MustVerifyEmail,
-        'status' => session('status'),
-        'user' => $user,
-        'role' => $user->role,
-    ]);
-})->middleware(['auth', 'verified'])->name('dashboardMember.profile');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
