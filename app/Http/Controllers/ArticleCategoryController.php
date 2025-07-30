@@ -12,9 +12,9 @@ class ArticleCategoryController extends Controller
     {
         $categories = ArticleCategory::withCount('articles')->get();
 
-    return Inertia::render('Dashboard/Article/CategoryArticle', [
-        'categories' => $categories,
-    ]);
+        return Inertia::render('Dashboard/Article/CategoryArticle', [
+            'categories' => $categories,
+        ]);
     }
 
     public function create()
@@ -36,7 +36,7 @@ class ArticleCategoryController extends Controller
 
     public function edit(ArticleCategory $articleCategory)
     {
-        return Inertia::render('Dashboard\Article\EditCategoryArticle', [
+        return Inertia::render('Dashboard/Article/EditCategoryArticle', [
             'category' => $articleCategory,
         ]);
     }
@@ -45,7 +45,6 @@ class ArticleCategoryController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            
         ]);
 
         $articleCategory->update($validated);

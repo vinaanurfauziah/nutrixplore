@@ -1,10 +1,9 @@
 import DashboardSidebar from '@/Components/Dashboard/Sidebar';
 import { Head, useForm } from '@inertiajs/react';
 
-export default function EditSubkategori({ tag, type }) {
+export default function EditSubkategori({ tag }) {
     const { data, setData, put, processing, errors } = useForm({
         name: tag.name,
-        type: type, // dikirim sebagai hidden data
     });
 
     const handleSubmit = (e) => {
@@ -16,7 +15,7 @@ export default function EditSubkategori({ tag, type }) {
 
     return (
         <>
-            <Head title="Edit Subkategori Resep" />
+            <Head title="Edit Subkategori" />
 
             <div className="flex min-h-screen bg-gray-100">
                 <aside className="hidden w-64 bg-white shadow-md md:block">
@@ -25,7 +24,7 @@ export default function EditSubkategori({ tag, type }) {
 
                 <main className="flex-1 p-6 md:p-8">
                     <h1 className="mb-6 text-2xl font-bold text-gray-800">
-                        Edit Subkategori - {tag.label}
+                        Edit Subkategori - {tag.name}
                     </h1>
 
                     <div className="rounded-lg bg-white p-6 shadow-sm">
@@ -46,9 +45,6 @@ export default function EditSubkategori({ tag, type }) {
                                     <p className="mt-1 text-sm text-red-600">{errors.name}</p>
                                 )}
                             </div>
-
-                            {/* Hidden input for type */}
-                            <input type="hidden" value={data.type} />
 
                             <div>
                                 <button

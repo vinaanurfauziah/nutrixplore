@@ -1,6 +1,6 @@
 import DashboardNavbar from '@/Components/Dashboard/Navbar';
 import DashboardSidebar from '@/Components/Dashboard/Sidebar';
-import { Head, router, useForm } from '@inertiajs/react';
+import { Head, useForm } from '@inertiajs/react';
 import { useState } from 'react';
 
 export default function EditCategoryArticle({ category }) {
@@ -10,21 +10,18 @@ export default function EditCategoryArticle({ category }) {
         name: category.name || '',
     });
 
-    const toggleSidebar = () => {
-        setIsSidebarOpen(!isSidebarOpen);
-    };
+    const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+const handleSubmit = (e) => {
+    e.preventDefault();
 
-        put(route('dashboard.article.category.update', category.id), {
-            preserveScroll: true,
-            onSuccess: () => {
-                alert('Kategori berhasil diperbarui.');
-            },
-        });
-    };
-
+    put(route('dashboard.article.category.update', category.id), {
+        preserveScroll: true,
+        onSuccess: () => {
+            alert('Kategori berhasil diperbarui.');
+        },
+    });
+};
     return (
         <>
             <Head title="Edit Kategori Artikel" />
@@ -34,6 +31,7 @@ export default function EditCategoryArticle({ category }) {
                     <DashboardSidebar />
                 </aside>
 
+                {/* Mobile Sidebar Overlay */}
                 {isSidebarOpen && (
                     <div
                         className="fixed inset-0 z-40 bg-black bg-opacity-50 md:hidden"
@@ -67,7 +65,7 @@ export default function EditCategoryArticle({ category }) {
 
                     <form
                         onSubmit={handleSubmit}
-                        className="rounded-lg bg-white p-6 shadow-sm max-w-xl"
+                        className="max-w-xl rounded-lg bg-white p-6 shadow-sm"
                     >
                         <div className="mb-4">
                             <label

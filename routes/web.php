@@ -90,8 +90,10 @@ Route::prefix('dashboard')->middleware(['auth', 'verified', 'role:admin'])->grou
 Route::get('/dashboard/article/category', [ArticleCategoryController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard.article.category');
 Route::get('/dashboard/article/category/create', fn () => Inertia::render('Dashboard/Article/CreateCategoryArticle'))->middleware(['auth', 'verified'])->name('dashboard.article.category.create');
 Route::post('/dashboard/article/category/store', [ArticleCategoryController::class, 'store'])->middleware(['auth', 'verified'])->name('dashboard.article.category.store');
-Route::get('/dashboard/article/category/edit/{id}', [ArticleCategoryController::class, 'edit'])->middleware(['auth', 'verified'])->name('dashboard.article.category.edit');
-Route::put('/dashboard/article/category/{articleCategory}', [ArticleCategoryController::class, 'update'])->middleware(['auth', 'verified'])->name('dashboard.article.category.update');
+Route::get('/dashboard/article/category/edit/{articleCategory}', [ArticleCategoryController::class, 'edit'])->name('dashboard.article.category.edit');
+Route::put('/dashboard/article/category/{articleCategory}', [ArticleCategoryController::class, 'update'])
+    ->name('dashboard.article.category.update');
+
 Route::delete('/dashboard/article/category/{articleCategory}', [ArticleCategoryController::class, 'destroy'])->middleware(['auth', 'verified'])->name('dashboard.article.category.destroy');
 Route::get('/dashboard/article/category/list', [ArticleCategoryController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard.article.category.list');
 
@@ -120,7 +122,7 @@ Route::middleware(['auth'])->group(function () {
   
 });
 Route::get('/dashboard/profile', fn () => Inertia::render('Profile/SharedProfile'))->middleware(['auth', 'verified'])->name('dashboard.profile');
-Route::get('/dashboard/member/Index', [MemberController::class,'savedContent'])->name('dashboardMember.DashboardPage');
+Route::get('/dashboard/member/Index', [MemberController::class,'savedContent'])->name('dashboardMember.DashboardPage')->middleware('signed');
 Route::get('/dashboard/member/saved-recipes', [RecipeController::class, 'getSavedRecipes'])->name('dashboardMember.saved.recipes');
 Route::get('/dashboard/member/saved-articles', [ArticleController::class, 'getSavedArticles'])
     ->name('dashboardMember.saved.articles');
