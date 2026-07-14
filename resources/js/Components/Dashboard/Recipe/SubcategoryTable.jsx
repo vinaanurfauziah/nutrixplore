@@ -33,7 +33,11 @@ export default function SubcategoryTable() {
                         className="rounded-lg border border-gray-300 px-4 py-2 text-sm shadow-sm focus:border-[#70B9BE] focus:outline-none focus:ring-2 focus:ring-[#70B9BE]"
                     />
                     <button
-                        onClick={() => router.get('/dashboard/recipe/category-recipe/create')}
+                        onClick={() =>
+                            router.get(
+                                '/dashboard/recipe/category-recipe/create',
+                            )
+                        }
                         className="rounded-lg bg-[#70B9BE] px-5 py-2.5 text-sm font-medium text-white shadow-sm hover:bg-[#51979e] focus:outline-none focus:ring-4 focus:ring-[#a1d3d7]"
                     >
                         + Tambah Subkategori
@@ -50,7 +54,11 @@ export default function SubcategoryTable() {
                         <FiSearch size={20} />
                     </button>
                     <button
-                        onClick={() => router.get('/dashboard/recipe/category-recipe/create')}
+                        onClick={() =>
+                            router.get(
+                                '/dashboard/recipe/category-recipe/create',
+                            )
+                        }
                         className="text-[#70B9BE]"
                         title="Tambah Subkategori"
                     >
@@ -93,14 +101,20 @@ export default function SubcategoryTable() {
                                     kategoriType={sub.type}
                                     isOpen={openMenuIndex === idx}
                                     onToggle={() =>
-                                        setOpenMenuIndex(openMenuIndex === idx ? null : idx)
+                                        setOpenMenuIndex(
+                                            openMenuIndex === idx ? null : idx,
+                                        )
                                     }
                                 />
                             ))
                         ) : (
                             <tr>
-                                <td colSpan="3" className="px-4 py-4 text-center text-gray-500">
-                                    Tidak ada subkategori atau kategori yang cocok.
+                                <td
+                                    colSpan="3"
+                                    className="px-4 py-4 text-center text-gray-500"
+                                >
+                                    Tidak ada subkategori atau kategori yang
+                                    cocok.
                                 </td>
                             </tr>
                         )}

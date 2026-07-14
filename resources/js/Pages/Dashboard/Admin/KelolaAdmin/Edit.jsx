@@ -23,11 +23,11 @@ export default function Edit() {
                 password: '',
             });
         }
-    }, [admin]);
+    }, [admin, setData]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        put(route('dashboard.kelola-admin.update',id));
+        put(route('dashboard.kelola-admin.update', id));
     };
 
     return (
@@ -76,7 +76,9 @@ export default function Edit() {
                                     type="text"
                                     name="name"
                                     value={data.name}
-                                    onChange={(e) => setData('name', e.target.value)}
+                                    onChange={(e) =>
+                                        setData('name', e.target.value)
+                                    }
                                     className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[#70B9BE] focus:ring-[#70B9BE] sm:text-sm"
                                     required
                                 />
@@ -96,7 +98,9 @@ export default function Edit() {
                                     type="email"
                                     name="email"
                                     value={data.email}
-                                    onChange={(e) => setData('email', e.target.value)}
+                                    onChange={(e) =>
+                                        setData('email', e.target.value)
+                                    }
                                     className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[#70B9BE] focus:ring-[#70B9BE] sm:text-sm"
                                     required
                                 />
@@ -116,7 +120,9 @@ export default function Edit() {
                                     type="password"
                                     name="password"
                                     value={data.password}
-                                    onChange={(e) => setData('password', e.target.value)}
+                                    onChange={(e) =>
+                                        setData('password', e.target.value)
+                                    }
                                     className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[#70B9BE] focus:ring-[#70B9BE] sm:text-sm"
                                 />
                                 {errors.password && (

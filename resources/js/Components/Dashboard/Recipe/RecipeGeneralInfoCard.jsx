@@ -47,7 +47,7 @@ export default function RecipeGeneralInfoCard({
             setData(name, value);
         }
     };
-    const handleTagChange = (tagField, options) => (selectedIds) => {
+    const handleTagChange = (tagField) => (selectedIds) => {
         setData((prev) => ({
             ...prev,
             [tagField]: selectedIds,
@@ -247,7 +247,7 @@ export default function RecipeGeneralInfoCard({
                         data.health_tags || [],
                         healthOptions,
                     )}
-                    onChange={handleTagChange('health_tags', healthOptions)}
+                    onChange={handleTagChange('health_tags')}
                 />
 
                 <MultiSelectCheckbox
@@ -258,7 +258,7 @@ export default function RecipeGeneralInfoCard({
                         data.allergy_tags || [],
                         allergyOptions,
                     )}
-                    onChange={handleTagChange('allergy_tags', allergyOptions)}
+                    onChange={handleTagChange('allergy_tags')}
                 />
 
                 <MultiSelectCheckbox
@@ -269,10 +269,7 @@ export default function RecipeGeneralInfoCard({
                         data.nutrition_tags || [],
                         nutritionOptions,
                     )}
-                    onChange={handleTagChange(
-                        'nutrition_tags',
-                        nutritionOptions,
-                    )}
+                    onChange={handleTagChange('nutrition_tags')}
                 />
 
                 <MultiSelectCheckbox
@@ -283,7 +280,7 @@ export default function RecipeGeneralInfoCard({
                         data.diet_tags || [],
                         dietOptions,
                     )}
-                    onChange={handleTagChange('diet_tags', dietOptions)}
+                    onChange={handleTagChange('diet_tags')}
                 />
             </div>
         </div>

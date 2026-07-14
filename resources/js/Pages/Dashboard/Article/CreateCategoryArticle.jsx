@@ -67,12 +67,16 @@ export default function CreateCategoryArticle() {
                                     type="text"
                                     id="name"
                                     value={data.name}
-                                    onChange={(e) => setData('name', e.target.value)}
+                                    onChange={(e) =>
+                                        setData('name', e.target.value)
+                                    }
                                     className="w-full rounded border border-gray-300 px-4 py-2 focus:border-[#70B9BE] focus:ring-[#70B9BE]"
                                     required
                                 />
                                 {errors.name && (
-                                    <p className="mt-1 text-sm text-red-600">{errors.name}</p>
+                                    <p className="mt-1 text-sm text-red-600">
+                                        {errors.name}
+                                    </p>
                                 )}
                             </div>
 

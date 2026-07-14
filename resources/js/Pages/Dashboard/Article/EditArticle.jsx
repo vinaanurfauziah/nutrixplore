@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import { Head, useForm } from '@inertiajs/react';
 import ArticleDetailCard from '@/Components/Dashboard/Article/ArticleDetailCard';
 import ArticleGeneralInfoCard from '@/Components/Dashboard/Article/ArticleGeneralInfoCard';
 import DashboardNavbar from '@/Components/Dashboard/Navbar';
 import DashboardSidebar from '@/Components/Dashboard/Sidebar';
+import { Head, useForm } from '@inertiajs/react';
+import { useState } from 'react';
 
 export default function EditArticle({ article, categories }) {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -41,7 +41,10 @@ export default function EditArticle({ article, categories }) {
 
                 {/* Sidebar Mobile */}
                 {isSidebarOpen && (
-                    <div className="fixed inset-0 z-40 bg-black bg-opacity-50 md:hidden" onClick={toggleSidebar}>
+                    <div
+                        className="fixed inset-0 z-40 bg-black bg-opacity-50 md:hidden"
+                        onClick={toggleSidebar}
+                    >
                         <div
                             className="absolute left-0 top-0 z-50 h-full w-64 bg-white shadow-md"
                             onClick={(e) => e.stopPropagation()}
@@ -56,13 +59,18 @@ export default function EditArticle({ article, categories }) {
                     <DashboardNavbar
                         toggleSidebar={toggleSidebar}
                         breadcrumbItems={[
-                            { label: 'Daftar Artikel', href: route('dashboard.article.list') },
+                            {
+                                label: 'Daftar Artikel',
+                                href: route('dashboard.article.list'),
+                            },
                             { label: 'Edit Artikel' },
                         ]}
                     />
 
                     <div className="mb-6 flex items-center justify-between">
-                        <h1 className="text-2xl font-bold text-gray-800">Edit Artikel</h1>
+                        <h1 className="text-2xl font-bold text-gray-800">
+                            Edit Artikel
+                        </h1>
                         <button
                             type="submit"
                             form="article-form"
@@ -73,7 +81,11 @@ export default function EditArticle({ article, categories }) {
                         </button>
                     </div>
 
-                    <form id="article-form" onSubmit={handleSubmit} encType="multipart/form-data">
+                    <form
+                        id="article-form"
+                        onSubmit={handleSubmit}
+                        encType="multipart/form-data"
+                    >
                         <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
                             <div className="lg:col-span-1">
                                 <ArticleGeneralInfoCard

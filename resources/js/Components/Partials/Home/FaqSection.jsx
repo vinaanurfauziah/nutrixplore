@@ -28,7 +28,6 @@ const faqData = [
     },
 ];
 
-
 export default function FaqSection() {
     return (
         <section className="bg-white dark:bg-gray-900">

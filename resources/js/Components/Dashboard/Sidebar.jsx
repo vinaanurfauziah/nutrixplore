@@ -96,26 +96,26 @@ export default function SidebarComponent({ onClose }) {
                                 </SidebarItem>
                             </SidebarCollapse>
 
-                         <SidebarCollapse icon={HiBookmark} label="Artikel">
-    <SidebarItem
-        as={Link}
-        href={route('dashboard.article.list')} 
-    >
-        Daftar Artikel
-    </SidebarItem>
-    <SidebarItem
-        as={Link}
-        href={route('dashboard.article.create')}
-    >
-        Buat Artikel Baru
-    </SidebarItem>
-    <SidebarItem
-        as={Link}
-        href={route('dashboard.article.category')}
-    >
-        Kategori Artikel
-    </SidebarItem>
-</SidebarCollapse>
+                            <SidebarCollapse icon={HiBookmark} label="Artikel">
+                                <SidebarItem
+                                    as={Link}
+                                    href={route('dashboard.article.list')}
+                                >
+                                    Daftar Artikel
+                                </SidebarItem>
+                                <SidebarItem
+                                    as={Link}
+                                    href={route('dashboard.article.create')}
+                                >
+                                    Buat Artikel Baru
+                                </SidebarItem>
+                                <SidebarItem
+                                    as={Link}
+                                    href={route('dashboard.article.category')}
+                                >
+                                    Kategori Artikel
+                                </SidebarItem>
+                            </SidebarCollapse>
                             <SidebarCollapse
                                 icon={HiUsers}
                                 label="Kelola Admin"
@@ -146,39 +146,38 @@ export default function SidebarComponent({ onClose }) {
                         </>
                     ) : (
                         <>
-    <SidebarItem
-        as={Link}
-        href={route('dashboardMember.DashboardPage')}
-        icon={HiChartPie}
-    >
-        Dashboard Member
-    </SidebarItem>
+                            <SidebarItem
+                                as={Link}
+                                href={route('dashboardMember.DashboardPage')}
+                                icon={HiChartPie}
+                            >
+                                Dashboard Member
+                            </SidebarItem>
 
-    <SidebarItem
-        as={Link}
-        href={route('dashboardMember.saved.recipes')}
-        icon={HiClipboardList}
-    >
-        Resep Tersimpan
-    </SidebarItem>
+                            <SidebarItem
+                                as={Link}
+                                href={route('dashboardMember.saved.recipes')}
+                                icon={HiClipboardList}
+                            >
+                                Resep Tersimpan
+                            </SidebarItem>
 
-    <SidebarItem
-        as={Link}
-        href={route('dashboardMember.saved.articles')}
-        icon={HiBookmark}
-    >
-        Artikel Tersimpan
-    </SidebarItem>
+                            <SidebarItem
+                                as={Link}
+                                href={route('dashboardMember.saved.articles')}
+                                icon={HiBookmark}
+                            >
+                                Artikel Tersimpan
+                            </SidebarItem>
 
-    <SidebarItem
-        as={Link}
-        href={route('dashboardMember.profile')}
-        icon={HiUser}
-    >
-        Profil Saya
-    </SidebarItem>
-</>
-
+                            <SidebarItem
+                                as={Link}
+                                href={route('dashboardMember.profile')}
+                                icon={HiUser}
+                            >
+                                Profil Saya
+                            </SidebarItem>
+                        </>
                     )}
                 </SidebarItemGroup>
             </SidebarItems>

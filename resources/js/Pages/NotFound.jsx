@@ -1,6 +1,6 @@
 export default function NotFound() {
     return (
-        <div className="text-center py-16">
+        <div className="py-16 text-center">
             <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
                 404 - Halaman Tidak Ditemukan
             </h1>

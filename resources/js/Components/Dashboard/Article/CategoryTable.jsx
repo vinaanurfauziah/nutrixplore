@@ -76,25 +76,35 @@ export default function CategoryTable({ categories = [] }) {
                 <table className="min-w-full table-auto text-left text-sm">
                     <thead className="border-b text-gray-600">
                         <tr>
-                            <th className="px-4 py-3 text-sm font-semibold">Nama Kategori</th>
-                            <th className="px-4 py-3 text-sm font-semibold">Jumlah Artikel</th>
-                            <th className="px-4 py-3 text-sm font-semibold">Aksi</th>
+                            <th className="px-4 py-3 text-sm font-semibold">
+                                Nama Kategori
+                            </th>
+                            <th className="px-4 py-3 text-sm font-semibold">
+                                Jumlah Artikel
+                            </th>
+                            <th className="px-4 py-3 text-sm font-semibold">
+                                Aksi
+                            </th>
                         </tr>
                     </thead>
                     <tbody className="text-gray-800">
                         {filteredCategories.length > 0 ? (
                             filteredCategories.map((category, index) => (
-                               <CategoryRow
-    key={category.id}
-    id={category.id}
-    index={index}
-    name={category.name}
-    count={category.articles_count}
-    isOpen={openRowIndex === index}
-    onToggle={() =>
-        setOpenRowIndex(openRowIndex === index ? null : index)
-    }   
-/>
+                                <CategoryRow
+                                    key={category.id}
+                                    id={category.id}
+                                    index={index}
+                                    name={category.name}
+                                    count={category.articles_count}
+                                    isOpen={openRowIndex === index}
+                                    onToggle={() =>
+                                        setOpenRowIndex(
+                                            openRowIndex === index
+                                                ? null
+                                                : index,
+                                        )
+                                    }
+                                />
                             ))
                         ) : (
                             <tr>

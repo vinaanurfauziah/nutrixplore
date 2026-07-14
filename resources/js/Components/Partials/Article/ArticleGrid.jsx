@@ -12,7 +12,7 @@ export default function ArticleGrid({
                 {articles.map((article, index) => (
                     <div
                         key={duplicate ? `second-${index}` : index}
-                        className="transition-transform duration-300 transform hover:scale-105"
+                        className="transform transition-transform duration-300 hover:scale-105"
                     >
                         <ArticleCard
                             category={article.category}

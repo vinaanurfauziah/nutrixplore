@@ -10,6 +10,6 @@ class AllergyTag extends Model
 
     public function recipes()
     {
-        return $this->belongsToMany(Recipe::class, 'allergy_tag_recipe');
+        return $this->belongsToMany(Recipe::class, 'recipe_allergy_tag');
     }
 }

@@ -1,7 +1,12 @@
-import { useRef, useState, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { FiUploadCloud } from 'react-icons/fi';
 
-export default function ArticleGeneralInfoCard({ data, setData, errors, categories = [] }) {
+export default function ArticleGeneralInfoCard({
+    data,
+    setData,
+    errors,
+    categories = [],
+}) {
     const fileInputRef = useRef(null);
     const [previewUrl, setPreviewUrl] = useState(null);
 
@@ -9,7 +14,6 @@ export default function ArticleGeneralInfoCard({ data, setData, errors, categori
         const { name, value, files } = e.target;
         if (files && files[0]) {
             setData(name, files[0]);
-            setPreviewUrl(URL.createObjectURL(files[0]));
         } else {
             setData(name, value);
         }
@@ -20,22 +24,30 @@ export default function ArticleGeneralInfoCard({ data, setData, errors, categori
     };
 
     useEffect(() => {
-        // Jika sedang edit dan gambar sebelumnya adalah string (dari server)
-        if (data.image && typeof data.image === 'string') {
-            setPreviewUrl(`/storage/${data.image}`);
+        if (data.image instanceof File) {
+            const objectUrl = URL.createObjectURL(data.image);
+            setPreviewUrl(objectUrl);
+
+            return () => URL.revokeObjectURL(objectUrl);
         }
 
-        // Cleanup URL object jika upload file baru
-        return () => {
-            if (previewUrl && typeof previewUrl !== 'string') {
-                URL.revokeObjectURL(previewUrl);
-            }
-        };
+        if (data.image && typeof data.image === 'string') {
+            setPreviewUrl(
+                data.image.startsWith('http')
+                    ? data.image
+                    : `/storage/${data.image}`,
+            );
+            return;
+        }
+
+        setPreviewUrl(null);
     }, [data.image]);
 
     return (
         <div className="h-[calc(100vh-7rem)] overflow-y-auto rounded-xl border bg-white p-6 shadow-sm">
-            <h2 className="mb-5 text-xl font-semibold text-gray-800">Informasi Umum</h2>
+            <h2 className="mb-5 text-xl font-semibold text-gray-800">
+                Informasi Umum
+            </h2>
 
             <div className="space-y-4">
                 {/* Upload Gambar + Preview */}
@@ -48,8 +60,12 @@ export default function ArticleGeneralInfoCard({ data, setData, errors, categori
                         />
                     )}
                     <FiUploadCloud className="text-4xl text-gray-400" />
-                    <div className="text-sm font-medium text-gray-700">Pilih Gambar Artikel</div>
-                    <p className="text-xs text-gray-500">PNG atau JPEG, maksimal 10MB</p>
+                    <div className="text-sm font-medium text-gray-700">
+                        Pilih Gambar Artikel
+                    </div>
+                    <p className="text-xs text-gray-500">
+                        PNG atau JPEG, maksimal 10MB
+                    </p>
                     <button
                         type="button"
                         onClick={handleButtonClick}
@@ -66,7 +82,9 @@ export default function ArticleGeneralInfoCard({ data, setData, errors, categori
                         className="hidden"
                     />
                 </div>
-                {errors.image && <p className="text-sm text-red-600">{errors.image}</p>}
+                {errors.image && (
+                    <p className="text-sm text-red-600">{errors.image}</p>
+                )}
 
                 {/* Judul Artikel */}
                 <div>
@@ -80,7 +98,9 @@ export default function ArticleGeneralInfoCard({ data, setData, errors, categori
                         placeholder="Masukkan judul artikel"
                         className="w-full rounded-md border px-3 py-2 text-sm shadow-sm"
                     />
-                    {errors.title && <p className="text-sm text-red-600">{errors.title}</p>}
+                    {errors.title && (
+                        <p className="text-sm text-red-600">{errors.title}</p>
+                    )}
                 </div>
 
                 {/* Slug Artikel */}
@@ -95,7 +115,9 @@ export default function ArticleGeneralInfoCard({ data, setData, errors, categori
                         placeholder="Masukkan slug artikel"
                         className="w-full rounded-md border px-3 py-2 text-sm shadow-sm"
                     />
-                    {errors.slug && <p className="text-sm text-red-600">{errors.slug}</p>}
+                    {errors.slug && (
+                        <p className="text-sm text-red-600">{errors.slug}</p>
+                    )}
                 </div>
 
                 {/* Deskripsi Singkat */}
@@ -112,7 +134,9 @@ export default function ArticleGeneralInfoCard({ data, setData, errors, categori
                         rows={4}
                     />
                     {errors.short_description && (
-                        <p className="text-sm text-red-600">{errors.short_description}</p>
+                        <p className="text-sm text-red-600">
+                            {errors.short_description}
+                        </p>
                     )}
                 </div>
 
@@ -135,7 +159,9 @@ export default function ArticleGeneralInfoCard({ data, setData, errors, categori
                         ))}
                     </select>
                     {errors.category_id && (
-                        <p className="text-sm text-red-600">{errors.category_id}</p>
+                        <p className="text-sm text-red-600">
+                            {errors.category_id}
+                        </p>
                     )}
                 </div>
             </div>

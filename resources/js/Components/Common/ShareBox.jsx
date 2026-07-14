@@ -41,7 +41,7 @@ export default function ShareBox({ label = 'Bagikan Ini:', bg = 'white' }) {
             : 'bg-white dark:bg-gray-900';
 
     return (
-        <section className="bg-white dark:bg-gray-800">
+        <section className={bgColor}>
             <div className="mx-auto max-w-3xl px-4 py-6 text-center">
                 <h3 className="mb-4 text-base font-semibold text-gray-800 dark:text-white">
                     {label}

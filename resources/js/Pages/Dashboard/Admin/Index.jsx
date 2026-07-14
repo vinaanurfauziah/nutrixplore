@@ -8,17 +8,17 @@ export default function Index({ auth }) {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
-    const { 
-        totalResep, 
-        totalArtikel, 
-        recipes, 
-        articles, 
-        kategoriHidangan, 
-        metodeMemasak, 
-        healthTags, 
-        allergyTags, 
-        nutritionTags, 
-        dietTags 
+    const {
+        totalResep,
+        totalArtikel,
+        recipes,
+        articles,
+        kategoriHidangan,
+        metodeMemasak,
+        healthTags,
+        allergyTags,
+        nutritionTags,
+        dietTags,
     } = usePage().props;
 
     const user = auth?.user;

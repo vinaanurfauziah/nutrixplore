@@ -8,7 +8,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
+use App\Support\MediaStorage;
 
 class ArticleController extends Controller
 {
@@ -24,19 +26,13 @@ public function listArticle()
     $articles = Article::with('category')->latest()->get();
 
     $articles->transform(function ($article) {
-        $imagePath = $article->image_path
-            ? str_replace('public/', '', $article->image_path)
-            : null;
-
         return [
             'id' => $article->id,
             'title' => $article->title,
             'slug' => $article->slug,
             'short_description' => $article->short_description,
             'content' => $article->content,
-            'image' => ($imagePath && Storage::disk('public')->exists($imagePath))
-                ? asset('storage/' . $imagePath)
-                : asset('images/default-article.jpg'),
+            'image' => MediaStorage::url($article->image_path, 'images/default-article.jpg'),
             'category' => $article->category ? [
                 'id' => $article->category->id,
                 'name' => $article->category->name,
@@ -53,9 +49,6 @@ public function listArticle()
     public function show($slug)
     {
         $article = Article::with('category')->where('slug', $slug)->firstOrFail();
-          $imagePath = $article->image_path
-            ? str_replace('public/', '', $article->image_path)
-            : null;
 
         return Inertia::render('Article/DetailArticle', [
             'article' => [
@@ -64,9 +57,7 @@ public function listArticle()
                 'slug' => $article->slug,
                 'description' => $article->short_description,
                 'content' => $article->content,
-                'image' => ($imagePath && Storage::disk('public')->exists($imagePath))
-                ? asset('storage/' . $imagePath)
-                : asset('images/default-article.jpg'),
+                'image' => MediaStorage::url($article->image_path, 'images/default-article.jpg'),
                 'category' => $article->category?->name,
                 'tags' => [], // Tambahkan jika ada relasi tags
                 'date' => $article->created_at->format('d M Y'),
@@ -92,9 +83,7 @@ public function listArticle()
                 'slug' => $article->slug,
                 'short_description' => $article->short_description,
                 'content' => $article->content,
-                'image' => $article->image_path
-                    ? asset(str_replace('public/', 'storage/', $article->image_path))
-                    : asset('images/default-article.jpg'),
+                'image' => MediaStorage::url($article->image_path, 'images/default-article.jpg'),
                 'category' => $article->category ? [
                     'id' => $article->category->id,
                     'name' => $article->category->name,
@@ -119,12 +108,12 @@ public function listArticle()
 
         $imagePath = null;
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('articles', 'public');
+            $imagePath = MediaStorage::put($request->file('image'), 'articles');
         }
 
         Article::create([
             'title' => $validated['title'],
-            'slug' => Str::slug($validated['title']),
+            'slug' => $this->uniqueSlug($validated['title']),
             'short_description' => $validated['short_description'],
             'content' => $validated['content'],
             'category_id' => $validated['category_id'],
@@ -134,11 +123,12 @@ public function listArticle()
         return redirect()->route('dashboard.article.list')->with('success', 'Artikel berhasil ditambahkan');
     }
 
-    public function edit(Article $article)
+    public function edit(string $slug)
     {
+        $article = Article::with('category')->where('slug', $slug)->firstOrFail();
         $article->load('category');
 
-return Inertia::render(' Dashboard/Article/EditCategoryArticle', [
+return Inertia::render('Dashboard/Article/EditArticle', [
             'article' => [
                 'id' => $article->id,
                 'slug' => $article->slug,
@@ -154,10 +144,17 @@ return Inertia::render(' Dashboard/Article/EditCategoryArticle', [
         ]);
     }
 
-    public function update(Request $request, Article $article)
+    public function update(Request $request, string $slug)
     {
+        $article = Article::where('slug', $slug)->firstOrFail();
+
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
+            'title' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('articles', 'title')->ignore($article->id),
+            ],
             'short_description' => 'nullable|string',
             'content' => 'required|string',
             'category_id' => 'required|exists:article_categories,id',
@@ -165,16 +162,13 @@ return Inertia::render(' Dashboard/Article/EditCategoryArticle', [
         ]);
 
         if ($request->hasFile('image')) {
-            if ($article->image_path) {
-                Storage::disk('public')->delete($article->image_path);
-            }
-
-            $article->image_path = $request->file('image')->store('articles', 'public');
+            MediaStorage::delete($article->image_path);
+            $article->image_path = MediaStorage::put($request->file('image'), 'articles');
         }
 
         $article->update([
             'title' => $validated['title'],
-            'slug' => Str::slug($validated['title']),
+            'slug' => $this->uniqueSlug($validated['title'], $article->id),
             'short_description' => $validated['short_description'],
             'content' => $validated['content'],
             'category_id' => $validated['category_id'],
@@ -187,6 +181,7 @@ return Inertia::render(' Dashboard/Article/EditCategoryArticle', [
     public function destroy($id)
     {
         $article = Article::findOrFail($id);
+        MediaStorage::delete($article->image_path);
         $article->delete();
 
         return redirect()->back()->with('message', 'Artikel berhasil dihapus');
@@ -235,9 +230,7 @@ return Inertia::render(' Dashboard/Article/EditCategoryArticle', [
                 'slug' => $article->slug,
                 'short_description' => $article->short_description,
                 'content' => $article->content,
-                'image' => $article->image_path
-                    ? asset(str_replace('public/', 'storage/', $article->image_path))
-                    : asset('images/default.jpg'),
+                'image' => MediaStorage::url($article->image_path, 'images/default.jpg'),
                 'category' => $article->category ? [
                     'id' => $article->category->id,
                     'name' => $article->category->name,
@@ -248,5 +241,23 @@ return Inertia::render(' Dashboard/Article/EditCategoryArticle', [
         return Inertia::render('Dashboard/Member/SavedArticles', [
             'savedArticles' => $savedArticles,
         ]);
+    }
+
+    private function uniqueSlug(string $title, ?int $ignoreId = null): string
+    {
+        $baseSlug = Str::slug($title);
+        $slug = $baseSlug;
+        $counter = 2;
+
+        while (
+            Article::where('slug', $slug)
+                ->when($ignoreId, fn ($query) => $query->where('id', '!=', $ignoreId))
+                ->exists()
+        ) {
+            $slug = "{$baseSlug}-{$counter}";
+            $counter++;
+        }
+
+        return $slug;
     }
 }

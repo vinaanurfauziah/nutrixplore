@@ -10,6 +10,6 @@ use Illuminate\Database\Eloquent\Model;
 
         public function recipes()
         {
-             return $this->belongsToMany(Recipe::class, 'health_tag_recipe');
+             return $this->belongsToMany(Recipe::class, 'recipe_health_tag');
         }
     }

@@ -33,6 +33,59 @@ export default function ResetPassword({ token, email }) {
                             dari yang sebelumnya digunakan.
                         </AuthDescription>
                         <form onSubmit={submit} className="mt-6 space-y-4">
+                            <input
+                                type="hidden"
+                                name="token"
+                                value={data.token}
+                            />
+                            <input
+                                type="hidden"
+                                name="email"
+                                value={data.email}
+                            />
+
+                            <div className="mx-auto w-full max-w-md">
+                                <label className="mb-1 block text-sm font-medium text-gray-700">
+                                    Kata Sandi Baru
+                                </label>
+                                <input
+                                    type="password"
+                                    value={data.password}
+                                    onChange={(e) =>
+                                        setData('password', e.target.value)
+                                    }
+                                    className="w-full rounded-md border px-3 py-2 text-sm shadow-sm"
+                                    autoComplete="new-password"
+                                />
+                                {errors.password && (
+                                    <p className="mt-1 text-sm text-red-600">
+                                        {errors.password}
+                                    </p>
+                                )}
+                            </div>
+
+                            <div className="mx-auto w-full max-w-md">
+                                <label className="mb-1 block text-sm font-medium text-gray-700">
+                                    Konfirmasi Kata Sandi
+                                </label>
+                                <input
+                                    type="password"
+                                    value={data.password_confirmation}
+                                    onChange={(e) =>
+                                        setData(
+                                            'password_confirmation',
+                                            e.target.value,
+                                        )
+                                    }
+                                    className="w-full rounded-md border px-3 py-2 text-sm shadow-sm"
+                                    autoComplete="new-password"
+                                />
+                                {errors.password_confirmation && (
+                                    <p className="mt-1 text-sm text-red-600">
+                                        {errors.password_confirmation}
+                                    </p>
+                                )}
+                            </div>
 
                             <div className="flex flex-col items-center">
                                 <PrimaryButton

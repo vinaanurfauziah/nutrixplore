@@ -22,7 +22,7 @@ class Recipe extends Model
     ];
 
     protected $fillable = [
-        'judul', 'slug', 'gambar', 'kalori', 'durasi', 'cook',
+        'user_id', 'judul', 'slug', 'gambar', 'kalori', 'durasi', 'cook',
         'kategori_hidangan', 'metode_memasak',
        
     ];

@@ -12,7 +12,9 @@ export default function ArticleTable({ articles = [], showTitle = true }) {
 
     const categoryOptions = [
         'All',
-        ...new Set(articles.map((item) => item.category?.name || 'Tidak Ada Kategori')),
+        ...new Set(
+            articles.map((item) => item.category?.name || 'Tidak Ada Kategori'),
+        ),
     ];
 
     const filteredArticles = articles.filter((article) => {
@@ -21,14 +23,16 @@ export default function ArticleTable({ articles = [], showTitle = true }) {
             .includes(searchQuery.toLowerCase());
         const matchFilter =
             filterCategory === 'All' ||
-            (article.category?.name === filterCategory);
+            article.category?.name === filterCategory;
         return matchSearch && matchFilter;
     });
 
     return (
         <div className="rounded-lg bg-white p-4 shadow-sm">
             <div className="mb-4 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-                {showTitle && <h2 className="text-lg font-semibold">Daftar Artikel</h2>}
+                {showTitle && (
+                    <h2 className="text-lg font-semibold">Daftar Artikel</h2>
+                )}
             </div>
 
             {/* Desktop Filter */}
@@ -113,10 +117,18 @@ export default function ArticleTable({ articles = [], showTitle = true }) {
                 <table className="min-w-full table-auto whitespace-nowrap text-left text-sm">
                     <thead className="border-b text-gray-600">
                         <tr>
-                            <th className="px-4 py-3 text-sm font-semibold">Nama Artikel</th>
-                            <th className="px-4 py-3 text-sm font-semibold">Gambar</th>
-                            <th className="px-4 py-3 text-sm font-semibold">Kategori</th>
-                            <th className="px-4 py-3 text-sm font-semibold">Action</th>
+                            <th className="px-4 py-3 text-sm font-semibold">
+                                Nama Artikel
+                            </th>
+                            <th className="px-4 py-3 text-sm font-semibold">
+                                Gambar
+                            </th>
+                            <th className="px-4 py-3 text-sm font-semibold">
+                                Kategori
+                            </th>
+                            <th className="px-4 py-3 text-sm font-semibold">
+                                Action
+                            </th>
                         </tr>
                     </thead>
                     <tbody className="text-gray-800">
@@ -124,7 +136,7 @@ export default function ArticleTable({ articles = [], showTitle = true }) {
                             filteredArticles.map((article, index) => (
                                 <ArticleRow
                                     key={article.id}
-                                    id={article.id} 
+                                    id={article.id}
                                     index={index}
                                     title={article.title}
                                     category={article.category?.name}
@@ -133,14 +145,19 @@ export default function ArticleTable({ articles = [], showTitle = true }) {
                                     isOpen={openRowIndex === index}
                                     onToggle={() =>
                                         setOpenRowIndex(
-                                            openRowIndex === index ? null : index
+                                            openRowIndex === index
+                                                ? null
+                                                : index,
                                         )
                                     }
                                 />
                             ))
                         ) : (
                             <tr>
-                                <td colSpan="4" className="px-4 py-4 text-center text-gray-500">
+                                <td
+                                    colSpan="4"
+                                    className="px-4 py-4 text-center text-gray-500"
+                                >
                                     Tidak ada artikel yang ditemukan.
                                 </td>
                             </tr>

@@ -13,7 +13,11 @@ export default function TabsDetail({ bahan = [], langkah = [], nutrisi = [] }) {
                 {/* Tab Bahan-bahan */}
                 <TabItem
                     active
-                    title={<span className="text-base font-semibold sm:text-lg">Bahan-bahan</span>}
+                    title={
+                        <span className="text-base font-semibold sm:text-lg">
+                            Bahan-bahan
+                        </span>
+                    }
                     icon={IoDocumentTextOutline}
                 >
                     <div className="mx-auto grid max-w-screen-2xl px-4 py-8 lg:grid-cols-12 lg:gap-8 lg:py-4 xl:gap-0">
@@ -23,13 +27,19 @@ export default function TabsDetail({ bahan = [], langkah = [], nutrisi = [] }) {
                             </h1>
                             <ul className="max-w-full space-y-3 text-base font-normal text-gray-800 dark:text-gray-200 sm:text-lg">
                                 {bahan.map((item, i) => (
-                                    <li key={item.id || i} className="flex items-center">
+                                    <li
+                                        key={item.id || i}
+                                        className="flex items-center"
+                                    >
                                         <input
                                             type="checkbox"
                                             id={`bahan-${i}`}
                                             className="h-5 w-5 rounded-sm border-black bg-white text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-500 dark:bg-gray-600 dark:ring-offset-gray-700 dark:focus:ring-blue-600 dark:focus:ring-offset-gray-700"
                                         />
-                                        <label htmlFor={`bahan-${i}`} className="ms-4">
+                                        <label
+                                            htmlFor={`bahan-${i}`}
+                                            className="ms-4"
+                                        >
                                             <span className="font-semibold text-gray-900 dark:text-white">
                                                 {item.jumlah} {item.takaran}
                                             </span>
@@ -48,7 +58,11 @@ export default function TabsDetail({ bahan = [], langkah = [], nutrisi = [] }) {
                 {/* Tab Langkah-langkah */}
                 <TabItem
                     active
-                    title={<span className="text-base font-semibold sm:text-lg">Langkah-Langkah</span>}
+                    title={
+                        <span className="text-base font-semibold sm:text-lg">
+                            Langkah-Langkah
+                        </span>
+                    }
                     icon={HiClipboardList}
                 >
                     <div className="mx-auto grid max-w-screen-2xl px-4 py-8 lg:grid-cols-12 lg:gap-8 lg:py-4 xl:gap-0">
@@ -61,7 +75,10 @@ export default function TabsDetail({ bahan = [], langkah = [], nutrisi = [] }) {
                                     .sort((a, b) => a.urutan - b.urutan)
                                     .map((item, i) => (
                                         <li key={item.id || i}>
-                                            <span className="font-semibold">Langkah {item.urutan}:</span> {item.deskripsi}
+                                            <span className="font-semibold">
+                                                Langkah {item.urutan}:
+                                            </span>{' '}
+                                            {item.deskripsi}
                                         </li>
                                     ))}
                             </ol>
@@ -72,7 +89,11 @@ export default function TabsDetail({ bahan = [], langkah = [], nutrisi = [] }) {
                 {/* Tab Nutrisi */}
                 <TabItem
                     active
-                    title={<span className="text-base font-semibold sm:text-lg">Informasi Nilai Gizi</span>}
+                    title={
+                        <span className="text-base font-semibold sm:text-lg">
+                            Informasi Nilai Gizi
+                        </span>
+                    }
                     icon={HiAdjustments}
                 >
                     <div className="mx-auto grid max-w-screen-2xl px-4 py-8 lg:grid-cols-4 lg:gap-8 lg:py-4 xl:gap-0">
@@ -83,7 +104,8 @@ export default function TabsDetail({ bahan = [], langkah = [], nutrisi = [] }) {
                             <ul className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-2 text-base font-normal text-gray-800 dark:text-gray-200 sm:grid-cols-2 sm:text-lg">
                                 {nutrisi.map((item, i) => (
                                     <li key={item.id || i}>
-                                        {item.nama}: {item.jumlah ?? 0} {item.takaran}
+                                        {item.nama}: {item.jumlah ?? 0}{' '}
+                                        {item.takaran}
                                     </li>
                                 ))}
                             </ul>

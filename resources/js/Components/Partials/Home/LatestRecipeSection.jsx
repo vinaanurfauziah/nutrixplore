@@ -1,40 +1,45 @@
-    import MoreButton from '@/Components/Common/MoreButton';
-    import SaveSuccessPopup from '@/Components/Common/SaveSuccessPopup';
-    import SectionHeading from '@/Components/Common/SectionHeading';
-    import RecipeCard from '@/Components/Public/RecipeCard';
-    import { useState } from 'react';
-    import { router } from '@inertiajs/react';
+import MoreButton from '@/Components/Common/MoreButton';
+import SaveSuccessPopup from '@/Components/Common/SaveSuccessPopup';
+import SectionHeading from '@/Components/Common/SectionHeading';
+import RecipeCard from '@/Components/Public/RecipeCard';
+import { router } from '@inertiajs/react';
+import { useState } from 'react';
 
-  export default function LatestRecipeSection({ auth , recipes = [] }) {
+export default function LatestRecipeSection({ recipes = [] }) {
     const [showPopup, setShowPopup] = useState(false);
 
     const handleSave = (recipeId) => {
-    router.post(`/recipes/save/${recipeId}`, {}, {
-        onSuccess: () => {
-            setShowPopup(true);
-            setTimeout(() => setShowPopup(false), 3000);
-        },
-        onError: (error) => {
-            alert('Gagal menyimpan resep');
-            console.error(error);
-        }
-    });
-};
+        router.post(
+            `/recipes/save/${recipeId}`,
+            {},
+            {
+                onSuccess: () => {
+                    setShowPopup(true);
+                    setTimeout(() => setShowPopup(false), 3000);
+                },
+                onError: (error) => {
+                    alert('Gagal menyimpan resep');
+                    console.error(error);
+                },
+            },
+        );
+    };
 
-const handleUnsave = (recipeId) => {
-    router.post(`/recipes/unsave/${recipeId}`, {}, {
-        onSuccess: () => {
-            console.log('Resep dihapus dari daftar simpan');
-        },
-        onError: (error) => {
-            alert('Gagal unsave resep');
-            console.error(error);
-        }
-    });
-};
-
-
-    
+    const handleUnsave = (recipeId) => {
+        router.post(
+            `/recipes/unsave/${recipeId}`,
+            {},
+            {
+                onSuccess: () => {
+                    console.log('Resep dihapus dari daftar simpan');
+                },
+                onError: (error) => {
+                    alert('Gagal unsave resep');
+                    console.error(error);
+                },
+            },
+        );
+    };
 
     return (
         <section className="bg-white dark:bg-gray-900">
@@ -57,7 +62,6 @@ const handleUnsave = (recipeId) => {
                             durasi={recipe.durasi}
                             onSave={() => handleSave(recipe.id)}
                             onUnsave={() => handleUnsave(recipe.id)}
-                            
                         />
                     ))}
 

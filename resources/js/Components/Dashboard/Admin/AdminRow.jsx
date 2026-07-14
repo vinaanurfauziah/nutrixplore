@@ -18,8 +18,8 @@ export default function AdminRow({ id, name, email }) {
                     setIsOpen(false); // tutup dropdown setelah hapus
                 },
                 onError: () => {
-                    alert("Gagal menghapus admin.");
-                }
+                    alert('Gagal menghapus admin.');
+                },
             });
         }
     };

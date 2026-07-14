@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 
 export default function RecipeForm({ mode = 'create', slug, data = {} }) {
@@ -9,20 +8,19 @@ export default function RecipeForm({ mode = 'create', slug, data = {} }) {
         kondisi: mode === 'edit' ? data.kondisi || '' : '',
         diet: mode === 'edit' ? data.diet || '' : '',
         alergi: mode === 'edit' ? data.alergi || '' : '',
-        nutrisi: mode === 'edit'
-            ? Array.isArray(data.nutrisi)
-                ? data.nutrisi.join(', ')
-                : data.nutrisi || ''
-            : '',
+        nutrisi:
+            mode === 'edit'
+                ? Array.isArray(data.nutrisi)
+                    ? data.nutrisi.join(', ')
+                    : data.nutrisi || ''
+                : '',
         metode: mode === 'edit' ? data.metode || '' : '',
     });
 
     // Ambil data resep jika mode edit
     useEffect(() => {
         if (mode === 'edit' && id) {
-            const recipe = getAllRecipesAdmin().find(
-                (item) => item.id === id,
-            );
+            const recipe = getAllRecipesAdmin().find((item) => item.id === id);
             if (recipe) {
                 setFormData({
                     judul: recipe.judul || '',

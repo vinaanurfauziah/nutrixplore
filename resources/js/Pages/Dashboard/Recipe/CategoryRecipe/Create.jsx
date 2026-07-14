@@ -102,10 +102,18 @@ export default function CreateSubkategori() {
                                     className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-[#70B9BE] focus:ring-[#70B9BE]"
                                     required
                                 >
-                                    <option value="">-- Pilih Kategori --</option>
-                                    <option value="health">Kategori Kesehatan</option>
-                                    <option value="allergy">Kategori Alergi</option>
-                                    <option value="nutrition">Kategori Nutrisi</option>
+                                    <option value="">
+                                        -- Pilih Kategori --
+                                    </option>
+                                    <option value="health">
+                                        Kategori Kesehatan
+                                    </option>
+                                    <option value="allergy">
+                                        Kategori Alergi
+                                    </option>
+                                    <option value="nutrition">
+                                        Kategori Nutrisi
+                                    </option>
                                     <option value="diet">Kategori Diet</option>
                                 </select>
                                 {errors.type && (
@@ -121,7 +129,9 @@ export default function CreateSubkategori() {
                                     disabled={processing}
                                     className="inline-flex items-center justify-center rounded-lg bg-[#70B9BE] px-5 py-3 text-sm font-medium text-white hover:bg-[#51979e] focus:ring-4 focus:ring-blue-300"
                                 >
-                                    {processing ? 'Menyimpan...' : 'Simpan Subkategori'}
+                                    {processing
+                                        ? 'Menyimpan...'
+                                        : 'Simpan Subkategori'}
                                 </button>
                             </div>
                         </form>

@@ -10,6 +10,6 @@ class NutritionTag extends Model
 
     public function recipes()
     {
-        return $this->belongsToMany(Recipe::class, 'nutrition_tag_recipe');
+        return $this->belongsToMany(Recipe::class, 'recipe_nutrition_tag');
     }
 }

@@ -51,22 +51,23 @@ export default function DetailArticle({ auth, article }) {
                             </div>
                         </section>
                         {article.image && (
-    <div className="mb-6">
-        <img
-            src={article.image}
-            alt={article.title}
-            className="w-full h-64 object-cover rounded-xl shadow-md"
-        />
-    </div>
-)}
-
+                            <div className="mb-6">
+                                <img
+                                    src={article.image}
+                                    alt={article.title}
+                                    className="h-64 w-full rounded-xl object-cover shadow-md"
+                                />
+                            </div>
+                        )}
 
                         {/* Konten */}
                         <section className="bg-white dark:bg-gray-800">
                             <div className="w-full px-4 py-4 lg:px-0">
                                 <div
-                                    className="mx-auto w-full max-w-[680px] text-lg leading-8 text-gray-800 dark:text-gray-300 prose dark:prose-invert"
-                                    dangerouslySetInnerHTML={{ __html: article.content }}
+                                    className="prose dark:prose-invert mx-auto w-full max-w-[680px] text-lg leading-8 text-gray-800 dark:text-gray-300"
+                                    dangerouslySetInnerHTML={{
+                                        __html: article.content,
+                                    }}
                                 />
                             </div>
                         </section>

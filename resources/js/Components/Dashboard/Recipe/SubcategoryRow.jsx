@@ -1,8 +1,15 @@
-import { useEffect, useRef } from 'react';
 import { router } from '@inertiajs/react';
+import { useEffect, useRef } from 'react';
 import { FiEdit2, FiMoreVertical, FiTrash2 } from 'react-icons/fi';
 
-export default function SubcategoryRow({ id, nama, kategori, kategoriType, isOpen, onToggle }) {
+export default function SubcategoryRow({
+    id,
+    nama,
+    kategori,
+    kategoriType,
+    isOpen,
+    onToggle,
+}) {
     const menuRef = useRef(null);
 
     useEffect(() => {
@@ -22,12 +29,19 @@ export default function SubcategoryRow({ id, nama, kategori, kategoriType, isOpe
     }, [isOpen, onToggle]);
 
     const handleEdit = () => {
-        router.get(route('dashboard.subcategories.edit', { type: kategoriType, id }));
+        router.get(
+            route('dashboard.subcategories.edit', { type: kategoriType, id }),
+        );
     };
 
     const handleDelete = () => {
         if (confirm('Yakin ingin menghapus subkategori ini?')) {
-            router.delete(route('dashboard.subcategories.destroy', { type: kategoriType, id }));
+            router.delete(
+                route('dashboard.subcategories.destroy', {
+                    type: kategoriType,
+                    id,
+                }),
+            );
         }
     };
 

@@ -14,13 +14,17 @@ const FilterButton = ({ text, options, selectedOptions = [], onChange }) => {
 
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+            if (
+                dropdownRef.current &&
+                !dropdownRef.current.contains(event.target)
+            ) {
                 setIsOpen(false);
             }
         };
 
         document.addEventListener('mousedown', handleClickOutside);
-        return () => document.removeEventListener('mousedown', handleClickOutside);
+        return () =>
+            document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
     return (
@@ -56,17 +60,27 @@ const FilterButton = ({ text, options, selectedOptions = [], onChange }) => {
                     <h6 className="mb-3 text-sm font-medium text-gray-900 dark:text-white">
                         {text}
                     </h6>
-                    <ul className="max-h-64 overflow-y-auto space-y-2 text-sm">
+                    <ul className="max-h-64 space-y-2 overflow-y-auto text-sm">
                         {options.map((option) => {
-                            const id = `${text}-${option}`.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9\-]/g, '');
+                            const id = `${text}-${option}`
+                                .toLowerCase()
+                                .replace(/\s+/g, '-')
+                                .replace(/[^a-z0-9-]/g, '');
                             return (
-                                <li key={option} className="flex items-center gap-2 py-1">
+                                <li
+                                    key={option}
+                                    className="flex items-center gap-2 py-1"
+                                >
                                     <input
                                         id={id}
                                         type="checkbox"
                                         className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-[#70B9BE] focus:ring-2 focus:ring-[#70B9BE] dark:border-gray-500 dark:bg-gray-600 dark:ring-offset-gray-700 dark:focus:ring-[#70B9BE]"
-                                        checked={selectedOptions.includes(option)}
-                                        onChange={() => handleCheckboxChange(option)}
+                                        checked={selectedOptions.includes(
+                                            option,
+                                        )}
+                                        onChange={() =>
+                                            handleCheckboxChange(option)
+                                        }
                                     />
                                     <label
                                         htmlFor={id}

@@ -6,7 +6,7 @@ import { Head, Link } from '@inertiajs/react';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 
-export default function Index({ auth, recipes = [], articles = [] }) {
+export default function Index({ recipes = [], articles = [] }) {
     const [showPopup, setShowPopup] = useState(false);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 

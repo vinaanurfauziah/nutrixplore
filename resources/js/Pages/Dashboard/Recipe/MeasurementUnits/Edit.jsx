@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
-import { usePage, router, Head } from '@inertiajs/react';
-import DashboardSidebar from '@/Components/Dashboard/Sidebar';
 import DashboardNavbar from '@/Components/Dashboard/Navbar';
+import DashboardSidebar from '@/Components/Dashboard/Sidebar';
+import { Head, router, usePage } from '@inertiajs/react';
+import { useEffect, useState } from 'react';
 
 export default function Edit() {
     const { id } = usePage().props;
@@ -22,11 +22,18 @@ export default function Edit() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        alert(`Berhasil memperbarui satuan "${unit.name}" (simulasi, belum ke backend).`);
+        alert(
+            `Berhasil memperbarui satuan "${unit.name}" (simulasi, belum ke backend).`,
+        );
         router.get('/dashboard/recipe/measurement-units');
     };
 
-    if (!unit) return <div className="p-6 text-center text-gray-500">Satuan tidak ditemukan.</div>;
+    if (!unit)
+        return (
+            <div className="p-6 text-center text-gray-500">
+                Satuan tidak ditemukan.
+            </div>
+        );
 
     return (
         <>
@@ -64,12 +71,16 @@ export default function Edit() {
                         ]}
                     />
                     {/* ⬆️ DITAMBAHKAN */}
-                    <h1 className="mb-6 text-2xl font-bold text-gray-800">Edit Satuan Takaran</h1>
+                    <h1 className="mb-6 text-2xl font-bold text-gray-800">
+                        Edit Satuan Takaran
+                    </h1>
 
                     <div className="rounded-lg bg-white p-6 shadow-sm">
                         <form onSubmit={handleSubmit} className="space-y-4">
                             <div className="max-w-lg">
-                                <label className="block text-sm font-medium text-gray-700">Nama</label>
+                                <label className="block text-sm font-medium text-gray-700">
+                                    Nama
+                                </label>
                                 <input
                                     type="text"
                                     name="name"
@@ -79,7 +90,9 @@ export default function Edit() {
                                 />
                             </div>
                             <div className="max-w-lg">
-                                <label className="block text-sm font-medium text-gray-700">Simbol</label>
+                                <label className="block text-sm font-medium text-gray-700">
+                                    Simbol
+                                </label>
                                 <input
                                     type="text"
                                     name="symbol"
@@ -89,7 +102,9 @@ export default function Edit() {
                                 />
                             </div>
                             <div className="max-w-lg">
-                                <label className="block text-sm font-medium text-gray-700">Jenis</label>
+                                <label className="block text-sm font-medium text-gray-700">
+                                    Jenis
+                                </label>
                                 <select
                                     name="type"
                                     value={unit.type}

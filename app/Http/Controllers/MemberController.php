@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
+use App\Support\MediaStorage;
 
 
 
@@ -31,9 +32,7 @@ class MemberController extends Controller
             ->take(4)
             ->get()
             ->transform(function ($recipe) {
-                $recipe->gambar = $recipe->gambar
-                    ? asset('storage/' . $recipe->gambar)
-                    : asset('images/default.jpg');
+                $recipe->gambar = MediaStorage::url($recipe->gambar, 'images/default.jpg');
                 return $recipe;
             });
 
@@ -49,9 +48,7 @@ class MemberController extends Controller
                     'title' => $article->title,
                     'slug' => $article->slug,
                     'description' => $article->short_description,
-                    'imageUrl' => $article->image_path
-                        ? asset(str_replace('public/', 'storage/', $article->image_path))
-                        : asset('images/default.jpg'),
+                    'imageUrl' => MediaStorage::url($article->image_path, 'images/default.jpg'),
                     'category' => $article->category ? $article->category->name : null,
                 ];
             });

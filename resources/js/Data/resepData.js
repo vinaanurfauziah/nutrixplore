@@ -392,7 +392,7 @@ const resepData = {
                     energi: '40 kkal',
                     protein: '1 g',
                     lemak: '0.5 g',
-                    serat: '3.2 g', 
+                    serat: '3.2 g',
                     karbohidrat: '8 g',
                     natrium: '95 mg',
                 },
@@ -575,7 +575,10 @@ const resepData = {
                     { jumlah: '3 butir', nama: 'kemiri (bumbu)' },
                     { jumlah: '1 ruas', nama: 'kunyit (bumbu)' },
                     { jumlah: '1 batang', nama: 'serai (bumbu)' },
-                    { jumlah: 'secukupnya', nama: 'daun pisang untuk membungkus' },
+                    {
+                        jumlah: 'secukupnya',
+                        nama: 'daun pisang untuk membungkus',
+                    },
                 ],
                 langkah: [
                     'Haluskan bumbu, lumuri ikan dan tambahkan daun kemangi.',
@@ -840,8 +843,8 @@ const resepData = {
                     protein: '7 g',
                     karbohidrat: '5 g',
                     serat: '3 g',
-                    indeks_glikemik: '30 (rendah)'
-                }
+                    indeks_glikemik: '30 (rendah)',
+                },
             },
         ],
     },

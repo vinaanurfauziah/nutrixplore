@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
+use App\Support\MediaStorage;
 
 
 class Guest extends Controller
@@ -18,9 +19,7 @@ public function index()
     // Ambil resep terbaru
     $latestRecipes = Recipe::latest()->take(4)->get();
     $latestRecipes->transform(function ($recipe) {
-        $recipe->gambar = $recipe->gambar
-            ? asset('storage/' . $recipe->gambar)
-            : asset('images/default.jpg');
+        $recipe->gambar = MediaStorage::url($recipe->gambar, 'images/default.jpg');
         return $recipe;
     });
 
@@ -28,19 +27,13 @@ public function index()
     $latestArticles = Article::with('category')->latest()->take(8)->get();
 
     $latestArticles->transform(function ($article) {
-        $imagePath = $article->image_path
-            ? str_replace('public/', '', $article->image_path)
-            : null;
-
         return [
             'id' => $article->id,
             'title' => $article->title,
             'slug' => $article->slug,
             'description' => $article->short_description,
             'content' => $article->content,
-            'image' => ($imagePath && Storage::disk('public')->exists($imagePath))
-                ? asset('storage/' . $imagePath)
-                : asset('images/default-article.jpg'),
+            'image' => MediaStorage::url($article->image_path, 'images/default-article.jpg'),
             'category' => $article->category ? [
                 'id' => $article->category->id,
                 'name' => $article->category->name,

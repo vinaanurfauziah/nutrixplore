@@ -12,7 +12,10 @@ export default function MultiSelectCheckbox({
 
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+            if (
+                dropdownRef.current &&
+                !dropdownRef.current.contains(event.target)
+            ) {
                 setIsOpen(false);
             }
         };
@@ -24,31 +27,33 @@ export default function MultiSelectCheckbox({
 
     const isObject = (val) => typeof val === 'object' && val !== null;
 
-    const getValue = (val) => isObject(val) ? val.id : val;
-    const getLabel = (val) => isObject(val) ? val.name : val;
+    const getValue = (val) => (isObject(val) ? val.id : val);
+    const getLabel = (val) => (isObject(val) ? val.name : val);
 
-const toggleOption = (value) => {
-  const alreadySelected = selectedValues.some(
-    (item) => getValue(item) === getValue(value)
-  );
+    const toggleOption = (value) => {
+        const alreadySelected = selectedValues.some(
+            (item) => getValue(item) === getValue(value),
+        );
 
-  const updatedObjects = alreadySelected
-    ? selectedValues.filter((item) => getValue(item) !== getValue(value))
-    : [...selectedValues, value];
+        const updatedObjects = alreadySelected
+            ? selectedValues.filter(
+                  (item) => getValue(item) !== getValue(value),
+              )
+            : [...selectedValues, value];
 
-  const updatedIds = updatedObjects.map(getValue);
-  onChange(updatedIds);
-};
+        const updatedIds = updatedObjects.map(getValue);
+        onChange(updatedIds);
+    };
 
     const removeOption = (value) => {
         const updatedValues = selectedValues.filter(
-            (item) => getValue(item) !== getValue(value)
+            (item) => getValue(item) !== getValue(value),
         );
         onChange(name, updatedValues);
     };
 
     const getColorClasses = () =>
-        "inline-flex items-center rounded bg-purple-100 px-2 py-1 text-sm text-purple-700";
+        'inline-flex items-center rounded bg-purple-100 px-2 py-1 text-sm text-purple-700';
 
     return (
         <div className="relative" ref={dropdownRef}>
@@ -88,9 +93,9 @@ const toggleOption = (value) => {
 
             {isOpen && (
                 <div className="absolute z-10 mt-1 max-h-48 w-full overflow-y-auto rounded-md border bg-white shadow-md">
-                    {options.map((option, idx) => {
+                    {options.map((option) => {
                         const isChecked = selectedValues.some(
-                            (item) => getValue(item) === getValue(option)
+                            (item) => getValue(item) === getValue(option),
                         );
                         return (
                             <label

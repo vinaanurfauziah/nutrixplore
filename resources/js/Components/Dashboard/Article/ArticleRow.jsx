@@ -1,6 +1,6 @@
+import { router } from '@inertiajs/react';
 import { useEffect, useRef } from 'react';
 import { FiEdit2, FiMoreVertical, FiTrash2 } from 'react-icons/fi';
-import { router } from '@inertiajs/react';
 
 export default function ArticleRow({
     id,
@@ -33,15 +33,15 @@ export default function ArticleRow({
     }, [isOpen, onToggle]);
 
     const handleEdit = () => {
-         router.get(route('dashboard.article.edit', slug));
+        router.get(route('dashboard.article.edit', slug));
     };
 
-   const handleDelete = () => {
-    if (confirm(`Yakin ingin menghapus artikel "${title}"?`)) {
-        router.delete(route('dashboard.article.destroy', id));
-        console.log('Deleting article ID:', id);
-    }
-};
+    const handleDelete = () => {
+        if (confirm(`Yakin ingin menghapus artikel "${title}"?`)) {
+            router.delete(route('dashboard.article.destroy', id));
+            console.log('Deleting article ID:', id);
+        }
+    };
 
     return (
         <tr className="relative border-t">

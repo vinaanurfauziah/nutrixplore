@@ -24,7 +24,9 @@ export default function ListArticle() {
                             className="absolute left-0 top-0 z-50 h-full w-64 bg-white shadow-md"
                             onClick={(e) => e.stopPropagation()}
                         >
-                            <DashboardSidebar onClose={() => setIsSidebarOpen(false)} />
+                            <DashboardSidebar
+                                onClose={() => setIsSidebarOpen(false)}
+                            />
                         </div>
                     </div>
                 )}
@@ -35,7 +37,9 @@ export default function ListArticle() {
                         breadcrumbItems={[{ label: 'Daftar Artikel' }]}
                     />
 
-                    <h1 className="mb-4 text-2xl font-bold text-gray-800">Daftar Artikel</h1>
+                    <h1 className="mb-4 text-2xl font-bold text-gray-800">
+                        Daftar Artikel
+                    </h1>
                     <div className="max-h-[70vh] overflow-auto rounded-lg shadow">
                         <ArticleTable articles={articles} showTitle={false} />
                     </div>

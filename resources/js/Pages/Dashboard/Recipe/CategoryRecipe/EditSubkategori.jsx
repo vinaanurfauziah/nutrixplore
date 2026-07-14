@@ -30,19 +30,26 @@ export default function EditSubkategori({ tag }) {
                     <div className="rounded-lg bg-white p-6 shadow-sm">
                         <form onSubmit={handleSubmit} className="space-y-4">
                             <div className="max-w-lg">
-                                <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                                <label
+                                    htmlFor="name"
+                                    className="block text-sm font-medium text-gray-700"
+                                >
                                     Nama Subkategori
                                 </label>
                                 <input
                                     id="name"
                                     type="text"
                                     value={data.name}
-                                    onChange={(e) => setData('name', e.target.value)}
+                                    onChange={(e) =>
+                                        setData('name', e.target.value)
+                                    }
                                     className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[#70B9BE] focus:ring-[#70B9BE] sm:text-sm"
                                     required
                                 />
                                 {errors.name && (
-                                    <p className="mt-1 text-sm text-red-600">{errors.name}</p>
+                                    <p className="mt-1 text-sm text-red-600">
+                                        {errors.name}
+                                    </p>
                                 )}
                             </div>
 

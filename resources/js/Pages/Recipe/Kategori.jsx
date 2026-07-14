@@ -4,16 +4,61 @@ import Footer from '@/Components/Templates/Footer';
 import Navbar from '@/Components/Templates/Navbar';
 import { Head } from '@inertiajs/react';
 
-// Import ikon dari beberapa paket icon
-import * as BiIcons from 'react-icons/bi';
-import * as BsIcons from 'react-icons/bs';
-import * as CgIcons from 'react-icons/cg';
-import * as FaIcons from 'react-icons/fa';
-import * as GiIcons from 'react-icons/gi';
-import * as LuIcons from 'react-icons/lu';
-import * as PiIcons from 'react-icons/pi';
-import * as RiIcons from 'react-icons/ri';
-import * as TbIcons from 'react-icons/tb';
+import { BiBowlRice } from 'react-icons/bi';
+import { BsFillHeartPulseFill } from 'react-icons/bs';
+import { CgSmartHomeCooker } from 'react-icons/cg';
+import {
+    FaBone,
+    FaBrain,
+    FaEgg,
+    FaEye,
+    FaFish,
+    FaLungs,
+    FaRibbon,
+} from 'react-icons/fa';
+import {
+    GiAntibody,
+    GiBerriesBowl,
+    GiBlood,
+    GiBrain,
+    GiChickenLeg,
+    GiChickenOven,
+    GiFat,
+    GiFishEggs,
+    GiFruitBowl,
+    GiHeartBeats,
+    GiHerbsBundle,
+    GiJoint,
+    GiKidneys,
+    GiNautilusShell,
+    GiOlive,
+    GiPeanut,
+    GiSaltShaker,
+    GiSesame,
+    GiStomach,
+    GiTumor,
+    GiWheat,
+} from 'react-icons/gi';
+import {
+    LuBean,
+    LuCandy,
+    LuEggFried,
+    LuGrape,
+    LuSalad,
+    LuSoup,
+    LuVegan,
+} from 'react-icons/lu';
+import { PiAvocadoFill, PiCookingPotFill } from 'react-icons/pi';
+import { RiDrinksLine } from 'react-icons/ri';
+import {
+    TbClock12,
+    TbCooker,
+    TbGrill,
+    TbLeaf,
+    TbMeat,
+    TbMilkFilled,
+    TbMoodCheck,
+} from 'react-icons/tb';
 
 const kategoriData = {
     hidangan: {
@@ -214,37 +259,56 @@ const kategoriData = {
     },
 };
 
-
-export default function Category({
-    auth,
-    recipes = [],
-    subcategories = [],
-    kategoriSlug,
-}) {
+export default function Category({ auth, subcategories = [], kategoriSlug }) {
     const Icons = {
-        ...LuIcons,
-        ...BiIcons,
-        ...BsIcons,
-        ...CgIcons,
-        ...FaIcons,
-        ...TbIcons,
-        ...LuIcons,
-        ...BiIcons,
-        ...BsIcons,
-        ...CgIcons,
-        ...FaIcons,
-        ...TbIcons,
-        ...GiIcons,
-        ...RiIcons,
-        ...PiIcons,
-    };
-
-    const onSave = (id) => {
-        console.log('Saved recipe ID:', id);
-    };
-
-    const onUnsave = (id) => {
-        console.log('Unsaved recipe ID:', id);
+        BiBowlRice,
+        BsFillHeartPulseFill,
+        CgSmartHomeCooker,
+        FaBone,
+        FaBrain,
+        FaEgg,
+        FaEye,
+        FaFish,
+        FaLungs,
+        FaRibbon,
+        GiAntibody,
+        GiBerriesBowl,
+        GiBlood,
+        GiBrain,
+        GiChickenLeg,
+        GiChickenOven,
+        GiFat,
+        GiFishEggs,
+        GiFruitBowl,
+        GiHeartBeats,
+        GiHerbsBundle,
+        GiJoint,
+        GiKidneys,
+        GiNautilusShell,
+        GiOlive,
+        GiPeanut,
+        GiSaltShaker,
+        GiSesame,
+        GiStomach,
+        GiTumor,
+        GiWheat,
+        LuBean,
+        LuCandy,
+        LuEggFried,
+        LuGrape,
+        LuSalad,
+        LuSoup,
+        LuVegan,
+        PiAvocadoFill,
+        PiCookingPotFill,
+        RiDrinksLine,
+        TbClock12,
+        TbCooker,
+        TbGrill,
+        TbLeaf,
+        TbMeat,
+        TbMilkFilled,
+        TbMoodCheck,
     };
 
     const kategori = kategoriData[kategoriSlug];

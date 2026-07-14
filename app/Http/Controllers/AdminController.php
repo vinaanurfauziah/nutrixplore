@@ -61,7 +61,7 @@ public function edit($id)
    // Proses update admin 
 public function update(Request $request, $id)
 {
-    $admin = User::findOrFail($id);
+    $admin = User::where('role', 'admin')->findOrFail($id);
 
     $request->validate([
         'name' => 'required|string|max:255',

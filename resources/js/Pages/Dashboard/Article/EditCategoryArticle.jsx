@@ -12,16 +12,16 @@ export default function EditCategoryArticle({ category }) {
 
     const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
-const handleSubmit = (e) => {
-    e.preventDefault();
+    const handleSubmit = (e) => {
+        e.preventDefault();
 
-    put(route('dashboard.article.category.update', category.id), {
-        preserveScroll: true,
-        onSuccess: () => {
-            alert('Kategori berhasil diperbarui.');
-        },
-    });
-};
+        put(route('dashboard.article.category.update', category.id), {
+            preserveScroll: true,
+            onSuccess: () => {
+                alert('Kategori berhasil diperbarui.');
+            },
+        });
+    };
     return (
         <>
             <Head title="Edit Kategori Artikel" />
@@ -78,12 +78,16 @@ const handleSubmit = (e) => {
                                 type="text"
                                 id="name"
                                 value={data.name}
-                                onChange={(e) => setData('name', e.target.value)}
+                                onChange={(e) =>
+                                    setData('name', e.target.value)
+                                }
                                 className="w-full rounded border border-gray-300 px-4 py-2 focus:border-[#70B9BE] focus:ring-[#70B9BE]"
                                 required
                             />
                             {errors.name && (
-                                <p className="mt-1 text-sm text-red-600">{errors.name}</p>
+                                <p className="mt-1 text-sm text-red-600">
+                                    {errors.name}
+                                </p>
                             )}
                         </div>
 

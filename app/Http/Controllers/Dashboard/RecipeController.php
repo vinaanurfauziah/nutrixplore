@@ -19,6 +19,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Article;
+use App\Support\MediaStorage;
 
 
 class RecipeController extends Controller
@@ -52,9 +53,7 @@ public function publicPage(Request $request)
 
 // Map gambar to full URL or default
 $recipes = $recipes->map(function ($recipe) {
-    $recipe->gambar = $recipe->gambar
-        ? asset('storage/' . $recipe->gambar)
-        : asset('images/default.jpg');
+    $recipe->gambar = MediaStorage::url($recipe->gambar, 'images/default.jpg');
     return $recipe;
 });
 
@@ -89,11 +88,7 @@ public function show($slug)
         abort(404);
     }
 
-    $recipeImage = $resep->gambar
-        ? asset('storage/' . $resep->gambar)
-        : asset('images/default.jpg');
-
-    $resep->gambar = $recipeImage;
+    $resep->gambar = MediaStorage::url($resep->gambar, 'images/default.jpg');
 
     // Gabungkan semua tag ke satu koleksi
     $tags = collect([
@@ -173,9 +168,7 @@ public function kategori($kategori)
 
     // Format gambar resep
     $recipes->each(function ($recipe) {
-        $recipe->gambar = $recipe->gambar
-            ? asset('storage/' . $recipe->gambar)
-            : asset('images/default.jpg');
+        $recipe->gambar = MediaStorage::url($recipe->gambar, 'images/default.jpg');
     });
 
     return Inertia::render('Recipe/Kategori', [
@@ -210,7 +203,7 @@ public function subkategori($kategori, $subkategori)
         abort(404);
     }
 
-    $recipes->each(fn($r) => $r->gambar = $r->gambar ? asset('storage/' . $r->gambar) : asset('images/default.jpg'));
+    $recipes->each(fn($r) => $r->gambar = MediaStorage::url($r->gambar, 'images/default.jpg'));
 
     return Inertia::render('Recipe/Subkategori', [
         'kategoriSlug' => $kategori,
@@ -239,9 +232,7 @@ public function index()
                 'id' => $recipe->id,
                 'judul' => $recipe->judul,
                 'slug' => $recipe->slug,
-                'gambar' => $recipe->gambar
-                    ? asset('storage/' . $recipe->gambar)
-                    : asset('images/default.jpg'),
+                'gambar' => MediaStorage::url($recipe->gambar, 'images/default.jpg'),
                 'kategori_hidangan' => $recipe->kategori_hidangan,
                 'metode_memasak' => $recipe->metode_memasak,
                 'diet_tags' => $recipe->dietTags->map(fn($t) => ['name' => $t->name]),
@@ -252,18 +243,12 @@ public function index()
         }),
 
         'articles' => $articles->map(function ($article) {
-            $imagePath = $article->image_path
-                ? str_replace('public/', '', $article->image_path)
-                : null;
-
             return [
                 'id' => $article->id,
                 'title' => $article->title,
                 'slug' => $article->slug,
                 'description' => $article->short_description,
-                'image' => ($imagePath && \Storage::disk('public')->exists($imagePath))
-                    ? asset('storage/' . $imagePath)
-                    : asset('images/default-article.jpg'),
+                'image' => MediaStorage::url($article->image_path, 'images/default-article.jpg'),
                 'category' => $article->category?->name,
                 'date' => $article->created_at->format('d M Y'),
             ];
@@ -303,7 +288,7 @@ public function list()
                 'id' => $recipe->id,
                 'judul' => $recipe->judul,
                 'slug' => $recipe->slug,
-                'gambar' => $recipe->gambar,
+                'gambar' => MediaStorage::url($recipe->gambar, 'images/default.jpg'),
                 'kategori_hidangan' => $recipe->kategori_hidangan,
                 'metode_memasak' => $recipe->metode_memasak,
                 'diet_tags' => $recipe->dietTags->map(fn($t) => ['name' => $t->name]),
@@ -369,7 +354,7 @@ public function store(Request $request)
     // Simpan gambar
     $gambarPath = null;
     if ($request->hasFile('gambar')) {
-        $gambarPath = $request->file('gambar')->store('recipes', 'public');
+        $gambarPath = MediaStorage::put($request->file('gambar'), 'recipes');
     }
 
     // Simpan data utama resep
@@ -481,12 +466,8 @@ public function update(Request $request, $id)
 
     // Update gambar jika ada file baru
     if ($request->hasFile('gambar')) {
-        if ($recipe->gambar && Storage::disk('public')->exists($recipe->gambar)) {
-            Storage::disk('public')->delete($recipe->gambar);
-        }
-
-        $gambarPath = $request->file('gambar')->store('recipes', 'public');
-        $recipe->gambar = $gambarPath;
+        MediaStorage::delete($recipe->gambar);
+        $recipe->gambar = MediaStorage::put($request->file('gambar'), 'recipes');
     }
 
     // Update field utama (gunakan fill hanya jika $fillable sudah benar)
@@ -586,9 +567,7 @@ public function update(Request $request, $id)
 
     // Ubah path gambar menjadi URL publik
     $savedRecipes->transform(function ($recipe) {
-        $recipe->gambar = $recipe->gambar
-            ? asset('storage/' . $recipe->gambar)
-            : asset('images/default.jpg');
+        $recipe->gambar = MediaStorage::url($recipe->gambar, 'images/default.jpg');
         return $recipe;
     });
 

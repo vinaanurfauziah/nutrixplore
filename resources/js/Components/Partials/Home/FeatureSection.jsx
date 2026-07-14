@@ -38,7 +38,7 @@ export default function FeatureSection() {
                     {features.map((f, i) => (
                         <div
                             key={i}
-                            className="flex cursor-pointer items-center gap-4 rounded-2xl bg-white p-6 shadow-md hover:scale-[1.05] hover:-translate-y-1 transition-all duration-300"
+                            className="flex cursor-pointer items-center gap-4 rounded-2xl bg-white p-6 shadow-md transition-all duration-300 hover:-translate-y-1 hover:scale-[1.05]"
                         >
                             <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-gray-100">
                                 {f.icon}

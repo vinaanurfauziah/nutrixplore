@@ -18,6 +18,6 @@ return new class extends Migration
     
     public function down()
     {
-        Schema::dropIfExists('health_recipe');
+        Schema::dropIfExists('recipe_health_tag');
     }
 };

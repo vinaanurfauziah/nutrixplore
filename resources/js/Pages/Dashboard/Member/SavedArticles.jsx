@@ -64,7 +64,9 @@ export default function SavedArticles() {
                         </h1>
 
                         {savedArticles.length === 0 ? (
-                            <p className="text-gray-500">Belum ada artikel yang disimpan.</p>
+                            <p className="text-gray-500">
+                                Belum ada artikel yang disimpan.
+                            </p>
                         ) : (
                             <div className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3 lg:grid-cols-4">
                                 {savedArticles.map((article, index) => (
@@ -83,6 +85,12 @@ export default function SavedArticles() {
                         )}
                     </motion.div>
                 </main>
+
+                {showPopup && (
+                    <div className="fixed bottom-6 right-6 z-50 rounded bg-green-500 px-4 py-2 text-white shadow-md">
+                        Disimpan ke Favorit!
+                    </div>
+                )}
             </div>
         </>
     );

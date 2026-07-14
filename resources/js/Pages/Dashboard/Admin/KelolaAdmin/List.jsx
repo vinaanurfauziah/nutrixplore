@@ -13,7 +13,7 @@ export default function List({ admins = [] }) {
     const filteredAdmins = admins.filter(
         (admin) =>
             admin.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            admin.email.toLowerCase().includes(searchQuery.toLowerCase())
+            admin.email.toLowerCase().includes(searchQuery.toLowerCase()),
     );
 
     const toggleSidebar = () => {
@@ -71,7 +71,9 @@ export default function List({ admins = [] }) {
                                     className="rounded-lg border border-gray-300 px-4 py-2 text-sm shadow-sm focus:border-[#70B9BE] focus:outline-none focus:ring-2 focus:ring-[#70B9BE]"
                                 />
                                 <Link
-                                    href={route('dashboard.kelola-admin.create')}
+                                    href={route(
+                                        'dashboard.kelola-admin.create',
+                                    )}
                                     className="rounded-lg bg-[#70B9BE] px-5 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-[#51979e] focus:outline-none focus:ring-4 focus:ring-[#a1d3d7]"
                                 >
                                     + Tambah Admin
@@ -88,7 +90,9 @@ export default function List({ admins = [] }) {
                                     <FiSearch size={20} />
                                 </button>
                                 <Link
-                                    href={route('dashboard.kelola-admin.create')}
+                                    href={route(
+                                        'dashboard.kelola-admin.create',
+                                    )}
                                     className="text-[#70B9BE]"
                                     title="Tambah Admin"
                                 >
@@ -117,9 +121,15 @@ export default function List({ admins = [] }) {
                             <table className="min-w-full table-auto text-left text-sm">
                                 <thead className="border-b text-gray-600">
                                     <tr>
-                                        <th className="px-4 py-3 font-semibold">Nama</th>
-                                        <th className="px-4 py-3 font-semibold">Email</th>
-                                        <th className="px-4 py-3 font-semibold">Aksi</th>
+                                        <th className="px-4 py-3 font-semibold">
+                                            Nama
+                                        </th>
+                                        <th className="px-4 py-3 font-semibold">
+                                            Email
+                                        </th>
+                                        <th className="px-4 py-3 font-semibold">
+                                            Aksi
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody className="text-gray-800">

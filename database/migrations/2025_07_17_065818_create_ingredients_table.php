@@ -13,12 +13,7 @@ return new class extends Migration
             $table->foreignId('recipe_id')->constrained()->onDelete('cascade');
             $table->string('nama');
             $table->string('jumlah');
-            $table->enum('takaran', [
-                'gram',
-                'ml',
-                'sdt',
-                'sdm',
-            ]);
+            $table->string('takaran');
             
             $table->timestamps();
         });

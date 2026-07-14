@@ -1,6 +1,6 @@
+import DashboardNavbar from '@/Components/Dashboard/Navbar';
 import DashboardSidebar from '@/Components/Dashboard/Sidebar';
 import { Head, useForm } from '@inertiajs/react';
-import DashboardNavbar from '@/Components/Dashboard/Navbar';
 import { useState } from 'react'; // ⬅️ ditambahkan
 
 export default function EditSubkategori({ tag }) {
@@ -52,7 +52,7 @@ export default function EditSubkategori({ tag }) {
                         ]}
                     />
                     <h1 className="mb-6 text-2xl font-bold text-gray-800">
-                            Edit {tag.label}
+                        Edit {tag.label}
                     </h1>
 
                     <div className="rounded-lg bg-white p-6 shadow-sm">

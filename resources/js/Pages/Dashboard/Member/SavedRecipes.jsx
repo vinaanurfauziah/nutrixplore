@@ -1,7 +1,7 @@
+import SaveSuccessPopup from '@/Components/Common/SaveSuccessPopup';
 import DashboardNavbar from '@/Components/Dashboard/Navbar';
 import DashboardSidebar from '@/Components/Dashboard/Sidebar';
 import RecipeCard from '@/Components/Public/RecipeCard';
-import SaveSuccessPopup from '@/Components/Common/SaveSuccessPopup';
 import { Head, router } from '@inertiajs/react';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
@@ -15,29 +15,37 @@ export default function SavedRecipes({ savedRecipes = [] }) {
     };
 
     const handleSave = (recipeId) => {
-        router.post(`/recipes/save/${recipeId}`, {}, {
-            onSuccess: () => {
-                setShowPopup(true);
-                setTimeout(() => setShowPopup(false), 3000);
+        router.post(
+            `/recipes/save/${recipeId}`,
+            {},
+            {
+                onSuccess: () => {
+                    setShowPopup(true);
+                    setTimeout(() => setShowPopup(false), 3000);
+                },
+                onError: (error) => {
+                    alert('Gagal menyimpan resep');
+                    console.error(error);
+                },
             },
-            onError: (error) => {
-                alert('Gagal menyimpan resep');
-                console.error(error);
-            }
-        });
+        );
     };
 
     const handleUnsave = (recipeId) => {
-        router.post(`/recipes/unsave/${recipeId}`, {}, {
-            onSuccess: () => {
-                console.log('Resep dihapus dari daftar simpan');
-                // Optional: bisa refresh data atau redirect
+        router.post(
+            `/recipes/unsave/${recipeId}`,
+            {},
+            {
+                onSuccess: () => {
+                    console.log('Resep dihapus dari daftar simpan');
+                    // Optional: bisa refresh data atau redirect
+                },
+                onError: (error) => {
+                    alert('Gagal unsave resep');
+                    console.error(error);
+                },
             },
-            onError: (error) => {
-                alert('Gagal unsave resep');
-                console.error(error);
-            }
-        });
+        );
     };
 
     return (
@@ -82,20 +90,22 @@ export default function SavedRecipes({ savedRecipes = [] }) {
                             <div className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3 lg:grid-cols-4">
                                 {savedRecipes.map((recipe) => (
                                     <RecipeCard
-                                          key={recipe.id}
-    title={recipe.judul}
-    imageUrl={recipe.gambar}
-    link={`/recipe/${recipe.slug}`}
-    kalori={recipe.kalori}
-    durasi={recipe.durasi}
-    onSave={() => handleSave(recipe.id)}
-    onUnsave={() => handleUnsave(recipe.id)}
-    isSaved = {true}
+                                        key={recipe.id}
+                                        title={recipe.judul}
+                                        imageUrl={recipe.gambar}
+                                        link={`/recipe/${recipe.slug}`}
+                                        kalori={recipe.kalori}
+                                        durasi={recipe.durasi}
+                                        onSave={() => handleSave(recipe.id)}
+                                        onUnsave={() => handleUnsave(recipe.id)}
+                                        isSaved={true}
                                     />
                                 ))}
                             </div>
                         ) : (
-                            <p className="text-gray-500">Belum ada resep yang disimpan.</p>
+                            <p className="text-gray-500">
+                                Belum ada resep yang disimpan.
+                            </p>
                         )}
                     </motion.div>
                 </main>

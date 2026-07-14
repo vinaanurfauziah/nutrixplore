@@ -33,44 +33,50 @@ Route::get('/article/{slug}', [ArticleController::class, 'show'])->name('article
 
 Route::get('/recipe/{slug}', [RecipeController::class, 'show']);
 
-    Route::get('/dashboard', [RecipeController::Class , 'index'])
-        ->middleware(['auth', 'verified'])
-        ->name('dashboard');
+Route::get('/dashboard', function () {
+    return auth()->user()?->role === 'admin'
+        ? redirect()->route('dashboard.admin')
+        : redirect()->route('dashboardMember.DashboardPage');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/dashboard/admin', [RecipeController::class, 'index'])
+    ->middleware(['auth', 'verified', 'role:admin'])
+    ->name('dashboard.admin');
     // Route untuk Recipe
 
-Route::get('/dashboard/recipe', [RecipeController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard.recipe.list');
-Route::get('/dashboard/recipe/recipelist', [RecipeController::class, 'list'])->middleware(['auth', 'verified'])->name('dashboard.recipe.alllist');
+Route::get('/dashboard/recipe', [RecipeController::class, 'index'])->middleware(['auth', 'verified', 'role:admin'])->name('dashboard.recipe.list');
+Route::get('/dashboard/recipe/recipelist', [RecipeController::class, 'list'])->middleware(['auth', 'verified', 'role:admin'])->name('dashboard.recipe.alllist');
 Route::get('/dashboard/recipe/create', [RecipeController::class, 'create'])
     ->middleware(['auth', 'verified', 'role:admin']) // contoh pakai role
     ->name('dashboard.recipe.create');
 Route::post('/dashboard/recipe', [RecipeController::class, 'store'])
     ->middleware(['auth', 'verified', 'role:admin'])
     ->name('dashboard.recipe.store');
-Route::get('/dashboard/resep/{id}/edit', [RecipeController::class, 'edit'])->name('dashboard.recipe.edit');
+Route::get('/dashboard/resep/{id}/edit', [RecipeController::class, 'edit'])->middleware(['auth', 'verified', 'role:admin'])->name('dashboard.recipe.edit');
 
 Route::delete('/dashboard/recipe/{id}', [RecipeController::class, 'destroy'])
 ->middleware(['auth', 'verified', 'role:admin'])
     ->name('dashboard.recipe.destroy');
-Route::put('/dashboard/recipe/{id}', [RecipeController::class, 'update'])->name('dashboard.recipe.update');
+Route::put('/dashboard/recipe/{id}', [RecipeController::class, 'update'])->middleware(['auth', 'verified', 'role:admin'])->name('dashboard.recipe.update');
 
 // Route untuk Measurement Unit
 Route::get(
     '/dashboard/recipe/measurement-units',
     [MeasurementController::class, 'index']
 )->middleware(['auth', 'verified'])->name('dashboard.recipe.measurement-units');
-Route::get('/dashboard/recipe/measurement-units/create', fn () => Inertia::render('Dashboard/Recipe/MeasurementUnits/Create'))->middleware(['auth', 'verified'])->name('dashboard.recipe.measurement-units.create');
-Route::get('/dashboard/recipe/measurement-units/{id}/edit', fn ($id) => Inertia::render('Dashboard/Recipe/MeasurementUnits/Edit', compact('id')))->middleware(['auth', 'verified'])->name('dashboard.recipe.measurement-units.edit');
+Route::get('/dashboard/recipe/measurement-units/create', fn () => Inertia::render('Dashboard/Recipe/MeasurementUnits/Create'))->middleware(['auth', 'verified', 'role:admin'])->name('dashboard.recipe.measurement-units.create');
+Route::get('/dashboard/recipe/measurement-units/{id}/edit', fn ($id) => Inertia::render('Dashboard/Recipe/MeasurementUnits/Edit', compact('id')))->middleware(['auth', 'verified', 'role:admin'])->name('dashboard.recipe.measurement-units.edit');
 // ✅ Route untuk Tag
-Route::get('/dashboard/recipe/category-recipe', [SubCategoryController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard.recipe.category-recipe');
+Route::get('/dashboard/recipe/category-recipe', [SubCategoryController::class, 'index'])->middleware(['auth', 'verified', 'role:admin'])->name('dashboard.recipe.category-recipe');
 Route::get('/dashboard/recipe/category-recipe/create', fn () => Inertia::render('Dashboard/Recipe/CategoryRecipe/Create'))
     ->middleware(['auth', 'verified', 'role:admin'])
     ->name('dashboard.recipe.category-recipe.create');
 Route::post('/dashboard/recipe/category-recipe/create', [SubCategoryController::class, 'store'])
     ->middleware(['auth', 'verified', 'role:admin'])
     ->name('dashboard.tags.store');
-Route::get('/dashboard/recipe/category-recipe/edit/{type}/{id}', [SubCategoryController::class, 'edit'])->name('dashboard.subcategories.edit');
-Route::put('/dashboard/recipe/category-recipe/{type}/{id}', [SubCategoryController::class, 'update'])->name('dashboard.subcategories.update');
-Route::delete('/dashboard/recipe/category-recipe/{type}/{id}', [SubCategoryController::class, 'destroy'])->name('dashboard.subcategories.destroy');
+Route::get('/dashboard/recipe/category-recipe/edit/{type}/{id}', [SubCategoryController::class, 'edit'])->middleware(['auth', 'verified', 'role:admin'])->name('dashboard.subcategories.edit');
+Route::put('/dashboard/recipe/category-recipe/{type}/{id}', [SubCategoryController::class, 'update'])->middleware(['auth', 'verified', 'role:admin'])->name('dashboard.subcategories.update');
+Route::delete('/dashboard/recipe/category-recipe/{type}/{id}', [SubCategoryController::class, 'destroy'])->middleware(['auth', 'verified', 'role:admin'])->name('dashboard.subcategories.destroy');
 
 
 
@@ -81,21 +87,22 @@ Route::prefix('dashboard')->middleware(['auth', 'verified', 'role:admin'])->grou
     Route::get('article/create', [ArticleController::class, 'create'])->name('dashboard.article.create');
     Route::get('article/edit/{slug}', [ArticleController::class, 'edit'])->name('dashboard.article.edit');
     Route::post('article/store', [ArticleController::class, 'store'])->name('dashboard.article.store');
-    Route::put('article/update', [ArticleController::class, 'update'])->name('dashboard.article.update');
+    Route::put('article/update/{slug}', [ArticleController::class, 'update'])->name('dashboard.article.update');
     Route::delete('article/{id}', [ArticleController::class, 'destroy'])->name('dashboard.article.destroy');
     
 });
 
 
-Route::get('/dashboard/article/category', [ArticleCategoryController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard.article.category');
-Route::get('/dashboard/article/category/create', fn () => Inertia::render('Dashboard/Article/CreateCategoryArticle'))->middleware(['auth', 'verified'])->name('dashboard.article.category.create');
-Route::post('/dashboard/article/category/store', [ArticleCategoryController::class, 'store'])->middleware(['auth', 'verified'])->name('dashboard.article.category.store');
-Route::get('/dashboard/article/category/edit/{articleCategory}', [ArticleCategoryController::class, 'edit'])->name('dashboard.article.category.edit');
+Route::get('/dashboard/article/category', [ArticleCategoryController::class, 'index'])->middleware(['auth', 'verified', 'role:admin'])->name('dashboard.article.category');
+Route::get('/dashboard/article/category/create', fn () => Inertia::render('Dashboard/Article/CreateCategoryArticle'))->middleware(['auth', 'verified', 'role:admin'])->name('dashboard.article.category.create');
+Route::post('/dashboard/article/category/store', [ArticleCategoryController::class, 'store'])->middleware(['auth', 'verified', 'role:admin'])->name('dashboard.article.category.store');
+Route::get('/dashboard/article/category/edit/{articleCategory}', [ArticleCategoryController::class, 'edit'])->middleware(['auth', 'verified', 'role:admin'])->name('dashboard.article.category.edit');
 Route::put('/dashboard/article/category/{articleCategory}', [ArticleCategoryController::class, 'update'])
+    ->middleware(['auth', 'verified', 'role:admin'])
     ->name('dashboard.article.category.update');
 
-Route::delete('/dashboard/article/category/{articleCategory}', [ArticleCategoryController::class, 'destroy'])->middleware(['auth', 'verified'])->name('dashboard.article.category.destroy');
-Route::get('/dashboard/article/category/list', [ArticleCategoryController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard.article.category.list');
+Route::delete('/dashboard/article/category/{articleCategory}', [ArticleCategoryController::class, 'destroy'])->middleware(['auth', 'verified', 'role:admin'])->name('dashboard.article.category.destroy');
+Route::get('/dashboard/article/category/list', [ArticleCategoryController::class, 'index'])->middleware(['auth', 'verified', 'role:admin'])->name('dashboard.article.category.list');
 
 Route::middleware(['auth'])->group(function () {
     Route::post('/articles/save/{article}', [ArticleController::class, 'save'])->name('articles.save');
@@ -104,7 +111,7 @@ Route::middleware(['auth'])->group(function () {
 
 
 // Route untuk Admin Management
-Route::middleware(['auth', 'verified'])->prefix('dashboard/kelola-admin')->name('dashboard.kelola-admin.')->group(function () {
+Route::middleware(['auth', 'verified', 'role:admin'])->prefix('dashboard/kelola-admin')->name('dashboard.kelola-admin.')->group(function () {
     Route::get('/list', [AdminController::class, 'index'])->name('list');
     Route::get('/create', [AdminController::class, 'create'])->name('create');
     Route::post('/store', [AdminController::class, 'store'])->name('store');
@@ -122,9 +129,10 @@ Route::middleware(['auth'])->group(function () {
   
 });
 Route::get('/dashboard/profile', fn () => Inertia::render('Profile/SharedProfile'))->middleware(['auth', 'verified'])->name('dashboard.profile');
-Route::get('/dashboard/member/Index', [MemberController::class,'savedContent'])->name('dashboardMember.DashboardPage');
-Route::get('/dashboard/member/saved-recipes', [RecipeController::class, 'getSavedRecipes'])->name('dashboardMember.saved.recipes');
+Route::get('/dashboard/member/Index', [MemberController::class,'savedContent'])->middleware(['auth', 'verified'])->name('dashboardMember.DashboardPage');
+Route::get('/dashboard/member/saved-recipes', [RecipeController::class, 'getSavedRecipes'])->middleware(['auth', 'verified'])->name('dashboardMember.saved.recipes');
 Route::get('/dashboard/member/saved-articles', [ArticleController::class, 'getSavedArticles'])
+    ->middleware(['auth', 'verified'])
     ->name('dashboardMember.saved.articles');
 
 Route::middleware('auth')->group(function () {

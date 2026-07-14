@@ -1,5 +1,5 @@
-import { useState, useMemo } from 'react';
-import { Head, usePage, router } from '@inertiajs/react';
+import { Head, router } from '@inertiajs/react';
+import { useMemo, useState } from 'react';
 
 import Breadcrumb from '@/Components/Common/Breadcrumb';
 import Footer from '@/Components/Templates/Footer';
@@ -15,7 +15,9 @@ import { motion } from 'framer-motion';
 export default function Article({ auth, articles }) {
     const artikelOptions = useMemo(() => {
         const unique = [
-            ...new Map(articles.map((a) => [a.category?.id, a.category?.name])).entries(),
+            ...new Map(
+                articles.map((a) => [a.category?.id, a.category?.name]),
+            ).entries(),
         ]
             .filter(([id, name]) => id && name)
             .map(([id, name]) => ({ id, name }));
@@ -29,56 +31,62 @@ export default function Article({ auth, articles }) {
     const filteredArticles = useMemo(() => {
         if (selectedCategories.includes('all')) return articles;
 
-        return articles.filter((article) =>
-            article.category && selectedCategories.includes(article.category.id)
+        return articles.filter(
+            (article) =>
+                article.category &&
+                selectedCategories.includes(article.category.id),
         );
     }, [articles, selectedCategories]);
 
     const handleSave = (articleId) => {
-    if (!auth?.user) {
-        router.visit(route('login')); // redirect ke login jika belum login
-        return;
-    }
+        if (!auth?.user) {
+            router.visit(route('login')); // redirect ke login jika belum login
+            return;
+        }
 
-    // Gunakan route helper jika tersedia, fallback ke string
-    const url = route?.has('articles.save')
-        ? route('articles.save', articleId)
-        : `/articles/save/${articleId}`;
+        // Gunakan route helper jika tersedia, fallback ke string
+        const url = route?.has('articles.save')
+            ? route('articles.save', articleId)
+            : `/articles/save/${articleId}`;
 
-    router.post(url, {}, {
-        onSuccess: () => {
-            setShowPopup(true);
-            setTimeout(() => setShowPopup(false), 3000);
-        },
-        onError: (errors) => {
-            console.error('Save error:', errors);
-            alert('Gagal menyimpan artikel.');
-        },
-        preserveScroll: true,
-    });
-};
+        router.post(
+            url,
+            {},
+            {
+                onSuccess: () => {
+                    setShowPopup(true);
+                    setTimeout(() => setShowPopup(false), 3000);
+                },
+                onError: (errors) => {
+                    console.error('Save error:', errors);
+                    alert('Gagal menyimpan artikel.');
+                },
+                preserveScroll: true,
+            },
+        );
+    };
 
-const handleUnsave = (articleId) => {
-    if (!auth?.user) {
-        router.visit(route('login'));
-        return;
-    }
+    const handleUnsave = (articleId) => {
+        if (!auth?.user) {
+            router.visit(route('login'));
+            return;
+        }
 
-    const url = route?.has('articles.unsave')
-        ? route('articles.unsave', articleId)
-        : `/articles/unsave/${articleId}`;
+        const url = route?.has('articles.unsave')
+            ? route('articles.unsave', articleId)
+            : `/articles/unsave/${articleId}`;
 
-    router.delete(url, {
-        onSuccess: () => {
-            alert('Artikel dihapus dari simpanan.');
-        },
-        onError: (errors) => {
-            console.error('Unsave error:', errors);
-            alert('Gagal menghapus artikel dari simpanan.');
-        },
-        preserveScroll: true,
-    });
-};
+        router.delete(url, {
+            onSuccess: () => {
+                alert('Artikel dihapus dari simpanan.');
+            },
+            onError: (errors) => {
+                console.error('Unsave error:', errors);
+                alert('Gagal menghapus artikel dari simpanan.');
+            },
+            preserveScroll: true,
+        });
+    };
 
     return (
         <>
@@ -116,8 +124,12 @@ const handleUnsave = (articleId) => {
                                     />
                                 ) : (
                                     <div className="mt-12 text-center text-gray-500 dark:text-gray-400">
-                                        <p className="text-lg font-semibold">Oops! Tidak ada artikel ditemukan.</p>
-                                        <p className="mt-1 text-sm">Coba pilih kategori lain, ya!</p>
+                                        <p className="text-lg font-semibold">
+                                            Oops! Tidak ada artikel ditemukan.
+                                        </p>
+                                        <p className="mt-1 text-sm">
+                                            Coba pilih kategori lain, ya!
+                                        </p>
                                     </div>
                                 )}
                             </div>

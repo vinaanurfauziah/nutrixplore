@@ -10,7 +10,7 @@ export default function MeasurementTable() {
     const [showSearch, setShowSearch] = useState(false);
 
     const filteredUnits = units.filter((unit) =>
-        unit.name.toLowerCase().includes(searchQuery.toLowerCase())
+        unit.name.toLowerCase().includes(searchQuery.toLowerCase()),
     );
 
     return (
@@ -27,7 +27,13 @@ export default function MeasurementTable() {
                         className="rounded-lg border border-gray-300 px-4 py-2 text-sm shadow-sm focus:border-[#70B9BE] focus:outline-none focus:ring-2 focus:ring-[#70B9BE]"
                     />
                     <button
-                        onClick={() => router.get(route('dashboard.recipe.measurement-units.create'))}
+                        onClick={() =>
+                            router.get(
+                                route(
+                                    'dashboard.recipe.measurement-units.create',
+                                ),
+                            )
+                        }
                         className="rounded-lg bg-[#70B9BE] px-5 py-2.5 text-sm font-medium text-white shadow-sm hover:bg-[#51979e] focus:outline-none focus:ring-4 focus:ring-[#a1d3d7]"
                     >
                         + Tambah Satuan
@@ -44,7 +50,13 @@ export default function MeasurementTable() {
                         <FiSearch size={20} />
                     </button>
                     <button
-                        onClick={() => router.get(route('dashboard.recipe.measurement-units.create'))}
+                        onClick={() =>
+                            router.get(
+                                route(
+                                    'dashboard.recipe.measurement-units.create',
+                                ),
+                            )
+                        }
                         className="text-[#70B9BE]"
                         title="Tambah Satuan"
                     >
@@ -89,7 +101,11 @@ export default function MeasurementTable() {
                                     type={unit.type}
                                     isOpen={openRowIndex === index}
                                     onToggle={() =>
-                                        setOpenRowIndex(openRowIndex === index ? null : index)
+                                        setOpenRowIndex(
+                                            openRowIndex === index
+                                                ? null
+                                                : index,
+                                        )
                                     }
                                 />
                             ))

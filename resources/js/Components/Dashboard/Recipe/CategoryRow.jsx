@@ -1,5 +1,5 @@
-import { useEffect, useRef } from 'react';
 import { router } from '@inertiajs/react';
+import { useEffect, useRef } from 'react';
 import { FiEdit2, FiMoreVertical, FiTrash2 } from 'react-icons/fi';
 
 export default function CategoryRow({ name, count, isOpen, onToggle }) {

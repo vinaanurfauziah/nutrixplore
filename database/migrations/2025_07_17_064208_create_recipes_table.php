@@ -10,32 +10,15 @@ return new class extends Migration
     {
         Schema::create('recipes', function (Blueprint $table) {
            $table->id();
+            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
             $table->string('judul');
             $table->string('slug')->unique();
-            $table->string('gambar');
+            $table->string('gambar')->nullable();
             $table->integer('kalori');
             $table->integer('durasi');
             $table->integer('cook');
-            $table->enum('kategori_hidangan', [
-                'Hidangan Pembuka',
-                'Sarapan',
-                'Hidangan Utama',
-                'Hidangan Penutup',
-                'Minuman',
-                'Pelengkap',
-                'Cemilan',
-                'Hidangan Berkuah'
-            ]);
-            $table->enum('metode_memasak', [
-                'Merebus',
-                'Menggoreng',
-                'Mengukus',
-                'Memanggang',
-                'Menumis',
-                'Merebus Perlahan',
-                'Menggulai (Stewing)',
-                'Menggoreng Cepat(Stir Frying)'
-            ]);
+            $table->string('kategori_hidangan');
+            $table->string('metode_memasak');
             $table->timestamps();
        
         });

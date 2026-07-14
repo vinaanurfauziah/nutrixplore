@@ -11,7 +11,7 @@ export default function CreateArticle() {
 
     const { categories = [] } = usePage().props;
 
-    const { data, setData, post, processing, errors } = useForm({
+    const { data, setData, post, errors } = useForm({
         image: null,
         title: '',
         short_description: '',
